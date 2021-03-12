@@ -1,3 +1,14 @@
+# Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+
 import sys
 import config
 import csv
@@ -38,7 +49,7 @@ class AppWindow(QMainWindow):
         main_menu = self.menuBar()
 
         file_menu = main_menu.addMenu('File')
-
+        
         exit_button = QAction(QIcon('exit24.png'), 'Exit', self)
         exit_button.setShortcut('Ctrl+Q')
         exit_button.setStatusTip('Exit application')
