@@ -1,16 +1,21 @@
 import sys
 import config
+import csv
 from PySide2 import QtCore
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
-    QSplitter, QVBoxLayout
+    QSplitter, QVBoxLayout, QFileDialog, QTableWidget
 
 # This is a sample Python script.
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 
+
 class AppWindow(QMainWindow):
+    csv_file = None
+    data_table = []
+
     def __init__(self, parent=None):
         super(AppWindow, self).__init__(parent)
         mainConfig = config.MainWindow()
@@ -39,10 +44,34 @@ class AppWindow(QMainWindow):
         exit_button.setShortcut('Ctrl+Q')
         exit_button.setStatusTip('Exit application')
         exit_button.triggered.connect(self.close)
-        file_menu.addAction(exit_button)
+        open_button = QAction(QIcon('exit24.png'), 'Open', self)
+        open_button.setShortcut('Ctrl+O')
+        open_button.setStatusTip('Open CSV')
+        open_button.triggered.connect(self.open_csv)
 
+        file_menu.addAction(exit_button)
+        file_menu.addAction(open_button)
 
         self.show()
+
+    def open_csv(self):
+        file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\",
+                                                'CSV Format (*.csv)')
+        filepath = file_name[0]
+        csv_file = open(filepath, "r")
+        line = csv_file.readline()
+        header = line.split(",")[0]
+        while line != "":
+            line = csv_file.readline()
+            row = line.split(",")
+            self.data_table.append(row)
+
+    def create_table(self):
+
+        table = QTableWidget()
+        table.setColumnCount(self.data_table[0].len)
+
+        return table
 
 
 if __name__ == '__main__':
