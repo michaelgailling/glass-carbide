@@ -34,7 +34,6 @@ class AppWindow(QMainWindow):
 
         self.initUI()
 
-
     def initUI(self):
         main_menu = self.menuBar()
 
