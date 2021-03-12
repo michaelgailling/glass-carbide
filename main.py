@@ -15,7 +15,8 @@ import csv
 from PySide2 import QtCore
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
-    QSplitter, QVBoxLayout, QFileDialog, QTableWidget
+    QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem
+
 
 # This is a sample Python script.
 
@@ -24,8 +25,8 @@ from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QA
 
 
 class AppWindow(QMainWindow):
-    csv_file = None
     data_table = []
+    header = []
 
     def __init__(self, parent=None):
         super(AppWindow, self).__init__(parent)
@@ -41,12 +42,16 @@ class AppWindow(QMainWindow):
         self.setWindowTitle(mainConfig.title)
         self.setGeometry(mainConfig.left, mainConfig.top, mainConfig.width, mainConfig.height)
 
-        # Set Central Widget
 
+        # Set Central Widget
+        self.data_table_widget = QTableWidget()
+        self.setCentralWidget(self.data_table_widget)
         self.initUI()
 
     def initUI(self):
         main_menu = self.menuBar()
+
+
 
         file_menu = main_menu.addMenu('File')
         
@@ -64,24 +69,24 @@ class AppWindow(QMainWindow):
 
         self.show()
 
+    def build_table(self):
+        for y in range(len(self.data_table)):
+            for x in range(len(self.data_table[y])):
+                self.data_table_widget.setItem(x, y, QTableWidgetItem(self.data_table[y][x]))
+
     def open_csv(self):
         file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\",
                                                 'CSV Format (*.csv)')
         filepath = file_name[0]
         csv_file = open(filepath, "r")
         line = csv_file.readline()
-        header = line.split(",")[0]
+        self.header = line.split(",")[0]
         while line != "":
             line = csv_file.readline()
             row = line.split(",")
             self.data_table.append(row)
 
-    def create_table(self):
-
-        table = QTableWidget()
-        table.setColumnCount(self.data_table[0].len)
-
-        return table
+        self.build_table()
 
 
 if __name__ == '__main__':
