@@ -11,18 +11,30 @@
 #
 
 import sys
+
+from PySide2 import QtCore
+
 import config
-from PySide2 import QtCore, QtGui, QtWidgets
-from PySide2.QtCore import Qt
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
     QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QTableView
 
 
-class DataTableView(QTableView):
-    def __init__(self, parent=None, url=None):
-        super(DataTableView, self).__init__(parent)
-        self.parent = parent
+class InfoView(QFrame):
+    def __init__(self, parent=None):
+        super(InfoView, self).__init__(parent)
+
+        # self.IVWV = IVWebView(parent=self, url="https://www.google.com/")
+        # self.page = self.IVWV.page()
+        # self.source_text = QPlainTextEdit()
+        # self.mainViewSplitter = QSplitter(QtCore.Qt.Vertical)
+
+        self.mainViewSplitter.addWidget()
+        self.mainViewSplitter.addWidget()
+        self.main_layout = QVBoxLayout()
+
+        self.main_layout.addWidget(self.mainViewSplitter)
+        self.setLayout(self.main_layout)
 
 
 class AppWindow(QMainWindow):
@@ -142,7 +154,7 @@ class AppWindow(QMainWindow):
     def load_data_table(self):
         """load_data_table
 
-            Params:
+            Parameters:
                 self
             Returns:
                 None
@@ -170,5 +182,3 @@ if __name__ == '__main__':
     aw = AppWindow()
     aw.show()
     sys.exit(qApp.exec_())
-
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
