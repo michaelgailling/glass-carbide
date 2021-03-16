@@ -32,18 +32,20 @@ class AppWindow(QMainWindow):
             QMainWindow
         Purpose:
             Main Application Window
-        Member vars:
+        Attributes:
             data, headers, data_table
-        Functions:
+        Methods:
             initUI, init_menus, open_csv, load_data_table
     """
 
     def __init__(self, parent=None):
         """Constructor
 
-            Params:
+            Parameters:
+                self,
                 parent
-
+            Returns:
+                None
             Purpose:
                 Initialize main window and its elements
         """
@@ -58,19 +60,17 @@ class AppWindow(QMainWindow):
         self.setGeometry(main_config.left, main_config.top, main_config.width, main_config.height)
 
         # Set Central Widget
-        self.initUI()
+        self.init_ui()
 
-    def initUI(self):
-        """initUI
+    def init_ui(self):
+        """init_ui
 
-            Params:
+            Parameters:
                 self
-
             Returns:
                 None
-
             Purpose:
-                Call helper functions to setup individual gui elements
+                Call helper functions to setup gui elements and set central widget
         """
         self.init_menus()
         self.setCentralWidget(self.data_table)
@@ -79,12 +79,10 @@ class AppWindow(QMainWindow):
     def init_menus(self):
         """init_menus
 
-            Params:
+            Parameters:
                 self
-
             Returns:
                 None
-
             Purpose:
                 Initialize menu bar
         """
@@ -110,15 +108,13 @@ class AppWindow(QMainWindow):
 
     def open_csv(self):
         """open_csv
-
-            Params:
+            Purpose:
+                Opens and reads csv file into the data member var
+            Parameters:
                 self
-
             Returns:
                 None
 
-            Purpose:
-                Opens and reads csv file into the data member var
         """
         # Get file path and open file in read mode
         file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\", 'CSV Format (*.csv)')
@@ -148,10 +144,8 @@ class AppWindow(QMainWindow):
 
             Params:
                 self
-
             Returns:
                 None
-
             Purpose:
                 Resizes data_table and fills the table with csv contents
         """
