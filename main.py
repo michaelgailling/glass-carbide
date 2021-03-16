@@ -88,6 +88,7 @@ class AppWindow(QMainWindow):
         self.setCentralWidget(self.data_table)
         self.show()
 
+
     def init_menus(self):
         """init_menus
 
@@ -98,6 +99,7 @@ class AppWindow(QMainWindow):
             Purpose:
                 Initialize menu bar
         """
+
         main_menu = self.menuBar()
 
         # File Menu
