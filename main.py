@@ -11,54 +11,52 @@
 
 import sys
 import config
-import csv
-from PySide2 import QtCore
+from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2.QtCore import Qt
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
-    QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem
+    QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QTableView
 
 
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+class DataTableView(QTableView):
+    def __init__(self, parent=None, url=None):
+        super(DataTableView, self).__init__(parent)
+        self.parent = parent
 
 
 class AppWindow(QMainWindow):
-    data_table = []
-    header = []
 
     def __init__(self, parent=None):
         super(AppWindow, self).__init__(parent)
-        mainConfig = config.MainWindow()
-        # Define constants
-        self.title = 'glass-carbide'
-        self.left = 100
-        self.top = 100
-        self.width = 640
-        self.height = 400
+        self.data = []
+        self.headers = []
 
+        main_config = config.MainWindow()
         # Set window parameters
-        self.setWindowTitle(mainConfig.title)
-        self.setGeometry(mainConfig.left, mainConfig.top, mainConfig.width, mainConfig.height)
-
-
+        self.setWindowTitle(main_config.title)
+        self.setGeometry(main_config.left, main_config.top, main_config.width, main_config.height)
+        self.data_table = QTableWidget()
         # Set Central Widget
-        self.data_table_widget = QTableWidget()
-        self.setCentralWidget(self.data_table_widget)
         self.initUI()
 
     def initUI(self):
+        self.init_menus()
+        self.setCentralWidget(self.data_table)
+        self.show()
+
+    def init_menus(self):
         main_menu = self.menuBar()
 
-
-
+        # File Menu
         file_menu = main_menu.addMenu('File')
-        
+
+        # Exit Button
         exit_button = QAction(QIcon('exit24.png'), 'Exit', self)
         exit_button.setShortcut('Ctrl+Q')
         exit_button.setStatusTip('Exit application')
         exit_button.triggered.connect(self.close)
+
+        # Open button
         open_button = QAction(QIcon('exit24.png'), 'Open', self)
         open_button.setShortcut('Ctrl+O')
         open_button.setStatusTip('Open CSV')
@@ -67,26 +65,43 @@ class AppWindow(QMainWindow):
         file_menu.addAction(exit_button)
         file_menu.addAction(open_button)
 
-        self.show()
-
-    def build_table(self):
-        for y in range(len(self.data_table)):
-            for x in range(len(self.data_table[y])):
-                self.data_table_widget.setItem(x, y, QTableWidgetItem(self.data_table[y][x]))
-
     def open_csv(self):
-        file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\",
-                                                'CSV Format (*.csv)')
+        # Get file path and open file in read mode
+        file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\", 'CSV Format (*.csv)')
         filepath = file_name[0]
         csv_file = open(filepath, "r")
-        line = csv_file.readline()
-        self.header = line.split(",")[0]
-        while line != "":
-            line = csv_file.readline()
-            row = line.split(",")
-            self.data_table.append(row)
 
-        self.build_table()
+        # Grab first two lines as headers
+        line = csv_file.readline().split(",")
+        line.pop()
+        self.headers.append(line)
+
+        line = csv_file.readline().split(",")
+        line.pop()
+        self.headers.append(line)
+
+        # Dump the rest into the data array
+        while (line := csv_file.readline()) != "":
+            row = line.replace("\n", "").split(",")
+            self.data.append(row)
+
+        csv_file.close()
+
+        self.load_data_table()
+
+    def load_data_table(self):
+        data_height = len(self.data)
+        data_width = len(self.data[0])
+
+        self.data_table.setRowCount(data_height)
+        self.data_table.setColumnCount(data_width)
+
+        self.data_table.setHorizontalHeaderLabels(self.headers[1])
+
+        for y in range(len(self.data)):
+            for x in range(len(self.data[y])):
+                cell = QTableWidgetItem(self.data[y][x])
+                self.data_table.setItem(y, x, cell)
 
 
 if __name__ == '__main__':
