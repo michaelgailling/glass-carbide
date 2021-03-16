@@ -3,6 +3,7 @@
 #
 # By:
 # Michael Gailling
+# &&
 # Mustafa Butt
 #
 # Organization:
@@ -25,26 +26,68 @@ class DataTableView(QTableView):
 
 
 class AppWindow(QMainWindow):
+    """AppWindow
+
+        Inherits:
+            QMainWindow
+        Purpose:
+            Main Application Window
+        Member vars:
+            data, headers, data_table
+        Functions:
+            initUI, init_menus, open_csv, load_data_table
+    """
 
     def __init__(self, parent=None):
+        """Constructor
+
+            Params:
+                parent
+
+            Purpose:
+                Initialize main window and its elements
+        """
         super(AppWindow, self).__init__(parent)
         self.data = []
         self.headers = []
+        self.data_table = QTableWidget()
 
-        main_config = config.MainWindow()
         # Set window parameters
+        main_config = config.MainWindow()
         self.setWindowTitle(main_config.title)
         self.setGeometry(main_config.left, main_config.top, main_config.width, main_config.height)
-        self.data_table = QTableWidget()
+
         # Set Central Widget
         self.initUI()
 
     def initUI(self):
+        """initUI
+
+            Params:
+                self
+
+            Returns:
+                None
+
+            Purpose:
+                Call helper functions to setup individual gui elements
+        """
         self.init_menus()
         self.setCentralWidget(self.data_table)
         self.show()
 
     def init_menus(self):
+        """init_menus
+
+            Params:
+                self
+
+            Returns:
+                None
+
+            Purpose:
+                Initialize menu bar
+        """
         main_menu = self.menuBar()
 
         # File Menu
@@ -66,6 +109,17 @@ class AppWindow(QMainWindow):
         file_menu.addAction(open_button)
 
     def open_csv(self):
+        """open_csv
+
+            Params:
+                self
+
+            Returns:
+                None
+
+            Purpose:
+                Opens and reads csv file into the data member var
+        """
         # Get file path and open file in read mode
         file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\", 'CSV Format (*.csv)')
         filepath = file_name[0]
@@ -90,6 +144,17 @@ class AppWindow(QMainWindow):
         self.load_data_table()
 
     def load_data_table(self):
+        """load_data_table
+
+            Params:
+                self
+
+            Returns:
+                None
+
+            Purpose:
+                Resizes data_table and fills the table with csv contents
+        """
         data_height = len(self.data)
         data_width = len(self.data[0])
 
@@ -102,6 +167,8 @@ class AppWindow(QMainWindow):
             for x in range(len(self.data[y])):
                 cell = QTableWidgetItem(self.data[y][x])
                 self.data_table.setItem(y, x, cell)
+
+        self.data_table.resizeColumnsToContents()
 
 
 if __name__ == '__main__':
