@@ -9,7 +9,7 @@
 # Organization:
 # WIMTACH
 #
-
+import asyncio
 import sys
 
 from PySide2 import QtCore
@@ -18,6 +18,9 @@ import config
 from PySide2.QtGui import QIcon
 from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
     QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QTableView
+from requests import *
+
+
 
 
 class InfoView(QFrame):
@@ -27,7 +30,7 @@ class InfoView(QFrame):
         # self.IVWV = IVWebView(parent=self, url="https://www.google.com/")
         # self.page = self.IVWV.page()
         # self.source_text = QPlainTextEdit()
-        # self.mainViewSplitter = QSplitter(QtCore.Qt.Vertical)
+        self.mainViewSplitter = QSplitter(QtCore.Qt.Vertical)
 
         self.mainViewSplitter.addWidget()
         self.mainViewSplitter.addWidget()
@@ -88,7 +91,6 @@ class AppWindow(QMainWindow):
         self.setCentralWidget(self.data_table)
         self.show()
 
-
     def init_menus(self):
         """init_menus
 
@@ -105,25 +107,29 @@ class AppWindow(QMainWindow):
         # File Menu
         file_menu = main_menu.addMenu('File')
 
-        # Exit Button
-        exit_button = QAction(QIcon('exit24.png'), 'Exit', self)
-        exit_button.setShortcut('Ctrl+Q')
-        exit_button.setStatusTip('Exit application')
-        exit_button.triggered.connect(self.close)
-
         # Open button
         open_button = QAction(QIcon('exit24.png'), 'Open', self)
         open_button.setShortcut('Ctrl+O')
         open_button.setStatusTip('Open CSV')
         open_button.triggered.connect(self.open_csv)
 
-        file_menu.addAction(exit_button)
+        # Exit Button
+        exit_button = QAction(QIcon('exit24.png'), 'Exit', self)
+        exit_button.setShortcut('Ctrl+Q')
+        exit_button.setStatusTip('Exit application')
+        exit_button.triggered.connect(self.close)
+
         file_menu.addAction(open_button)
+        file_menu.addAction(exit_button)
 
     def open_csv(self):
+        asyncio.run(self.read_csv())
+        asyncio.run(self.load_data_table())
+
+    async def read_csv(self):
         """open_csv
             Purpose:
-                Opens and reads csv file into the data member var
+                Opens and reads csv file into the data array attribute
             Parameters:
                 self
             Returns:
@@ -151,9 +157,7 @@ class AppWindow(QMainWindow):
 
         csv_file.close()
 
-        self.load_data_table()
-
-    def load_data_table(self):
+    async def load_data_table(self):
         """load_data_table
 
             Parameters:
