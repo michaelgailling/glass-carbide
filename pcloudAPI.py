@@ -1,32 +1,33 @@
+import asyncio
 import json
+from hashlib import sha1
+from typing import Dict
 
 import requests
-
-
 # https://api.pcloud.com/userinfo?getauth=1&logout=1&username={username}&password={password}
 # https://api.pcloud.com/listfolder?auth={token}&folderid={folderid}
 
-class PCloud:
-    """PCloud API class
 
-        Purpose:
-            Handles connection from pCloud api service
+class PCloud:
+    """PCloud API class:
+        Handles connection from pCloud api service
+
         Attributes:
 
         Methods:
 
     """
+
     def __init__(self):
-        """Constructor
+        """Constructor:
+            Initialize pCloud service
 
             Parameters:
                 self
             Returns:
                 None
-            Purpose:
-                Initialize pCloud service
         """
-        self.status_codes = {
+        self.result_codes = {
             1000: "Log in required.",
             1004: "No fileid or path provided.",
             1005: "Unknown content-type requested.",
@@ -103,99 +104,199 @@ class PCloud:
             7008: "This link has reached its file limit."
         }
 
+        self.methodParamDict = {
+            "auth":
+                {
+                    "getauth": "1",
+                    "logout": "1"
+                },
+            "auth_digest":
+                {
+                    "digest": None,
+                    "passworddigest": None
+                },
+            "listfolder":
+                {
+                    "auth": None,
+                    "folderid": 0
+                }
+        }
+
         self.regionUrlDict = {
             "NA": "https://api.pcloud.com/",
             "EU": "https://eapi.pcloud.com/"
         }
 
-        self.methodParamDict = {
-            "userinfo":
-                {
-                    "getauth": "1",
-                    "logout": "1",
-                    "username": None,
-                    "password": None
-                },
-            "listfolder":
-                {
-                    "auth": None,
-                    "folderid": "0"
-                }
+        self.user_details = {
+            "username": None,
+            "password": None
         }
 
-        self.username = None
-        self.password = None
-        self.region = None
+        self.regionUrl = None
         self.token = ""
         self.folderId = "0"
 
-    async def auth(self, username=None, password=None, region="NA"):
+    def set_region(self, region="NA"):
 
-        method_params = self.methodParamDict["userinfo"]
+        valid_region = bool(region in self.regionUrlDict.keys())
 
-        self.region = region
+        if valid_region:
+            self.regionUrl = self.regionUrlDict[region]
+            return True
+        else:
+            return False
 
-        override = username and password
+    def set_username(self, username):
 
-        if override:
-            self.username = username
-            self.password = password
+        if username:
+            self.user_details["username"] = username
+            return True
+        else:
+            return False
 
-        valid_login = self.username and self.password
+    def set_password(self, password):
 
-        if valid_login:
-            method_params["username"] = self.username
-            method_params["password"] = self.password
+        if password:
+            self.user_details["password"] = password
+            return True
+        else:
+            return False
 
-            url = self.regionUrlDict[self.region] + "userinfo"
+    def user_details_valid(self):
+        valid_username = bool(self.user_details["username"])
+        valid_password = bool(self.user_details["password"])
+
+        if valid_username and valid_password:
+            return True
+        else:
+            return False
+
+    async def auth(self):
+
+        method_params = self.methodParamDict["auth"]
+
+        if self.user_details_valid() and self.regionUrl:
+            method_params.update(self.user_details)
+
+            url = self.regionUrl + "userinfo"
 
             res = requests.get(url, params=method_params)
         else:
             print("Error encountered: Invalid login details before request!")
-            return
+            return False
 
         status_code = res.status_code
 
         if status_code == 200:
             res_obj = json.loads(res.text)
-            self.token = res_obj["auth"]
-        elif status_code == 1000:
-            print("Error 1000 encountered: Log in required!")
-        elif status_code == 2000:
-            print("Error 2000 encountered: Log in failed!")
-        elif status_code == 3000:
-            print("Error 3000 encountered: Too many login tries from this IP address!")
 
-    async def list_folder(self, folder_id="0"):
-        method_params = self.methodParamDict["listfolder"]
-        method_params["auth"] = self.token
-        method_params["folderid"] = folder_id
-        valid_token = self.token is not None
+            result_code = res_obj["result"]
 
-        if valid_token:
-            url = self.regionUrlDict[self.region] + "listfolder"
+            if result_code == 0:
+                self.token = res_obj["auth"]
+                return True
+            elif result_code in self.result_codes.keys():
+                print("Result Code Error: " + str(result_code) + " - " + self.result_codes[result_code])
+                return False
+        else:
+            print("Unexpected error encountered: " + str(status_code) + " " + res.text)
+            return False
 
+    async def get_digest(self):
+        url = self.regionUrl + "getdigest"
+        method_params = None
+        res = requests.get(url, params=method_params)
+        digest = json.loads(res.text)
+
+        return digest["digest"]
+
+    def create_password_digest(self, digest):
+        username = str(self.user_details["username"]).lower().encode('utf-8')
+        username_digest = sha1(username).hexdigest().encode('utf-8')
+        password = str(self.user_details["password"]).encode('utf-8')
+        digest = str(digest).encode('utf-8')
+        password_digest = sha1(password + username_digest + digest).hexdigest()
+
+        return password_digest
+
+    async def auth_digest(self):
+
+        if self.user_details_valid() and self.regionUrl:
+            digest = await self.get_digest()
+            password_digest = self.create_password_digest(digest)
+
+            digest_login = {
+                "username": self.user_details["username"],
+                "digest": digest,
+                "passworddigest": password_digest,
+                "getauth": "1",
+                "logout": "1"
+            }
+
+            method_params = digest_login
+            url = self.regionUrl + "userinfo"
             res = requests.get(url, params=method_params)
 
-        status_code = res.status_code()
+        else:
+            print("Error encountered: Invalid login details before request!")
+            return False
+
+        status_code = res.status_code
 
         if status_code == 200:
             res_obj = json.loads(res.text)
-            return res_obj
-        elif status_code == 1000:
-            print("Error 1000 encountered: Log in required!")
-        elif status_code == 2000:
-            print("Error 2000 encountered: Log in failed!")
-        elif status_code == 3000:
-            print("Error 3000 encountered: Too many login tries from this IP address!")
+            result_code = res_obj["result"]
+
+            if result_code == 0:
+                self.token = res_obj["auth"]
+                return True
+            elif result_code in self.result_codes.keys():
+                print("Result Code Error: " + str(result_code) + " - " + self.result_codes[result_code])
+                return False
+        else:
+            print("Unexpected error encountered: " + str(status_code) + " " + res.text)
+            return False
+
+    async def auth2(self):
+        pass
+
+    async def list_folder(self, folder_id=0):
+        method_params = self.methodParamDict["listfolder"]
+        method_params["auth"] = self.token
+        method_params["folderid"] = folder_id
+
+        valid_token = self.token is not None
+
+        if valid_token:
+            url = self.regionUrl + "listfolder"
+            res = requests.get(url, params=method_params)
+
+        status_code = res.status_code
+        if status_code == 200:
+            res_obj = json.loads(res.text)
+            result_code = res_obj["result"]
+            if result_code == 0:
+                return res_obj
+            elif result_code in self.result_codes.keys():
+                print(self.result_codes[result_code])
+                return False
+        else:
+            print("Unexpected error encountered: " + str(status_code) + " " + res.text)
+            return False
 
 
 
 apic = PCloud()
 
-apic.auth("hitujy@zetmail.com", "test12345678")
-print(apic.token)
+apic.set_region("NA")
+apic.set_username("hitujy@zetmail.com")
+apic.set_password("test12345678")
 
-
+print()
+asyncio.run(apic.auth_digest())
+print("Token: " + apic.token)
+print()
+filedir = asyncio.run(apic.list_folder("8768842348"))
+print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
 
 
