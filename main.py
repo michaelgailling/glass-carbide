@@ -15,9 +15,9 @@ import sys
 from PySide2 import QtCore
 
 import config
-from PySide2.QtGui import QIcon
+from PySide2.QtGui import QIcon, QPixmap
 from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
-    QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QTableView
+    QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QTableView, QLabel
 from requests import *
 
 
@@ -37,6 +37,20 @@ class InfoView(QFrame):
         self.main_layout = QVBoxLayout()
 
         self.main_layout.addWidget(self.mainViewSplitter)
+        self.setLayout(self.main_layout)
+
+
+class LogoView(QFrame):
+    def __init__(self, parent=None):
+        super(LogoView, self).__init__(parent)
+
+        self.logo = QLabel(self)
+        pixmap = QPixmap('octo.png')
+        self.logo.setPixmap(pixmap)
+
+        self.main_layout = QVBoxLayout()
+
+        self.main_layout.addWidget(self.logo)
         self.setLayout(self.main_layout)
 
 
@@ -68,6 +82,7 @@ class AppWindow(QMainWindow):
         self.data = []
         self.headers = []
         self.data_table = QTableWidget()
+        self.logo = LogoView()
 
         # Set window parameters
         main_config = config.MainWindow()
@@ -88,7 +103,7 @@ class AppWindow(QMainWindow):
                 Call helper functions to setup gui elements and set central widget
         """
         self.init_menus()
-        self.setCentralWidget(self.data_table)
+        self.setCentralWidget(self.logo)
         self.show()
 
     def init_menus(self):
@@ -122,9 +137,13 @@ class AppWindow(QMainWindow):
         file_menu.addAction(open_button)
         file_menu.addAction(exit_button)
 
+    def display_splash_screen(self):
+        pass
+
     def open_csv(self):
         asyncio.run(self.read_csv())
         asyncio.run(self.load_data_table())
+        self.setCentralWidget(self.data_table)
 
     async def read_csv(self):
         """open_csv
