@@ -11,13 +11,13 @@
 #
 import asyncio
 import sys
-
+import csv
 from PySide2 import QtCore
 
 import config
 from PySide2.QtGui import QIcon, QPixmap
 from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
-    QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QTableView, QLabel
+    QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, QLabel, QMessageBox
 from requests import *
 
 
@@ -32,8 +32,8 @@ class InfoView(QFrame):
         # self.source_text = QPlainTextEdit()
         self.mainViewSplitter = QSplitter(QtCore.Qt.Vertical)
 
-        self.mainViewSplitter.addWidget()
-        self.mainViewSplitter.addWidget()
+        self.mainViewSplitter.addWidget(AppWindow())
+        self.mainViewSplitter.addWidget(AppWindow())
         self.main_layout = QVBoxLayout()
 
         self.main_layout.addWidget(self.mainViewSplitter)
@@ -46,8 +46,9 @@ class LogoView(QFrame):
 
         self.logo = QLabel(self)
         pixmap = QPixmap('octo.png')
-        self.logo.setPixmap(pixmap)
 
+        self.logo.setPixmap(QPixmap(pixmap))
+        self.logo.resize(100, 100)
         self.main_layout = QVBoxLayout()
 
         self.main_layout.addWidget(self.logo)
@@ -80,8 +81,11 @@ class AppWindow(QMainWindow):
         """
         super(AppWindow, self).__init__(parent)
         self.data = []
+        self.shotdata = []
         self.headers = []
+        self.shotheaders = []
         self.data_table = QTableWidget()
+        self.shot_table = QTableWidget()
         self.logo = LogoView()
 
         # Set window parameters
@@ -141,9 +145,22 @@ class AppWindow(QMainWindow):
         pass
 
     def open_csv(self):
+        widge = QWidget()
+        hbox = QHBoxLayout()
+        qmsgbx = QMessageBox()
+        qmsgbx.setText("Select the Assets CSV")
+        qmsgbx.exec_()
         asyncio.run(self.read_csv())
         asyncio.run(self.load_data_table())
-        self.setCentralWidget(self.data_table)
+        qmsgbx.setText("Select the Shots CSV")
+        qmsgbx.exec_()
+        asyncio.run(self.read_shotcsv())
+        asyncio.run(self.load_shot_table())
+        hbox.addWidget(self.data_table)
+        hbox.addWidget(self.shot_table)
+        widge.setLayout(hbox)
+        self.setCentralWidget(widge)
+        # self.setCentralWidget(self.data_table)
 
     async def read_csv(self):
         """open_csv
@@ -176,6 +193,37 @@ class AppWindow(QMainWindow):
 
         csv_file.close()
 
+    async def read_shotcsv(self):
+        """open_csv
+            Purpose:
+                Opens and reads csv file into the data array attribute
+            Parameters:
+                self
+            Returns:
+                None
+
+        """
+        # Get file path and open file in read mode
+        file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\", 'CSV Format (*.csv)')
+        filepath = file_name[0]
+        csv_file = open(filepath, "r")
+
+        # Grab first two lines as headers
+        line = csv_file.readline().split(",")
+        line.pop()
+        self.shotheaders.append(line)
+
+        line = csv_file.readline().split(",")
+
+        self.shotheaders.append(line)
+
+        # Dump the rest into the data array
+        while (line := csv_file.readline()) != "":
+            row = line.replace("\n", "").split(",")
+            self.shotdata.append(row)
+
+        csv_file.close()
+
     async def load_data_table(self):
         """load_data_table
 
@@ -200,6 +248,32 @@ class AppWindow(QMainWindow):
                 self.data_table.setItem(y, x, cell)
 
         self.data_table.resizeColumnsToContents()
+
+    async def load_shot_table(self):
+        """load_data_table
+
+            Parameters:
+                self
+            Returns:
+                None
+            Purpose:
+                Resizes data_table and fills the table with csv contents
+        """
+        data_height = len(self.shotdata)
+        data_width = len(self.shotdata[0])
+
+        self.shot_table.setRowCount(data_height)
+        self.shot_table.setColumnCount(data_width)
+
+        self.shot_table.setHorizontalHeaderLabels(self.shotheaders[1])
+
+        for y in range(len(self.shotdata)):
+            for x in range(len(self.shotdata[y])):
+                cell = QTableWidgetItem(self.shotdata[y][x])
+
+                self.shot_table.setItem(y, x, cell)
+
+        self.shot_table.resizeColumnsToContents()
 
 
 if __name__ == '__main__':
