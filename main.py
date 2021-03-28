@@ -30,13 +30,15 @@ class InfoView(QFrame):
         # self.IVWV = IVWebView(parent=self, url="https://www.google.com/")
         # self.page = self.IVWV.page()
         # self.source_text = QPlainTextEdit()
-        self.mainViewSplitter = QSplitter(QtCore.Qt.Vertical)
 
-        self.mainViewSplitter.addWidget()
-        self.mainViewSplitter.addWidget()
+
+        # self.mainViewSplitter = QSplitter(QtCore.Qt.Vertical)
+        #
+        # self.mainViewSplitter.addWidget()
+        # self.mainViewSplitter.addWidget()
         self.main_layout = QVBoxLayout()
 
-        self.main_layout.addWidget(self.mainViewSplitter)
+        # self.main_layout.addWidget(self.mainViewSplitter)
         self.setLayout(self.main_layout)
 
 
@@ -206,4 +208,6 @@ if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     aw = AppWindow()
     aw.show()
+    IV = InfoView()
+    IV.show()
     sys.exit(qApp.exec_())

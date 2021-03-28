@@ -115,6 +115,10 @@ class PCloud:
                     "digest": None,
                     "passworddigest": None
                 },
+            "validate_token":
+                {
+
+                },
             "listfolder":
                 {
                     "auth": None,
@@ -171,6 +175,24 @@ class PCloud:
         else:
             return False
 
+    def handle_status_code(self, response):
+        status_code = response.status_code
+
+        if status_code == 200:
+            res_obj = json.loads(response.text)
+            return res_obj
+        else:
+            print("Unexpected error encountered: " + str(status_code) + " " + response.text)
+            return False
+
+    def handle_result_code(self, result_code=None):
+        if result_code == 0:
+            return True
+        elif result_code in self.result_codes.keys():
+            print("Result Code Error: " + str(result_code) + " - " + self.result_codes[result_code])
+            return False
+
+################ Insecure Login #######################
     async def auth(self):
 
         method_params = self.methodParamDict["auth"]
@@ -185,23 +207,14 @@ class PCloud:
             print("Error encountered: Invalid login details before request!")
             return False
 
-        status_code = res.status_code
-
-        if status_code == 200:
+        if res_obj := self.handle_status_code(res):
             res_obj = json.loads(res.text)
-
             result_code = res_obj["result"]
 
-            if result_code == 0:
+            if self.handle_result_code(result_code):
                 self.token = res_obj["auth"]
-                return True
-            elif result_code in self.result_codes.keys():
-                print("Result Code Error: " + str(result_code) + " - " + self.result_codes[result_code])
-                return False
-        else:
-            print("Unexpected error encountered: " + str(status_code) + " " + res.text)
-            return False
 
+################ Secure Login #######################
     async def get_digest(self):
         url = self.regionUrl + "getdigest"
         method_params = None
@@ -241,25 +254,17 @@ class PCloud:
             print("Error encountered: Invalid login details before request!")
             return False
 
-        status_code = res.status_code
-
-        if status_code == 200:
+        if res_obj := self.handle_status_code(res):
             res_obj = json.loads(res.text)
             result_code = res_obj["result"]
 
-            if result_code == 0:
+            if self.handle_result_code(result_code):
                 self.token = res_obj["auth"]
-                return True
-            elif result_code in self.result_codes.keys():
-                print("Result Code Error: " + str(result_code) + " - " + self.result_codes[result_code])
-                return False
-        else:
-            print("Unexpected error encountered: " + str(status_code) + " " + res.text)
-            return False
 
     async def auth2(self):
         pass
 
+################ Folder Methods #######################
     async def list_folder(self, folder_id=0):
         method_params = self.methodParamDict["listfolder"]
         method_params["auth"] = self.token
@@ -271,19 +276,15 @@ class PCloud:
             url = self.regionUrl + "listfolder"
             res = requests.get(url, params=method_params)
 
-        status_code = res.status_code
-        if status_code == 200:
+        if res_obj := self.handle_status_code(res):
             res_obj = json.loads(res.text)
             result_code = res_obj["result"]
-            if result_code == 0:
-                return res_obj
-            elif result_code in self.result_codes.keys():
-                print(self.result_codes[result_code])
-                return False
-        else:
-            print("Unexpected error encountered: " + str(status_code) + " " + res.text)
-            return False
 
+            if self.handle_result_code(result_code):
+                return res_obj
+
+    async def create_folder(self):
+        pass
 
 
 apic = PCloud()
