@@ -123,6 +123,23 @@ class PCloud:
                 {
                     "auth": None,
                     "folderid": 0
+                },
+            "createfolder":
+                {
+                    "auth": None,
+                    "name": None,
+                    "folderid": 0
+                },
+            "renamefolder":
+                {
+                    "auth": None,
+                    "folderid": None,
+                    "toname": None
+                },
+            "deletefolder":
+                {
+                    "auth": None,
+                    "folderid": None
                 }
         }
 
@@ -140,6 +157,7 @@ class PCloud:
         self.token = ""
         self.folderId = "0"
 
+################ Helpers #######################
     def set_region(self, region="NA"):
 
         valid_region = bool(region in self.regionUrlDict.keys())
@@ -192,12 +210,13 @@ class PCloud:
             print("Result Code Error: " + str(result_code) + " - " + self.result_codes[result_code])
             return False
 
+    def valid_token(self):
+        return self.token is not None
+
 ################ Insecure Login #######################
     async def auth(self):
-
-        method_params = self.methodParamDict["auth"]
-
         if self.user_details_valid() and self.regionUrl:
+            method_params = self.methodParamDict["auth"]
             method_params.update(self.user_details)
 
             url = self.regionUrl + "userinfo"
@@ -213,6 +232,8 @@ class PCloud:
 
             if self.handle_result_code(result_code):
                 self.token = res_obj["auth"]
+
+        self.set_password(None)
 
 ################ Secure Login #######################
     async def get_digest(self):
@@ -261,18 +282,20 @@ class PCloud:
             if self.handle_result_code(result_code):
                 self.token = res_obj["auth"]
 
+        self.set_password(None)
+
     async def auth2(self):
         pass
 
 ################ Folder Methods #######################
-    async def list_folder(self, folder_id=0):
-        method_params = self.methodParamDict["listfolder"]
-        method_params["auth"] = self.token
-        method_params["folderid"] = folder_id
+    async def list_folder(self, folder_id=None):
 
-        valid_token = self.token is not None
+        if self.valid_token() and folder_id:
+            method_params = self.methodParamDict["listfolder"]
+            method_params["auth"] = self.token
+            method_params["folderid"] = folder_id
+            method_params["recursive"] = 0
 
-        if valid_token:
             url = self.regionUrl + "listfolder"
             res = requests.get(url, params=method_params)
 
@@ -281,10 +304,53 @@ class PCloud:
             result_code = res_obj["result"]
 
             if self.handle_result_code(result_code):
-                return res_obj
+                return res_obj["metadata"]
 
-    async def create_folder(self):
+    async def create_folder(self, folder_id="0", name=""):
+        if self.valid_token() and folder_id and name:
+            method_params = self.methodParamDict["createfolder"]
+            method_params["auth"] = self.token
+            method_params["folderid"] = folder_id
+            method_params["name"] = name
+
+            url = self.regionUrl + "createfolder"
+            res = requests.get(url, params=method_params)
+
+            if res_obj := self.handle_status_code(res):
+                res_obj = json.loads(res.text)
+                result_code = res_obj["result"]
+
+                if self.handle_result_code(result_code):
+                    return res_obj
+
+    async def rename_folder(self, folder_id=None, toname=""):
+
+        if self.valid_token() and folder_id and toname:
+            method_params = self.methodParamDict["renamefolder"]
+            method_params["auth"] = self.token
+            method_params["folderid"] = folder_id
+            method_params["toname"] = toname
+
+            url = self.regionUrl + "renamefolder"
+            res = requests.get(url, params=method_params)
+
+            if res_obj := self.handle_status_code(res):
+                res_obj = json.loads(res.text)
+                result_code = res_obj["result"]
+
+                if self.handle_result_code(result_code):
+                    return res_obj
+
+    async def delete_folder(self, folder_id="0"):
+        if self.valid_token() and folder_id:
+            method_params = self.methodParamDict["deletefolder"]
+            method_params["auth"] = self.token
+            method_params["folderid"] = folder_id
+
+            url = self.regionUrl + "deletefolder"
+            res = requests.get(url, params=method_params)
         pass
+
 
 
 apic = PCloud()
@@ -296,8 +362,26 @@ apic.set_password("test12345678")
 print()
 asyncio.run(apic.auth_digest())
 print("Token: " + apic.token)
+createdir = asyncio.run(apic.create_folder("0", "New Dir"))
 print()
-filedir = asyncio.run(apic.list_folder("8768842348"))
+print()
+filedir = asyncio.run(apic.list_folder("0"))
+print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
+print()
+print()
+
+for item in filedir["contents"]:
+    if item["name"] == "New Dir":
+        asyncio.run(apic.rename_folder(item["folderid"], "Better Folder"))
+
+filedir = asyncio.run(apic.list_folder("0"))
 print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
 
+print()
+print()
+for item in filedir["contents"]:
+    if item["name"] == "Better Folder":
+        asyncio.run(apic.delete_folder(item["folderid"]))
 
+filedir = asyncio.run(apic.list_folder("0"))
+print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
