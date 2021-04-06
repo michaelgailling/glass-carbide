@@ -227,7 +227,6 @@ class PCloud:
             return False
 
         if res_obj := self.handle_status_code(res):
-            res_obj = json.loads(res.text)
             result_code = res_obj["result"]
 
             if self.handle_result_code(result_code):
@@ -276,7 +275,6 @@ class PCloud:
             return False
 
         if res_obj := self.handle_status_code(res):
-            res_obj = json.loads(res.text)
             result_code = res_obj["result"]
 
             if self.handle_result_code(result_code):
@@ -289,7 +287,6 @@ class PCloud:
 
 ################ Folder Methods #######################
     async def list_folder(self, folder_id=None):
-
         if self.valid_token() and folder_id:
             method_params = self.methodParamDict["listfolder"]
             method_params["auth"] = self.token
@@ -300,7 +297,6 @@ class PCloud:
             res = requests.get(url, params=method_params)
 
         if res_obj := self.handle_status_code(res):
-            res_obj = json.loads(res.text)
             result_code = res_obj["result"]
 
             if self.handle_result_code(result_code):
@@ -317,14 +313,12 @@ class PCloud:
             res = requests.get(url, params=method_params)
 
             if res_obj := self.handle_status_code(res):
-                res_obj = json.loads(res.text)
                 result_code = res_obj["result"]
 
                 if self.handle_result_code(result_code):
                     return res_obj
 
     async def rename_folder(self, folder_id=None, toname=""):
-
         if self.valid_token() and folder_id and toname:
             method_params = self.methodParamDict["renamefolder"]
             method_params["auth"] = self.token
@@ -335,7 +329,6 @@ class PCloud:
             res = requests.get(url, params=method_params)
 
             if res_obj := self.handle_status_code(res):
-                res_obj = json.loads(res.text)
                 result_code = res_obj["result"]
 
                 if self.handle_result_code(result_code):
@@ -349,6 +342,55 @@ class PCloud:
 
             url = self.regionUrl + "deletefolder"
             res = requests.get(url, params=method_params)
+
+            if res_obj := self.handle_status_code(res):
+                result_code = res_obj["result"]
+
+                if self.handle_result_code(result_code):
+                    return res_obj
+
+################ File Methods #######################
+    async def file_stats(self, file_id=None):
+        if self.valid_token() and file_id:
+            method_params = {}
+            method_params["auth"] = self.token
+            method_params["fileid"] = None
+
+            url = self.regionUrl + "deletefolder"
+            res = requests.get(url, params=method_params)
+
+            if res_obj := self.handle_status_code(res):
+                result_code = res_obj["result"]
+
+                if self.handle_result_code(result_code):
+                    return res_obj
+
+    # not quite right yet
+    async def upload_file(self, folder_id=None, filepath=None, file_name=None):
+        if self.valid_token() and folder_id:
+            method_params = {}
+            method_params["auth"] = self.token
+            method_params["folderid"] = folder_id
+            method_params["filename"] = file_name
+            method_params["nopartial"] = 1
+            current_file = open(filepath)
+
+            url = self.regionUrl + "deletefolder"
+            res = requests.get(url, params=method_params, files={"": current_file})
+
+            if res_obj := self.handle_status_code(res):
+                result_code = res_obj["result"]
+
+                if self.handle_result_code(result_code):
+                    return res_obj
+
+    async def rename_file(self):
+        pass
+
+    async def get_file_link(self):
+        pass
+
+    async def download_file(self):
         pass
 
 
@@ -369,19 +411,19 @@ filedir = asyncio.run(apic.list_folder("0"))
 print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
 print()
 print()
-
 for item in filedir["contents"]:
     if item["name"] == "New Dir":
         asyncio.run(apic.rename_folder(item["folderid"], "Better Folder"))
-
+print()
+print()
 filedir = asyncio.run(apic.list_folder("0"))
 print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
-
 print()
 print()
 for item in filedir["contents"]:
     if item["name"] == "Better Folder":
         asyncio.run(apic.delete_folder(item["folderid"]))
-
+print()
+print()
 filedir = asyncio.run(apic.list_folder("0"))
 print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
