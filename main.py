@@ -208,6 +208,4 @@ if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     aw = AppWindow()
     aw.show()
-    IV = InfoView()
-    IV.show()
     sys.exit(qApp.exec_())
