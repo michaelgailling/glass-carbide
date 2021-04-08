@@ -20,7 +20,7 @@ from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QA
     QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QTableView, QLabel
 from requests import *
 
-
+from GC_Views.DirectoryMappingView import DirectoryMappingView
 
 
 class InfoView(QFrame):
@@ -208,4 +208,9 @@ if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     aw = AppWindow()
     aw.show()
+
+    dmv = DirectoryMappingView()
+    dmv.show()
+
+
     sys.exit(qApp.exec_())
