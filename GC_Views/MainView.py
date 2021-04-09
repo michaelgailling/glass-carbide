@@ -87,9 +87,9 @@ class MainView(QMainWindow):
         # Buttons Container
         self.btnBox = QHBoxLayout()
         self.continueBtn = QPushButton("Continue")
-        self.continueBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);")
+        self.continueBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100;")
         self.cancelBtn = QPushButton("Cancel")
-        self.cancelBtn.setStyleSheet("color:rgb(85,0,255); background-color:rgb(255,255,255);")
+        self.cancelBtn.setStyleSheet("margin:1 100;color:rgb(85,0,255); background-color:rgb(255,255,255);")
         self.btnBox.addWidget(self.continueBtn)
         self.btnBox.addWidget(self.cancelBtn)
 

@@ -30,7 +30,7 @@ class TableView(QFrame):
         self.setStyleSheet("margin: 0% 3% 25% 3%;")
         # Button
         self.loadBtn = QPushButton("Load CSV")
-        self.loadBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);")
+        self.loadBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100;")
         self.hbox.addWidget(self.loadBtn)
         # Label
         self.displayLbl = QLabel("CSV TYPE/PURPOSE LABEL")

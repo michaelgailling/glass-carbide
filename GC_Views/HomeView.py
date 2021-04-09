@@ -27,14 +27,14 @@ class HomeView(QFrame):
 
         # Buttons
         self.newBtn = QPushButton("New")
-        self.newBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);")
+        self.newBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100;")
         self.openBtn = QPushButton("Open")
-        self.openBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);")
+        self.openBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100;")
         self.saveBtn = QPushButton("Save")
-        self.saveBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);")
+        self.saveBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100;")
         self.exitBtn = QPushButton("Exit")
         self.exitBtn.setStyleSheet("color:rgb(85,0,255); background-color:rgb(255,255,255);\n"
-                                   " border: 2px solid rgb(85,0,255);")
+                                   " border: 2px solid rgb(85,0,255);margin:1 100;")
         # Add buttons to Vbox widget
         self.btnBox.addWidget(self.newBtn)
         self.btnBox.addWidget(self.openBtn)
