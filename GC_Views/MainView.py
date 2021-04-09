@@ -10,9 +10,9 @@
 # WIMTACH
 #
 import sys
-from PySide2.QtGui import QIcon, Qt
+from PySide2.QtGui import QIcon, Qt, QGuiApplication
 from PySide2.QtWidgets import QApplication, QTabWidget, QMainWindow, QAction, QFrame, QStatusBar, QDesktopWidget, \
-    QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QGridLayout
+    QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QGridLayout, QFileDialog
 from requests import *
 from TableView import TableView
 from HomeView import HomeView
@@ -57,7 +57,6 @@ class MainView(QMainWindow):
         self.open_button = QAction(QIcon('exit24.png'), 'Open', self)
         self.open_button.setShortcut('Ctrl+O')
         self.open_button.setStatusTip('Open')
-        # open_button.triggered.connect)
         # New Button
         self.new_button = QAction(QIcon('exit24.png'), 'New', self)
         self.new_button.setShortcut('Ctrl+N')
@@ -81,17 +80,19 @@ class MainView(QMainWindow):
 
         # Status Bar
         self.statusBar = QStatusBar()
-        self.statLbl = QLabel("Status Bar")
+        self.statLbl = QLabel("")
         self.statusBar.showMessage("This is an status message.", 5000)
 
         # Buttons Container
         self.btnBox = QHBoxLayout()
         self.continueBtn = QPushButton("Continue")
-        self.continueBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100;")
+        self.continueBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 23;padding:3")
         self.cancelBtn = QPushButton("Cancel")
-        self.cancelBtn.setStyleSheet("margin:1 100;color:rgb(85,0,255); background-color:rgb(255,255,255);")
-        self.btnBox.addWidget(self.continueBtn)
+        self.cancelBtn.setStyleSheet("margin:1 23;color:rgb(85,0,255); background-color:rgb(255,255,255);padding:3;border:2px solid rgb(85,0,255);")
+        self.btnBox.addWidget(self.statLbl)
+        self.btnBox.addWidget(self.statLbl)
         self.btnBox.addWidget(self.cancelBtn)
+        self.btnBox.addWidget(self.continueBtn)
 
         # Main window
         self.layout.addWidget(tab_widget)
@@ -104,9 +105,13 @@ class MainView(QMainWindow):
         self.center_screen()
 
     def center_screen(self):
-        screen = QDesktopWidget().screenGeometry()
-        size = self.geometry()
-        self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
+        size = self.size()
+        print('Size: %d x %d' % (size.width(), size.height()))
+        # rect = self.
+        # print('Available: %d x %d' % (rect.width(), rect.height()))
+        # screen = QGuiApplication.screenAt()
+        # size = self.geometry()
+        # self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
 
 if __name__ == '__main__':

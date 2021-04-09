@@ -25,21 +25,26 @@ class HomeView(QFrame):
         self.btnBox = QVBoxLayout()
         self.imgBox = QVBoxLayout()
 
+        # Step Instructions
+        self.instruct = QLabel("Overview of Instructions")
+
         # Buttons
         self.newBtn = QPushButton("New")
-        self.newBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100;")
+        self.newBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100; padding:2")
         self.openBtn = QPushButton("Open")
-        self.openBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100;")
+        self.openBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100; padding:2")
         self.saveBtn = QPushButton("Save")
-        self.saveBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100;")
+        self.saveBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100; padding:2")
         self.exitBtn = QPushButton("Exit")
         self.exitBtn.setStyleSheet("color:rgb(85,0,255); background-color:rgb(255,255,255);\n"
-                                   " border: 2px solid rgb(85,0,255);margin:1 100;")
+                                   " border:2px solid rgb(85,0,255);margin:1 100; padding:2")
         # Add buttons to Vbox widget
+        self.btnBox.addWidget(self.instruct, alignment=Qt.AlignHCenter)
         self.btnBox.addWidget(self.newBtn)
         self.btnBox.addWidget(self.openBtn)
         self.btnBox.addWidget(self.saveBtn)
         self.btnBox.addWidget(self.exitBtn)
+        self.btnBox.setSpacing(-30)
         # Logo Picture will be contained in a Label
         self.logo = QLabel("Logo Placeholder")
         self.imgBox.addWidget(self.logo, alignment=Qt.AlignHCenter)
