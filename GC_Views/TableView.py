@@ -36,7 +36,10 @@ class TableView(QFrame):
         self.displayLbl = QLabel("CSV TYPE/PURPOSE LABEL")
         self.displayLbl.setStyleSheet("color: rgb(85, 0, 255);")
         self.hbox.addWidget(self.displayLbl, alignment=Qt.AlignRight)
+        # Step Instructions
+        self.instruct = QLabel("Step Instructions Go Here")
         # Layout loading
+        self.layout.addWidget(self.instruct, alignment=Qt.AlignHCenter)
         self.layout.addWidget(self.table)
         self.layout.addItem(self.hbox)
         self.setLayout(self.layout)
