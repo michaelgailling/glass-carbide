@@ -3,92 +3,214 @@
 #
 # By:
 # Michael Gailling
+# &&
 # Mustafa Butt
 #
 # Organization:
 # WIMTACH
 #
-
+import asyncio
 import sys
-import config
-import csv
+
 from PySide2 import QtCore
-from PySide2.QtGui import QIcon
+
+import config
+from PySide2.QtGui import QIcon, QPixmap
 from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
-    QSplitter, QVBoxLayout, QFileDialog, QTableWidget
+    QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QTableView, QLabel
+from requests import *
 
-# This is a sample Python script.
+from GC_Views.DirectoryMappingView import DirectoryMappingView
 
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+
+class InfoView(QFrame):
+    def __init__(self, parent=None):
+        super(InfoView, self).__init__(parent)
+
+        # self.IVWV = IVWebView(parent=self, url="https://www.google.com/")
+        # self.page = self.IVWV.page()
+        # self.source_text = QPlainTextEdit()
+
+
+        # self.mainViewSplitter = QSplitter(QtCore.Qt.Vertical)
+        #
+        # self.mainViewSplitter.addWidget()
+        # self.mainViewSplitter.addWidget()
+        self.main_layout = QVBoxLayout()
+
+        # self.main_layout.addWidget(self.mainViewSplitter)
+        self.setLayout(self.main_layout)
+
+
+class LogoView(QFrame):
+    def __init__(self, parent=None):
+        super(LogoView, self).__init__(parent)
+
+        self.logo = QLabel(self)
+        pixmap = QPixmap('octo.png')
+        self.logo.setPixmap(pixmap)
+
+        self.main_layout = QVBoxLayout()
+
+        self.main_layout.addWidget(self.logo)
+        self.setLayout(self.main_layout)
 
 
 class AppWindow(QMainWindow):
-    csv_file = None
-    data_table = []
+    """AppWindow
+
+        Inherits:
+            QMainWindow
+        Purpose:
+            Main Application Window
+        Attributes:
+            data, headers, data_table
+        Methods:
+            initUI, init_menus, open_csv, load_data_table
+    """
 
     def __init__(self, parent=None):
+        """Constructor
+
+            Parameters:
+                self,
+                parent
+            Returns:
+                None
+            Purpose:
+                Initialize main window and its elements
+        """
         super(AppWindow, self).__init__(parent)
-        mainConfig = config.MainWindow()
-        # Define constants
-        self.title = 'glass-carbide'
-        self.left = 100
-        self.top = 100
-        self.width = 640
-        self.height = 400
+        self.data = []
+        self.headers = []
+        self.data_table = QTableWidget()
+        self.logo = LogoView()
 
         # Set window parameters
-        self.setWindowTitle(mainConfig.title)
-        self.setGeometry(mainConfig.left, mainConfig.top, mainConfig.width, mainConfig.height)
+        main_config = config.MainWindow()
+        self.setWindowTitle(main_config.title)
+        self.setGeometry(main_config.left, main_config.top, main_config.width, main_config.height)
 
         # Set Central Widget
+        self.init_ui()
 
-        self.initUI()
+    def init_ui(self):
+        """init_ui
 
+            Parameters:
+                self
+            Returns:
+                None
+            Purpose:
+                Call helper functions to setup gui elements and set central widget
+        """
+        self.init_menus()
+        self.setCentralWidget(self.logo)
+        self.show()
 
-    def initUI(self):
+    def init_menus(self):
+        """init_menus
+
+            Parameters:
+                self
+            Returns:
+                None
+            Purpose:
+                Initialize menu bar
+        """
+
         main_menu = self.menuBar()
 
+        # File Menu
         file_menu = main_menu.addMenu('File')
-        
-        exit_button = QAction(QIcon('exit24.png'), 'Exit', self)
-        exit_button.setShortcut('Ctrl+Q')
-        exit_button.setStatusTip('Exit application')
-        exit_button.triggered.connect(self.close)
+
+        # Open button
         open_button = QAction(QIcon('exit24.png'), 'Open', self)
         open_button.setShortcut('Ctrl+O')
         open_button.setStatusTip('Open CSV')
         open_button.triggered.connect(self.open_csv)
 
-        file_menu.addAction(exit_button)
-        file_menu.addAction(open_button)
+        # Exit Button
+        exit_button = QAction(QIcon('exit24.png'), 'Exit', self)
+        exit_button.setShortcut('Ctrl+Q')
+        exit_button.setStatusTip('Exit application')
+        exit_button.triggered.connect(self.close)
 
-        self.show()
+        file_menu.addAction(open_button)
+        file_menu.addAction(exit_button)
+
+    def display_splash_screen(self):
+        pass
 
     def open_csv(self):
-        file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\",
-                                                'CSV Format (*.csv)')
+        asyncio.run(self.read_csv())
+        asyncio.run(self.load_data_table())
+        self.setCentralWidget(self.data_table)
+
+    async def read_csv(self):
+        """open_csv
+            Purpose:
+                Opens and reads csv file into the data array attribute
+            Parameters:
+                self
+            Returns:
+                None
+
+        """
+        # Get file path and open file in read mode
+        file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\", 'CSV Format (*.csv)')
         filepath = file_name[0]
         csv_file = open(filepath, "r")
-        line = csv_file.readline()
-        header = line.split(",")[0]
-        while line != "":
-            line = csv_file.readline()
-            row = line.split(",")
-            self.data_table.append(row)
 
-    def create_table(self):
+        # Grab first two lines as headers
+        line = csv_file.readline().split(",")
+        line.pop()
+        self.headers.append(line)
 
-        table = QTableWidget()
-        table.setColumnCount(self.data_table[0].len)
+        line = csv_file.readline().split(",")
+        line.pop()
+        self.headers.append(line)
 
-        return table
+        # Dump the rest into the data array
+        while (line := csv_file.readline()) != "":
+            row = line.replace("\n", "").split(",")
+            self.data.append(row)
+
+        csv_file.close()
+
+    async def load_data_table(self):
+        """load_data_table
+
+            Parameters:
+                self
+            Returns:
+                None
+            Purpose:
+                Resizes data_table and fills the table with csv contents
+        """
+        data_height = len(self.data)
+        data_width = len(self.data[0])
+
+        self.data_table.setRowCount(data_height)
+        self.data_table.setColumnCount(data_width)
+
+        self.data_table.setHorizontalHeaderLabels(self.headers[1])
+
+        for y in range(len(self.data)):
+            for x in range(len(self.data[y])):
+                cell = QTableWidgetItem(self.data[y][x])
+                self.data_table.setItem(y, x, cell)
+
+        self.data_table.resizeColumnsToContents()
 
 
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     aw = AppWindow()
     aw.show()
-    sys.exit(qApp.exec_())
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    dmv = DirectoryMappingView()
+    dmv.show()
+
+
+    sys.exit(qApp.exec_())
