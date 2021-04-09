@@ -398,8 +398,8 @@ class PCloud:
 apic = PCloud()
 
 apic.set_region("NA")
-apic.set_username("hitujy@zetmail.com")
-apic.set_password("test12345678")
+apic.set_username("deedtmp+liknb@gmail.com")
+apic.set_password("fakenews")
 
 print()
 asyncio.run(apic.auth_digest())
@@ -408,6 +408,7 @@ createdir = asyncio.run(apic.create_folder("0", "New Dir"))
 print()
 print()
 filedir = asyncio.run(apic.list_folder("0"))
+
 print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
 print()
 print()
