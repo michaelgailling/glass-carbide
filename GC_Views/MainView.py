@@ -38,8 +38,8 @@ class TabView(QFrame):
         self.setLayout(self.layout)
         self.setGeometry(0, 0, 800, 500)
 
-    def set_tab_frame(self, frame: QFrame):
-        self.tabWidget.insertTab(1, frame, "Step 2")
+    def set_tab_frame(self, frame: QFrame, index_num: int):
+        self.tabWidget.insertTab(index_num, frame, "Step 2")
 
 
 class MainView(QMainWindow):
@@ -110,7 +110,7 @@ if __name__ == '__main__':
     mainBase = MainView()
     table = TableView()
     tabs = TabView()
-    tabs.set_tab_frame(table)
+    tabs.set_tab_frame(table, 1)
     mainBase.setCentralWidget(tabs)
     mainBase.show()
     sys.exit(qApp.exec_())
