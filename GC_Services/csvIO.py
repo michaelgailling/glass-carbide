@@ -1,3 +1,16 @@
+# Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &&
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+
+
 import asyncio
 
 from PySide2.QtWidgets import QFileDialog

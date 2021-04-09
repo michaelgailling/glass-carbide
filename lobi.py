@@ -9,7 +9,7 @@ from PySide2.QtWidgets import QApplication, QWidget, QHBoxLayout, QMainWindow, Q
 derp = None
 herp = ""
 
-if derp or herp:
+if 0 or herp:
     print("DERP")
 else:
     print("NOT DERP")

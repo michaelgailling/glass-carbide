@@ -115,10 +115,31 @@ class PCloud:
                     "digest": None,
                     "passworddigest": None
                 },
+            "validate_token":
+                {
+
+                },
             "listfolder":
                 {
                     "auth": None,
                     "folderid": 0
+                },
+            "createfolder":
+                {
+                    "auth": None,
+                    "name": None,
+                    "folderid": 0
+                },
+            "renamefolder":
+                {
+                    "auth": None,
+                    "folderid": None,
+                    "toname": None
+                },
+            "deletefolder":
+                {
+                    "auth": None,
+                    "folderid": None
                 }
         }
 
@@ -136,6 +157,7 @@ class PCloud:
         self.token = ""
         self.folderId = "0"
 
+################ Helpers #######################
     def set_region(self, region="NA"):
 
         valid_region = bool(region in self.regionUrlDict.keys())
@@ -171,11 +193,30 @@ class PCloud:
         else:
             return False
 
+    def handle_status_code(self, response):
+        status_code = response.status_code
+
+        if status_code == 200:
+            res_obj = json.loads(response.text)
+            return res_obj
+        else:
+            print("Unexpected error encountered: " + str(status_code) + " " + response.text)
+            return False
+
+    def handle_result_code(self, result_code=None):
+        if result_code == 0:
+            return True
+        elif result_code in self.result_codes.keys():
+            print("Result Code Error: " + str(result_code) + " - " + self.result_codes[result_code])
+            return False
+
+    def valid_token(self):
+        return self.token is not None
+
+################ Insecure Login #######################
     async def auth(self):
-
-        method_params = self.methodParamDict["auth"]
-
         if self.user_details_valid() and self.regionUrl:
+            method_params = self.methodParamDict["auth"]
             method_params.update(self.user_details)
 
             url = self.regionUrl + "userinfo"
@@ -185,23 +226,15 @@ class PCloud:
             print("Error encountered: Invalid login details before request!")
             return False
 
-        status_code = res.status_code
-
-        if status_code == 200:
-            res_obj = json.loads(res.text)
-
+        if res_obj := self.handle_status_code(res):
             result_code = res_obj["result"]
 
-            if result_code == 0:
+            if self.handle_result_code(result_code):
                 self.token = res_obj["auth"]
-                return True
-            elif result_code in self.result_codes.keys():
-                print("Result Code Error: " + str(result_code) + " - " + self.result_codes[result_code])
-                return False
-        else:
-            print("Unexpected error encountered: " + str(status_code) + " " + res.text)
-            return False
 
+        self.set_password(None)
+
+################ Secure Login #######################
     async def get_digest(self):
         url = self.regionUrl + "getdigest"
         method_params = None
@@ -241,48 +274,124 @@ class PCloud:
             print("Error encountered: Invalid login details before request!")
             return False
 
-        status_code = res.status_code
-
-        if status_code == 200:
-            res_obj = json.loads(res.text)
+        if res_obj := self.handle_status_code(res):
             result_code = res_obj["result"]
 
-            if result_code == 0:
+            if self.handle_result_code(result_code):
                 self.token = res_obj["auth"]
-                return True
-            elif result_code in self.result_codes.keys():
-                print("Result Code Error: " + str(result_code) + " - " + self.result_codes[result_code])
-                return False
-        else:
-            print("Unexpected error encountered: " + str(status_code) + " " + res.text)
-            return False
+
+        self.set_password(None)
 
     async def auth2(self):
         pass
 
-    async def list_folder(self, folder_id=0):
-        method_params = self.methodParamDict["listfolder"]
-        method_params["auth"] = self.token
-        method_params["folderid"] = folder_id
+################ Folder Methods #######################
+    async def list_folder(self, folder_id=None):
+        if self.valid_token() and folder_id:
+            method_params = self.methodParamDict["listfolder"]
+            method_params["auth"] = self.token
+            method_params["folderid"] = folder_id
+            method_params["recursive"] = 0
 
-        valid_token = self.token is not None
-
-        if valid_token:
             url = self.regionUrl + "listfolder"
             res = requests.get(url, params=method_params)
 
-        status_code = res.status_code
-        if status_code == 200:
-            res_obj = json.loads(res.text)
+        if res_obj := self.handle_status_code(res):
             result_code = res_obj["result"]
-            if result_code == 0:
-                return res_obj
-            elif result_code in self.result_codes.keys():
-                print(self.result_codes[result_code])
-                return False
-        else:
-            print("Unexpected error encountered: " + str(status_code) + " " + res.text)
-            return False
+
+            if self.handle_result_code(result_code):
+                return res_obj["metadata"]
+
+    async def create_folder(self, folder_id="0", name=""):
+        if self.valid_token() and folder_id and name:
+            method_params = self.methodParamDict["createfolder"]
+            method_params["auth"] = self.token
+            method_params["folderid"] = folder_id
+            method_params["name"] = name
+
+            url = self.regionUrl + "createfolder"
+            res = requests.get(url, params=method_params)
+
+            if res_obj := self.handle_status_code(res):
+                result_code = res_obj["result"]
+
+                if self.handle_result_code(result_code):
+                    return res_obj
+
+    async def rename_folder(self, folder_id=None, toname=""):
+        if self.valid_token() and folder_id and toname:
+            method_params = self.methodParamDict["renamefolder"]
+            method_params["auth"] = self.token
+            method_params["folderid"] = folder_id
+            method_params["toname"] = toname
+
+            url = self.regionUrl + "renamefolder"
+            res = requests.get(url, params=method_params)
+
+            if res_obj := self.handle_status_code(res):
+                result_code = res_obj["result"]
+
+                if self.handle_result_code(result_code):
+                    return res_obj
+
+    async def delete_folder(self, folder_id="0"):
+        if self.valid_token() and folder_id:
+            method_params = self.methodParamDict["deletefolder"]
+            method_params["auth"] = self.token
+            method_params["folderid"] = folder_id
+
+            url = self.regionUrl + "deletefolder"
+            res = requests.get(url, params=method_params)
+
+            if res_obj := self.handle_status_code(res):
+                result_code = res_obj["result"]
+
+                if self.handle_result_code(result_code):
+                    return res_obj
+
+################ File Methods #######################
+    async def file_stats(self, file_id=None):
+        if self.valid_token() and file_id:
+            method_params = {}
+            method_params["auth"] = self.token
+            method_params["fileid"] = None
+
+            url = self.regionUrl + "deletefolder"
+            res = requests.get(url, params=method_params)
+
+            if res_obj := self.handle_status_code(res):
+                result_code = res_obj["result"]
+
+                if self.handle_result_code(result_code):
+                    return res_obj
+
+    # not quite right yet
+    async def upload_file(self, folder_id=None, filepath=None, file_name=None):
+        if self.valid_token() and folder_id:
+            method_params = {}
+            method_params["auth"] = self.token
+            method_params["folderid"] = folder_id
+            method_params["filename"] = file_name
+            method_params["nopartial"] = 1
+            current_file = open(filepath)
+
+            url = self.regionUrl + "deletefolder"
+            res = requests.get(url, params=method_params, files={"": current_file})
+
+            if res_obj := self.handle_status_code(res):
+                result_code = res_obj["result"]
+
+                if self.handle_result_code(result_code):
+                    return res_obj
+
+    async def rename_file(self):
+        pass
+
+    async def get_file_link(self):
+        pass
+
+    async def download_file(self):
+        pass
 
 
 
@@ -295,8 +404,27 @@ apic.set_password("fakenews")
 print()
 asyncio.run(apic.auth_digest())
 print("Token: " + apic.token)
+createdir = asyncio.run(apic.create_folder("0", "New Dir"))
+print()
+print()
+filedir = asyncio.run(apic.list_folder("0"))
+
+print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
+print()
+print()
+for item in filedir["contents"]:
+    if item["name"] == "New Dir":
+        asyncio.run(apic.rename_folder(item["folderid"], "Better Folder"))
+print()
 print()
 filedir = asyncio.run(apic.list_folder("0"))
 print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
-
-
+print()
+print()
+for item in filedir["contents"]:
+    if item["name"] == "Better Folder":
+        asyncio.run(apic.delete_folder(item["folderid"]))
+print()
+print()
+filedir = asyncio.run(apic.list_folder("0"))
+print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
