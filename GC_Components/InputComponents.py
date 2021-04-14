@@ -19,7 +19,7 @@ class LabeledInput(QFrame):
     """Labeled Input
 
         Summary:
-            A class for creating an input box that includes:
+            A class for an input box that includes:
 
             -Label to the left
 

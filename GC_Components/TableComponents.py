@@ -4,7 +4,55 @@ from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetIte
 
 
 class DataTable(QFrame):
+    """Labeled Input
+
+        Summary:
+            A class for a data that includes:
+
+            -Method for altering bg color
+
+            -Method for altering text color
+
+            -Method for setting and getting cell values
+
+        Attributes:
+            table
+
+        Methods:
+            cell_changed, set_cell_color, set_text_color, set_cell_contents, get_cell_contents, log_cell
+
+        Attributes
+        ----------
+            table : QTable
+                Table for holding data
+
+        Methods
+        -------
+            cell_changed(self, y, x)
+                Slot for cell changed signal
+            set_cell_color(self, x=0, y=0, color="white")
+                Sets the background color of the specified cell
+            set_text_color(self, x=0, y=0, color="black")
+                Sets the text color of the specified cell
+            set_cell_contents(self, x=0, y=0, text="")
+                Sets the contents of the specified cell
+            get_cell_contents(self, x=0, y=0)
+                Gets the contents of the specified cell
+            log_cell(self, x, y)
+                Prints info about the specified cell
+    """
     def __init__(self, parent=None, width=0, height=0):
+        """
+        Constructs all the necessary attributes for the Data Table object.
+
+        Parameters
+        ----------
+            parent : QWidget
+            width : int
+                The number of columns
+            height : int
+                The number of rows
+        """
         super(DataTable, self).__init__(parent)
         self.table = QTableWidget()
         self.table.setColumnCount(width)
@@ -16,23 +64,115 @@ class DataTable(QFrame):
 
         self.setLayout(self.vbox)
 
-    def cell_changed(self, row, column):
-        self.log_cell(column, row)
+    def cell_changed(self, y, x):
+        """
+        Slot for handling cell change events
+
+        Parameters
+        ----------
+        x : int
+            Cell X co-ordinate
+        y: int
+            Cell Y co-ordinate
+
+        Returns
+        -------
+        None
+        """
+        self.log_cell(x, y)
 
     def set_cell_color(self, x=0, y=0, color="white"):
+        """
+        Method for setting the bg color of a cell
+
+        Parameters
+        ----------
+        x : int
+            Cell X co-ordinate
+        y: int
+            Cell Y co-ordinate
+        color : string
+            Color as to set cell background color
+
+        Returns
+        -------
+        None
+        """
         self.table.item(y, x).setBackgroundColor(QColor(color))
 
     def set_text_color(self, x=0, y=0, color="black"):
+        """
+        Method for setting the text color of a cell
+
+        Parameters
+        ----------
+        x : int
+            Cell X co-ordinate
+        y: int
+            Cell Y co-ordinate
+        color : string
+            Color to set cell text color
+
+        Returns
+        -------
+        None
+        """
         self.table.item(y, x).setTextColor(QColor(color))
 
     def set_cell_contents(self, x=0, y=0, text=""):
+        """
+        Method for setting the text content of a cell
+
+        Parameters
+        ----------
+        x : int
+            Cell X co-ordinate
+        y: int
+            Cell Y co-ordinate
+        text : string
+            Text to set cell content
+
+        Returns
+        -------
+        None
+        """
         cell = QTableWidgetItem(text)
         self.table.setItem(y, x, cell)
 
     def get_cell_contents(self, x=0, y=0):
-        return self.table.item(y, x).text()
+        """
+        Method for Getting the text content of a cell
+
+        Parameters
+        ----------
+        x : int
+            Cell X co-ordinate
+        y: int
+            Cell Y co-ordinate
+
+        Returns
+        -------
+        text_content : string
+            Text content of specified cell
+        """
+        text_content = self.table.item(y, x).text()
+        return text_content
 
     def log_cell(self, x, y):
+        """
+        Method for logging the current state of a cell to console
+
+        Parameters
+        ----------
+        x : int
+            Cell X co-ordinate
+        y: int
+            Cell Y co-ordinate
+
+        Returns
+        -------
+        None
+        """
         cell_text = self.get_cell_contents(x, y)
         bg_color_red = str(self.table.item(y, x).backgroundColor().red())
         bg_color_green = str(self.table.item(y, x).backgroundColor().green())
