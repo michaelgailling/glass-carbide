@@ -16,6 +16,33 @@ from PySide2.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QPushButto
 
 # Composite Text Input Elements
 class LabeledInput(QFrame):
+    """Labeled Input
+
+        Summary:
+            A class for creating an input box that includes:
+
+            -Label to the left
+
+        Attributes:
+            label, input
+
+        Methods:
+            get_input_text, set_input_text
+
+        Attributes
+        ----------
+            label : QLabel
+                Text Label for Input Box
+            input : QLineEdit
+                Input Box for text entry
+
+        Methods
+        -------
+            get_input_text()
+                Return the text in the input box
+            set_input_text(value : string)
+                Sets the input box text
+    """
     def __init__(self, parent, label_text="", input_text=""):
         super(LabeledInput, self).__init__(parent)
 
@@ -36,6 +63,35 @@ class LabeledInput(QFrame):
 
 
 class DirectoryInput(QFrame):
+    """Directory Input
+
+            Summary:
+                A class for an input box that includes:
+
+                -File dialog button to the right
+
+            Attributes:
+                input, fileDialogButton
+
+            Methods:
+                get_input_text, set_input_text, open_directory_dialog
+
+            Attributes
+            ----------
+                fileDialogButton : QPushButton
+                    A button that opens a file dialog
+                input : QLineEdit
+                    Input Box for text entry
+
+            Methods
+            -------
+                get_input_text()
+                    Return the text in the input box
+                set_input_text(value : string)
+                    Sets the input box text
+                open_directory_dialog()
+                    Opens the directory selection dialog
+        """
     def __init__(self, parent, input_text=""):
         super(DirectoryInput, self).__init__(parent)
 
@@ -64,6 +120,39 @@ class DirectoryInput(QFrame):
 
 
 class LabeledDirectoryInput(QFrame):
+    """Labeled Directory Input
+
+            Summary:
+                A class for an input box that includes:
+
+                -Label to the left
+
+                -File dialog button to the right
+
+            Attributes:
+                label, input, fileDialogButton
+
+            Methods:
+                get_input_text, set_input_text, open_directory_dialog
+
+            Attributes
+            ----------
+                label : QLabel
+                    Text Label for Input Box
+                fileDialogButton : QPushButton
+                    A button that opens a file dialog
+                input : QLineEdit
+                    Input Box for text entry
+
+            Methods
+            -------
+                get_input_text()
+                    Return the text in the input box
+                set_input_text(value : string)
+                    Sets the input box text
+                open_directory_dialog()
+                    Opens the directory selection dialog
+        """
     def __init__(self, parent, label_text="", input_text=""):
         super(LabeledDirectoryInput, self).__init__(parent)
 
@@ -95,6 +184,35 @@ class LabeledDirectoryInput(QFrame):
 
 
 class FileInput(QFrame):
+    """File Input
+
+        Summary:
+            A class for an input box that includes:
+
+            -File dialog button to the right
+
+        Attributes:
+            input, fileDialogButton
+
+        Methods:
+            get_input_text, set_input_text, open_file_dialog
+
+        Attributes
+        ----------
+            fileDialogButton : QPushButton
+                A button that opens a file dialog
+            input : QLineEdit
+                Input Box for text entry
+
+        Methods
+        -------
+            get_input_text()
+                Return the text in the input box
+            set_input_text(value : string)
+                Sets the input box text
+            open_file_dialog()
+                Opens the file selection dialog
+    """
     def __init__(self, parent, file_type="", input_text=""):
         super(FileInput, self).__init__(parent)
 
@@ -129,6 +247,39 @@ class FileInput(QFrame):
 
 
 class LabeledFileInput(QFrame):
+    """Labeled File Input
+
+        Summary:
+            A class for an input box that includes:
+
+            -Label to the left
+
+            -File dialog button to the right
+
+        Attributes:
+            label, input, fileDialogButton
+
+        Methods:
+            get_input_text, set_input_text, open_file_dialog
+
+        Attributes
+        ----------
+            label : QLabel
+                Text Label for Input Box
+            fileDialogButton : QPushButton
+                A button that opens a file dialog
+            input : QLineEdit
+                Input Box for text entry
+
+        Methods
+        -------
+            get_input_text()
+                Return the text in the input box
+            set_input_text(value : string)
+                Sets the input box text
+            open_file_dialog()
+                Opens the file selection dialog
+    """
     def __init__(self, parent, label_text="", file_type="", input_text=""):
         super(LabeledFileInput, self).__init__(parent)
 
