@@ -38,9 +38,9 @@ class LabeledInput(QFrame):
 
         Methods
         -------
-            get_input_text()
+            get_input_text(self)
                 Return the text in the input box
-            set_input_text(value : string)
+            set_input_text(self, value : string)
                 Sets the input box text
     """
     def __init__(self, parent, label_text="", input_text=""):
@@ -85,11 +85,11 @@ class DirectoryInput(QFrame):
 
             Methods
             -------
-                get_input_text()
+                get_input_text(self)
                     Return the text in the input box
-                set_input_text(value : string)
+                set_input_text(self, value : string)
                     Sets the input box text
-                open_directory_dialog()
+                open_directory_dialog(self)
                     Opens the directory selection dialog
         """
     def __init__(self, parent, input_text=""):
@@ -146,11 +146,11 @@ class LabeledDirectoryInput(QFrame):
 
             Methods
             -------
-                get_input_text()
+                get_input_text(self)
                     Return the text in the input box
-                set_input_text(value : string)
+                set_input_text(self, value : string)
                     Sets the input box text
-                open_directory_dialog()
+                open_directory_dialog(self)
                     Opens the directory selection dialog
         """
     def __init__(self, parent, label_text="", input_text=""):
@@ -206,11 +206,11 @@ class FileInput(QFrame):
 
         Methods
         -------
-            get_input_text()
+            get_input_text(self)
                 Return the text in the input box
-            set_input_text(value : string)
+            set_input_text(self, value : string)
                 Sets the input box text
-            open_file_dialog()
+            open_file_dialog(self)
                 Opens the file selection dialog
     """
     def __init__(self, parent, file_type="", input_text=""):
@@ -273,11 +273,11 @@ class LabeledFileInput(QFrame):
 
         Methods
         -------
-            get_input_text()
+            get_input_text(self)
                 Return the text in the input box
-            set_input_text(value : string)
+            set_input_text(self, value : string)
                 Sets the input box text
-            open_file_dialog()
+            open_file_dialog(self)
                 Opens the file selection dialog
     """
     def __init__(self, parent, label_text="", file_type="", input_text=""):
