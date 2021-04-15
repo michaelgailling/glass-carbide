@@ -16,6 +16,7 @@ from PySide2.QtWidgets import QApplication, QTabWidget, QMainWindow, QAction, QF
 from requests import *
 from TableView import TableView
 from HomeView import HomeView
+from DirectoryMappingView import DirectoryMappingView
 
 
 class TabView(QFrame):
@@ -119,8 +120,10 @@ if __name__ == '__main__':
     home = HomeView()
     table = TableView()
     tabs = TabView()
+    directory = DirectoryMappingView()
     tabs.set_tab_frame(home, 0)
     tabs.set_tab_frame(table, 1)
     mainBase = MainView(tabs)
     mainBase.show()
+    directory.show()
     sys.exit(qApp.exec_())
