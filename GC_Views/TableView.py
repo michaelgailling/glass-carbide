@@ -19,37 +19,30 @@ from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QA
     QPushButton, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, QLabel, QMessageBox
 from requests import *
 
+from GC_Components.InputComponents import LabeledFileInput
+from GC_Components.TableComponents import DataTable
+
 
 class TableView(QFrame):
     def __init__(self, parent=None):
         super(TableView, self).__init__(parent)
-        self.layout = QVBoxLayout()
-        self.hbox = QHBoxLayout()
+        self.vBox = QVBoxLayout()
         # Table
-        self.table = QTableWidget()
-        self.setStyleSheet("margin: 0% 3% 25% 3%;")
-        # Button
-        self.loadBtn = QPushButton("Load CSV")
-        self.loadBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100;")
-        self.hbox.addWidget(self.loadBtn)
-        # Label
-        self.displayLbl = QLabel("CSV TYPE/PURPOSE LABEL")
-        self.displayLbl.setStyleSheet("color: rgb(85, 0, 255);")
-        self.hbox.addWidget(self.displayLbl, alignment=Qt.AlignRight)
-        # Step Instructions
-        self.instruct = QLabel("Step Instructions Go Here")
+       
+        self.table = DataTable(self, 5, 5)
+        # Labeled File Input
+        self.file_select = LabeledFileInput(self, label_text="Select CSV", file_type="CSV Format (*.csv)")
         # Layout loading
-        self.layout.addWidget(self.instruct, alignment=Qt.AlignHCenter)
-        self.layout.addWidget(self.table)
-        self.layout.addItem(self.hbox)
-        self.setLayout(self.layout)
+        self.vBox.addWidget(self.table)
+        self.vBox.addWidget(self.file_select)
+        self.setLayout(self.vBox)
+ 
         self.setGeometry(0, 0, 800, 500)
 
 
-"""
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     tab = TableView()
     tab.show()
     sys.exit(qApp.exec_())
-"""
+

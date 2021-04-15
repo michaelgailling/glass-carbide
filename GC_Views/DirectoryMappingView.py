@@ -20,11 +20,11 @@ class DirectoryMappingView(QFrame):
     def __init__(self, parent=None):
         super(DirectoryMappingView, self).__init__(parent)
 
-        self.mainPath = LabeledDirectoryInput(self, label_text="Project Directory")
-        self.assetPath = LabeledDirectoryInput(self, label_text="Assets")
-        self.episodePath = LabeledDirectoryInput(self, label_text="Episodes")
-        self.animaticsPath = LabeledDirectoryInput(self, label_text="Animatics")
-        self.soundsPath = LabeledDirectoryInput(self, label_text="Sounds")
+        self.mainPath = LabeledDirectoryInput(self, label_text="Project Directory: ")
+        self.assetPath = LabeledDirectoryInput(self, label_text="Assets: ")
+        self.episodePath = LabeledDirectoryInput(self, label_text="Episodes: ")
+        self.animaticsPath = LabeledDirectoryInput(self, label_text="Animatics: ")
+        self.soundsPath = LabeledDirectoryInput(self, label_text="Sounds: ")
 
         self.main_layout = QVBoxLayout()
 
