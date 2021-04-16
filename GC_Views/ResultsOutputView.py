@@ -30,12 +30,12 @@ class ResultsOutputView(QFrame):
         # Combo Boxes
         self.episodeBox = QComboBox(self)
         self.episodeBox.addItem("Select Episode   ...")
-        self.episodeBox.setStyleSheet('background-color:white;padding:5 5 ')
+        self.episodeBox.setStyleSheet('background-color:white;padding:6 6')
         self.softwareBox = QComboBox(self)
         self.softwareBox.addItem("Select Software   ...")
-        self.softwareBox.setStyleSheet('background-color:white;padding:5 5 ')
+        self.softwareBox.setStyleSheet('background-color:white;padding:6 6')
         self.comboBox = QVBoxLayout()
-        self.comboBox.setSpacing(10)
+        self.comboBox.setSpacing(15)
 
         # Results Display
         self.resultFrame = QFrame()
