@@ -12,11 +12,12 @@
 import sys
 from PySide2.QtGui import QIcon, Qt, QGuiApplication
 from PySide2.QtWidgets import QApplication, QTabWidget, QMainWindow, QAction, QFrame, QStatusBar, QDesktopWidget, \
-    QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QGridLayout, QFileDialog
+    QPushButton, QVBoxLayout, QHBoxLayout, QLabel
 from requests import *
 from TableView import TableView
 from HomeView import HomeView
 from DirectoryMappingView import DirectoryMappingView
+from ResultsOutputView import ResultsOutputView
 
 
 class TabView(QFrame):
@@ -29,10 +30,6 @@ class TabView(QFrame):
         self.tabWidget.setStyleSheet("QTabBar::tab { height: 25%; width: 244%;\n"
                                      "border: 2px solid rgb(0, 0, 205); background-color: rgb(255, 255, 255);\n"
                                      "color: rgb(0, 0, 205); border-bottom:none; margin-left: 2px;}")
-
-        # Undeveloped Step 3 Screen
-        self.step3 = QFrame()
-        self.tabWidget.insertTab(2, self.step3, "Step 3")
 
         self.layout.addWidget(self.tabWidget)
         self.setLayout(self.layout)
@@ -119,11 +116,13 @@ if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     home = HomeView()
     table = TableView()
+    preview = ResultsOutputView()
     tabs = TabView()
     directory = DirectoryMappingView()
     tabs.set_tab_frame(home, 0)
     tabs.set_tab_frame(table, 1)
+    tabs.set_tab_frame(preview, 2)
     mainBase = MainView(tabs)
     mainBase.show()
-    directory.show()
+    # directory.show()
     sys.exit(qApp.exec_())

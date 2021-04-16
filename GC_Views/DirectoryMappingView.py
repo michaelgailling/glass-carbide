@@ -34,3 +34,4 @@ class DirectoryMappingView(QFrame):
         self.main_layout.addWidget(self.animaticsPath)
         self.main_layout.addWidget(self.soundsPath)
         self.setLayout(self.main_layout)
+
