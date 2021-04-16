@@ -126,6 +126,14 @@ class MainView(QMainWindow):
     def continue_clicked(self):
         if tabs.tabWidget.currentIndex() < 2:
             tabs.tabWidget.setCurrentIndex(tabs.tabWidget.currentIndex() + 1)
+        else:
+            msg = QMessageBox()
+            msg.setWindowTitle("Are you sure?")
+            msg.setText("Open { Project Name } in { Software }?")
+            msg.setIcon(QMessageBox.Information)
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+            msg.exec_()
 
     def cancel_clicked(self):
         if tabs.tabWidget.currentIndex() >= 1:

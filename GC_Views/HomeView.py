@@ -32,20 +32,20 @@ class HomeView(QFrame):
 
         # Buttons
         self.newBtn = QPushButton("New")
-        self.newBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100; padding:2")
+        self.newBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
         self.newBtn.clicked.connect(lambda: self.set_frame_index(1))
         self.openBtn = QPushButton("Open")
-        self.openBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100; padding:2")
+        self.openBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
         self.openBtn.clicked.connect(lambda: self.set_frame_index(2))
         self.saveBtn = QPushButton("Save")
-        self.saveBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100; padding:2")
+        self.saveBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
         self.saveBtn.clicked.connect(lambda: self.set_frame_index(2))
         self.mysteryBtn = QPushButton("???")
-        self.mysteryBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 100; padding:2")
+        self.mysteryBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
         self.mysteryBtn.clicked.connect(lambda: self.set_frame_index(0))
         self.exitBtn = QPushButton("Exit")
         self.exitBtn.setStyleSheet("color:rgb(85,0,255); background-color:rgb(255,255,255);\n"
-                                   " border:2px solid rgb(85,0,255);margin:1 100; padding:2")
+                                   " border:2px solid rgb(85,0,255);margin:1 80; padding:2 20")
         self.exitBtn.clicked.connect(lambda: self.topLevelWidget().close())
 
         # Logo Picture will be contained in a Label
