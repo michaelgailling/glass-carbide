@@ -28,6 +28,7 @@ class TableView(QFrame):
         super(TableView, self).__init__(parent)
         self.vBox = QVBoxLayout()
         # Table
+       
         self.table = DataTable(self, 5, 5)
         # Labeled File Input
         self.lfi_file_select = LabeledFileInput(self, label_text="Select CSV", file_type="CSV Format (*.csv)")
@@ -39,6 +40,7 @@ class TableView(QFrame):
         self.vBox.addWidget(self.lfi_file_select)
         self.vBox.addWidget(self.btn_load_file)
         self.setLayout(self.vBox)
+ 
         self.setGeometry(0, 0, 800, 500)
 
     def load_file(self):
