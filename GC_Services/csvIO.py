@@ -12,54 +12,49 @@
 
 
 import asyncio
-
+import csv
 from PySide2.QtWidgets import QFileDialog
 
 
-class CsvIO:
-
+class CsvIo:
     def __init__(self):
-        self.data = []
+        self.data = [[""]]
 
-    def open_csv(self):
-        asyncio.run(self.read_csv())
+    def import_data(self, file_path="", log_data=False):
+        self.load(file_path)
+        self.handler_headers()
+        if log_data:
+            self.log_data()
+        return self.data
 
-    async def read_csv(self):
-        """open_csv
-            Purpose:
-                Opens and reads csv file into the data array attribute
-            Parameters:
-                self
-            Returns:
-                None
+    def load(self, file_path=""):
+        file = open(file_path, "rt", encoding="utf8")
+        file_data = csv.reader(file)
 
-        """
-        # Get file path and open file in read mode
-        file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\", 'CSV Format (*.csv)')
-        filepath = file_name[0]
-        csv_file = open(filepath, "r")
-
-        # Grab first two lines as headers
-        line = csv_file.readline().split(",")
-        line.pop()
-        self.headers.append(line)
-
-        line = csv_file.readline().split(",")
-        line.pop()
-        self.headers.append(line)
-
-        # Dump the rest into the data array
-        while (line := csv_file.readline()) != "":
-            row = line.replace("\n", "").split(",")
+        for row in file_data:
             self.data.append(row)
 
-        csv_file.close()
+        self.handler_headers()
+
+        file.close()
+
+    def handler_headers(self):
+        empty = 0
+        total = len(self.data[0])
+
+        for column in self.data[0]:
+            if not column:
+                empty += 1
+
+        probability = empty/total
+
+        if probability > .5:
+            self.data.pop(0)
+
+    def log_data(self):
+        for row in self.data:
+            print(row)
 
 
-
-
-
-
-
-
-
+csv_handler = CsvIo()
+csv_handler.import_data("../Asset-2.csv", True)
