@@ -57,10 +57,10 @@ class CsvIo:
 
     def trim_columns(self):
         temp_data = self.data
-        for i in range(0, len(temp_data[0])):
-            if not temp_data[0][i]:
+        for column in range(0, len(temp_data[0])):
+            if not temp_data[0][column]:
                 for row in self.data:
-                    row.pop(i)
+                    row.pop(column)
 
     def log_data(self):
         for row in self.data:
