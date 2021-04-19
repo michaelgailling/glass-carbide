@@ -7,11 +7,11 @@ class DataTable(QFrame):
     """Labeled Input
 
         Summary:
-            A class for a data that includes:
+            A class for a data table that includes:
 
-            -Method for altering bg color
+            -Method for altering cell bg color
 
-            -Method for altering text color
+            -Method for altering cell text color
 
             -Method for setting and getting cell values
 
@@ -217,5 +217,6 @@ if __name__ == '__main__':
     tab.set_cell_contents(0, 0, "Hello")
     tab.set_cell_color(0, 0, "red")
     tab.set_cell_contents(1, 0, "World")
+    tab.set_cell_color(1, 0, "Green")
     tab.show()
     sys.exit(qApp.exec_())

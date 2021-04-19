@@ -11,14 +11,10 @@
 #
 import asyncio
 import sys
-import csv
-from PySide2 import QtCore
 
-import config
+from GC_Config import main_config
 from PySide2.QtGui import QIcon, QPixmap
-from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
-    QSplitter, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, QLabel, QMessageBox
-from requests import *
+from PySide2.QtWidgets import QApplication, QWidget, QMainWindow, QAction, QFrame, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, QLabel, QMessageBox
 
 from GC_Views.DirectoryMappingView import DirectoryMappingView
 
@@ -45,7 +41,7 @@ class LogoView(QFrame):
         super(LogoView, self).__init__(parent)
 
         self.logo = QLabel(self)
-        pixmap = QPixmap('octo.png')
+        pixmap = QPixmap('GC_Images/octo.png')
 
         self.logo.setPixmap(QPixmap(pixmap))
         self.logo.resize(100, 100)
@@ -89,9 +85,9 @@ class AppWindow(QMainWindow):
         self.logo = LogoView()
 
         # Set window parameters
-        main_config = config.MainWindow()
-        self.setWindowTitle(main_config.title)
-        self.setGeometry(main_config.left, main_config.top, main_config.width, main_config.height)
+        self.config = main_config.MainWindow()
+        self.setWindowTitle(self.config.title)
+        self.setGeometry(self.config.left, self.config.top, self.config.width, self.config.height)
 
         # Set Central Widget
         self.init_ui()
@@ -283,6 +279,5 @@ if __name__ == '__main__':
 
     dmv = DirectoryMappingView()
     dmv.show()
-
 
     sys.exit(qApp.exec_())
