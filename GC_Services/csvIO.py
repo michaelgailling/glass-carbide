@@ -25,6 +25,8 @@ class CsvIo:
         if handle_header:
             self.handler_headers()
 
+        self.trim_columns()
+
         if log_data:
             self.log_data()
 
@@ -52,6 +54,13 @@ class CsvIo:
                 empty += 1
 
         return empty / total
+
+    def trim_columns(self):
+        temp_data = self.data
+        for i in range(0, len(temp_data[0])):
+            if not temp_data[0][i]:
+                for row in self.data:
+                    row.pop(i)
 
     def log_data(self):
         for row in self.data:
