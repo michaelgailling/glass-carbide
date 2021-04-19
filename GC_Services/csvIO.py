@@ -57,8 +57,11 @@ class CsvIo:
 
     def trim_columns(self):
         temp_data = self.data
+
         for column in range(0, len(temp_data[0])):
+
             if not temp_data[0][column]:
+
                 for row in self.data:
                     row.pop(column)
 
