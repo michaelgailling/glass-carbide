@@ -17,11 +17,13 @@ import csv
 
 class CsvIo:
     def __init__(self):
-        self.data = [[""]]
+        self.data = []
 
-    def import_data(self, file_path="", log_data=False):
+    def import_data(self, file_path="", handle_header=True, log_data=False):
         asyncio.run(self.load(file_path))
-        self.handler_headers()
+
+        if handle_header:
+            self.handler_headers()
 
         if log_data:
             self.log_data()
@@ -57,4 +59,4 @@ class CsvIo:
 
 
 csv_handler = CsvIo()
-csv_handler.import_data("../Asset-2.csv", True)
+csv_handler.import_data("../Asset-2.csv", log_data=True)
