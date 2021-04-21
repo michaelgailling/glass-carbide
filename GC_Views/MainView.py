@@ -25,13 +25,15 @@ class TabView(QFrame):
         super(TabView, self).__init__(parent)
         self.layout = QVBoxLayout(self)
 
+        self.dir = ""
+
         # Views for tabs
         self.homeView = HomeView()
         self.tableView = TableView()
         self.previewView = ResultsOutputView()
 
         # Tab Widget
-        self.tabWidget = QTabWidget()
+        self.tabWidget = QTabWidget(self)
         self.tabWidget.setStyleSheet("QTabBar::tab { height: 25%; width: 244%;\n"
                                      "border: 2px solid rgb(0, 0, 205); background-color: rgb(255, 255, 255);\n"
                                      "color: rgb(0, 0, 205); border-bottom:none; margin-left: 2px;}")
@@ -49,12 +51,17 @@ class TabView(QFrame):
         self.tabWidget.insertTab(index_num, frame, f"Step {index_num + 1}")
         self.tabWidget.setCurrentIndex(0)
 
+    def dir_getter(self):
+        self.dir = self.homeView.mappingView.get_dir_path()
+        self.tableView.lfi_file_select.set_input_text(self.dir)
+
 
 class MainView(QMainWindow):
     def __init__(self, tab_widget: QTabWidget, parent=None):
         super(MainView, self).__init__(parent)
         self.layout = QVBoxLayout()
         self.tabWidget = QFrame()
+        self.tab_widget = TabView()
 
         # Menu Bar
         self.main_menu = self.menuBar()
@@ -105,7 +112,7 @@ class MainView(QMainWindow):
         self.btnBox.addWidget(self.continueBtn)
 
         # Main window
-        self.layout.addWidget(tab_widget)
+        self.layout.addWidget(self.tab_widget)
         self.layout.addItem(self.btnBox)
         self.tabWidget.setLayout(self.layout)
         self.setCentralWidget(self.tabWidget)
@@ -124,20 +131,21 @@ class MainView(QMainWindow):
         # self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
     def continue_clicked(self):
-        if tabs.tabWidget.currentIndex() < 2:
-            tabs.tabWidget.setCurrentIndex(tabs.tabWidget.currentIndex() + 1)
+        if self.tab_widget.homeView.mappingView.get_dir_path():
+            self.tab_widget.dir_getter()
+        if self.tab_widget.tabWidget.currentIndex() < 2:
+            self.tab_widget.tabWidget.setCurrentIndex(self.tab_widget.tabWidget.currentIndex() + 1)
         else:
             msg = QMessageBox()
             msg.setWindowTitle("Are you sure?")
             msg.setText("Open { Project Name } in { Software }?")
             msg.setIcon(QMessageBox.Information)
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-
             msg.exec_()
 
     def cancel_clicked(self):
-        if tabs.tabWidget.currentIndex() >= 1:
-            tabs.tabWidget.setCurrentIndex(tabs.tabWidget.currentIndex() - 1)
+        if self.tab_widget.tabWidget.currentIndex() >= 1:
+            self.tab_widget.tabWidget.setCurrentIndex(self.tab_widget.tabWidget.currentIndex() - 1)
         else:
             msg = QMessageBox()
             msg.setWindowTitle("Save your progress?")

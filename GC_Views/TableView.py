@@ -49,6 +49,7 @@ class TableView(QFrame):
         self.setGeometry(0, 0, 800, 500)
 
     def load_file(self):
+        self.csv_handler.data.clear()
         input_path = self.lfi_file_select.get_input_text()
 
         if input_path:
