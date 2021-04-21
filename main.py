@@ -17,38 +17,7 @@ from PySide2.QtGui import QIcon, QPixmap
 from PySide2.QtWidgets import QApplication, QWidget, QMainWindow, QAction, QFrame, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, QLabel, QMessageBox
 
 from GC_Views.DirectoryMappingView import DirectoryMappingView
-
-
-class InfoView(QFrame):
-    def __init__(self, parent=None):
-        super(InfoView, self).__init__(parent)
-
-        # self.IVWV = IVWebView(parent=self, url="https://www.google.com/")
-        # self.page = self.IVWV.page()
-        # self.source_text = QPlainTextEdit()
-
-        self.mainViewSplitter.addWidget(AppWindow())
-        self.mainViewSplitter.addWidget(AppWindow())
-
-        self.main_layout = QVBoxLayout()
-
-        # self.main_layout.addWidget(self.mainViewSplitter)
-        self.setLayout(self.main_layout)
-
-
-class LogoView(QFrame):
-    def __init__(self, parent=None):
-        super(LogoView, self).__init__(parent)
-
-        self.logo = QLabel(self)
-        pixmap = QPixmap('GC_Images/octo.png')
-
-        self.logo.setPixmap(QPixmap(pixmap))
-        self.logo.resize(100, 100)
-        self.main_layout = QVBoxLayout()
-
-        self.main_layout.addWidget(self.logo)
-        self.setLayout(self.main_layout)
+from GC_Views.LogoView import LogoView
 
 
 class AppWindow(QMainWindow):

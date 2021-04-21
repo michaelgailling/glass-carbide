@@ -42,7 +42,7 @@ class CsvIo:
         file.close()
 
     def handler_headers(self):
-        if self.calc_prob() > .5:
+        if self.calc_prob() > 0.5:
             self.data.pop(0)
 
     def calc_prob(self):
@@ -70,5 +70,4 @@ class CsvIo:
             print(row)
 
 
-csv_handler = CsvIo()
-csv_handler.import_data("../Asset-2.csv", log_data=True)
+

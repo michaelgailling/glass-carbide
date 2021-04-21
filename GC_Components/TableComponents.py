@@ -1,3 +1,4 @@
+import asyncio
 import sys
 from PySide2.QtGui import QColor
 from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetItem, QApplication
@@ -41,7 +42,7 @@ class DataTable(QFrame):
             log_cell(self, x, y)
                 Prints info about the specified cell
     """
-    def __init__(self, parent=None, width=0, height=0):
+    def __init__(self, parent=None, width=0, height=0, log_data=False):
         """
         Constructs all the necessary attributes for the Data Table object.
 
@@ -55,14 +56,19 @@ class DataTable(QFrame):
         """
         super(DataTable, self).__init__(parent)
         self.table = QTableWidget()
-        self.table.setColumnCount(width)
-        self.table.setRowCount(height)
-        self.table.cellChanged.connect(self.cell_changed)
+        self.set_dimensions(width, height)
+
+        if log_data:
+            self.table.cellChanged.connect(self.cell_changed)
 
         self.vbox = QVBoxLayout()
         self.vbox.addWidget(self.table)
 
         self.setLayout(self.vbox)
+
+    def set_dimensions(self, width, height):
+        self.table.setColumnCount(width)
+        self.table.setRowCount(height)
 
     def cell_changed(self, y, x):
         """
@@ -79,7 +85,7 @@ class DataTable(QFrame):
         -------
         None
         """
-        self.log_cell(x, y)
+        asyncio.run(self.log_cell(x, y))
 
     def set_cell_color(self, x=0, y=0, color="white"):
         """
@@ -158,7 +164,7 @@ class DataTable(QFrame):
         text_content = self.table.item(y, x).text()
         return text_content
 
-    def log_cell(self, x, y):
+    async def log_cell(self, x, y):
         """
         Method for logging the current state of a cell to console
 

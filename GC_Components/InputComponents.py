@@ -11,7 +11,7 @@
 #
 
 
-from PySide2.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog
+from PySide2.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog, QApplication
 
 
 # Composite Text Input Elements
@@ -49,14 +49,15 @@ class LabeledInput(QFrame):
         self.label = QLabel(self, text=label_text)
 
         self.input = QLineEdit(self)
-        self.input.text = input_text
+        self.input.setText(input_text)
 
         self.hBox = QHBoxLayout()
         self.hBox.addWidget(self.label)
         self.hBox.addWidget(self.input)
 
     def get_input_text(self):
-        return self.input.text
+        text = self.input.text()
+        return text
 
     def set_input_text(self, value):
         self.input.setText(str(value))
@@ -96,7 +97,7 @@ class DirectoryInput(QFrame):
         super(DirectoryInput, self).__init__(parent)
 
         self.input = QLineEdit(self)
-        self.input.text = input_text
+        self.input.setText(input_text)
 
         self.fileDialogButton = QPushButton(self, text="...")
         self.fileDialogButton.clicked.connect(self.open_directory_dialog)
@@ -108,7 +109,8 @@ class DirectoryInput(QFrame):
         self.setLayout(self.hBox)
 
     def get_input_text(self):
-        return self.input.text
+        text = self.input.text()
+        return text
 
     def set_input_text(self, value):
         self.input.setText(str(value))
@@ -159,7 +161,7 @@ class LabeledDirectoryInput(QFrame):
         self.label = QLabel(self, text=label_text)
 
         self.input = QLineEdit(self)
-        self.input.text = input_text
+        self.input.setText(input_text)
 
         self.fileDialogButton = QPushButton(self, text="...")
         self.fileDialogButton.clicked.connect(self.open_directory_dialog)
@@ -172,7 +174,8 @@ class LabeledDirectoryInput(QFrame):
         self.setLayout(self.hBox)
 
     def get_input_text(self):
-        return self.input.text
+        text = self.input.text()
+        return text
 
     def set_input_text(self, value):
         self.input.setText(str(value))
@@ -219,7 +222,7 @@ class FileInput(QFrame):
         self.file_type = file_type
 
         self.input = QLineEdit(self)
-        self.input.text = input_text
+        self.input.setText(input_text)
 
         self.fileDialogButton = QPushButton("...")
         self.fileDialogButton.clicked.connect(self.open_file_dialog)
@@ -231,7 +234,8 @@ class FileInput(QFrame):
         self.setLayout(self.hBox)
 
     def get_input_text(self):
-        return self.input.text
+        text = self.input.text()
+        return text
 
     def set_input_text(self, value):
         self.input.setText(str(value))
@@ -288,7 +292,7 @@ class LabeledFileInput(QFrame):
         self.label = QLabel(self, text=label_text)
 
         self.input = QLineEdit(self)
-        self.input.text = input_text
+        self.input.setText(input_text)
 
         self.fileDialogButton = QPushButton("...")
         self.fileDialogButton.clicked.connect(self.open_file_dialog)
@@ -301,7 +305,8 @@ class LabeledFileInput(QFrame):
         self.setLayout(self.hBox)
 
     def get_input_text(self):
-        return self.input.text
+        text = self.input.text()
+        return text
 
     def set_input_text(self, value):
         self.input.setText(str(value))
@@ -314,4 +319,3 @@ class LabeledFileInput(QFrame):
             file_path = file_dialog.getOpenFileName(self, "Select File")
 
         self.set_input_text(file_path[0])
-
