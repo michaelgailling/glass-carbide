@@ -51,3 +51,5 @@ class DirectoryMappingView(QFrame):
         self.mainPath.set_input_text(directory_path)
         return directory_path
 
+    def get_dir_path(self):
+        return self.dir_path

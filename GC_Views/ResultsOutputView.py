@@ -10,12 +10,8 @@
 # WIMTACH
 #
 import sys
-from PySide2 import QtCore
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QIcon, QPixmap
-from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QComboBox, QFrame, \
-    QPushButton, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, QLabel, QGridLayout
-from TableView import TableView
+from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLabel, QGridLayout
 
 
 class ResultsOutputView(QFrame):
