@@ -10,12 +10,8 @@
 # WIMTACH
 #
 import sys
-from PySide2 import QtCore
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QIcon, QPixmap
-from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, \
-    QPushButton, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, QLabel, QStackedWidget
-from TableView import TableView
+from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget
 from DirectoryMappingView import DirectoryMappingView
 from ServerSelectionView import ServerSelectionView
 

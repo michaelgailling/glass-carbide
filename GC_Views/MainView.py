@@ -10,57 +10,17 @@
 # WIMTACH
 #
 import sys
-from PySide2.QtGui import QIcon, Qt, QGuiApplication
-from PySide2.QtWidgets import QApplication, QTabWidget, QMainWindow, QAction, QFrame, QStatusBar, QDesktopWidget, \
-    QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QMessageBox
-from requests import *
-from TableView import TableView
-from HomeView import HomeView
-from DirectoryMappingView import DirectoryMappingView
-from ResultsOutputView import ResultsOutputView
-
-
-class TabView(QFrame):
-    def __init__(self, parent=None):
-        super(TabView, self).__init__(parent)
-        self.layout = QVBoxLayout(self)
-
-        self.dir = ""
-
-        # Views for tabs
-        self.homeView = HomeView()
-        self.tableView = TableView()
-        self.previewView = ResultsOutputView()
-
-        # Tab Widget
-        self.tabWidget = QTabWidget(self)
-        self.tabWidget.setStyleSheet("QTabBar::tab { height: 25%; width: 244%;\n"
-                                     "border: 2px solid rgb(0, 0, 205); background-color: rgb(255, 255, 255);\n"
-                                     "color: rgb(0, 0, 205); border-bottom:none; margin-left: 2px;}")
-
-        # Setting views in tabs
-        self.set_tab_frame(self.homeView, 0)
-        self.set_tab_frame(self.tableView, 1)
-        self.set_tab_frame(self.previewView, 2)
-
-        self.layout.addWidget(self.tabWidget)
-        self.setLayout(self.layout)
-        self.setGeometry(0, 0, 800, 400)
-
-    def set_tab_frame(self, frame: QFrame, index_num: int):
-        self.tabWidget.insertTab(index_num, frame, f"Step {index_num + 1}")
-        self.tabWidget.setCurrentIndex(0)
-
-    def dir_getter(self):
-        self.dir = self.homeView.mappingView.get_dir_path()
-        self.tableView.lfi_file_select.set_input_text(self.dir)
+from PySide2.QtGui import QIcon
+from PySide2.QtWidgets import QApplication, QMainWindow, QAction, QFrame, QStatusBar, QPushButton, QVBoxLayout, \
+    QHBoxLayout, QLabel, QMessageBox
+from TabView import TabView
 
 
 class MainView(QMainWindow):
-    def __init__(self, tab_widget: QTabWidget, parent=None):
+    def __init__(self, parent=None):
         super(MainView, self).__init__(parent)
         self.layout = QVBoxLayout()
-        self.tabWidget = QFrame()
+        self.tabFrame = QFrame()
         self.tab_widget = TabView()
 
         # Menu Bar
@@ -114,8 +74,8 @@ class MainView(QMainWindow):
         # Main window
         self.layout.addWidget(self.tab_widget)
         self.layout.addItem(self.btnBox)
-        self.tabWidget.setLayout(self.layout)
-        self.setCentralWidget(self.tabWidget)
+        self.tabFrame.setLayout(self.layout)
+        self.setCentralWidget(self.tabFrame)
         self.setWindowTitle("Glass Carbide")
         self.setGeometry(100, 100, 800, 600)
         self.setStyleSheet("background-color: white")
@@ -158,8 +118,7 @@ class MainView(QMainWindow):
 
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
-    tabs = TabView()
-    mainBase = MainView(tabs)
+    mainBase = MainView()
     mainBase.show()
     # directory.show()
     sys.exit(qApp.exec_())

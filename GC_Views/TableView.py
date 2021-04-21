@@ -9,15 +9,8 @@
 # Organization:
 # WIMTACH
 #
-import asyncio
 import sys
-import csv
-from PySide2 import QtCore
-from PySide2.QtCore import Qt
-from PySide2.QtGui import QIcon, QPixmap
-from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
-    QPushButton, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, QLabel, QMessageBox
-from requests import *
+from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem
 
 from GC_Components.InputComponents import LabeledFileInput
 from GC_Components.TableComponents import DataTable
