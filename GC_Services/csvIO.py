@@ -12,54 +12,62 @@
 
 
 import asyncio
+import csv
 
-from PySide2.QtWidgets import QFileDialog
 
-
-class CsvIO:
-
+class CsvIo:
     def __init__(self):
         self.data = []
 
-    def open_csv(self):
-        asyncio.run(self.read_csv())
+    def import_data(self, file_path="", handle_header=True, log_data=False):
+        asyncio.run(self.load(file_path))
 
-    async def read_csv(self):
-        """open_csv
-            Purpose:
-                Opens and reads csv file into the data array attribute
-            Parameters:
-                self
-            Returns:
-                None
+        if handle_header:
+            self.handler_headers()
 
-        """
-        # Get file path and open file in read mode
-        file_name = QFileDialog.getOpenFileName(self, "Open CSV Files", "c\\", 'CSV Format (*.csv)')
-        filepath = file_name[0]
-        csv_file = open(filepath, "r")
+        self.trim_columns()
 
-        # Grab first two lines as headers
-        line = csv_file.readline().split(",")
-        line.pop()
-        self.headers.append(line)
+        if log_data:
+            self.log_data()
 
-        line = csv_file.readline().split(",")
-        line.pop()
-        self.headers.append(line)
+        return self.data
 
-        # Dump the rest into the data array
-        while (line := csv_file.readline()) != "":
-            row = line.replace("\n", "").split(",")
+    async def load(self, file_path=""):
+        file = open(file_path, "rt", encoding="utf8")
+        file_data = csv.reader(file)
+
+        for row in file_data:
             self.data.append(row)
 
-        csv_file.close()
+        file.close()
 
+    def handler_headers(self):
+        if self.calc_prob() > 0.5:
+            self.data.pop(0)
 
+    def calc_prob(self):
+        empty = 0
+        total = len(self.data[0])
 
+        for column in self.data[0]:
+            if not column:
+                empty += 1
 
+        return empty / total
 
+    def trim_columns(self):
+        temp_data = self.data
 
+        for column in range(0, len(temp_data[0])):
+
+            if not temp_data[0][column]:
+
+                for row in self.data:
+                    row.pop(column)
+
+    def log_data(self):
+        for row in self.data:
+            print(row)
 
 
 
