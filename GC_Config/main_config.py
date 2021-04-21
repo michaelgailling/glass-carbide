@@ -1,6 +1,6 @@
 
 # Main Window Class
-class MainWindow():
+class MainWindow:
     def __init__(self):
         self.title = "Glass Carbide"
         self.top = 100
