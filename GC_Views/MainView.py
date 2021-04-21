@@ -12,10 +12,12 @@
 import sys
 from PySide2.QtGui import QIcon, Qt, QGuiApplication
 from PySide2.QtWidgets import QApplication, QTabWidget, QMainWindow, QAction, QFrame, QStatusBar, QDesktopWidget, \
-    QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QGridLayout, QFileDialog
+    QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QMessageBox
 from requests import *
 from TableView import TableView
 from HomeView import HomeView
+from DirectoryMappingView import DirectoryMappingView
+from ResultsOutputView import ResultsOutputView
 
 
 class TabView(QFrame):
@@ -23,15 +25,21 @@ class TabView(QFrame):
         super(TabView, self).__init__(parent)
         self.layout = QVBoxLayout(self)
 
+        # Views for tabs
+        self.homeView = HomeView()
+        self.tableView = TableView()
+        self.previewView = ResultsOutputView()
+
         # Tab Widget
         self.tabWidget = QTabWidget()
         self.tabWidget.setStyleSheet("QTabBar::tab { height: 25%; width: 244%;\n"
                                      "border: 2px solid rgb(0, 0, 205); background-color: rgb(255, 255, 255);\n"
                                      "color: rgb(0, 0, 205); border-bottom:none; margin-left: 2px;}")
 
-        # Undeveloped Step 3 Screen
-        self.step3 = QFrame()
-        self.tabWidget.insertTab(2, self.step3, "Step 3")
+        # Setting views in tabs
+        self.set_tab_frame(self.homeView, 0)
+        self.set_tab_frame(self.tableView, 1)
+        self.set_tab_frame(self.previewView, 2)
 
         self.layout.addWidget(self.tabWidget)
         self.setLayout(self.layout)
@@ -87,8 +95,10 @@ class MainView(QMainWindow):
         self.btnBox = QHBoxLayout()
         self.continueBtn = QPushButton("Continue")
         self.continueBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 23;padding:3")
+        self.continueBtn.clicked.connect(self.continue_clicked)
         self.cancelBtn = QPushButton("Cancel")
         self.cancelBtn.setStyleSheet("margin:1 23;color:rgb(85,0,255); background-color:rgb(255,255,255);padding:3;border:2px solid rgb(85,0,255);")
+        self.cancelBtn.clicked.connect(self.cancel_clicked)
         self.btnBox.addWidget(self.statLbl)
         self.btnBox.addWidget(self.statLbl)
         self.btnBox.addWidget(self.cancelBtn)
@@ -113,14 +123,35 @@ class MainView(QMainWindow):
         # size = self.geometry()
         # self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
+    def continue_clicked(self):
+        if tabs.tabWidget.currentIndex() < 2:
+            tabs.tabWidget.setCurrentIndex(tabs.tabWidget.currentIndex() + 1)
+        else:
+            msg = QMessageBox()
+            msg.setWindowTitle("Are you sure?")
+            msg.setText("Open { Project Name } in { Software }?")
+            msg.setIcon(QMessageBox.Information)
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+
+            msg.exec_()
+
+    def cancel_clicked(self):
+        if tabs.tabWidget.currentIndex() >= 1:
+            tabs.tabWidget.setCurrentIndex(tabs.tabWidget.currentIndex() - 1)
+        else:
+            msg = QMessageBox()
+            msg.setWindowTitle("Save your progress?")
+            msg.setText("Would you like to save your progress?")
+            msg.setIcon(QMessageBox.Warning)
+            msg.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Close)
+
+            msg.exec_()
+
 
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
-    home = HomeView()
-    table = TableView()
     tabs = TabView()
-    tabs.set_tab_frame(home, 0)
-    tabs.set_tab_frame(table, 1)
     mainBase = MainView(tabs)
     mainBase.show()
+    # directory.show()
     sys.exit(qApp.exec_())
