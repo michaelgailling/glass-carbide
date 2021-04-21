@@ -314,7 +314,7 @@ class LabeledFileInput(QFrame):
     def open_file_dialog(self):
         file_dialog = QFileDialog()
         if self.file_type:
-            file_path = file_dialog.getOpenFileName(self, "Select File", filter=self.file_type)
+            file_path = file_dialog.getOpenFileName(self, "Select File", self.get_input_text(), filter=self.file_type)
         else:
             file_path = file_dialog.getOpenFileName(self, "Select File")
 
