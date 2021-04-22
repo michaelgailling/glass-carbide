@@ -10,6 +10,7 @@
 # WIMTACH
 #
 import sys
+from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem
 
 from GC_Components.InputComponents import LabeledFileInput
@@ -30,13 +31,15 @@ class TableView(QFrame):
         self.lfi_file_select = LabeledFileInput(self, label_text="Select CSV", file_type="CSV Format (*.csv)")
 
         # Load Button
-        self.btn_load_file = QPushButton("Load File")
+        self.btn_load_file = QPushButton("Load To Table")
+        self.btn_load_file.setStyleSheet("background-color:blue;color:white;padding:10;border : 2px solid blue;"
+                                         "border-radius:20px")
         self.btn_load_file.clicked.connect(self.load_file)
 
         # Layout loading
         self.vBox.addWidget(self.dt_table)
         self.vBox.addWidget(self.lfi_file_select)
-        self.vBox.addWidget(self.btn_load_file)
+        self.vBox.addWidget(self.btn_load_file, alignment=Qt.AlignHCenter)
         self.setLayout(self.vBox)
  
         self.setGeometry(0, 0, 800, 500)

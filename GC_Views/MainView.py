@@ -56,15 +56,18 @@ class MainView(QMainWindow):
         # Status Bar
         self.statusBar = QStatusBar()
         self.statLbl = QLabel("")
-        self.statusBar.showMessage("This is an status message.", 5000)
+        self.statusBar.showMessage("This is a status message.", 5000)
+        self.setStatusBar(self.statusBar)
 
         # Buttons Container
         self.btnBox = QHBoxLayout()
         self.continueBtn = QPushButton("Continue")
-        self.continueBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 23;padding:3")
+        self.continueBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 23;padding:10;"
+                                       "border:2px solid blue;border-radius:20px")
         self.continueBtn.clicked.connect(self.continue_clicked)
         self.cancelBtn = QPushButton("Cancel")
-        self.cancelBtn.setStyleSheet("margin:1 23;color:rgb(85,0,255); background-color:rgb(255,255,255);padding:3;border:2px solid rgb(85,0,255);")
+        self.cancelBtn.setStyleSheet("margin:1 23;color:rgb(85,0,255); background-color:rgb(255,255,255);"
+                                     "padding:10;border:2px solid blue;border-radius:20px")
         self.cancelBtn.clicked.connect(self.cancel_clicked)
         self.btnBox.addWidget(self.statLbl)
         self.btnBox.addWidget(self.statLbl)
