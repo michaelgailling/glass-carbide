@@ -10,7 +10,7 @@
 # WIMTACH
 #
 import sys
-from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem
+from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem, QCheckBox, QComboBox
 
 from GC_Components.InputComponents import LabeledFileInput
 from GC_Components.TableComponents import DataTable
@@ -24,7 +24,8 @@ class TableView(QFrame):
         self.csv_handler = CsvIo()
 
         # Table
-        self.dt_table = DataTable(self, 5, 5)
+        self.dt_table = DataTable(self)
+        self.column_definitions = []
 
         # Labeled File Input
         self.lfi_file_select = LabeledFileInput(self, label_text="Select CSV", file_type="CSV Format (*.csv)")
@@ -48,19 +49,36 @@ class TableView(QFrame):
         if input_path:
             self.csv_handler.import_data(input_path)
 
-            csv_headers = self.csv_handler.data[0]
-            csv_data = self.csv_handler.data[1:]
+            csv_headers = []
+            csv_data = []
+            csv_headers = self.csv_handler.data.pop(0)
+            csv_headers.insert(0, "Select")
+            csv_data = self.csv_handler.data
 
             width = len(csv_data[0])
             height = len(csv_data)
 
             self.dt_table.set_dimensions(width, height)
-            self.dt_table.table.setHorizontalHeaderLabels(csv_headers)
 
-            for y in range(len(csv_data)):
-                for x in range(len(csv_data[y])):
-                    cell = QTableWidgetItem(csv_data[y][x])
-                    self.dt_table.table.setItem(y, x, cell)
+            self.dt_table.load_data(csv_data)
+
+            combobox = QComboBox()
+            combobox.addItems(["None", "File Name", "Asset Path"])
+            self.dt_table.insert_control_row("combobox", 0)
+
+            self.dt_table.insert_control_column("checkbox", 1)
+
+            self.dt_table.set_headers(csv_headers)
+            # for x in range(width+1):
+            #     combobox = QComboBox(self)
+            #     combobox.addItems(["None", "File Name", "Asset Path"])
+            #     self.dt_table.set_cell_widget(combobox, x+1, 0)
+
+            # for y in range(height+1):
+            #     checkbox = QCheckBox(self)
+            #     self.dt_table.set_cell_widget(checkbox, 0, y+1)
+
+
 
 
 if __name__ == '__main__':

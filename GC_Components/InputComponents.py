@@ -117,7 +117,7 @@ class DirectoryInput(QFrame):
 
     def open_directory_dialog(self):
         directory_dialog = QFileDialog()
-        directory_path = directory_dialog.getExistingDirectory(self, "Select a Directory")
+        directory_path = directory_dialog.getExistingDirectory(self, "Select a Directory", self.get_input_text())
         self.set_input_text(directory_path)
 
 
@@ -182,7 +182,7 @@ class LabeledDirectoryInput(QFrame):
 
     def open_directory_dialog(self):
         directory_dialog = QFileDialog()
-        directory_path = directory_dialog.getExistingDirectory(self, "Select a Directory")
+        directory_path = directory_dialog.getExistingDirectory(self, "Select a Directory", self.get_input_text())
         self.set_input_text(directory_path)
 
 
@@ -243,7 +243,7 @@ class FileInput(QFrame):
     def open_file_dialog(self):
         file_dialog = QFileDialog()
         if self.file_type:
-            file_path = file_dialog.getOpenFileName(self, "Select File", filter=self.file_type)
+            file_path = file_dialog.getOpenFileName(self, "Select File", self.get_input_text(), filter=self.file_type)
         else:
             file_path = file_dialog.getOpenFileName(self, "Select File")
 

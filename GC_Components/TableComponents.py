@@ -1,7 +1,8 @@
 import asyncio
 import sys
 from PySide2.QtGui import QColor
-from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetItem, QApplication
+from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetItem, QApplication, QWidget, QComboBox, \
+    QCheckBox
 
 
 class DataTable(QFrame):
@@ -70,6 +71,47 @@ class DataTable(QFrame):
         self.table.setColumnCount(width)
         self.table.setRowCount(height)
 
+    def set_headers(self, headers):
+        self.table.setHorizontalHeaderLabels(headers)
+
+    def insert_control_row(self, widget_type=None, start_index=0):
+        self.table.insertRow(0)
+
+        if widget_type:
+            width = self.table.columnCount()
+
+            for x in range(start_index, width):
+                widget = self.create_control_widget(widget_type)
+                self.set_cell_widget(widget, x, 0)
+
+    def insert_control_column(self, widget_type=None, start_index=0):
+        self.table.insertColumn(0)
+
+        if widget_type:
+            height = self.table.rowCount()
+
+            for y in range(start_index, height):
+                widget = self.create_control_widget(widget_type)
+                self.set_cell_widget(widget, 0, y)
+
+    def create_control_widget(self, widget_type=None):
+        if widget_type == "combobox":
+            widget = QComboBox(self)
+            widget.addItems(["None", "File Name", "Asset Path"])
+        elif widget_type == "checkbox":
+            widget = QCheckBox(self)
+
+        return widget
+
+    def load_data(self, data):
+        height = self.table.rowCount()
+        width = self.table.columnCount()
+
+        for y in range(height):
+            for x in range(width):
+                cell = QTableWidgetItem(data[y][x])
+                self.table.setItem(y, x, cell)
+
     def cell_changed(self, y, x):
         """
         Slot for handling cell change events
@@ -125,7 +167,10 @@ class DataTable(QFrame):
         """
         self.table.item(y, x).setTextColor(QColor(color))
 
-    def set_cell_contents(self, x=0, y=0, text=""):
+    def set_cell_widget(self,  widget, x=0, y=0,):
+        self.table.setCellWidget(y, x, widget)
+
+    def set_cell_text(self, x=0, y=0, text=""):
         """
         Method for setting the text content of a cell
 
@@ -220,9 +265,9 @@ class DataTable(QFrame):
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     tab = DataTable(width=2, height=1)
-    tab.set_cell_contents(0, 0, "Hello")
+    tab.set_cell_text(0, 0, "Hello")
     tab.set_cell_color(0, 0, "red")
-    tab.set_cell_contents(1, 0, "World")
+    tab.set_cell_text(1, 0, "World")
     tab.set_cell_color(1, 0, "Green")
     tab.show()
     sys.exit(qApp.exec_())
