@@ -57,9 +57,11 @@ class TableView(QFrame):
             csv_headers.insert(0, "Select")
             csv_data = self.csv_handler.data
 
+            self.dt_table.clear_table()
+
             self.dt_table.load_data(csv_data)
 
-            self.dt_table.insert_control_row("combobox", 0, ["None", "File Name", "Asset Path"])
+            self.dt_table.insert_control_row("combobox", 0, ["None", "File Name", "Asset Path", "Project"])
 
             self.dt_table.insert_control_column("checkbox", 1)
 
