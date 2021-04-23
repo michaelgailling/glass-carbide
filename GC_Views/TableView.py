@@ -9,15 +9,10 @@
 # Organization:
 # WIMTACH
 #
-import asyncio
 import sys
-import csv
-from PySide2 import QtCore
+
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QIcon, QPixmap
-from PySide2.QtWidgets import QApplication, QWidget, QTabWidget, QMainWindow, QAction, QFrame, QPlainTextEdit, \
-    QPushButton, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, QLabel, QMessageBox
-from requests import *
+from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem
 
 from GC_Components.InputComponents import LabeledFileInput
 from GC_Components.TableComponents import DataTable
@@ -31,42 +26,44 @@ class TableView(QFrame):
         self.csv_handler = CsvIo()
 
         # Table
-        self.dt_table = DataTable(self, 5, 5)
+        self.dt_table = DataTable(self)
+        self.column_definitions = []
 
         # Labeled File Input
         self.lfi_file_select = LabeledFileInput(self, label_text="Select CSV", file_type="CSV Format (*.csv)")
 
         # Load Button
-        self.btn_load_file = QPushButton("Load File")
+        self.btn_load_file = QPushButton("Load To Table")
+        self.btn_load_file.setStyleSheet("background-color:blue;color:white;padding:10;border : 2px solid blue;"
+                                         "border-radius:20px")
         self.btn_load_file.clicked.connect(self.load_file)
 
         # Layout loading
         self.vBox.addWidget(self.dt_table)
         self.vBox.addWidget(self.lfi_file_select)
-        self.vBox.addWidget(self.btn_load_file)
+        self.vBox.addWidget(self.btn_load_file, alignment=Qt.AlignHCenter)
         self.setLayout(self.vBox)
  
         self.setGeometry(0, 0, 800, 500)
 
     def load_file(self):
+        self.csv_handler.data.clear()
         input_path = self.lfi_file_select.get_input_text()
 
         if input_path:
             self.csv_handler.import_data(input_path)
 
-            csv_headers = self.csv_handler.data[0]
-            csv_data = self.csv_handler.data[1:]
+            csv_headers = self.csv_handler.data.pop(0)
+            csv_headers.insert(0, "Select")
+            csv_data = self.csv_handler.data
 
-            width = len(csv_data[0])
-            height = len(csv_data)
+            self.dt_table.load_data(csv_data)
 
-            self.dt_table.set_dimensions(width, height)
-            self.dt_table.table.setHorizontalHeaderLabels(csv_headers)
+            self.dt_table.insert_control_row("combobox", 0, ["None", "File Name", "Asset Path"])
 
-            for y in range(len(csv_data)):
-                for x in range(len(csv_data[y])):
-                    cell = QTableWidgetItem(csv_data[y][x])
-                    self.dt_table.table.setItem(y, x, cell)
+            self.dt_table.insert_control_column("checkbox", 1)
+
+            self.dt_table.set_headers(csv_headers)
 
 
 if __name__ == '__main__':
