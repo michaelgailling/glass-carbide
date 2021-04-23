@@ -67,7 +67,10 @@ class DataTable(QFrame):
 
         self.setLayout(self.vbox)
 
-    def set_dimensions(self, width, height):
+    def clear_table(self):
+        self.table.clear()
+
+    def set_dimensions(self, width=0, height=0):
         self.table.setColumnCount(width)
         self.table.setRowCount(height)
 
@@ -106,7 +109,7 @@ class DataTable(QFrame):
 
         return widget
 
-    def load_data(self, data):
+    def load_data(self, data=[]):
         height = len(data)
         width = len(data[0])
 
@@ -117,7 +120,7 @@ class DataTable(QFrame):
                 cell = QTableWidgetItem(data[y][x])
                 self.table.setItem(y, x, cell)
 
-    def cell_changed(self, y, x):
+    def cell_changed(self, y=0, x=0):
         """
         Slot for handling cell change events
 
@@ -172,7 +175,7 @@ class DataTable(QFrame):
         """
         self.table.item(y, x).setTextColor(QColor(color))
 
-    def set_cell_widget(self,  widget, x=0, y=0,):
+    def set_cell_widget(self,  widget=None, x=0, y=0,):
         self.table.setCellWidget(y, x, widget)
 
     def set_cell_text(self, x=0, y=0, text=""):
@@ -214,7 +217,7 @@ class DataTable(QFrame):
         text_content = self.table.item(y, x).text()
         return text_content
 
-    async def log_cell(self, x, y):
+    async def log_cell(self, x=0, y=0):
         """
         Method for logging the current state of a cell to console
 
