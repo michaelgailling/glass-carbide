@@ -10,6 +10,7 @@
 # WIMTACH
 #
 import sys
+
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem
 
@@ -25,7 +26,8 @@ class TableView(QFrame):
         self.csv_handler = CsvIo()
 
         # Table
-        self.dt_table = DataTable(self, 5, 5)
+        self.dt_table = DataTable(self)
+        self.column_definitions = []
 
         # Labeled File Input
         self.lfi_file_select = LabeledFileInput(self, label_text="Select CSV", file_type="CSV Format (*.csv)")
@@ -51,19 +53,17 @@ class TableView(QFrame):
         if input_path:
             self.csv_handler.import_data(input_path)
 
-            csv_headers = self.csv_handler.data[0]
-            csv_data = self.csv_handler.data[1:]
+            csv_headers = self.csv_handler.data.pop(0)
+            csv_headers.insert(0, "Select")
+            csv_data = self.csv_handler.data
 
-            width = len(csv_data[0])
-            height = len(csv_data)
+            self.dt_table.load_data(csv_data)
 
-            self.dt_table.set_dimensions(width, height)
-            self.dt_table.table.setHorizontalHeaderLabels(csv_headers)
+            self.dt_table.insert_control_row("combobox", 0, ["None", "File Name", "Asset Path"])
 
-            for y in range(len(csv_data)):
-                for x in range(len(csv_data[y])):
-                    cell = QTableWidgetItem(csv_data[y][x])
-                    self.dt_table.table.setItem(y, x, cell)
+            self.dt_table.insert_control_column("checkbox", 1)
+
+            self.dt_table.set_headers(csv_headers)
 
 
 if __name__ == '__main__':
