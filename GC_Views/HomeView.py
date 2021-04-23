@@ -14,6 +14,7 @@ from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget
 from DirectoryMappingView import DirectoryMappingView
 from ServerSelectionView import ServerSelectionView
+from HomeBtnsView import HomeBtnsView
 
 
 class HomeView(QFrame):
@@ -26,37 +27,21 @@ class HomeView(QFrame):
         # Step Instructions
         self.instruct = QLabel("Overview of Instructions")
 
-        # Buttons
-        self.newBtn = QPushButton("New")
-        self.newBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
-        self.newBtn.clicked.connect(lambda: self.set_frame_index(1))
-        self.openBtn = QPushButton("Open")
-        self.openBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
-        self.openBtn.clicked.connect(lambda: self.set_frame_index(2))
-        self.saveBtn = QPushButton("Save")
-        self.saveBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
-        self.saveBtn.clicked.connect(lambda: self.set_frame_index(2))
-        self.mysteryBtn = QPushButton("???")
-        self.mysteryBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
-        self.mysteryBtn.clicked.connect(lambda: self.set_frame_index(0))
-        self.exitBtn = QPushButton("Exit")
-        self.exitBtn.setStyleSheet("color:rgb(85,0,255); background-color:rgb(255,255,255);\n"
-                                   " border:2px solid rgb(85,0,255);margin:1 80; padding:2 20")
-        self.exitBtn.clicked.connect(lambda: self.topLevelWidget().close())
+        # Home Buttons View with New, Open, Save & Exit buttons
+        self.btnFrame = HomeBtnsView()
+
+        # Assign methods for buttons
+        self.btnFrame.newBtn.clicked.connect(lambda: self.set_frame_index(1))
+        self.btnFrame.openBtn.clicked.connect(lambda: self.set_frame_index(2))
+        self.btnFrame.saveBtn.clicked.connect(lambda: self.set_frame_index(2))
+        self.btnFrame.mysteryBtn.clicked.connect(lambda: self.set_frame_index(0))
 
         # Logo Picture will be contained in a Label
         self.logo = QLabel("Logo Placeholder")
         self.logo.setFixedHeight(100)
         self.btnBox.addWidget(self.logo, alignment=Qt.AlignHCenter)
-
-        # Add buttons to Vbox widget
         self.btnBox.addWidget(self.instruct, alignment=Qt.AlignHCenter)
-        self.btnBox.addWidget(self.newBtn)
-        self.btnBox.addWidget(self.openBtn)
-        self.btnBox.addWidget(self.saveBtn)
-        self.btnBox.addWidget(self.mysteryBtn)
-        self.btnBox.addWidget(self.exitBtn)
-        self.btnBox.setSpacing(-15)
+        self.btnBox.addWidget(self.btnFrame)
 
         # Stacked widget for mapping views
         self.resultFrame = QStackedWidget()
