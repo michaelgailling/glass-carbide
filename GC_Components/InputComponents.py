@@ -163,7 +163,8 @@ class LabeledDirectoryInput(QFrame):
         self.input = QLineEdit(self)
         self.input.setText(input_text)
 
-        self.fileDialogButton = QPushButton(self, text="...")
+        self.fileDialogButton = QPushButton(self, text="Browse")
+        self.fileDialogButton.setStyleSheet("background-color:blue;color:white;")
         self.fileDialogButton.clicked.connect(self.open_directory_dialog)
 
         self.hBox = QHBoxLayout()
@@ -294,7 +295,8 @@ class LabeledFileInput(QFrame):
         self.input = QLineEdit(self)
         self.input.setText(input_text)
 
-        self.fileDialogButton = QPushButton("...")
+        self.fileDialogButton = QPushButton(label_text)
+        self.fileDialogButton.setStyleSheet("background-color:blue;color:white;")
         self.fileDialogButton.clicked.connect(self.open_file_dialog)
 
         self.hBox = QHBoxLayout()
