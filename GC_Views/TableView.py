@@ -49,36 +49,17 @@ class TableView(QFrame):
         if input_path:
             self.csv_handler.import_data(input_path)
 
-            csv_headers = []
-            csv_data = []
             csv_headers = self.csv_handler.data.pop(0)
             csv_headers.insert(0, "Select")
             csv_data = self.csv_handler.data
 
-            width = len(csv_data[0])
-            height = len(csv_data)
-
-            self.dt_table.set_dimensions(width, height)
-
             self.dt_table.load_data(csv_data)
 
-            combobox = QComboBox()
-            combobox.addItems(["None", "File Name", "Asset Path"])
-            self.dt_table.insert_control_row("combobox", 0)
+            self.dt_table.insert_control_row("combobox", 0, ["None", "File Name", "Asset Path"])
 
             self.dt_table.insert_control_column("checkbox", 1)
 
             self.dt_table.set_headers(csv_headers)
-            # for x in range(width+1):
-            #     combobox = QComboBox(self)
-            #     combobox.addItems(["None", "File Name", "Asset Path"])
-            #     self.dt_table.set_cell_widget(combobox, x+1, 0)
-
-            # for y in range(height+1):
-            #     checkbox = QCheckBox(self)
-            #     self.dt_table.set_cell_widget(checkbox, 0, y+1)
-
-
 
 
 if __name__ == '__main__':

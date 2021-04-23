@@ -74,38 +74,43 @@ class DataTable(QFrame):
     def set_headers(self, headers):
         self.table.setHorizontalHeaderLabels(headers)
 
-    def insert_control_row(self, widget_type=None, start_index=0):
+    def insert_control_row(self, widget_type=None, start_index=0, options=[]):
         self.table.insertRow(0)
 
         if widget_type:
             width = self.table.columnCount()
 
             for x in range(start_index, width):
-                widget = self.create_control_widget(widget_type)
+                widget = self.create_control_widget(widget_type, options)
                 self.set_cell_widget(widget, x, 0)
 
-    def insert_control_column(self, widget_type=None, start_index=0):
+    def insert_control_column(self, widget_type=None, start_index=0, options=[]):
         self.table.insertColumn(0)
 
         if widget_type:
             height = self.table.rowCount()
 
             for y in range(start_index, height):
-                widget = self.create_control_widget(widget_type)
+                widget = self.create_control_widget(widget_type, options)
                 self.set_cell_widget(widget, 0, y)
 
-    def create_control_widget(self, widget_type=None):
+    def create_control_widget(self, widget_type=None, options=[]):
         if widget_type == "combobox":
             widget = QComboBox(self)
-            widget.addItems(["None", "File Name", "Asset Path"])
+
+            if options:
+                widget.addItems(options)
+
         elif widget_type == "checkbox":
             widget = QCheckBox(self)
 
         return widget
 
     def load_data(self, data):
-        height = self.table.rowCount()
-        width = self.table.columnCount()
+        height = len(data)
+        width = len(data[0])
+
+        self.set_dimensions(width, height)
 
         for y in range(height):
             for x in range(width):
