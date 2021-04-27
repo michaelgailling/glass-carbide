@@ -1,3 +1,15 @@
+# Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &&
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+
 from PySide2.QtGui import QPixmap
 from PySide2.QtWidgets import QFrame, QLabel, QVBoxLayout
 

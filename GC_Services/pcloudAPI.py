@@ -1,9 +1,23 @@
+# Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &&
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+
 import asyncio
 import json
 from hashlib import sha1
 from typing import Dict
 
 import requests
+
+
 # https://api.pcloud.com/userinfo?getauth=1&logout=1&username={username}&password={password}
 # https://api.pcloud.com/listfolder?auth={token}&folderid={folderid}
 
@@ -104,45 +118,6 @@ class PCloud:
             7008: "This link has reached its file limit."
         }
 
-        self.methodParamDict = {
-            "auth":
-                {
-                    "getauth": "1",
-                    "logout": "1"
-                },
-            "auth_digest":
-                {
-                    "digest": None,
-                    "passworddigest": None
-                },
-            "validate_token":
-                {
-
-                },
-            "listfolder":
-                {
-                    "auth": None,
-                    "folderid": 0
-                },
-            "createfolder":
-                {
-                    "auth": None,
-                    "name": None,
-                    "folderid": 0
-                },
-            "renamefolder":
-                {
-                    "auth": None,
-                    "folderid": None,
-                    "toname": None
-                },
-            "deletefolder":
-                {
-                    "auth": None,
-                    "folderid": None
-                }
-        }
-
         self.regionUrlDict = {
             "NA": "https://api.pcloud.com/",
             "EU": "https://eapi.pcloud.com/"
@@ -157,7 +132,16 @@ class PCloud:
         self.token = ""
         self.folderId = "0"
 
-################ Helpers #######################
+    ################ Helpers #######################
+    def handle_response(self, res):
+        if res_obj := self.handle_status_code(res):
+            result_code = res_obj["result"]
+
+            if self.handle_result_code(result_code):
+                return res_obj
+
+        return None
+
     def set_region(self, region="NA"):
 
         valid_region = bool(region in self.regionUrlDict.keys())
@@ -213,10 +197,13 @@ class PCloud:
     def valid_token(self):
         return self.token is not None
 
-################ Insecure Login #######################
+    ################ Insecure Login #######################
     async def auth(self):
         if self.user_details_valid() and self.regionUrl:
-            method_params = self.methodParamDict["auth"]
+            method_params = {
+                    "getauth": "1",
+                    "logout": "1"
+                }
             method_params.update(self.user_details)
 
             url = self.regionUrl + "userinfo"
@@ -234,7 +221,7 @@ class PCloud:
 
         self.set_password(None)
 
-################ Secure Login #######################
+    ################ Secure Login #######################
     async def get_digest(self):
         url = self.regionUrl + "getdigest"
         method_params = None
@@ -285,13 +272,15 @@ class PCloud:
     async def auth2(self):
         pass
 
-################ Folder Methods #######################
+    ################ Folder Methods #######################
     async def list_folder(self, folder_id=None):
         if self.valid_token() and folder_id:
-            method_params = self.methodParamDict["listfolder"]
-            method_params["auth"] = self.token
-            method_params["folderid"] = folder_id
-            method_params["recursive"] = 0
+
+            method_params = {
+                "auth": self.token,
+                "folderid": folder_id,
+                "recursive": 0
+            }
 
             url = self.regionUrl + "listfolder"
             res = requests.get(url, params=method_params)
@@ -304,95 +293,116 @@ class PCloud:
 
     async def create_folder(self, folder_id="0", name=""):
         if self.valid_token() and folder_id and name:
-            method_params = self.methodParamDict["createfolder"]
-            method_params["auth"] = self.token
-            method_params["folderid"] = folder_id
-            method_params["name"] = name
+            method_params = {
+                    "auth": self.token,
+                    "name": name,
+                    "folderid": folder_id
+                }
 
             url = self.regionUrl + "createfolder"
             res = requests.get(url, params=method_params)
 
-            if res_obj := self.handle_status_code(res):
-                result_code = res_obj["result"]
+            res_obj = self.handle_response(res)
 
-                if self.handle_result_code(result_code):
-                    return res_obj
+            return res_obj
 
-    async def rename_folder(self, folder_id=None, toname=""):
-        if self.valid_token() and folder_id and toname:
-            method_params = self.methodParamDict["renamefolder"]
-            method_params["auth"] = self.token
-            method_params["folderid"] = folder_id
-            method_params["toname"] = toname
+    async def rename_folder(self, folder_id=None, to_name=""):
+        if self.valid_token() and folder_id and to_name:
+            method_params = {
+                "auth": self.token,
+                "folderid": folder_id,
+                "toname": to_name
+            }
 
             url = self.regionUrl + "renamefolder"
             res = requests.get(url, params=method_params)
 
-            if res_obj := self.handle_status_code(res):
-                result_code = res_obj["result"]
+            res_obj = self.handle_response(res)
 
-                if self.handle_result_code(result_code):
-                    return res_obj
+            return res_obj
 
     async def delete_folder(self, folder_id="0"):
         if self.valid_token() and folder_id:
-            method_params = self.methodParamDict["deletefolder"]
-            method_params["auth"] = self.token
-            method_params["folderid"] = folder_id
+            method_params = {
+                "auth": self.token,
+                "folderid": folder_id
+            }
 
             url = self.regionUrl + "deletefolder"
             res = requests.get(url, params=method_params)
 
-            if res_obj := self.handle_status_code(res):
-                result_code = res_obj["result"]
+            res_obj = self.handle_response(res)
 
-                if self.handle_result_code(result_code):
-                    return res_obj
+            return res_obj
 
-################ File Methods #######################
+    ################ File Methods #######################
     async def file_stats(self, file_id=None):
         if self.valid_token() and file_id:
-            method_params = {}
-            method_params["auth"] = self.token
-            method_params["fileid"] = None
+            method_params = {
+                "auth": self.token,
+                "fileid": None
+            }
 
             url = self.regionUrl + "deletefolder"
             res = requests.get(url, params=method_params)
 
-            if res_obj := self.handle_status_code(res):
-                result_code = res_obj["result"]
+            res_obj = self.handle_response(res)
 
-                if self.handle_result_code(result_code):
-                    return res_obj
+            return res_obj
 
     # not quite right yet
-    async def upload_file(self, folder_id=None, filepath=None, file_name=None):
+    async def upload_file(self, folder_id=None, file_path=None, file_name=None):
         if self.valid_token() and folder_id:
-            method_params = {}
-            method_params["auth"] = self.token
-            method_params["folderid"] = folder_id
-            method_params["filename"] = file_name
-            method_params["nopartial"] = 1
-            current_file = open(filepath)
+            method_params = {
+                "auth": self.token,
+                "folderid": folder_id,
+                "filename": file_name,
+                "nopartial": 1
+            }
+
+            current_file = open(file_path)
 
             url = self.regionUrl + "deletefolder"
-            res = requests.get(url, params=method_params, files={"": current_file})
+            res = requests.post(url, params=method_params, files={"": current_file})
 
-            if res_obj := self.handle_status_code(res):
-                result_code = res_obj["result"]
+            res_obj = self.handle_response(res)
 
-                if self.handle_result_code(result_code):
-                    return res_obj
+            return res_obj
 
-    async def rename_file(self):
-        pass
+    async def rename_file(self, file_id=None, to_name=""):
+        if self.valid_token() and file_id and to_name:
+            method_params = {
+                "auth": self.token,
+                "fileid": file_id,
+                "toname": to_name
+            }
 
-    async def get_file_link(self):
-        pass
+            url = self.regionUrl + "renamefile"
+            res = requests.get(url, params=method_params)
+
+            res_obj = self.handle_response(res)
+
+            return res_obj
+
+    async def get_file_link(self, file_id=None):
+        if self.valid_token() & file_id:
+            method_params = {
+                "auth": self.token,
+                "file_id": file_id
+            }
+
+            url = self.regionUrl + "getfilelink"
+            res = requests.get(url, params=method_params)
+
+            res_obj = self.handle_response(res)
+
+            return res_obj
 
     async def download_file(self):
-        pass
+        if self.valid_token():
+            method_params = {
 
+            }
 
 
 apic = PCloud()

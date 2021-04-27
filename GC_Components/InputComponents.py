@@ -9,7 +9,7 @@
 # Organization:
 # WIMTACH
 #
-
+import os
 
 from PySide2.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog, QApplication
 
@@ -118,7 +118,8 @@ class DirectoryInput(QFrame):
     def open_directory_dialog(self):
         directory_dialog = QFileDialog()
         directory_path = directory_dialog.getExistingDirectory(self, "Select a Directory", self.get_input_text())
-        self.set_input_text(directory_path)
+        if os.path.isdir(directory_path):
+            self.set_input_text(directory_path)
 
 
 class LabeledDirectoryInput(QFrame):
@@ -184,7 +185,8 @@ class LabeledDirectoryInput(QFrame):
     def open_directory_dialog(self):
         directory_dialog = QFileDialog()
         directory_path = directory_dialog.getExistingDirectory(self, "Select a Directory", self.get_input_text())
-        self.set_input_text(directory_path)
+        if os.path.isdir(directory_path):
+            self.set_input_text(directory_path)
 
 
 class FileInput(QFrame):
@@ -248,7 +250,8 @@ class FileInput(QFrame):
         else:
             file_path = file_dialog.getOpenFileName(self, "Select File")
 
-        self.set_input_text(file_path[0])
+        if os.path.isfile(file_path[0]):
+            self.set_input_text(file_path[0])
 
 
 class LabeledFileInput(QFrame):
@@ -319,5 +322,5 @@ class LabeledFileInput(QFrame):
             file_path = file_dialog.getOpenFileName(self, "Select File", self.get_input_text(), filter=self.file_type)
         else:
             file_path = file_dialog.getOpenFileName(self, "Select File")
-
-        self.set_input_text(file_path[0])
+        if os.path.isfile(file_path[0]):
+            self.set_input_text(file_path[0])
