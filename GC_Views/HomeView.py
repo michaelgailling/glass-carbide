@@ -33,8 +33,7 @@ class HomeView(QFrame):
         # Assign methods for buttons
         self.btnFrame.newBtn.clicked.connect(lambda: self.set_frame_index(1))
         self.btnFrame.openBtn.clicked.connect(lambda: self.set_frame_index(2))
-        self.btnFrame.saveBtn.clicked.connect(lambda: self.set_frame_index(2))
-        self.btnFrame.mysteryBtn.clicked.connect(lambda: self.set_frame_index(0))
+        self.btnFrame.saveBtn.clicked.connect(lambda: self.set_frame_index(0))
 
         # Logo Picture will be contained in a Label
         self.logo = QLabel("Logo Placeholder")
