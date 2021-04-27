@@ -29,8 +29,6 @@ class HomeBtnsView(QFrame):
         self.openBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
         self.saveBtn = QPushButton("Save")
         self.saveBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
-        self.mysteryBtn = QPushButton("???")
-        self.mysteryBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
         self.exitBtn = QPushButton("Exit")
         self.exitBtn.setStyleSheet("color:rgb(85,0,255); background-color:rgb(255,255,255);\n"
                                    " border:2px solid rgb(85,0,255);margin:1 80; padding:2 20")
@@ -39,7 +37,6 @@ class HomeBtnsView(QFrame):
         self.btnBox.addWidget(self.newBtn)
         self.btnBox.addWidget(self.openBtn)
         self.btnBox.addWidget(self.saveBtn)
-        self.btnBox.addWidget(self.mysteryBtn)
         self.btnBox.addWidget(self.exitBtn)
 
         self.layout.addItem(self.btnBox)
