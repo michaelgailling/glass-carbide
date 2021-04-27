@@ -14,7 +14,8 @@ import asyncio
 import sys
 from PySide2.QtGui import QColor
 from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetItem, QApplication, QWidget, QComboBox, \
-    QCheckBox
+    QCheckBox, QHeaderView
+
 
 class DataTable(QFrame):
     """Labeled Input
@@ -144,6 +145,10 @@ class DataTable(QFrame):
             for x in range(width):
                 cell = QTableWidgetItem(data[y][x])
                 self.table.setItem(y, x, cell)
+
+        header = self.table.horizontalHeader()
+        for i in range(width):
+            header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
 
     def cell_changed(self, y=0, x=0):
         """
