@@ -42,7 +42,7 @@ class CsvIo:
         file.close()
 
     def handler_headers(self):
-        if self.calc_prob() > 0.5:
+        if self.calc_prob() > 0.2:
             self.data.pop(0)
 
     def calc_prob(self):

@@ -1,9 +1,20 @@
+# Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &&
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+
 import asyncio
 import sys
 from PySide2.QtGui import QColor
 from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetItem, QApplication, QWidget, QComboBox, \
     QCheckBox
-
 
 class DataTable(QFrame):
     """Labeled Input
@@ -56,7 +67,13 @@ class DataTable(QFrame):
                 The number of rows
         """
         super(DataTable, self).__init__(parent)
+
+        self.mappings = []
+        self.selections = []
+
         self.table = QTableWidget()
+        self.width = width
+        self.height = height
         self.set_dimensions(width, height)
 
         if log_data:
@@ -71,6 +88,8 @@ class DataTable(QFrame):
         self.table.clear()
 
     def set_dimensions(self, width=0, height=0):
+        self.width = width
+        self.height = height
         self.table.setColumnCount(width)
         self.table.setRowCount(height)
 
@@ -80,26 +99,32 @@ class DataTable(QFrame):
     def insert_control_row(self, widget_type=None, start_index=0, options=[]):
         self.table.insertRow(0)
 
-        if widget_type:
-            width = self.table.columnCount()
+        self.height += 1
 
+        if widget_type:
+            width = self.width
+            self.mappings = []
             for x in range(start_index, width):
-                widget = self.create_control_widget(widget_type, options)
-                self.set_cell_widget(widget, x, 0)
+                self.mappings.append(self.create_control_widget(widget_type, options))
+                self.set_cell_widget(self.mappings[-1], x, 0)
 
     def insert_control_column(self, widget_type=None, start_index=0, options=[]):
         self.table.insertColumn(0)
 
-        if widget_type:
-            height = self.table.rowCount()
+        self.width += 1
 
+        if widget_type:
+            height = self.height
+            self.selections = []
             for y in range(start_index, height):
-                widget = self.create_control_widget(widget_type, options)
-                self.set_cell_widget(widget, 0, y)
+                self.selections.append(self.create_control_widget(widget_type, options))
+                self.set_cell_widget(self.selections[-1], 0, y)
 
     def create_control_widget(self, widget_type=None, options=[]):
         if widget_type == "combobox":
-            widget = QComboBox(self)
+            widget = QComboBox()
+
+            widget.setEditable(True)
 
             if options:
                 widget.addItems(options)
@@ -198,7 +223,7 @@ class DataTable(QFrame):
         cell = QTableWidgetItem(text)
         self.table.setItem(y, x, cell)
 
-    def get_cell_contents(self, x=0, y=0):
+    def get_cell_text(self, x=0, y=0):
         """
         Method for Getting the text content of a cell
 
@@ -232,7 +257,7 @@ class DataTable(QFrame):
         -------
         None
         """
-        cell_text = self.get_cell_contents(x, y)
+        cell_text = self.get_cell_text(x, y)
         bg_color_red = str(self.table.item(y, x).backgroundColor().red())
         bg_color_green = str(self.table.item(y, x).backgroundColor().green())
         bg_color_blue = str(self.table.item(y, x).backgroundColor().blue())
@@ -268,6 +293,13 @@ class DataTable(QFrame):
 
         print()
         print()
+
+
+class MappableDataTable(DataTable):
+    def __init__(self, parent):
+        super(MappableDataTable, self).__init__(parent)
+
+        self.mappings = []
 
 
 if __name__ == '__main__':

@@ -11,8 +11,7 @@
 #
 import sys
 
-from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem
+from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem, QHBoxLayout, QComboBox
 
 from GC_Components.InputComponents import LabeledFileInput
 from GC_Components.TableComponents import DataTable
@@ -34,14 +33,19 @@ class TableView(QFrame):
 
         # Load Button
         self.btn_load_file = QPushButton("Load To Table")
-        self.btn_load_file.setStyleSheet("background-color:blue;color:white;padding:10;border : 2px solid blue;"
-                                         "border-radius:20px")
+        # self.btn_load_file.setStyleSheet("background-color:blue;color:white;padding:10;border : 2px solid blue;"
+        #                                  "border-radius:20px")
         self.btn_load_file.clicked.connect(self.load_file)
+
+        self.btn_test = QPushButton("TEST")
+
+        self.btn_test.clicked.connect(self.create_selection)
 
         # Layout loading
         self.vBox.addWidget(self.dt_table)
         self.vBox.addWidget(self.lfi_file_select)
-        self.vBox.addWidget(self.btn_load_file, alignment=Qt.AlignHCenter)
+        self.vBox.addWidget(self.btn_load_file)
+        self.vBox.addWidget(self.btn_test)
         self.setLayout(self.vBox)
  
         self.setGeometry(0, 0, 800, 500)
@@ -53,19 +57,66 @@ class TableView(QFrame):
         if input_path:
             self.csv_handler.import_data(input_path)
 
-            csv_headers = self.csv_handler.data.pop(0)
+            csv_headers = self.csv_handler.data[0]
             csv_headers.insert(0, "Select")
-            csv_data = self.csv_handler.data
+            csv_data = self.csv_handler.data[1:]
 
             self.dt_table.clear_table()
 
             self.dt_table.load_data(csv_data)
 
-            self.dt_table.insert_control_row("combobox", 0, ["None", "File Name", "Asset Path", "Project"])
+            combo_options = ["None",
+                             "File Name",
+                             "Asset Path",
+                             "Project",
+                             "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                             "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+
+            self.dt_table.insert_control_row("combobox", 0, combo_options)
 
             self.dt_table.insert_control_column("checkbox", 1)
 
             self.dt_table.set_headers(csv_headers)
+
+    def create_selection(self):
+        width = self.dt_table.width
+        height = self.dt_table.height
+
+        current_table = []
+
+        for y in range(1, height):
+            row = []
+            for x in range(1, width):
+                row.append(self.dt_table.get_cell_text(x, y))
+            current_table.append(row)
+
+        width = len(current_table[0])
+        height = len(current_table)
+
+        mapped_columns = []
+        selected_rows = []
+        selected_data = []
+
+
+
+        for i in range(width):
+            mapped_columns.append(self.dt_table.mappings[i].currentText())
+
+        for i in range(height):
+            selected_rows.append(self.dt_table.selections[i].isChecked())
+
+        for i in range(len(selected_rows)):
+            if selected_rows[i]:
+                selected_data.append(current_table[i])
+
+        if selected_data:
+            selected_data.insert(0, self.csv_handler.data[0])
+            selected_data[0].pop(0)
+            selected_data.insert(1, mapped_columns)
+
+        print(selected_data)
+
+
 
 
 if __name__ == '__main__':
