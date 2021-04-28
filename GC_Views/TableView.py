@@ -66,10 +66,12 @@ class TableView(QFrame):
             self.dt_table.load_data(csv_data)
 
             combo_options = ["None",
-                             "Asset Name(s)",
+                             "Asset(s)",
                              "ShotCode",
                              "Duration",
-                             "Frames", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
+                             "Frames",
+                             "Resolution",
+                             "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                              "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 
             self.dt_table.insert_control_row("combobox", 0, combo_options)

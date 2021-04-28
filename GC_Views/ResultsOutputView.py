@@ -21,6 +21,7 @@ class ResultsOutputView(QFrame):
         super(ResultsOutputView, self).__init__(parent)
         self.layout = QVBoxLayout()
         self.grid = QGridLayout()
+        self.data = []
 
         # Label
         self.displayLbl = QLabel("Review")

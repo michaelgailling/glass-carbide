@@ -96,18 +96,18 @@ class MainView(QMainWindow):
             pass
 
     def cancel_clicked(self):
-        tabIndex = self.tab_widget.tabIndex
+        tab_index = self.tab_widget.tabIndex
 
-        if tabIndex == 0:
+        if tab_index == 0:
             msg = QMessageBox()
             msg.setWindowTitle("Save your progress?")
             msg.setText("Would you like to save your progress?")
             msg.setIcon(QMessageBox.Warning)
             msg.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Close)
             msg.exec_()
-        elif tabIndex == 1:
+        elif tab_index == 1:
             self.tab_widget.tab_index_setter(0)
-        elif tabIndex == 2:
+        elif tab_index == 2:
             self.tab_widget.tab_index_setter(1)
 
 
