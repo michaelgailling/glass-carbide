@@ -11,6 +11,7 @@
 #
 import sys
 
+from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem, QHBoxLayout, QComboBox
 
 from GC_Components.InputComponents import LabeledFileInput
@@ -29,25 +30,20 @@ class TableView(QFrame):
         self.column_definitions = []
 
         # Labeled File Input
-        self.lfi_file_select = LabeledFileInput(self, label_text="Select Episode CSV", file_type="CSV Format (*.csv)")
+        self.lfi_file_select = LabeledFileInput(self, label_text="Select CSV", file_type="CSV Format (*.csv)")
 
         # Load Button
         self.btn_load_file = QPushButton("Load To Table")
-        # self.btn_load_file.setStyleSheet("background-color:blue;color:white;padding:10;border : 2px solid blue;"
-        #                                  "border-radius:20px")
+        self.btn_load_file.setStyleSheet("background-color:blue;color:white;padding:10;border : 2px solid blue;"
+                                         "border-radius:20px;")
         self.btn_load_file.clicked.connect(self.load_file)
-
-        self.btn_test = QPushButton("TEST")
-
-        self.btn_test.clicked.connect(self.create_selection)
 
         # Layout loading
         self.vBox.addWidget(self.dt_table)
         self.vBox.addWidget(self.lfi_file_select)
-        self.vBox.addWidget(self.btn_load_file)
-        self.vBox.addWidget(self.btn_test)
+        self.vBox.addWidget(self.btn_load_file, alignment=Qt.AlignHCenter)
         self.setLayout(self.vBox)
- 
+
         self.setGeometry(0, 0, 800, 500)
 
     def load_file(self):
@@ -92,13 +88,15 @@ class TableView(QFrame):
                 row.append(self.dt_table.get_cell_text(x, y))
             current_table.append(row)
 
-        mapped_columns = self.dt_table.mappings
-        selected_rows = self.dt_table.selections
-        selected_data = []
+            mapped_columns = []
+            selected_data = []
 
-        for i in range(len(selected_rows)):
-            if selected_rows[i].isChecked:
-                selected_data.append(current_table[i])
+            for i in range(width):
+                mapped_columns.append(self.dt_table.mappings[i].currentText())
+
+            for i in range(len(selected_rows)):
+                if self.dt_table.selections[i].isChecked():
+                    selected_data.append(current_table[i])
 
         if selected_data:
             selected_data.insert(1, mapped_columns)
