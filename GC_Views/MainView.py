@@ -51,15 +51,16 @@ class MainView(QMainWindow):
         self.tabFrame.setLayout(self.layout)
         self.setCentralWidget(self.tabFrame)
         self.setWindowTitle("Glass Carbide")
-        self.setGeometry(0, 0, 900, 600)
+        # self.setGeometry(0, 0, 900, 600)
         self.centralWidget().setMinimumSize(900, 600)
         self.setStyleSheet("background-color: white;")
         self.center_screen()
 
     def center_screen(self):
-        size = self.size()
         screen = self.topLevelWidget().screen().geometry()
-        self.move((screen.width() - size.width()) / 3, (screen.height() - size.height()) / 3)
+        self.resize(screen.width()/1.25, screen.height()/1.5)
+        size = self.size()
+        self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 3)
 
     def continue_clicked(self):
         if self.tab_widget.homeView.mappingView.get_dir_path():
