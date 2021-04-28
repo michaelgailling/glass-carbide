@@ -77,11 +77,8 @@ class MainView(QMainWindow):
             self.tab_widget.tab_index_setter(2)
 
             try:
-                results = self.tab_widget.tableView.create_selection()
-                self.dummy.table_loader(results)
-                self.dummyBox.addWidget(self.dummy)
-                self.dummy.setStyleSheet('border:none')
-                self.tab_widget.previewView.set_result_frame(self.dummyBox)
+                results = self.tab_widget.get_selection()
+                self.tab_widget.resultsView.data = results
             except IndexError:
                 pass
 

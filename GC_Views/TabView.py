@@ -52,7 +52,6 @@ class TabView(QFrame):
 
     def set_tab_frame(self, frame: QFrame, index_num: int):
         self.tabWidget.insertTab(index_num, frame, f"Step {index_num + 1}")
-        self.tabWidget.setCurrentIndex(0)
 
     def tab_index_setter(self, index_num: int):
         self.tabWidget.setCurrentIndex(index_num)

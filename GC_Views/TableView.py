@@ -92,20 +92,15 @@ class TableView(QFrame):
                 row.append(self.dt_table.get_cell_text(x, y))
             current_table.append(row)
 
-        width = len(current_table[0])
-        height = len(current_table)
-
         mapped_columns = self.dt_table.mappings
         selected_rows = self.dt_table.selections
         selected_data = []
 
         for i in range(len(selected_rows)):
-            if selected_rows[i]:
+            if selected_rows[i].isChecked:
                 selected_data.append(current_table[i])
 
         if selected_data:
-            selected_data.insert(0, self.csv_handler.data[0])
-            selected_data[0].pop(0)
             selected_data.insert(1, mapped_columns)
 
         return selected_data
