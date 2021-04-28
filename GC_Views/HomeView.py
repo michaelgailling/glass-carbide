@@ -25,9 +25,6 @@ class HomeView(QFrame):
         self.btnBox = QVBoxLayout()
         self.frameBox = QVBoxLayout()
 
-        # Tab Index
-        self.tabIndex = 0
-
         # Step Instructions
         self.instruct = QLabel("Overview of Instructions")
 

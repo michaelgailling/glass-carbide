@@ -35,9 +35,9 @@ class TabView(QFrame):
                                      "color: rgb(0, 0, 205); border-bottom:none; margin-left: 2px;}")
 
         # Setting views in tabs
-        self.set_tab_frame(self.homeView, self.homeView.tabIndex)
-        self.set_tab_frame(self.tableView, self.tableView.tabIndex)
-        self.set_tab_frame(self.previewView, self.previewView.tabIndex)
+        self.set_tab_frame(self.homeView, 0)
+        self.set_tab_frame(self.tableView, 1)
+        self.set_tab_frame(self.previewView, 2)
 
         # Setting tabs be non selectable
         self.tabWidget.setEnabled(False)
