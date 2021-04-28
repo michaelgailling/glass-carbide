@@ -32,7 +32,7 @@ class TableView(QFrame):
         self.column_definitions = []
 
         # Labeled File Input
-        self.lfi_file_select = LabeledFileInput(self, label_text="Select CSV", file_type="CSV Format (*.csv)")
+        self.lfi_file_select = LabeledFileInput(self, label_text="Select Episode CSV", file_type="CSV Format (*.csv)")
 
         # Load Button
         self.btn_load_file = QPushButton("Load To Table")
@@ -69,9 +69,9 @@ class TableView(QFrame):
             self.dt_table.load_data(csv_data)
 
             combo_options = ["None",
-                             "File Name",
-                             "Asset Path",
-                             "Project",
+                             "Asset Name(s)",
+                             "",
+                             "",
                              "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                              "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 
@@ -97,15 +97,9 @@ class TableView(QFrame):
             width = len(current_table[0])
             height = len(current_table)
 
-            mapped_columns = []
-            selected_rows = []
+            mapped_columns = self.dt_table.mappings
+            selected_rows = self.dt_table.selections
             selected_data = []
-
-            for i in range(width):
-                mapped_columns.append(self.dt_table.mappings[i].currentText())
-
-            for i in range(height):
-                selected_rows.append(self.dt_table.selections[i].isChecked())
 
             for i in range(len(selected_rows)):
                 if selected_rows[i]:
