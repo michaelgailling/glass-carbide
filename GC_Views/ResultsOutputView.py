@@ -52,6 +52,9 @@ class ResultsOutputView(QFrame):
 
         self.setGeometry(0, 0, 800, 500)
 
+    def set_result_frame(self, results_data_frame: QVBoxLayout):
+        self.resultFrame.setLayout(results_data_frame)
+
 
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)

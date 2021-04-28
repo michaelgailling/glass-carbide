@@ -10,10 +10,10 @@
 # WIMTACH
 #
 import sys
-from PySide2.QtWidgets import QApplication, QMainWindow, QAction, QFrame, QStatusBar, QPushButton, QVBoxLayout, \
-    QHBoxLayout, QLabel, QMessageBox
+from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QStatusBar, QVBoxLayout, QMessageBox
 from TabView import TabView
 from GC_Components.MainComponents import MenuBar, MainButtons
+from DummyView import DummyView
 
 
 class MainView(QMainWindow):
@@ -22,8 +22,12 @@ class MainView(QMainWindow):
         self.layout = QVBoxLayout()
         self.tabFrame = QFrame()
         self.tab_widget = TabView()
+        self.dummy = DummyView()
+        self.dummyBox = QVBoxLayout()
 
         self.tabIndex = self.tab_widget.tabIndex
+
+        # self.results = []
 
         # Menu Bar
         self.menuBar = MenuBar(self)
@@ -71,6 +75,16 @@ class MainView(QMainWindow):
         elif tabIndex == self.tab_widget.tableView.tabIndex:
             self.tab_widget.tab_index_setter(self.tab_widget.previewView.tabIndex)
             self.tab_widget.tabIndex = self.tab_widget.previewView.tabIndex
+
+            try:
+                if self.tab_widget.tableView.create_selection():
+                    results = self.tab_widget.tableView.create_selection()
+                    self.dummy.table_loader(results)
+                    self.dummyBox.addWidget(self.dummy)
+                    self.tab_widget.previewView.set_result_frame(self.dummyBox)
+            except IndexError:
+                pass
+
         elif tabIndex == self.tab_widget.previewView.tabIndex:
             msg = QMessageBox()
             msg.setWindowTitle("Are you sure?")
