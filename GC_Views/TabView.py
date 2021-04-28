@@ -34,17 +34,28 @@ class TabView(QFrame):
                                      "color: rgb(0, 0, 205); border-bottom:none; margin-left: 2px;}")
 
         # Setting views in tabs
-        self.set_tab_frame(self.homeView, 0)
-        self.set_tab_frame(self.tableView, 1)
-        self.set_tab_frame(self.previewView, 2)
+        self.set_tab_frame(self.homeView, self.homeView.tabIndex)
+        self.set_tab_frame(self.tableView, self.tableView.tabIndex)
+        self.set_tab_frame(self.previewView, self.previewView.tabIndex)
 
         self.layout.addWidget(self.tabWidget)
         self.setLayout(self.layout)
         self.setGeometry(0, 0, 800, 400)
 
+        # Tab Index Variable
+        self.tabWidget.setCurrentIndex(0)
+        self.tabIndex = 0
+
     def set_tab_frame(self, frame: QFrame, index_num: int):
         self.tabWidget.insertTab(index_num, frame, f"Step {index_num + 1}")
         self.tabWidget.setCurrentIndex(0)
+
+    def tab_index_setter(self, index_num: int):
+        self.tabWidget.setCurrentIndex(index_num)
+        self.tabIndex = index_num
+
+    def tab_index_getter(self):
+        return self.tabIndex
 
     def dir_getter(self):
         self.dir = self.homeView.mappingView.get_dir_path()

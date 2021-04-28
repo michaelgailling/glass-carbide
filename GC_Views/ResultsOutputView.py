@@ -22,6 +22,9 @@ class ResultsOutputView(QFrame):
         self.layout = QVBoxLayout()
         self.grid = QGridLayout()
 
+        # Tab Index
+        self.tabIndex = 2
+
         # Label
         self.displayLbl = QLabel("Review")
 

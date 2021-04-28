@@ -10,10 +10,7 @@
 # WIMTACH
 #
 import sys
-from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget
-from DirectoryMappingView import DirectoryMappingView
-from ServerSelectionView import ServerSelectionView
+from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QHBoxLayout
 
 
 class HomeBtnsView(QFrame):

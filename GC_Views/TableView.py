@@ -24,6 +24,9 @@ class TableView(QFrame):
         self.vBox = QVBoxLayout()
         self.csv_handler = CsvIo()
 
+        # Tab Index
+        self.tabIndex = 1
+
         # Table
         self.dt_table = DataTable(self)
         self.column_definitions = []
