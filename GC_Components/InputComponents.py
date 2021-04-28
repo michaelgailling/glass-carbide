@@ -11,7 +11,8 @@
 #
 import os
 
-from PySide2.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog, QApplication
+from PySide2.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog
+from PySide2.QtCore import Qt
 
 
 # Composite Text Input Elements
@@ -54,6 +55,58 @@ class LabeledInput(QFrame):
         self.hBox = QHBoxLayout()
         self.hBox.addWidget(self.label)
         self.hBox.addWidget(self.input)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+
+class LabeledInputWithButton(QFrame):
+    """Labeled Input with button
+
+        Summary:
+            A class for an input box that includes:
+
+            -Label to the left
+
+        Attributes:
+            label, input
+
+        Methods:
+            get_input_text, set_input_text
+
+        Attributes
+        ----------
+            label : QLabel
+                Text Label for Input Box
+            input : QLineEdit
+                Input Box for text entry
+
+        Methods
+        -------
+            get_input_text(self)
+                Return the text in the input box
+            set_input_text(self, value : string)
+                Sets the input box text
+    """
+    def __init__(self, parent, label_text="", input_text="", button_text=""):
+        super(LabeledInputWithButton, self).__init__(parent)
+
+        self.label = QLabel(self, text=label_text)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+
+        self.button = QPushButton(button_text)
+        self.button.setStyleSheet("background-color:blue;color:white;")
+
+        self.hBox = QHBoxLayout(self)
+        self.hBox.addWidget(self.label)
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.button)
 
     def get_input_text(self):
         text = self.input.text()

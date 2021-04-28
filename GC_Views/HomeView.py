@@ -11,10 +11,11 @@
 #
 import sys
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget
+from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget
 from DirectoryMappingView import DirectoryMappingView
 from ServerSelectionView import ServerSelectionView
 from HomeBtnsView import HomeBtnsView
+from pCloudView import  PCloudView
 
 
 class HomeView(QFrame):
@@ -24,6 +25,9 @@ class HomeView(QFrame):
         self.btnBox = QVBoxLayout()
         self.frameBox = QVBoxLayout()
 
+        # Tab Index
+        self.tabIndex = 0
+
         # Step Instructions
         self.instruct = QLabel("Overview of Instructions")
 
@@ -32,8 +36,8 @@ class HomeView(QFrame):
 
         # Assign methods for buttons
         self.btnFrame.newBtn.clicked.connect(lambda: self.set_frame_index(1))
-        self.btnFrame.openBtn.clicked.connect(lambda: self.set_frame_index(2))
-        self.btnFrame.saveBtn.clicked.connect(lambda: self.set_frame_index(0))
+        self.btnFrame.openBtn.clicked.connect(lambda: self.set_frame_index(3))
+        self.btnFrame.saveBtn.clicked.connect(lambda: self.set_frame_index(2))
 
         # Logo Picture will be contained in a Label
         self.logo = QLabel("Logo Placeholder")
@@ -49,6 +53,8 @@ class HomeView(QFrame):
         self.resultFrame.setStyleSheet('QStackedWidget{border:2px solid blue;background-color:white;}')
         # Blank QFrame for initial load
         self.blank = QFrame()
+        # PCloud browser
+        self.pCloudView = PCloudView()
         # Mapping view to map project folders
         self.mappingView = DirectoryMappingView()
         self.mappingView.setStyleSheet('QFrame{border:none;}')
@@ -58,6 +64,7 @@ class HomeView(QFrame):
         self.resultFrame.addWidget(self.blank)
         self.resultFrame.addWidget(self.mappingView)
         self.resultFrame.addWidget(self.serverView)
+        self.resultFrame.addWidget(self.pCloudView)
         # Vbo
         self.frameBox.addWidget(self.resultFrame)
 
@@ -69,9 +76,6 @@ class HomeView(QFrame):
 
     def set_frame_index(self, num: int):
         self.resultFrame.setCurrentIndex(num)
-
-    def set_blank_frame(self):
-        self.resultFrame.setCurrentIndex(0)
 
 
 if __name__ == '__main__':

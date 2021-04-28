@@ -10,10 +10,12 @@
 # WIMTACH
 #
 import sys
-from PySide2.QtWidgets import QApplication, QMainWindow, QAction, QFrame, QStatusBar, QPushButton, QVBoxLayout, \
-    QHBoxLayout, QLabel, QMessageBox
+
+from PySide2.QtGui import QGuiApplication
+from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QStatusBar, QVBoxLayout, QMessageBox
 from TabView import TabView
 from GC_Components.MainComponents import MenuBar, MainButtons
+from DummyView import DummyView
 
 
 class MainView(QMainWindow):
@@ -22,6 +24,12 @@ class MainView(QMainWindow):
         self.layout = QVBoxLayout()
         self.tabFrame = QFrame()
         self.tab_widget = TabView()
+        self.dummy = DummyView()
+        self.dummyBox = QVBoxLayout()
+
+        self.tabIndex = self.tab_widget.tabIndex
+
+        # self.results = []
 
         # Menu Bar
         self.menuBar = MenuBar(self)
@@ -43,8 +51,9 @@ class MainView(QMainWindow):
         self.tabFrame.setLayout(self.layout)
         self.setCentralWidget(self.tabFrame)
         self.setWindowTitle("Glass Carbide")
-        self.setGeometry(100, 100, 900, 600)
-        self.setStyleSheet("background-color: white")
+        self.setGeometry(100, 100, 1000, 600)
+        self.centralWidget().setMinimumSize(1000, 600)
+        self.setStyleSheet("background-color: white;")
         self.center_screen()
 
     def center_screen(self):
@@ -52,34 +61,58 @@ class MainView(QMainWindow):
         print('Size: %d x %d' % (size.width(), size.height()))
         # rect = self.
         # print('Available: %d x %d' % (rect.width(), rect.height()))
-        # screen = QGuiApplication.screenAt()
+        screen = self.topLevelWidget().screen().geometry()
         # size = self.geometry()
-        # self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
+        self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
     def continue_clicked(self):
         if self.tab_widget.homeView.mappingView.get_dir_path():
             self.tab_widget.dir_getter()
-        if self.tab_widget.tabWidget.currentIndex() < 2:
-            self.tab_widget.tabWidget.setCurrentIndex(self.tab_widget.tabWidget.currentIndex() + 1)
-        else:
+
+        tabIndex = self.tab_widget.tabIndex
+
+        if tabIndex == self.tab_widget.homeView.tabIndex:
+            self.tab_widget.tab_index_setter(self.tab_widget.tableView.tabIndex)
+            self.tab_widget.tabIndex = self.tab_widget.tableView.tabIndex
+        elif tabIndex == self.tab_widget.tableView.tabIndex:
+            self.tab_widget.tab_index_setter(self.tab_widget.previewView.tabIndex)
+            self.tab_widget.tabIndex = self.tab_widget.previewView.tabIndex
+
+            try:
+                results = self.tab_widget.tableView.create_selection()
+                self.dummy.table_loader(results)
+                self.dummyBox.addWidget(self.dummy)
+                self.dummy.setStyleSheet('border:none')
+                self.tab_widget.previewView.set_result_frame(self.dummyBox)
+            except IndexError:
+                pass
+
+        elif tabIndex == self.tab_widget.previewView.tabIndex:
             msg = QMessageBox()
             msg.setWindowTitle("Are you sure?")
             msg.setText("Open { Project Name } in { Software }?")
             msg.setIcon(QMessageBox.Information)
             msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
             msg.exec_()
+        else:
+            pass
 
     def cancel_clicked(self):
-        if self.tab_widget.tabWidget.currentIndex() >= 1:
-            self.tab_widget.tabWidget.setCurrentIndex(self.tab_widget.tabWidget.currentIndex() - 1)
-        else:
+        tabIndex = self.tab_widget.tabIndex
+
+        if tabIndex == self.tab_widget.homeView.tabIndex:
             msg = QMessageBox()
             msg.setWindowTitle("Save your progress?")
             msg.setText("Would you like to save your progress?")
             msg.setIcon(QMessageBox.Warning)
             msg.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Close)
-
             msg.exec_()
+        elif tabIndex == self.tab_widget.tableView.tabIndex:
+            self.tab_widget.tab_index_setter(self.tab_widget.homeView.tabIndex)
+            self.tab_widget.tabIndex = self.tab_widget.homeView.tabIndex
+        elif tabIndex == self.tab_widget.previewView.tabIndex:
+            self.tab_widget.tab_index_setter(self.tab_widget.tableView.tabIndex)
+            self.tab_widget.tabIndex = self.tab_widget.tableView.tabIndex
 
 
 if __name__ == '__main__':

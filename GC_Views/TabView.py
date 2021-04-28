@@ -9,6 +9,7 @@
 # Organization:
 # WIMTACH
 #
+from PySide2.QtCore import QEvent
 from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout
 from TableView import TableView
 from HomeView import HomeView
@@ -34,17 +35,44 @@ class TabView(QFrame):
                                      "color: rgb(0, 0, 205); border-bottom:none; margin-left: 2px;}")
 
         # Setting views in tabs
-        self.set_tab_frame(self.homeView, 0)
-        self.set_tab_frame(self.tableView, 1)
-        self.set_tab_frame(self.previewView, 2)
+        self.set_tab_frame(self.homeView, self.homeView.tabIndex)
+        self.set_tab_frame(self.tableView, self.tableView.tabIndex)
+        self.set_tab_frame(self.previewView, self.previewView.tabIndex)
 
         self.layout.addWidget(self.tabWidget)
         self.setLayout(self.layout)
         self.setGeometry(0, 0, 800, 400)
 
+        # Tab Index Variable
+        self.tabWidget.setCurrentIndex(0)
+        self.tabIndex = 0
+        self.disable_tabs(self.tabIndex)
+
     def set_tab_frame(self, frame: QFrame, index_num: int):
         self.tabWidget.insertTab(index_num, frame, f"Step {index_num + 1}")
         self.tabWidget.setCurrentIndex(0)
+
+    def tab_index_setter(self, index_num: int):
+        self.tabWidget.setCurrentIndex(index_num)
+        self.tabIndex = index_num
+        self.disable_tabs(self.tabIndex)
+
+    def tab_index_getter(self):
+        return self.tabIndex
+
+    def disable_tabs(self, safe_num: int):
+        if safe_num == self.homeView.tabIndex:
+            self.homeView.setEnabled(True)
+            self.tableView.setEnabled(False)
+            self.previewView.setEnabled(False)
+        elif safe_num == self.tableView.tabIndex:
+            self.tableView.setEnabled(True)
+            self.previewView.setEnabled(False)
+            self.homeView.setEnabled(False)
+        elif safe_num == self.previewView.tabIndex:
+            self.previewView.setEnabled(True)
+            self.homeView.setEnabled(False)
+            self.tableView.setEnabled(False)
 
     def dir_getter(self):
         self.dir = self.homeView.mappingView.get_dir_path()
