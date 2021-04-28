@@ -146,7 +146,11 @@ class DataTable(QFrame):
                 cell = QTableWidgetItem(data[y][x])
                 self.table.setItem(y, x, cell)
 
+        asyncio.run(self.fit_headers_to_content())
+
+    async def fit_headers_to_content(self):
         header = self.table.horizontalHeader()
+        width = self.table.columnCount()
         for i in range(width):
             header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
 
