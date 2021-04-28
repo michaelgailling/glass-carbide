@@ -10,6 +10,8 @@
 # WIMTACH
 #
 import sys
+
+from PySide2.QtGui import QGuiApplication
 from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QStatusBar, QVBoxLayout, QMessageBox
 from TabView import TabView
 from GC_Components.MainComponents import MenuBar, MainButtons
@@ -49,8 +51,8 @@ class MainView(QMainWindow):
         self.tabFrame.setLayout(self.layout)
         self.setCentralWidget(self.tabFrame)
         self.setWindowTitle("Glass Carbide")
-        self.setGeometry(100, 100, 900, 600)
-        self.centralWidget().setMinimumSize(900, 600)
+        self.setGeometry(100, 100, 1000, 600)
+        self.centralWidget().setMinimumSize(1000, 600)
         self.setStyleSheet("background-color: white;")
         self.center_screen()
 
@@ -59,9 +61,9 @@ class MainView(QMainWindow):
         print('Size: %d x %d' % (size.width(), size.height()))
         # rect = self.
         # print('Available: %d x %d' % (rect.width(), rect.height()))
-        # screen = QGuiApplication.screenAt()
+        screen = self.topLevelWidget().screen().geometry()
         # size = self.geometry()
-        # self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
+        self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
 
     def continue_clicked(self):
         if self.tab_widget.homeView.mappingView.get_dir_path():
@@ -77,11 +79,11 @@ class MainView(QMainWindow):
             self.tab_widget.tabIndex = self.tab_widget.previewView.tabIndex
 
             try:
-                if self.tab_widget.tableView.create_selection():
-                    results = self.tab_widget.tableView.create_selection()
-                    self.dummy.table_loader(results)
-                    self.dummyBox.addWidget(self.dummy)
-                    self.tab_widget.previewView.set_result_frame(self.dummyBox)
+                results = self.tab_widget.tableView.create_selection()
+                self.dummy.table_loader(results)
+                self.dummyBox.addWidget(self.dummy)
+                self.dummy.setStyleSheet('border:none')
+                self.tab_widget.previewView.set_result_frame(self.dummyBox)
             except IndexError:
                 pass
 
