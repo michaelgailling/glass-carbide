@@ -12,7 +12,7 @@
 
 import asyncio
 import sys
-from PySide2.QtGui import QColor
+from PySide2.QtGui import QColor, Qt
 from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetItem, QApplication, QWidget, QComboBox, \
     QCheckBox, QHeaderView
 
@@ -96,6 +96,7 @@ class DataTable(QFrame):
 
     def set_headers(self, headers):
         self.table.setHorizontalHeaderLabels(headers)
+        self.table.horizontalHeader().setStyleSheet('color:blue')
 
     def insert_control_row(self, widget_type=None, start_index=0, options=[]):
         self.table.insertRow(0)
@@ -147,6 +148,7 @@ class DataTable(QFrame):
                 self.table.setItem(y, x, cell)
 
         header = self.table.horizontalHeader()
+        self.table.verticalHeader().hide()
         for i in range(width):
             header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
 

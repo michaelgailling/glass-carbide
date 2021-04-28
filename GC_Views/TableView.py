@@ -11,6 +11,7 @@
 #
 import sys
 
+from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem, QHBoxLayout, QComboBox
 
 from GC_Components.InputComponents import LabeledFileInput
@@ -36,19 +37,14 @@ class TableView(QFrame):
 
         # Load Button
         self.btn_load_file = QPushButton("Load To Table")
-        # self.btn_load_file.setStyleSheet("background-color:blue;color:white;padding:10;border : 2px solid blue;"
-        #                                  "border-radius:20px")
+        self.btn_load_file.setStyleSheet("background-color:blue;color:white;padding:10;border : 2px solid blue;"
+                                         "border-radius:20px;")
         self.btn_load_file.clicked.connect(self.load_file)
-
-        self.btn_test = QPushButton("TEST")
-
-        self.btn_test.clicked.connect(self.create_selection)
 
         # Layout loading
         self.vBox.addWidget(self.dt_table)
         self.vBox.addWidget(self.lfi_file_select)
-        self.vBox.addWidget(self.btn_load_file)
-        self.vBox.addWidget(self.btn_test)
+        self.vBox.addWidget(self.btn_load_file, alignment=Qt.AlignHCenter)
         self.setLayout(self.vBox)
  
         self.setGeometry(0, 0, 800, 500)

@@ -11,6 +11,7 @@
 #
 import sys
 
+from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QFrame, QApplication, QVBoxLayout
 
 from GC_Components.TableComponents import DataTable
@@ -22,20 +23,16 @@ class DummyView(QFrame):
         self.vBox = QVBoxLayout()
 
         self.table = DataTable()
+        self.table.table.setStyleSheet('background-color: grey')
         self.vBox.addWidget(self.table)
         self.setLayout(self.vBox)
 
-    def table_loader(self, results: []):
+    def table_loader(self, results=[]):
         try:
-            self.table.load_data(results)
+            if results:
+                headers = results.pop(0)
+                self.table.load_data(results)
+                self.table.set_headers(headers)
         except TypeError:
             pass
-
-
-if __name__ == '__main__':
-    qApp = QApplication(sys.argv)
-    mainBase = DummyView()
-    mainBase.show()
-    # directory.show()
-    sys.exit(qApp.exec_())
 

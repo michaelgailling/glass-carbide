@@ -51,19 +51,15 @@ class MainView(QMainWindow):
         self.tabFrame.setLayout(self.layout)
         self.setCentralWidget(self.tabFrame)
         self.setWindowTitle("Glass Carbide")
-        self.setGeometry(100, 100, 1000, 600)
-        self.centralWidget().setMinimumSize(1000, 600)
+        self.setGeometry(0, 0, 900, 600)
+        self.centralWidget().setMinimumSize(900, 600)
         self.setStyleSheet("background-color: white;")
         self.center_screen()
 
     def center_screen(self):
         size = self.size()
-        print('Size: %d x %d' % (size.width(), size.height()))
-        # rect = self.
-        # print('Available: %d x %d' % (rect.width(), rect.height()))
         screen = self.topLevelWidget().screen().geometry()
-        # size = self.geometry()
-        self.move((screen.width() - size.width()) / 2, (screen.height() - size.height()) / 2)
+        self.move((screen.width() - size.width()) / 3, (screen.height() - size.height()) / 3)
 
     def continue_clicked(self):
         if self.tab_widget.homeView.mappingView.get_dir_path():
@@ -81,9 +77,10 @@ class MainView(QMainWindow):
             try:
                 results = self.tab_widget.tableView.create_selection()
                 self.dummy.table_loader(results)
-                self.dummyBox.addWidget(self.dummy)
-                self.dummy.setStyleSheet('border:none')
-                self.tab_widget.previewView.set_result_frame(self.dummyBox)
+                self.dummy.setStyleSheet('margin:0; padding:0')
+                self.dummy.table.setStyleSheet('border:none; margin:0; padding:0')
+                self.dummy.table.table.setStyleSheet('border:1px dotted grey; margin:0; padding:0')
+                self.tab_widget.previewView.set_result_frame(self.dummy.vBox)
             except IndexError:
                 pass
 
