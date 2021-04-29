@@ -25,7 +25,6 @@ class MainView(QMainWindow):
         self.tabFrame = QFrame()
         self.tab_widget = TabView()
         self.dummy = DummyView()
-        self.dummyBox = QVBoxLayout()
 
         self.tabIndex = self.tab_widget.tabIndex
 
