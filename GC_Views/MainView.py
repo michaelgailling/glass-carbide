@@ -10,6 +10,7 @@
 # WIMTACH
 #
 import sys
+from GC_Services.FileIo import FileIo
 
 from PySide2.QtGui import QGuiApplication
 from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QStatusBar, QVBoxLayout, QMessageBox
@@ -24,7 +25,7 @@ class MainView(QMainWindow):
         self.layout = QVBoxLayout()
         self.tabFrame = QFrame()
         self.tab_widget = TabView()
-        self.dummy = DummyView()
+
         self.tabIndex = self.tab_widget.tabIndex
 
         # self.results = []
@@ -72,12 +73,6 @@ class MainView(QMainWindow):
             results = self.tab_widget.tableView.create_selection()
             self.tab_widget.tab_index_setter(2)
             self.tab_widget.resultsView.load_table_data(results)
-
-            self.dummy.setStyleSheet('margin:0; padding:0')
-            self.dummy.table.setStyleSheet('border:none; margin:0; padding:0')
-            self.dummy.table.table.setStyleSheet('border:1px dotted grey; margin:0; padding:0')
-
-
 
         elif tab_index == 2:
             msg = QMessageBox()

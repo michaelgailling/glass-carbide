@@ -16,19 +16,20 @@ from GC_Views.DummyView import DummyView
 from TableView import TableView
 from HomeView import HomeView
 from ResultsOutputView import ResultsOutputView
+from GC_Services.FileIo import FileIo
 
 
 class TabView(QFrame):
     def __init__(self, parent=None):
         super(TabView, self).__init__(parent)
         self.layout = QVBoxLayout(self)
-
+        self.fio = FileIo()
         self.dir = ""
 
         # Views for tabs
-        self.homeView = HomeView()
-        self.tableView = TableView()
-        self.resultsView = ResultsOutputView()
+        self.homeView = HomeView(self, self.fio)
+        self.tableView = TableView(self, self.fio)
+        self.resultsView = ResultsOutputView(self, self.fio)
 
         # Tab Widget
         self.tabWidget = QTabWidget(self)

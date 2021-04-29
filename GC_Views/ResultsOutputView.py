@@ -15,14 +15,16 @@ from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLab
 
 from GC_Components.InputComponents import LabeledDirectoryInput
 from GC_Components.TableComponents import DataTable
+from GC_Services.FileIo import FileIo
 
 
 class ResultsOutputView(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, file_io=FileIo()):
         super(ResultsOutputView, self).__init__(parent)
         self.layout = QVBoxLayout()
         self.grid = QGridLayout()
         self.data = []
+        self.fio = file_io
 
         # Label
         self.displayLbl = QLabel("Review")

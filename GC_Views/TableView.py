@@ -13,18 +13,18 @@ import sys
 
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem, QHBoxLayout, QComboBox
-
+from GC_Services.FileIo import FileIo
 from GC_Components.InputComponents import LabeledFileInput
 from GC_Components.TableComponents import DataTable
 from GC_Services.csvIO import CsvIo
 
 
 class TableView(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, file_io=FileIo()):
         super(TableView, self).__init__(parent)
         self.vBox = QVBoxLayout()
         self.csv_handler = CsvIo()
-
+        self.fio = file_io
         # Table
         self.dt_table = DataTable(self)
         self.column_definitions = []
