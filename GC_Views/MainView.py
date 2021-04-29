@@ -25,8 +25,6 @@ class MainView(QMainWindow):
         self.tabFrame = QFrame()
         self.tab_widget = TabView()
         self.dummy = DummyView()
-        self.dummyBox = QVBoxLayout()
-
         self.tabIndex = self.tab_widget.tabIndex
 
         # self.results = []
@@ -75,11 +73,13 @@ class MainView(QMainWindow):
 
             try:
                 results = self.tab_widget.tableView.create_selection()
+                self.tab_widget.resultsView.set_result_frame(self.tab_widget.homeView.layout)
                 self.dummy.table_loader(results)
-                self.dummy.setStyleSheet('margin:0; padding:0')
-                self.dummy.table.setStyleSheet('border:none; margin:0; padding:0')
-                self.dummy.table.table.setStyleSheet('border:1px dotted grey; margin:0; padding:0')
-                self.tab_widget.previewView.set_result_frame(self.dummy.vBox)
+
+                # self.dummy.setStyleSheet('margin:0; padding:0')
+                # self.dummy.table.setStyleSheet('border:none; margin:0; padding:0')
+                # self.dummy.table.table.setStyleSheet('border:1px dotted grey; margin:0; padding:0')
+
             except IndexError:
                 pass
 

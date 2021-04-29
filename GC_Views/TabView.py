@@ -11,6 +11,8 @@
 #
 from PySide2.QtCore import QEvent
 from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout
+
+from GC_Views.DummyView import DummyView
 from TableView import TableView
 from HomeView import HomeView
 from ResultsOutputView import ResultsOutputView
