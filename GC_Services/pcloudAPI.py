@@ -398,43 +398,94 @@ class PCloud:
 
             return res_obj
 
-    async def download_file(self):
-        if self.valid_token():
-            method_params = {
+###################Publink Metods##########################
 
+    async def show_pub_link_directory(self, code=""):
+        if code:
+            method_params = {
+                "code": code
             }
 
+            url = self.regionUrl + "showpublink"
+            res = requests.get(url, params=method_params)
 
-apic = PCloud()
+            res_obj = self.handle_response(res)
 
-apic.set_region("NA")
-apic.set_username("deedtmp+liknb@gmail.com")
-apic.set_password("fakenews")
+            return res_obj
 
-print()
-asyncio.run(apic.auth_digest())
-print("Token: " + apic.token)
-createdir = asyncio.run(apic.create_folder("0", "New Dir"))
-print()
-print()
-filedir = asyncio.run(apic.list_folder("0"))
+    async def get_pub_link_download(self, code="", file_id=""):
+        if code and file_id:
+            method_params = {
+                "code": code,
+                "fileid": file_id
+            }
 
-print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
-print()
-print()
-for item in filedir["contents"]:
-    if item["name"] == "New Dir":
-        asyncio.run(apic.rename_folder(item["folderid"], "Better Folder"))
-print()
-print()
-filedir = asyncio.run(apic.list_folder("0"))
-print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
-print()
-print()
-for item in filedir["contents"]:
-    if item["name"] == "Better Folder":
-        asyncio.run(apic.delete_folder(item["folderid"]))
-print()
-print()
-filedir = asyncio.run(apic.list_folder("0"))
-print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
+            url = self.regionUrl + "getpublinkdownload"
+            res = requests.get(url, params=method_params)
+
+            res_obj = self.handle_response(res)
+
+            return res_obj
+
+    async def download_file(self, url):
+        if url:
+            res = requests.get(url)
+
+            res
+
+            return res.content
+
+
+# apic = PCloud()
+#
+# apic.set_region("NA")
+# pub_link_dir = asyncio.run(apic.show_pub_link_directory("kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V"))
+#
+# print(json.dumps(pub_link_dir["metadata"], sort_keys=True, indent=4))
+#
+# pub_link_download = asyncio.run(apic.get_pub_link_download(code="kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V", file_id="27739405968"))
+#
+# print(json.dumps(pub_link_download, sort_keys=True, indent=4))
+#
+# host = "http://" + pub_link_download["hosts"][0]
+# path = pub_link_download["path"]
+#
+# url = host + path
+#
+# file_res = asyncio.run(apic.download_file(url))
+#
+# print(file_res)
+#
+# open("../TEST.jpg", "wb").write(file_res)
+
+# apic.set_region("NA")
+# apic.set_username("deedtmp+liknb@gmail.com")
+# apic.set_password("fakenews")
+#
+# print()
+# asyncio.run(apic.auth_digest())
+# print("Token: " + apic.token)
+# createdir = asyncio.run(apic.create_folder("0", "New Dir"))
+# print()
+# print()
+# filedir = asyncio.run(apic.list_folder("0"))
+#
+# print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
+# print()
+# print()
+# for item in filedir["contents"]:
+#     if item["name"] == "New Dir":
+#         asyncio.run(apic.rename_folder(item["folderid"], "Better Folder"))
+# print()
+# print()
+# filedir = asyncio.run(apic.list_folder("0"))
+# print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
+# print()
+# print()
+# for item in filedir["contents"]:
+#     if item["name"] == "Better Folder":
+#         asyncio.run(apic.delete_folder(item["folderid"]))
+# print()
+# print()
+# filedir = asyncio.run(apic.list_folder("0"))
+# print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))

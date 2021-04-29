@@ -73,9 +73,9 @@ class MainView(QMainWindow):
             self.tab_widget.tab_index_setter(2)
             self.tab_widget.resultsView.load_table_data(results)
 
-            # self.dummy.setStyleSheet('margin:0; padding:0')
-            # self.dummy.table.setStyleSheet('border:none; margin:0; padding:0')
-            # self.dummy.table.table.setStyleSheet('border:1px dotted grey; margin:0; padding:0')
+            self.dummy.setStyleSheet('margin:0; padding:0')
+            self.dummy.table.setStyleSheet('border:none; margin:0; padding:0')
+            self.dummy.table.table.setStyleSheet('border:1px dotted grey; margin:0; padding:0')
 
 
 

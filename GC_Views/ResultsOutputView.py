@@ -51,9 +51,12 @@ class ResultsOutputView(QFrame):
         self.setGeometry(0, 0, 800, 500)
 
     def load_table_data(self, results=[]):
-        headers = results.pop(0)
-        self.dt_data.load_data(results)
-        self.dt_data.set_headers(headers)
+        try:
+            headers = results.pop(0)
+            self.dt_data.load_data(results)
+            self.dt_data.set_headers(headers)
+        except:
+            pass
 
     def set_data(self, data=[]):
         self.data = data
