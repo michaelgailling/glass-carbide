@@ -11,6 +11,8 @@
 #
 from PySide2.QtCore import QEvent
 from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout
+
+from GC_Views.DummyView import DummyView
 from TableView import TableView
 from HomeView import HomeView
 from ResultsOutputView import ResultsOutputView
@@ -53,7 +55,7 @@ class TabView(QFrame):
     def set_tab_frame(self, frame: QFrame, index_num: int):
         self.tabWidget.insertTab(index_num, frame, f"Step {index_num + 1}")
 
-    def tab_index_setter(self, index_num: int):
+    def tab_index_setter(self, index_num=0):
         self.tabWidget.setCurrentIndex(index_num)
         self.tabWidget.setTabEnabled(self.tabIndex, False)
         self.tabIndex = index_num
@@ -68,5 +70,4 @@ class TabView(QFrame):
 
     def get_selection(self):
         selection = self.tableView.create_selection()
-
         self.resultsView.data = selection

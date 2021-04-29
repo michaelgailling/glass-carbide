@@ -25,8 +25,6 @@ class MainView(QMainWindow):
         self.tabFrame = QFrame()
         self.tab_widget = TabView()
         self.dummy = DummyView()
-        self.dummyBox = QVBoxLayout()
-
         self.tabIndex = self.tab_widget.tabIndex
 
         # self.results = []
@@ -71,17 +69,15 @@ class MainView(QMainWindow):
         if tab_index == 0:
             self.tab_widget.tab_index_setter(1)
         elif tab_index == 1:
+            results = self.tab_widget.tableView.create_selection()
             self.tab_widget.tab_index_setter(2)
+            self.tab_widget.resultsView.load_table_data(results)
 
-            try:
-                results = self.tab_widget.tableView.create_selection()
-                self.dummy.table_loader(results)
-                self.dummy.setStyleSheet('margin:0; padding:0')
-                self.dummy.table.setStyleSheet('border:none; margin:0; padding:0')
-                self.dummy.table.table.setStyleSheet('border:1px dotted grey; margin:0; padding:0')
-                self.tab_widget.previewView.set_result_frame(self.dummy.vBox)
-            except IndexError:
-                pass
+            # self.dummy.setStyleSheet('margin:0; padding:0')
+            # self.dummy.table.setStyleSheet('border:none; margin:0; padding:0')
+            # self.dummy.table.table.setStyleSheet('border:1px dotted grey; margin:0; padding:0')
+
+
 
         elif tab_index == 2:
             msg = QMessageBox()

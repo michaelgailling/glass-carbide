@@ -38,20 +38,22 @@ class ResultsOutputView(QFrame):
         self.comboBox.setSpacing(1)
 
         # Results Display
-        self.resultFrame = DataTable()
+        self.dt_data = DataTable()
 
         # Layout Loading
         self.comboBox.addWidget(self.project_dir)
         self.comboBox.addWidget(self.softwareBox, alignment=Qt.AlignHCenter)
-        self.layout.addWidget(self.resultFrame)
+        self.layout.addWidget(self.dt_data)
         self.layout.addItem(self.comboBox)
         self.layout.setContentsMargins(30, 20, 30, 30)
         self.setLayout(self.layout)
 
         self.setGeometry(0, 0, 800, 500)
 
-    def set_result_frame(self, results_data_frame: QVBoxLayout):
-        self.resultFrame.setLayout(results_data_frame)
+    def load_table_data(self, results=[]):
+        headers = results.pop(0)
+        self.dt_data.load_data(results)
+        self.dt_data.set_headers(headers)
 
     def set_data(self, data=[]):
         self.data = data
