@@ -25,7 +25,6 @@ class MainView(QMainWindow):
         self.tabFrame = QFrame()
         self.tab_widget = TabView()
         self.dummy = DummyView()
-
         self.tabIndex = self.tab_widget.tabIndex
 
         # self.results = []
@@ -65,26 +64,22 @@ class MainView(QMainWindow):
         if self.tab_widget.homeView.mappingView.get_dir_path():
             self.tab_widget.dir_getter()
 
-        tabIndex = self.tab_widget.tabIndex
+        tab_index = self.tab_widget.tabIndex
 
-        if tabIndex == self.tab_widget.homeView.tabIndex:
-            self.tab_widget.tab_index_setter(self.tab_widget.tableView.tabIndex)
-            self.tab_widget.tabIndex = self.tab_widget.tableView.tabIndex
-        elif tabIndex == self.tab_widget.tableView.tabIndex:
-            self.tab_widget.tab_index_setter(self.tab_widget.previewView.tabIndex)
-            self.tab_widget.tabIndex = self.tab_widget.previewView.tabIndex
+        if tab_index == 0:
+            self.tab_widget.tab_index_setter(1)
+        elif tab_index == 1:
+            results = self.tab_widget.tableView.create_selection()
+            self.tab_widget.tab_index_setter(2)
+            self.tab_widget.resultsView.load_table_data(results)
 
-            try:
-                results = self.tab_widget.tableView.create_selection()
-                self.dummy.table_loader(results)
-                self.dummy.setStyleSheet('margin:0; padding:0')
-                self.dummy.table.setStyleSheet('border:none; margin:0; padding:0')
-                self.dummy.table.table.setStyleSheet('border:1px dotted grey; margin:0; padding:0')
-                self.tab_widget.previewView.set_result_frame(self.dummy.vBox)
-            except IndexError:
-                pass
+            # self.dummy.setStyleSheet('margin:0; padding:0')
+            # self.dummy.table.setStyleSheet('border:none; margin:0; padding:0')
+            # self.dummy.table.table.setStyleSheet('border:1px dotted grey; margin:0; padding:0')
 
-        elif tabIndex == self.tab_widget.previewView.tabIndex:
+
+
+        elif tab_index == 2:
             msg = QMessageBox()
             msg.setWindowTitle("Are you sure?")
             msg.setText("Open { Project Name } in { Software }?")
@@ -95,21 +90,19 @@ class MainView(QMainWindow):
             pass
 
     def cancel_clicked(self):
-        tabIndex = self.tab_widget.tabIndex
+        tab_index = self.tab_widget.tabIndex
 
-        if tabIndex == self.tab_widget.homeView.tabIndex:
+        if tab_index == 0:
             msg = QMessageBox()
             msg.setWindowTitle("Save your progress?")
             msg.setText("Would you like to save your progress?")
             msg.setIcon(QMessageBox.Warning)
             msg.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Close)
             msg.exec_()
-        elif tabIndex == self.tab_widget.tableView.tabIndex:
-            self.tab_widget.tab_index_setter(self.tab_widget.homeView.tabIndex)
-            self.tab_widget.tabIndex = self.tab_widget.homeView.tabIndex
-        elif tabIndex == self.tab_widget.previewView.tabIndex:
-            self.tab_widget.tab_index_setter(self.tab_widget.tableView.tabIndex)
-            self.tab_widget.tabIndex = self.tab_widget.tableView.tabIndex
+        elif tab_index == 1:
+            self.tab_widget.tab_index_setter(0)
+        elif tab_index == 2:
+            self.tab_widget.tab_index_setter(1)
 
 
 if __name__ == '__main__':

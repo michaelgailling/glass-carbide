@@ -12,7 +12,6 @@
 import os
 
 from PySide2.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog
-from PySide2.QtCore import Qt
 
 
 # Composite Text Input Elements

@@ -14,6 +14,7 @@ from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLabel, QGridLayout
 
 from GC_Components.InputComponents import LabeledDirectoryInput
+from GC_Components.TableComponents import DataTable
 
 
 class ResultsOutputView(QFrame):
@@ -21,9 +22,7 @@ class ResultsOutputView(QFrame):
         super(ResultsOutputView, self).__init__(parent)
         self.layout = QVBoxLayout()
         self.grid = QGridLayout()
-
-        # Tab Index
-        self.tabIndex = 2
+        self.data = []
 
         # Label
         self.displayLbl = QLabel("Review")
@@ -39,21 +38,25 @@ class ResultsOutputView(QFrame):
         self.comboBox.setSpacing(1)
 
         # Results Display
-        self.resultFrame = QFrame()
-        self.resultFrame.setStyleSheet('border:2px solid blue; margin:0 5; background-color:white;')
+        self.dt_data = DataTable()
 
         # Layout Loading
         self.comboBox.addWidget(self.project_dir)
         self.comboBox.addWidget(self.softwareBox, alignment=Qt.AlignHCenter)
-        self.layout.addWidget(self.resultFrame)
+        self.layout.addWidget(self.dt_data)
         self.layout.addItem(self.comboBox)
         self.layout.setContentsMargins(30, 20, 30, 30)
         self.setLayout(self.layout)
 
         self.setGeometry(0, 0, 900, 600)
 
-    def set_result_frame(self, results_data_frame: QVBoxLayout):
-        self.resultFrame.setLayout(results_data_frame)
+    def load_table_data(self, results=[]):
+        headers = results.pop(0)
+        self.dt_data.load_data(results)
+        self.dt_data.set_headers(headers)
+
+    def set_data(self, data=[]):
+        self.data = data
 
 
 if __name__ == '__main__':

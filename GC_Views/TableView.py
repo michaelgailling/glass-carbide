@@ -25,9 +25,6 @@ class TableView(QFrame):
         self.vBox = QVBoxLayout()
         self.csv_handler = CsvIo()
 
-        # Tab Index
-        self.tabIndex = 1
-
         # Table
         self.dt_table = DataTable(self)
         self.column_definitions = []
@@ -65,9 +62,11 @@ class TableView(QFrame):
             self.dt_table.load_data(csv_data)
 
             combo_options = ["None",
-                             "File Name",
-                             "Asset Path",
-                             "Project",
+                             "Asset(s)",
+                             "ShotCode",
+                             "Duration",
+                             "Frames",
+                             "Resolution",
                              "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
                              "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
 
@@ -83,38 +82,26 @@ class TableView(QFrame):
 
         current_table = []
 
-        try:
-            for y in range(1, height):
-                row = []
-                for x in range(1, width):
-                    row.append(self.dt_table.get_cell_text(x, y))
-                current_table.append(row)
+        for y in range(1, height):
+            row = []
+            for x in range(1, width):
+                row.append(self.dt_table.get_cell_text(x, y))
+            current_table.append(row)
 
-            width = len(current_table[0])
-            height = len(current_table)
+        mapped_columns = []
+        selected_data = []
 
-            mapped_columns = []
-            selected_rows = []
-            selected_data = []
+        for i in range(width - 1):
+            mapped_columns.append(self.dt_table.mappings[i].currentText())
 
-            for i in range(width):
-                mapped_columns.append(self.dt_table.mappings[i].currentText())
+        for i in range(height - 1):
+            if self.dt_table.selections[i].isChecked():
+                selected_data.append(current_table[i])
 
-            for i in range(height):
-                selected_rows.append(self.dt_table.selections[i].isChecked())
+        if selected_data:
+            selected_data.insert(0, mapped_columns)
 
-            for i in range(len(selected_rows)):
-                if selected_rows[i]:
-                    selected_data.append(current_table[i])
-
-            if selected_data:
-                selected_data.insert(0, self.csv_handler.data[0])
-                selected_data[0].pop(0)
-                selected_data.insert(1, mapped_columns)
-
-            return selected_data
-        except IndexError:
-            pass
+        return selected_data
 
 
 if __name__ == '__main__':
