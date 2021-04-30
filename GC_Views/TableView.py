@@ -92,11 +92,20 @@ class TableView(QFrame):
         selected_data = []
 
         for i in range(width - 1):
-            mapped_columns.append(self.dt_table.mappings[i].currentText())
+            mapping_text = self.dt_table.mappings[i].currentText()
+            if mapping_text != "None":
+                mapped_columns.append(mapping_text)
 
-        for i in range(height - 1):
-            if self.dt_table.selections[i].isChecked():
-                selected_data.append(current_table[i])
+        for y in range(height - 1):
+
+            if self.dt_table.selections[y].isChecked():
+                row = []
+                for x in range(width-1):
+                    mapping_text = self.dt_table.mappings[x].currentText()
+                    if mapping_text != "None":
+                        row.append(current_table[y][x])
+
+                selected_data.append(row)
 
         if selected_data:
             selected_data.insert(0, mapped_columns)
