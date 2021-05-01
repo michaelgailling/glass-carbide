@@ -15,13 +15,14 @@ from PySide2.QtWidgets import QFrame, QVBoxLayout, QFileDialog
 
 from GC_Components.InputComponents import LabeledDirectoryInput
 
+from GC_Services.FileIo import FileIo
+
 
 class DirectoryMappingView(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, file_io=FileIo()):
         super(DirectoryMappingView, self).__init__(parent)
-
         self.dir_path = ""
-
+        self.fio = file_io
         self.mainPath = LabeledDirectoryInput(self, label_text="Project Directory: ")
         self.assetPath = LabeledDirectoryInput(self, label_text="Assets: ")
         self.episodePath = LabeledDirectoryInput(self, label_text="Episodes: ")
@@ -41,10 +42,19 @@ class DirectoryMappingView(QFrame):
 
     def shared_dir_paths(self):
         self.dir_path = self.dir_getter_filler()
+        self.fio.project_dir = self.dir_path
+        self.make_dirs()
         self.assetPath.set_input_text(f"{self.dir_path}/Assets")
         self.episodePath.set_input_text(f"{self.dir_path}/Episodes")
         self.animaticsPath.set_input_text(f"{self.dir_path}/Animatics")
         self.soundsPath.set_input_text(f"{self.dir_path}/Sounds")
+
+    def make_dirs(self):
+        if self.fio.project_dir:
+            self.fio.make_dir("/Assets")
+            self.fio.make_dir("/Episodes")
+            self.fio.make_dir("/Animatics")
+            self.fio.make_dir("/Sounds")
 
     def dir_getter_filler(self):
         directory_path = QFileDialog.getExistingDirectory(self, "Select a Directory")

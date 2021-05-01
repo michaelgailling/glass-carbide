@@ -13,18 +13,19 @@ import sys
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget
 from DirectoryMappingView import DirectoryMappingView
+from GC_Services.FileIo import FileIo
 from ServerSelectionView import ServerSelectionView
 from HomeBtnsView import HomeBtnsView
 from pCloudView import  PCloudView
 
 
 class HomeView(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, file_io=FileIo()):
         super(HomeView, self).__init__(parent)
         self.layout = QHBoxLayout()
         self.btnBox = QVBoxLayout()
         self.frameBox = QVBoxLayout()
-
+        self.fio = file_io
         # Step Instructions
         self.instruct = QLabel("Overview of Instructions")
 
@@ -53,7 +54,7 @@ class HomeView(QFrame):
         # PCloud browser
         self.pCloudView = PCloudView()
         # Mapping view to map project folders
-        self.mappingView = DirectoryMappingView()
+        self.mappingView = DirectoryMappingView(self, self.fio)
         self.mappingView.setStyleSheet('QFrame{border:none;}')
         # Server selection view to pick local or server directory
         self.serverView = ServerSelectionView()

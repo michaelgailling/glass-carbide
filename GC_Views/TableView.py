@@ -13,18 +13,18 @@ import sys
 
 from PySide2.QtGui import Qt
 from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem, QHBoxLayout, QComboBox
-
+from GC_Services.FileIo import FileIo
 from GC_Components.InputComponents import LabeledFileInput
 from GC_Components.TableComponents import DataTable
 from GC_Services.csvIO import CsvIo
 
 
 class TableView(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, file_io=FileIo()):
         super(TableView, self).__init__(parent)
         self.vBox = QVBoxLayout()
         self.csv_handler = CsvIo()
-
+        self.fio = file_io
         # Table
         self.dt_table = DataTable(self)
         self.column_definitions = []
@@ -92,11 +92,20 @@ class TableView(QFrame):
         selected_data = []
 
         for i in range(width - 1):
-            mapped_columns.append(self.dt_table.mappings[i].currentText())
+            mapping_text = self.dt_table.mappings[i].currentText()
+            if mapping_text != "None" and mapping_text != "":
+                mapped_columns.append(mapping_text)
 
-        for i in range(height - 1):
-            if self.dt_table.selections[i].isChecked():
-                selected_data.append(current_table[i])
+        for y in range(height - 1):
+
+            if self.dt_table.selections[y].isChecked():
+                row = []
+                for x in range(width-1):
+                    mapping_text = self.dt_table.mappings[x].currentText()
+                    if mapping_text != "None" and mapping_text != "":
+                        row.append(current_table[y][x])
+
+                selected_data.append(row)
 
         if selected_data:
             selected_data.insert(0, mapped_columns)

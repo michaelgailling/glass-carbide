@@ -16,19 +16,20 @@ from GC_Views.DummyView import DummyView
 from TableView import TableView
 from HomeView import HomeView
 from ResultsOutputView import ResultsOutputView
+from GC_Services.FileIo import FileIo
 
 
 class TabView(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, file_io=FileIo()):
         super(TabView, self).__init__(parent)
         self.layout = QVBoxLayout(self)
-
+        self.fio = file_io
         self.dir = ""
 
         # Views for tabs
-        self.homeView = HomeView()
-        self.tableView = TableView()
-        self.resultsView = ResultsOutputView()
+        self.homeView = HomeView(self, self.fio)
+        self.tableView = TableView(self, self.fio)
+        self.resultsView = ResultsOutputView(self, self.fio)
 
         # Tab Widget
         self.tabWidget = QTabWidget(self)
@@ -65,7 +66,7 @@ class TabView(QFrame):
         return self.tabIndex
 
     def dir_getter(self):
-        self.dir = self.homeView.mappingView.get_dir_path()
+        self.dir = self.fio.project_dir
         self.tableView.lfi_file_select.set_input_text(self.dir)
 
     def get_selection(self):

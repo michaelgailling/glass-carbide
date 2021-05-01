@@ -15,14 +15,16 @@ from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLab
 
 from GC_Components.InputComponents import LabeledDirectoryInput
 from GC_Components.TableComponents import DataTable
+from GC_Services.FileIo import FileIo
 
 
 class ResultsOutputView(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, file_io=FileIo()):
         super(ResultsOutputView, self).__init__(parent)
         self.layout = QVBoxLayout()
         self.grid = QGridLayout()
         self.data = []
+        self.fio = file_io
 
         # Label
         self.displayLbl = QLabel("Review")
@@ -51,9 +53,12 @@ class ResultsOutputView(QFrame):
         self.setGeometry(0, 0, 900, 600)
 
     def load_table_data(self, results=[]):
-        headers = results.pop(0)
-        self.dt_data.load_data(results)
-        self.dt_data.set_headers(headers)
+        try:
+            headers = results.pop(0)
+            self.dt_data.load_data(results)
+            self.dt_data.set_headers(headers)
+        except:
+            pass
 
     def set_data(self, data=[]):
         self.data = data
