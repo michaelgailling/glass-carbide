@@ -20,10 +20,10 @@ from GC_Services.FileIo import FileIo
 
 
 class TabView(QFrame):
-    def __init__(self, parent=None):
+    def __init__(self, parent=None, file_io=FileIo()):
         super(TabView, self).__init__(parent)
         self.layout = QVBoxLayout(self)
-        self.fio = FileIo()
+        self.fio = file_io
         self.dir = ""
 
         # Views for tabs
@@ -66,7 +66,7 @@ class TabView(QFrame):
         return self.tabIndex
 
     def dir_getter(self):
-        self.dir = self.homeView.mappingView.get_dir_path()
+        self.dir = self.fio.project_dir
         self.tableView.lfi_file_select.set_input_text(self.dir)
 
     def get_selection(self):

@@ -24,8 +24,8 @@ class MainView(QMainWindow):
         super(MainView, self).__init__(parent)
         self.layout = QVBoxLayout()
         self.tabFrame = QFrame()
-        self.tab_widget = TabView()
-
+        self.fio = FileIo()
+        self.tab_widget = TabView(self, self.fio)
         self.tabIndex = self.tab_widget.tabIndex
 
         # self.results = []

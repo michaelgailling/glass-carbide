@@ -50,10 +50,11 @@ class DirectoryMappingView(QFrame):
         self.soundsPath.set_input_text(f"{self.dir_path}/Sounds")
 
     def make_dirs(self):
-        self.fio.make_dir("/Assets")
-        self.fio.make_dir("/Episodes")
-        self.fio.make_dir("/Animatics")
-        self.fio.make_dir("/Sounds")
+        if self.fio.project_dir:
+            self.fio.make_dir("/Assets")
+            self.fio.make_dir("/Episodes")
+            self.fio.make_dir("/Animatics")
+            self.fio.make_dir("/Sounds")
 
     def dir_getter_filler(self):
         directory_path = QFileDialog.getExistingDirectory(self, "Select a Directory")

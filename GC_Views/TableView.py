@@ -93,7 +93,7 @@ class TableView(QFrame):
 
         for i in range(width - 1):
             mapping_text = self.dt_table.mappings[i].currentText()
-            if mapping_text != "None" or mapping_text != "":
+            if mapping_text != "None" and mapping_text != "":
                 mapped_columns.append(mapping_text)
 
         for y in range(height - 1):
@@ -102,7 +102,7 @@ class TableView(QFrame):
                 row = []
                 for x in range(width-1):
                     mapping_text = self.dt_table.mappings[x].currentText()
-                    if mapping_text != "None" or mapping_text != "":
+                    if mapping_text != "None" and mapping_text != "":
                         row.append(current_table[y][x])
 
                 selected_data.append(row)
