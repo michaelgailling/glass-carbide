@@ -19,7 +19,7 @@ class LogoView(QFrame):
         super(LogoView, self).__init__(parent)
 
         self.logo = QLabel(self)
-        pixmap = QPixmap('octo.png')
+        pixmap = QPixmap('../GC_Images/logo.png')
         self.logo.setPixmap(pixmap)
 
         self.main_layout = QVBoxLayout()

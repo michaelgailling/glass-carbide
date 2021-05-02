@@ -11,12 +11,14 @@
 #
 import sys
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget
+from PySide2.QtGui import QPixmap
+from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget, QMessageBox
 from DirectoryMappingView import DirectoryMappingView
 from GC_Services.FileIo import FileIo
 from ServerSelectionView import ServerSelectionView
 from HomeBtnsView import HomeBtnsView
 from pCloudView import  PCloudView
+from LogoView import LogoView
 
 
 class HomeView(QFrame):
@@ -26,6 +28,10 @@ class HomeView(QFrame):
         self.btnBox = QVBoxLayout()
         self.frameBox = QVBoxLayout()
         self.fio = file_io
+
+        # Creation confirmation variable
+        self.continue_create = True
+
         # Step Instructions
         self.instruct = QLabel("Overview of Instructions")
 
@@ -38,8 +44,7 @@ class HomeView(QFrame):
         self.btnFrame.saveBtn.clicked.connect(lambda: self.set_frame_index(2))
 
         # Logo Picture will be contained in a Label
-        self.logo = QLabel("Logo Placeholder")
-        self.logo.setFixedHeight(100)
+        self.logo = LogoView()
 
         # Add logo, instructions and buttons frame
         self.btnBox.addWidget(self.logo, alignment=Qt.AlignHCenter)
@@ -73,7 +78,30 @@ class HomeView(QFrame):
         self.setGeometry(0, 0, 800, 500)
 
     def set_frame_index(self, num: int):
-        self.resultFrame.setCurrentIndex(num)
+        if self.resultFrame.currentIndex() == 0:
+            self.confirm_create()
+        if self.continue_create == True:
+            self.resultFrame.setCurrentIndex(num)
+
+    def confirm_create(self):
+        self.continue_create = False
+        msg = QMessageBox()
+        msg.setWindowTitle("Are You Sure?")
+        msg.setText("This will create new folders within the selected directories. Would you like to continue?")
+        msg.setIcon(QMessageBox.Warning)
+        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+        msg.buttonClicked.connect(self.msg_button_click)
+
+        returnValue = msg.exec()
+        if returnValue == QMessageBox.Ok:
+            print('OK clicked')
+            self.continue_create = True
+        elif returnValue == QMessageBox.Cancel:
+            self.continue_create = False
+        # msg.exec_()
+
+    def msg_button_click(self):
+        print("Button clicked")
 
 
 if __name__ == '__main__':
