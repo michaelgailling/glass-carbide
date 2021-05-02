@@ -29,7 +29,7 @@ class HomeView(QFrame):
         self.frameBox = QVBoxLayout()
         self.fio = file_io
 
-        # Creation confirmation variable
+        # Folder creation confirmation variable
         self.continue_create = True
 
         # Step Instructions
@@ -78,30 +78,36 @@ class HomeView(QFrame):
         self.setGeometry(0, 0, 800, 500)
 
     def set_frame_index(self, num: int):
-        if self.resultFrame.currentIndex() == 0:
+        if num == 1:
             self.confirm_create()
-        if self.continue_create == True:
+        if self.continue_create is True or num != 1:
             self.resultFrame.setCurrentIndex(num)
 
     def confirm_create(self):
         self.continue_create = False
+        # Message Box to confirm creation of sub folders in project directory
         msg = QMessageBox()
         msg.setWindowTitle("Are You Sure?")
-        msg.setText("This will create new folders within the selected directories. Would you like to continue?")
+        msg.setText("This will create new folders within the selected directory if the folders don't already exist. "
+                    "Would you like to continue?")
         msg.setIcon(QMessageBox.Warning)
+        # Message Box Buttons
         msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        msg.buttonClicked.connect(self.msg_button_click)
+        # msg.buttonClicked.connect(self.msg_button_click)
 
-        returnValue = msg.exec()
-        if returnValue == QMessageBox.Ok:
-            print('OK clicked')
+        # Execute Message Box and return value of the clicked message box button
+        returned_value = msg.exec()
+        self.continue_check(returned_value)
+
+    def continue_check(self, return_val):
+        # If condition continues to next screen only if ok button clicked
+        if return_val == QMessageBox.Ok:
             self.continue_create = True
-        elif returnValue == QMessageBox.Cancel:
+        elif return_val == QMessageBox.Cancel:
             self.continue_create = False
-        # msg.exec_()
 
-    def msg_button_click(self):
-        print("Button clicked")
+    # def msg_button_click(self):
+        # print("Button clicked")
 
 
 if __name__ == '__main__':
