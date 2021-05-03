@@ -50,7 +50,7 @@ class ResultsOutputView(QFrame):
         self.layout.setContentsMargins(30, 20, 30, 30)
         self.setLayout(self.layout)
 
-        self.setGeometry(0, 0, 800, 500)
+        self.setGeometry(0, 0, 900, 600)
 
     def load_table_data(self, results=[]):
         try:

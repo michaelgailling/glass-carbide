@@ -44,7 +44,7 @@ class TabView(QFrame):
 
         self.layout.addWidget(self.tabWidget)
         self.setLayout(self.layout)
-        self.setGeometry(0, 0, 800, 400)
+        self.setGeometry(0, 0, 900, 600)
 
         # Tab Index Variable
         self.tabIndex = 0

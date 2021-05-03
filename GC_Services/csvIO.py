@@ -33,13 +33,16 @@ class CsvIo:
         return self.data
 
     async def load(self, file_path=""):
-        file = open(file_path, "rt", encoding="utf8")
-        file_data = csv.reader(file)
+        try:
+            file = open(file_path, "rt", encoding="utf8")
+            file_data = csv.reader(file)
 
-        for row in file_data:
-            self.data.append(row)
+            for row in file_data:
+                self.data.append(row)
 
-        file.close()
+            file.close()
+        except PermissionError:
+            pass
 
     def handler_headers(self):
         if self.calc_prob() > 0.2:
