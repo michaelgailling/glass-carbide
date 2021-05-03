@@ -125,3 +125,33 @@ class MainButtons(QHBoxLayout):
         self.addWidget(self.statLbl)
         self.addWidget(self.cancelBtn)
         self.addWidget(self.continueBtn)
+
+
+class MainNavButtons(QFrame):
+    """Main Buttons Test
+        -uses qframe instead of hboxlayout
+        """
+
+    def __init__(self, parent=None):
+        super(MainNavButtons, self).__init__(parent)
+
+        self.layout = QHBoxLayout()
+
+        # Spacer label
+        self.statLbl = QLabel("")
+
+        # Buttons
+        self.continueBtn = QPushButton("Continue")
+        self.continueBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 23;padding:10;"
+                                       "border:2px solid blue;border-radius:20px")
+
+        self.backBtn = QPushButton("Back")
+        self.backBtn.setStyleSheet("margin:1 23;color:rgb(85,0,255); background-color:rgb(255,255,255);"
+                                     "padding:10;border:2px solid blue;border-radius:20px")
+
+        self.layout.addWidget(self.statLbl)
+        self.layout.addWidget(self.statLbl)
+        self.layout.addWidget(self.backBtn)
+        self.layout.addWidget(self.continueBtn)
+
+        self.setLayout(self.layout)

@@ -10,8 +10,9 @@
 # WIMTACH
 #
 from PySide2.QtCore import QEvent
-from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout
+from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QMessageBox
 
+from GC_Components.MainComponents import MainNavButtons
 from GC_Views.DummyView import DummyView
 from TableView import TableView
 from HomeView import HomeView
@@ -42,16 +43,22 @@ class TabView(QFrame):
         self.set_tab_frame(self.tableView, 1)
         self.set_tab_frame(self.resultsView, 2)
 
-        self.layout.addWidget(self.tabWidget)
-        self.setLayout(self.layout)
-        self.setGeometry(0, 0, 900, 600)
-
         # Tab Index Variable
         self.tabIndex = 0
         self.tabWidget.setCurrentIndex(0)
         self.tabWidget.setTabEnabled(0, True)
         self.tabWidget.setTabEnabled(1, False)
         self.tabWidget.setTabEnabled(2, False)
+
+        # Setup Nav Buttons
+        self.main_nav = MainNavButtons()
+        self.main_nav.continueBtn.clicked.connect(self.continue_clicked)
+        self.main_nav.backBtn.clicked.connect(self.back_clicked)
+
+        self.layout.addWidget(self.tabWidget)
+        self.layout.addWidget(self.main_nav)
+        self.setLayout(self.layout)
+        self.setGeometry(0, 0, 900, 600)
 
     def set_tab_frame(self, frame: QFrame, index_num: int):
         self.tabWidget.insertTab(index_num, frame, f"Step {index_num + 1}")
@@ -72,3 +79,34 @@ class TabView(QFrame):
     def get_selection(self):
         selection = self.tableView.create_selection()
         self.resultsView.data = selection
+
+    def continue_clicked(self):
+        if self.homeView.mappingView.get_dir_path():
+            self.dir_getter()
+
+        if self.tab_index == 0:
+            self.tab_index_setter(1)
+        elif self.tab_index == 1:
+            results = self.tableView.create_selection()
+            self.tab_index_setter(2)
+            self.resultsView.load_table_data(results)
+        elif self.tab_index == 2:
+            msg = QMessageBox()
+            msg.setWindowTitle("Are you sure?")
+            msg.setText("Open { Project Name } in { Software }?")
+            msg.setIcon(QMessageBox.Information)
+            msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
+            msg.exec_()
+
+    def back_clicked(self):
+        if self.tab_index == 0:
+            msg = QMessageBox()
+            msg.setWindowTitle("Save your progress?")
+            msg.setText("Would you like to save your progress?")
+            msg.setIcon(QMessageBox.Warning)
+            msg.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Close)
+            msg.exec_()
+        elif self.tab_index == 1:
+            self.tab_index_setter(0)
+        elif self.tab_index == 2:
+            self.tab_index_setter(1)
