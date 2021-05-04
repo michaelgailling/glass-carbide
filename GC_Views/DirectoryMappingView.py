@@ -43,11 +43,12 @@ class DirectoryMappingView(QFrame):
     def shared_dir_paths(self):
         self.dir_path = self.dir_getter_filler()
         self.fio.project_dir = self.dir_path
-        self.make_dirs()
-        self.assetPath.set_input_text(f"{self.dir_path}/Assets")
-        self.episodePath.set_input_text(f"{self.dir_path}/Episodes")
-        self.animaticsPath.set_input_text(f"{self.dir_path}/Animatics")
-        self.soundsPath.set_input_text(f"{self.dir_path}/Sounds")
+        if self.fio.project_dir:
+            self.make_dirs()
+            self.assetPath.set_input_text(f"{self.dir_path}/Assets")
+            self.episodePath.set_input_text(f"{self.dir_path}/Episodes")
+            self.animaticsPath.set_input_text(f"{self.dir_path}/Animatics")
+            self.soundsPath.set_input_text(f"{self.dir_path}/Sounds")
 
     def make_dirs(self):
         if self.fio.project_dir:
