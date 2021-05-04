@@ -147,7 +147,7 @@ class MainNavButtons(QFrame):
 
         self.backBtn = QPushButton("Back")
         self.backBtn.setStyleSheet("margin:1 23;color:rgb(85,0,255); background-color:rgb(255,255,255);"
-                                     "padding:10;border:2px solid blue;border-radius:20px")
+                                   "padding:10;border:2px solid blue;border-radius:20px")
 
         self.layout.addWidget(self.statLbl)
         self.layout.addWidget(self.statLbl)
