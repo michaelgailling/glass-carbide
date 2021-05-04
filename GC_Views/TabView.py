@@ -9,11 +9,9 @@
 # Organization:
 # WIMTACH
 #
-from PySide2.QtCore import QEvent
-from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QMessageBox
 
+from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QMessageBox
 from GC_Components.MainComponents import MainNavButtons
-from GC_Views.DummyView import DummyView
 from TableView import TableView
 from HomeView import HomeView
 from ResultsOutputView import ResultsOutputView
@@ -84,13 +82,13 @@ class TabView(QFrame):
         if self.homeView.mappingView.get_dir_path():
             self.dir_getter()
 
-        if self.tab_index == 0:
+        if self.tabIndex == 0:
             self.tab_index_setter(1)
-        elif self.tab_index == 1:
+        elif self.tabIndex == 1:
             results = self.tableView.create_selection()
             self.tab_index_setter(2)
             self.resultsView.load_table_data(results)
-        elif self.tab_index == 2:
+        elif self.tabIndex == 2:
             msg = QMessageBox()
             msg.setWindowTitle("Are you sure?")
             msg.setText("Open { Project Name } in { Software }?")
@@ -99,14 +97,14 @@ class TabView(QFrame):
             msg.exec_()
 
     def back_clicked(self):
-        if self.tab_index == 0:
+        if self.tabIndex == 0:
             msg = QMessageBox()
             msg.setWindowTitle("Save your progress?")
             msg.setText("Would you like to save your progress?")
             msg.setIcon(QMessageBox.Warning)
             msg.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Close)
             msg.exec_()
-        elif self.tab_index == 1:
+        elif self.tabIndex == 1:
             self.tab_index_setter(0)
-        elif self.tab_index == 2:
+        elif self.tabIndex == 2:
             self.tab_index_setter(1)

@@ -11,7 +11,6 @@
 #
 import sys
 from GC_Services.FileIo import FileIo
-
 from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QStatusBar, QVBoxLayout
 from TabView import TabView
 from GC_Components.MainComponents import MenuBar

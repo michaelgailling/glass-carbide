@@ -91,7 +91,7 @@ class LabeledInputWithButton(QFrame):
             set_input_text(self, value : string)
                 Sets the input box text
     """
-    def __init__(self, parent, label_text="", input_text="", button_text=""):
+    def __init__(self, parent, label_text="", input_text="", button_text="", btn_enable=True):
         super(LabeledInputWithButton, self).__init__(parent)
 
         self.label = QLabel(self, text=label_text)
@@ -101,6 +101,7 @@ class LabeledInputWithButton(QFrame):
 
         self.button = QPushButton(button_text)
         self.button.setStyleSheet("background-color:blue;color:white;")
+        self.button.setEnabled(btn_enable)
 
         self.hBox = QHBoxLayout(self)
         self.hBox.addWidget(self.label)
@@ -145,14 +146,16 @@ class DirectoryInput(QFrame):
                 open_directory_dialog(self)
                     Opens the directory selection dialog
         """
-    def __init__(self, parent, input_text=""):
+    def __init__(self, parent, input_text="", read_only=False, btn_enable=True):
         super(DirectoryInput, self).__init__(parent)
 
         self.input = QLineEdit(self)
         self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
 
         self.fileDialogButton = QPushButton(self, text="...")
         self.fileDialogButton.clicked.connect(self.open_directory_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
 
         self.hBox = QHBoxLayout()
         self.hBox.addWidget(self.input)
@@ -208,17 +211,19 @@ class LabeledDirectoryInput(QFrame):
                 open_directory_dialog(self)
                     Opens the directory selection dialog
         """
-    def __init__(self, parent, label_text="", input_text=""):
+    def __init__(self, parent, label_text="", input_text="", read_only=False, btn_enable=True):
         super(LabeledDirectoryInput, self).__init__(parent)
 
         self.label = QLabel(self, text=label_text)
 
         self.input = QLineEdit(self)
         self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
 
         self.fileDialogButton = QPushButton(self, text="Browse")
         self.fileDialogButton.setStyleSheet("background-color:blue;color:white;")
         self.fileDialogButton.clicked.connect(self.open_directory_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
 
         self.hBox = QHBoxLayout()
         self.hBox.addWidget(self.label)
@@ -271,16 +276,18 @@ class FileInput(QFrame):
             open_file_dialog(self)
                 Opens the file selection dialog
     """
-    def __init__(self, parent, file_type="", input_text=""):
+    def __init__(self, parent, file_type="", input_text="", read_only=False, btn_enable=True):
         super(FileInput, self).__init__(parent)
 
         self.file_type = file_type
 
         self.input = QLineEdit(self)
         self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
 
         self.fileDialogButton = QPushButton("...")
         self.fileDialogButton.clicked.connect(self.open_file_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
 
         self.hBox = QHBoxLayout()
         self.hBox.addWidget(self.input)
@@ -340,7 +347,7 @@ class LabeledFileInput(QFrame):
             open_file_dialog(self)
                 Opens the file selection dialog
     """
-    def __init__(self, parent, label_text="", file_type="", input_text=""):
+    def __init__(self, parent, label_text="", file_type="", input_text="", read_only=False, btn_enable=True):
         super(LabeledFileInput, self).__init__(parent)
 
         self.file_type = file_type
@@ -349,10 +356,12 @@ class LabeledFileInput(QFrame):
 
         self.input = QLineEdit(self)
         self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
 
         self.fileDialogButton = QPushButton(label_text)
         self.fileDialogButton.setStyleSheet("background-color:blue;color:white;")
         self.fileDialogButton.clicked.connect(self.open_file_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
 
         self.hBox = QHBoxLayout()
         self.hBox.addWidget(self.label)

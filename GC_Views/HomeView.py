@@ -17,7 +17,7 @@ from DirectoryMappingView import DirectoryMappingView
 from GC_Services.FileIo import FileIo
 from ServerSelectionView import ServerSelectionView
 from HomeBtnsView import HomeBtnsView
-from pCloudView import  PCloudView
+from pCloudView import PCloudView
 from LogoView import LogoView
 
 
