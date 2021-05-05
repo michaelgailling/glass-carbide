@@ -77,11 +77,11 @@ class ResultsOutputView(QFrame):
         asset_set = set()
         for item in assets:
             if "," in item:
-                sub_list = item.split(",")
-                for sub_item in sub_list:
-                    asset_set.add(sub_item)
+                sub_list = [x.strip() for x in item.split(',')]
+                asset_set = asset_set.union(set(sub_list))
 
         assets = list(asset_set)
+        assets.sort()
         self.dt_assets.set_dimensions(1, len(results))
         header = [headers.pop(ind)]
         self.dt_assets.set_headers(header)
