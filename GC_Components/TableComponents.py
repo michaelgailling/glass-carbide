@@ -318,6 +318,25 @@ class MappableDataTable(DataTable):
         self.mappings = []
 
 
+class AssetDataTable(DataTable):
+    def __init__(self, parent):
+        super(AssetDataTable, self).__init__(parent)
+
+        self.data = []
+        self.mappings = []
+
+    def load_data(self, data=[]):
+        height = len(data)
+
+        self.set_dimensions(1, height)
+
+        for y in range(height):
+            cell = QTableWidgetItem(data[y])
+            self.table.setItem(y, 0, cell)
+
+        asyncio.run(self.fit_headers_to_content())
+
+
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     tab = DataTable(width=2, height=1)

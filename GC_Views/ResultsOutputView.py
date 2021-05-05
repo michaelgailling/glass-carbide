@@ -11,10 +11,10 @@
 #
 import sys
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLabel, QGridLayout
+from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLabel, QGridLayout, QHBoxLayout
 
 from GC_Components.InputComponents import LabeledDirectoryInput
-from GC_Components.TableComponents import DataTable
+from GC_Components.TableComponents import DataTable, AssetDataTable
 from GC_Services.FileIo import FileIo
 
 
@@ -42,10 +42,19 @@ class ResultsOutputView(QFrame):
         # Results Display
         self.dt_data = DataTable()
 
+        # Assets Display
+        self.dt_assets = AssetDataTable(self)
+
+        # HBox to contain results and assets tables
+        self.tablesBox = QHBoxLayout()
+        self.tablesBox.addWidget(self.dt_data, stretch=2)
+        # self.tablesBox.addWidget(self.dt_data)
+        self.tablesBox.addWidget(self.dt_assets, stretch=1)
+
         # Layout Loading
         self.comboBox.addWidget(self.project_dir)
         self.comboBox.addWidget(self.softwareBox, alignment=Qt.AlignHCenter)
-        self.layout.addWidget(self.dt_data)
+        self.layout.addItem(self.tablesBox)
         self.layout.addItem(self.comboBox)
         self.layout.setContentsMargins(30, 20, 30, 30)
         self.setLayout(self.layout)
@@ -53,12 +62,22 @@ class ResultsOutputView(QFrame):
         self.setGeometry(0, 0, 900, 600)
 
     def load_table_data(self, results=[]):
-        try:
-            headers = results.pop(0)
-            self.dt_data.load_data(results)
-            self.dt_data.set_headers(headers)
-        except:
-            pass
+        headers = results.pop(0)
+        self.dt_data.load_data(results)
+        self.dt_data.set_headers(headers)
+
+        self.load_asset_data(results, headers)
+
+    def load_asset_data(self, results=[], headers=[]):
+        ind = headers.index('Asset(s)')
+        assets = []
+        for result in results:
+            assets.insert(-1, result[ind])
+        print(assets)
+        self.dt_assets.set_dimensions(1, len(results))
+        header = [headers.pop(ind)]
+        self.dt_assets.set_headers(header)
+        self.dt_assets.load_data(assets)
 
     def set_data(self, data=[]):
         self.data = data
