@@ -14,7 +14,7 @@ from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLabel, QGridLayout, QHBoxLayout
 
 from GC_Components.InputComponents import LabeledDirectoryInput
-from GC_Components.TableComponents import DataTable
+from GC_Components.TableComponents import DataTable, AssetDataTable
 from GC_Services.FileIo import FileIo
 
 
@@ -43,7 +43,7 @@ class ResultsOutputView(QFrame):
         self.dt_data = DataTable()
 
         # Assets Display
-        self.dt_assets = DataTable()
+        self.dt_assets = AssetDataTable(self)
 
         # HBox to contain results and assets tables
         self.tablesBox = QHBoxLayout()
@@ -70,7 +70,7 @@ class ResultsOutputView(QFrame):
 
     def load_asset_data(self, results=[], headers=[]):
         ind = headers.index('Asset(s)')
-        assets = [""]
+        assets = []
         for result in results:
             assets.insert(-1, result[ind])
         print(assets)
