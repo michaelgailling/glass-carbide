@@ -127,6 +127,17 @@ class DataTable(QFrame):
                 self.selections.append(self.create_control_widget(widget_type, options))
                 self.set_cell_widget(self.selections[-1], 0, y)
 
+    def insert_data_column(self, start_index_y=0, insert_before=True, data=[]):
+        if insert_before:
+            self.table.insertColumn(0)
+            for y in range(start_index_y, len(data)):
+                self.table.setItem(y, 0, data[y])
+        else:
+            self.table.insertColumn(self.width)
+            for y in range(start_index_y, len(data)):
+                self.table.setItem(y, self.width, data[y])
+        self.width += 1
+
     def create_control_widget(self, widget_type=None, options=[]):
         if widget_type == "combobox":
             widget = QComboBox()
