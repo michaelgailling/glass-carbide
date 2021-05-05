@@ -67,8 +67,7 @@ class TableView(QFrame):
                              "Duration",
                              "Frames",
                              "Resolution",
-                             "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "",
-                             "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", ""]
+                             ""]
 
             self.dt_table.insert_control_row("combobox", 0, combo_options)
 
