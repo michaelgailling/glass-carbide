@@ -86,7 +86,7 @@ class ResultsOutputView(QFrame):
         header = [headers.pop(ind)]
         self.dt_assets.set_headers(header)
         self.dt_assets.load_data(assets)
-        self.dt_assets.insert_data_column(insert_before=False)
+        self.dt_assets.insert_data_column(header="Cloud Location", insert_before=False, data=["test","test"])
 
     def set_data(self, data=[]):
         self.data = data

@@ -127,15 +127,20 @@ class DataTable(QFrame):
                 self.selections.append(self.create_control_widget(widget_type, options))
                 self.set_cell_widget(self.selections[-1], 0, y)
 
-    def insert_data_column(self, start_index_y=0, insert_before=True, data=[]):
+    def insert_data_column(self, header="", start_index_y=0, insert_before=True, data=[]):
+        header_item = QTableWidgetItem(header)
         if insert_before:
             self.table.insertColumn(0)
+            self.table.setHorizontalHeaderItem(0, header_item)
             for y in range(start_index_y, len(data)):
-                self.table.setItem(y, 0, data[y])
+                cell = QTableWidgetItem(data[y])
+                self.table.setItem(y, 0, cell)
         else:
             self.table.insertColumn(self.width)
+            self.table.setHorizontalHeaderItem(self.width, header_item)
             for y in range(start_index_y, len(data)):
-                self.table.setItem(y, self.width, data[y])
+                cell = QTableWidgetItem(data[y])
+                self.table.setItem(y, self.width, cell)
         self.width += 1
 
     def create_control_widget(self, widget_type=None, options=[]):
