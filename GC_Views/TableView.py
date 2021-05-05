@@ -62,7 +62,7 @@ class TableView(QFrame):
             self.dt_table.load_data(csv_data)
 
             combo_options = ["None",
-                             "Asset(s)",
+                             "Assets",
                              "ShotCode",
                              "Duration",
                              "Frames",

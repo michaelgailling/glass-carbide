@@ -69,11 +69,19 @@ class ResultsOutputView(QFrame):
         self.load_asset_data(results, headers)
 
     def load_asset_data(self, results=[], headers=[]):
-        ind = headers.index('Asset(s)')
+        ind = headers.index('Assets')
         assets = []
         for result in results:
             assets.insert(-1, result[ind])
-        print(assets)
+
+        asset_set = set()
+        for item in assets:
+            if "," in item:
+                sub_list = item.split(",")
+                for sub_item in sub_list:
+                    asset_set.add(sub_item)
+
+        assets = list(asset_set)
         self.dt_assets.set_dimensions(1, len(results))
         header = [headers.pop(ind)]
         self.dt_assets.set_headers(header)
