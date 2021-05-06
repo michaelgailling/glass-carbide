@@ -84,9 +84,11 @@ class ResultsOutputView(QFrame):
                 true_assets.add(each)
         assets.clear()
         for asset in true_assets:
+            if asset.find(" ", 0, 2) == 0:
+                asset = asset[1:]
             assets.insert(-1, asset)
         assets.sort()
-        assets.reverse()
+        temp = assets.pop(0)
         self.dt_assets.set_dimensions(1, len(results))
         header = [headers.pop(ind)]
         self.dt_assets.set_headers(header)
