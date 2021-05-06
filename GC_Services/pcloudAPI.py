@@ -418,17 +418,20 @@ class PCloud:
         if filename and code:
             pub_link_dir_res = asyncio.run(self.show_pub_link_directory(code))
             dir_dict = pub_link_dir_res["metadata"]
+            self.temp_storage = []
             self.find_file_in_dict(filename, dir_dict)
+            return self.temp_storage
 
     def find_file_in_dict(self, filename="", obj_dict={}):
         result = []
         if obj_dict["isfolder"] and obj_dict["contents"]:
-            for item in obj_dict["contents"]:
-                result = self.find_file_in_dict(filename, item)
+            for obj in obj_dict["contents"]:
+                result = self.find_file_in_dict(filename, obj)
                 if result:
                     return result
-        elif not obj_dict["isfolder"] and obj_dict["name"][:-4] == filename:
+        elif not obj_dict["isfolder"] and filename in obj_dict["name"][:-4]:
             self.temp_storage.append(obj_dict)
+            return None
 
     async def get_pub_link_download(self, code="", file_id=""):
         if code and file_id:
