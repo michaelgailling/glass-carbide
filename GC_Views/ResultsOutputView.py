@@ -35,7 +35,7 @@ class ResultsOutputView(QFrame):
         # Combo Boxes
         self.softwareBox = QComboBox(self)
         self.softwareBox.addItem("Select Software   ...")
-        self.softwareBox.setStyleSheet('background-color:white;padding:6 6')
+        self.softwareBox.setStyleSheet('::section{background-color:white;padding:10 10}')
         self.comboBox = QVBoxLayout()
         self.comboBox.setSpacing(1)
 
