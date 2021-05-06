@@ -34,7 +34,7 @@ class TableView(QFrame):
 
         # Load Button
         self.btn_load_file = QPushButton("Load To Table")
-        self.btn_load_file.setStyleSheet("background-color:blue;color:white;padding:10;border : 2px solid blue;"
+        self.btn_load_file.setStyleSheet("background-color:#1000A0;color:white;padding:10;border : 2px solid #1000A0;"
                                          "border-radius:20px;")
         self.btn_load_file.clicked.connect(self.load_file)
 
@@ -44,7 +44,7 @@ class TableView(QFrame):
         self.vBox.addWidget(self.btn_load_file, alignment=Qt.AlignHCenter)
         self.setLayout(self.vBox)
 
-        self.setGeometry(0, 0, 800, 500)
+        self.setGeometry(0, 0, 800, 600)
 
     def load_file(self):
         self.csv_handler.data.clear()

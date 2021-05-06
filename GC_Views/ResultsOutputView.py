@@ -35,7 +35,7 @@ class ResultsOutputView(QFrame):
         # Combo Boxes
         self.softwareBox = QComboBox(self)
         self.softwareBox.addItem("Select Software   ...")
-        self.softwareBox.setStyleSheet('background-color:white;padding:6 6')
+        self.softwareBox.setStyleSheet('::section{background-color:white;padding:10 10}')
         self.comboBox = QVBoxLayout()
         self.comboBox.setSpacing(1)
 
@@ -47,7 +47,7 @@ class ResultsOutputView(QFrame):
 
         # HBox to contain results and assets tables
         self.tablesBox = QHBoxLayout()
-        self.tablesBox.addWidget(self.dt_data, stretch=2)
+        self.tablesBox.addWidget(self.dt_data, stretch=4)
         # self.tablesBox.addWidget(self.dt_data)
         self.tablesBox.addWidget(self.dt_assets, stretch=1)
 
@@ -62,15 +62,20 @@ class ResultsOutputView(QFrame):
         self.setGeometry(0, 0, 900, 600)
 
     def load_table_data(self, results=[]):
-        headers = results.pop(0)
-        self.dt_data.load_data(results)
-        self.dt_data.set_headers(headers)
+        try:
+            headers = results.pop(0)
+            self.dt_data.load_data(results)
+            self.dt_data.set_headers(headers)
 
-        self.load_asset_data(results, headers)
+            self.load_asset_data(results, headers)
+        except IndexError or PermissionError:
+            pass
 
     def load_asset_data(self, results=[], headers=[]):
         ind = headers.index('Assets')
         assets = []
+        true_assets = {""}
+        temp = []
         for result in results:
             assets.insert(-1, result[ind])
 
@@ -82,8 +87,6 @@ class ResultsOutputView(QFrame):
 
         assets = list(asset_set)
         assets.sort()
-
-
 
         self.dt_assets.set_dimensions(1, len(results))
         header = [headers.pop(ind)]

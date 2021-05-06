@@ -21,14 +21,14 @@ class HomeBtnsView(QFrame):
 
         # Buttons
         self.newBtn = QPushButton("New")
-        self.newBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
+        self.newBtn.setStyleSheet("background-color:#1000A0; color:rgb(255,255,255);margin:1 80; padding:2 20")
         self.openBtn = QPushButton("Open")
-        self.openBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
+        self.openBtn.setStyleSheet("background-color:#1000A0; color:rgb(255,255,255);margin:1 80; padding:2 20")
         self.saveBtn = QPushButton("Save")
-        self.saveBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 80; padding:2 20")
+        self.saveBtn.setStyleSheet("background-color:#1000A0; color:rgb(255,255,255);margin:1 80; padding:2 20")
         self.exitBtn = QPushButton("Exit")
-        self.exitBtn.setStyleSheet("color:rgb(85,0,255); background-color:rgb(255,255,255);\n"
-                                   " border:2px solid rgb(85,0,255);margin:1 80; padding:2 20")
+        self.exitBtn.setStyleSheet("color:#1000A0; background-color:rgb(255,255,255);\n"
+                                   " border:2px solid #1000A0;margin:1 80; padding:2 20")
         self.exitBtn.clicked.connect(lambda: self.topLevelWidget().close())
 
         self.btnBox.addWidget(self.newBtn)

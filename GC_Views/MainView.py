@@ -11,7 +11,7 @@
 #
 import sys
 from GC_Services.FileIo import FileIo
-from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QStatusBar, QVBoxLayout
+from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QStatusBar, QVBoxLayout, QStyle
 from TabView import TabView
 from GC_Components.MainComponents import MenuBar
 
@@ -24,8 +24,6 @@ class MainView(QMainWindow):
         self.fio = FileIo()
         self.tab_widget = TabView(self, self.fio)
         self.tabIndex = self.tab_widget.tabIndex
-
-        # self.results = []
 
         # Menu Bar
         self.menuBar = MenuBar(self)
@@ -43,6 +41,8 @@ class MainView(QMainWindow):
         self.setWindowTitle("Glass Carbide")
         self.setGeometry(0, 0, 900, 600)
         self.centralWidget().setMinimumSize(900, 600)
+        self.centralWidget().topLevelWidget().setStyleSheet('border:3px solid #1000A0;font-weight:600')
+        self.centralWidget().parent().setStyleSheet('border:none;')
         self.setStyleSheet("background-color: white;")
         self.center_screen()
 

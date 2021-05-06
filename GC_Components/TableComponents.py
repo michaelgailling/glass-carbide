@@ -96,11 +96,11 @@ class DataTable(QFrame):
 
     def set_headers(self, headers):
         self.table.setHorizontalHeaderLabels(headers)
-        self.table.horizontalHeader().setStyleSheet('color:blue')
+        self.table.horizontalHeader().setStyleSheet('color:#1000A0')
         self.style_headers()
 
     def style_headers(self):
-        self.table.horizontalHeader().setStyleSheet("::section{background-color:grey;color:white;font-weight:bold}")
+        self.table.horizontalHeader().setStyleSheet("::section{background-color:#1000A0;color:white;font-weight:bold}")
         self.table.horizontalHeader().setAutoFillBackground(True)
 
     def insert_control_row(self, widget_type=None, start_index=0, options=[]):

@@ -32,9 +32,9 @@ class TabView(QFrame):
 
         # Tab Widget
         self.tabWidget = QTabWidget(self)
-        self.tabWidget.setStyleSheet("QTabBar::tab { height: 25%; width: 244%;\n"
-                                     "border: 2px solid rgb(0, 0, 205); background-color: rgb(255, 255, 255);\n"
-                                     "color: rgb(0, 0, 205); border-bottom:none; margin-left: 2px;}")
+        self.tabWidget.setStyleSheet("QTabBar::tab {font:Verdana;height:55%;border:3px solid #1000A0;width:390%;"
+                                     "background-color:white;color:#1000A0; border-bottom:2px dashed #1000A0;padding:0;"
+                                     "font-weight:600;font-size:13px;margin:0 auto -10 auto;border-radius:13px;}")
 
         # Setting views in tabs
         self.set_tab_frame(self.homeView, 0)
@@ -56,10 +56,15 @@ class TabView(QFrame):
         self.layout.addWidget(self.tabWidget)
         self.layout.addWidget(self.main_nav)
         self.setLayout(self.layout)
-        self.setGeometry(0, 0, 900, 600)
 
     def set_tab_frame(self, frame: QFrame, index_num: int):
-        self.tabWidget.insertTab(index_num, frame, f"Step {index_num + 1}")
+        if index_num == 0:
+            msg = "Select Folder Directories for Project Mapping"
+        elif index_num == 1:
+            msg = "Load CSV and Select Assets"
+        elif index_num == 2:
+            msg = "Preview"
+        self.tabWidget.insertTab(index_num, frame, f"Step {index_num + 1} - {msg}")
 
     def tab_index_setter(self, index_num=0):
         self.tabWidget.setCurrentIndex(index_num)
