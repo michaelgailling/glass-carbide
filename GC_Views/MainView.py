@@ -41,7 +41,8 @@ class MainView(QMainWindow):
         self.setWindowTitle("Glass Carbide")
         self.setGeometry(0, 0, 900, 600)
         self.centralWidget().setMinimumSize(900, 600)
-        self.centralWidget().topLevelWidget().setStyleSheet('border:4px solid #1000A0;font-weight:600')
+        self.centralWidget().topLevelWidget().setStyleSheet('border:3px solid #1000A0;font-weight:600')
+        self.centralWidget().parent().setStyleSheet('border:none;')
         self.setStyleSheet("background-color: white;")
         self.center_screen()
 
