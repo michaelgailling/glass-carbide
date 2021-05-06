@@ -34,16 +34,19 @@ class MainView(QMainWindow):
         self.statusBar.showMessage("This is a status message.", 5000)
         self.setStatusBar(self.statusBar)
 
+        self.tabFrame.setObjectName('tab')
+
         # Main window
         self.layout.addWidget(self.tab_widget)
         self.tabFrame.setLayout(self.layout)
         self.setCentralWidget(self.tabFrame)
+        self.centralWidget().setContentsMargins(0, 0, 0, 0)
         self.setWindowTitle("Glass Carbide")
         self.setGeometry(0, 0, 900, 600)
         self.centralWidget().setMinimumSize(900, 600)
         self.centralWidget().topLevelWidget().setStyleSheet('border:3px solid #1000A0;font-weight:600')
-        self.centralWidget().parent().setStyleSheet('border:none;')
-        self.setStyleSheet("background-color: white;")
+        self.topLevelWidget().setStyleSheet('QFrame#tab{border:1px solid #1000A0;background-color:white;}')
+        # self.setStyleSheet("background-color: white;")
         self.center_screen()
 
     def center_screen(self):

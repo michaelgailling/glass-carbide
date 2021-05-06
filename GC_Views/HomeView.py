@@ -60,7 +60,7 @@ class HomeView(QFrame):
         self.pCloudView = PCloudView()
         # Mapping view to map project folders
         self.mappingView = DirectoryMappingView(self, self.fio)
-        self.mappingView.setStyleSheet('QFrame{border:none;}')
+        # self.mappingView.setStyleSheet('QFrame{border:none;}')
         # Server selection view to pick local or server directory
         self.serverView = ServerSelectionView()
         # Load views to stacked widget
@@ -75,7 +75,9 @@ class HomeView(QFrame):
         self.layout.addItem(self.btnBox)
         self.layout.addWidget(self.resultFrame)
         self.setLayout(self.layout)
-        self.setStyleSheet('HomeBtnsView{border:none} LogoView{border:none} QLabel{border:none}')
+        self.setStyleSheet('HomeBtnsView{border:none} '
+                           'LogoView{border:none} '
+                           'QLabel{border:none} ')
 
     def set_frame_index(self, num: int):
         if num == 1:
