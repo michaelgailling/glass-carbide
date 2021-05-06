@@ -13,7 +13,7 @@ import sys
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLabel, QGridLayout, QHBoxLayout
 
-from GC_Components.InputComponents import LabeledDirectoryInput
+from GC_Components.InputComponents import LabeledDirectoryInput, LabeledInput, LabeledInputWithButton
 from GC_Components.TableComponents import DataTable, AssetDataTable
 from GC_Services.FileIo import FileIo
 
@@ -30,7 +30,7 @@ class ResultsOutputView(QFrame):
         self.displayLbl = QLabel("Review")
 
         # Root Directory Mapping input
-        self.project_dir = LabeledDirectoryInput(self, label_text="Project Folder: ")
+        self.project_dir = LabeledInputWithButton(self, label_text="pCloud Publink: ", button_text="Scan Public Repo")
 
         # Combo Boxes
         self.softwareBox = QComboBox(self)
