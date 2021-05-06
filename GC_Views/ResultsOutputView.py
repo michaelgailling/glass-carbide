@@ -47,7 +47,7 @@ class ResultsOutputView(QFrame):
 
         # HBox to contain results and assets tables
         self.tablesBox = QHBoxLayout()
-        self.tablesBox.addWidget(self.dt_data, stretch=2)
+        self.tablesBox.addWidget(self.dt_data, stretch=4)
         # self.tablesBox.addWidget(self.dt_data)
         self.tablesBox.addWidget(self.dt_assets, stretch=1)
 
@@ -62,18 +62,31 @@ class ResultsOutputView(QFrame):
         self.setGeometry(0, 0, 900, 600)
 
     def load_table_data(self, results=[]):
-        headers = results.pop(0)
-        self.dt_data.load_data(results)
-        self.dt_data.set_headers(headers)
+        try:
+            headers = results.pop(0)
+            self.dt_data.load_data(results)
+            self.dt_data.set_headers(headers)
 
-        self.load_asset_data(results, headers)
+            self.load_asset_data(results, headers)
+        except IndexError or PermissionError:
+            pass
 
     def load_asset_data(self, results=[], headers=[]):
         ind = headers.index('Asset(s)')
         assets = []
+        true_assets = {""}
+        temp = []
         for result in results:
             assets.insert(-1, result[ind])
-        print(assets)
+        for asset in assets:
+            temp = str(asset).split(',')
+            for each in temp:
+                true_assets.add(each)
+        assets.clear()
+        for asset in true_assets:
+            assets.insert(-1, asset)
+        assets.sort()
+        assets.reverse()
         self.dt_assets.set_dimensions(1, len(results))
         header = [headers.pop(ind)]
         self.dt_assets.set_headers(header)

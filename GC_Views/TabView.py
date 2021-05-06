@@ -32,9 +32,8 @@ class TabView(QFrame):
 
         # Tab Widget
         self.tabWidget = QTabWidget(self)
-        self.tabWidget.setStyleSheet("QTabBar::tab { height: 25%; width: 244%;\n"
-                                     "border: 2px solid rgb(0, 0, 205); background-color: rgb(255, 255, 255);\n"
-                                     "color: rgb(0, 0, 205); border-bottom:none; margin-left: 2px;}")
+        self.tabWidget.setStyleSheet("QTabBar::tab { height:50%;border:3px solid #1000A0;width:489%;background-color: "
+                                     "rgb(255, 255, 255);color: #1000A0; border-bottom:none; margin-left: 2px;};")
 
         # Setting views in tabs
         self.set_tab_frame(self.homeView, 0)
@@ -56,7 +55,7 @@ class TabView(QFrame):
         self.layout.addWidget(self.tabWidget)
         self.layout.addWidget(self.main_nav)
         self.setLayout(self.layout)
-        self.setGeometry(0, 0, 900, 600)
+        self.setStyleSheet('section:: border:1px solid #1000A0 ')
 
     def set_tab_frame(self, frame: QFrame, index_num: int):
         self.tabWidget.insertTab(index_num, frame, f"Step {index_num + 1}")

@@ -221,7 +221,7 @@ class LabeledDirectoryInput(QFrame):
         self.input.setReadOnly(read_only)
 
         self.fileDialogButton = QPushButton(self, text="Browse")
-        self.fileDialogButton.setStyleSheet("background-color:blue;color:white;")
+        self.fileDialogButton.setStyleSheet("background-color:#1000A0;color:white;")
         self.fileDialogButton.clicked.connect(self.open_directory_dialog)
         self.fileDialogButton.setEnabled(btn_enable)
 
@@ -359,7 +359,7 @@ class LabeledFileInput(QFrame):
         self.input.setReadOnly(read_only)
 
         self.fileDialogButton = QPushButton(label_text)
-        self.fileDialogButton.setStyleSheet("background-color:blue;color:white;")
+        self.fileDialogButton.setStyleSheet("background-color:#1000A0;color:white;")
         self.fileDialogButton.clicked.connect(self.open_file_dialog)
         self.fileDialogButton.setEnabled(btn_enable)
 

@@ -12,8 +12,7 @@
 import asyncio
 import sys
 from PySide2.QtGui import QColor, QIcon, Qt
-from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetItem, QApplication, QWidget, QComboBox, \
-    QCheckBox, QMenuBar, QAction, QHBoxLayout, QPushButton, QLabel
+from PySide2.QtWidgets import QFrame, QMenuBar, QAction, QHBoxLayout, QPushButton, QLabel
 
 
 class MenuBar(QMenuBar):
@@ -114,12 +113,12 @@ class MainButtons(QHBoxLayout):
 
         # Buttons
         self.continueBtn = QPushButton("Continue")
-        self.continueBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 23;padding:10;"
-                                       "border:2px solid blue;border-radius:20px")
+        self.continueBtn.setStyleSheet("background-color:#1000A0; color:rgb(255,255,255);margin:1 23;padding:10;"
+                                       "border:2px solid #1000A0;border-radius:20px")
 
         self.cancelBtn = QPushButton("Cancel")
-        self.cancelBtn.setStyleSheet("margin:1 23;color:rgb(85,0,255); background-color:rgb(255,255,255);"
-                                     "padding:10;border:2px solid blue;border-radius:20px")
+        self.cancelBtn.setStyleSheet("margin:1 23;color:#1000A0; background-color:rgb(255,255,255);"
+                                     "padding:10;border:2px solid #1000A0;border-radius:20px")
 
         self.addWidget(self.statLbl)
         self.addWidget(self.statLbl)
@@ -142,12 +141,12 @@ class MainNavButtons(QFrame):
 
         # Buttons
         self.continueBtn = QPushButton("Continue")
-        self.continueBtn.setStyleSheet("background-color:rgb(85,0,255); color:rgb(255,255,255);margin:1 23;padding:10;"
-                                       "border:2px solid blue;border-radius:20px")
+        self.continueBtn.setStyleSheet("background-color:#1000A0; color:rgb(255,255,255);margin:1 23;padding:10;"
+                                       "border:2px solid #1000A0;border-radius:20px")
 
         self.backBtn = QPushButton("Back")
-        self.backBtn.setStyleSheet("margin:1 23;color:rgb(85,0,255); background-color:rgb(255,255,255);"
-                                   "padding:10;border:2px solid blue;border-radius:20px")
+        self.backBtn.setStyleSheet("margin:1 23;color:#1000A0; background-color:rgb(255,255,255);padding:10;"
+                                   "border:2px solid #1000A0;border-radius:20px")
 
         self.layout.addWidget(self.statLbl)
         self.layout.addWidget(self.statLbl)
