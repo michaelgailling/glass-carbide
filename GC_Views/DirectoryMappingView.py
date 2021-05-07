@@ -37,6 +37,7 @@ class DirectoryMappingView(QFrame):
         self.main_layout.addWidget(self.animaticsPath)
         self.main_layout.addWidget(self.soundsPath)
         self.setLayout(self.main_layout)
+        self.setStyleSheet('LabeledDirectoryInput{border:none}')
 
     def shared_dir_paths(self):
         self.dir_path = self.dir_getter_filler()

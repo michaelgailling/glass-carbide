@@ -26,5 +26,8 @@ class PCloudView(QFrame):
 
         self.main_layout.addWidget(self.pCloudPath)
         self.setLayout(self.main_layout)
+        self.setStyleSheet('border:none')
+        self.topLevelWidget().setStyleSheet('QFrame{border:none} '
+                                            'LabeledInputWithButton::QLineEdit{border:1px solid #1000A0}')
 
 

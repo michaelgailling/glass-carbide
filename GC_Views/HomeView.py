@@ -53,16 +53,15 @@ class HomeView(QFrame):
 
         # Stacked widget for mapping views
         self.resultFrame = QStackedWidget()
-        self.resultFrame.setStyleSheet('QStackedWidget{border:1px solid #1000A0;background-color:white;}')
         # Blank QFrame for initial load
         self.blank = QFrame()
         # PCloud browser
         self.pCloudView = PCloudView()
         # Mapping view to map project folders
         self.mappingView = DirectoryMappingView(self, self.fio)
-        # self.mappingView.setStyleSheet('QFrame{border:none;}')
         # Server selection view to pick local or server directory
         self.serverView = ServerSelectionView()
+        self.serverView.setObjectName('server')
         # Load views to stacked widget
         self.resultFrame.addWidget(self.blank)
         self.resultFrame.addWidget(self.mappingView)
@@ -75,9 +74,7 @@ class HomeView(QFrame):
         self.layout.addItem(self.btnBox)
         self.layout.addWidget(self.resultFrame)
         self.setLayout(self.layout)
-        self.setStyleSheet('HomeBtnsView{border:none} '
-                           'LogoView{border:none} '
-                           'QLabel{border:none} ')
+        self.setStyleSheet('HomeBtnsView{border:none} LogoView{border:none} QLabel{border:none}')
 
     def set_frame_index(self, num: int):
         if num == 1:

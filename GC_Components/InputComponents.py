@@ -100,8 +100,9 @@ class LabeledInputWithButton(QFrame):
         self.input.setText(input_text)
 
         self.button = QPushButton(button_text)
-        self.button.setStyleSheet("background-color:blue;color:white;")
+        self.button.setStyleSheet("background-color:#1000A0;color:white;padding:3px")
         self.button.setEnabled(btn_enable)
+        self.button.setObjectName('browse')
 
         self.hBox = QHBoxLayout(self)
         self.hBox.addWidget(self.label)
@@ -221,7 +222,7 @@ class LabeledDirectoryInput(QFrame):
         self.input.setReadOnly(read_only)
 
         self.fileDialogButton = QPushButton(self, text="Browse")
-        self.fileDialogButton.setStyleSheet("background-color:#1000A0;color:white;")
+        self.fileDialogButton.setStyleSheet("background-color:#1000A0;color:white;padding:3px")
         self.fileDialogButton.clicked.connect(self.open_directory_dialog)
         self.fileDialogButton.setEnabled(btn_enable)
 

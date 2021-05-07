@@ -46,7 +46,7 @@ class MenuBar(QMenuBar):
 
     def __init__(self, parent):
         super(MenuBar, self).__init__(parent)
-        self.setStyleSheet("background-color: #E4F3F5")
+        self.setStyleSheet("background-color: #e6e6e6")
 
         # File Menu
         self.file_menu = self.addMenu('File')
