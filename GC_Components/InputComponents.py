@@ -55,6 +55,8 @@ class LabeledInput(QFrame):
         self.hBox.addWidget(self.label)
         self.hBox.addWidget(self.input)
 
+        self.setLayout(self.hBox)
+
     def get_input_text(self):
         text = self.input.text()
         return text
@@ -108,6 +110,8 @@ class LabeledInputWithButton(QFrame):
         self.hBox.addWidget(self.label)
         self.hBox.addWidget(self.input)
         self.hBox.addWidget(self.button)
+
+        self.setLayout(self.hBox)
 
     def get_input_text(self):
         text = self.input.text()
