@@ -39,9 +39,7 @@ class HomeView(QFrame):
         self.btnFrame = HomeBtnsView()
 
         # Assign methods for buttons
-        self.btnFrame.newBtn.clicked.connect(lambda: self.set_frame_index(1))
-        self.btnFrame.openBtn.clicked.connect(lambda: self.set_frame_index(3))
-        self.btnFrame.saveBtn.clicked.connect(lambda: self.set_frame_index(2))
+        self.btnFrame.startBtn.clicked.connect(lambda: self.set_frame_index(1))
 
         # Logo Picture will be contained in a Label
         self.logo = LogoView()

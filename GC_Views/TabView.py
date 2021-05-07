@@ -106,12 +106,7 @@ class TabView(QFrame):
 
     def back_clicked(self):
         if self.tabIndex == 0:
-            msg = QMessageBox()
-            msg.setWindowTitle("Save your progress?")
-            msg.setText("Would you like to save your progress?")
-            msg.setIcon(QMessageBox.Warning)
-            msg.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Close)
-            msg.exec_()
+            pass
         elif self.tabIndex == 1:
             self.tab_index_setter(0)
         elif self.tabIndex == 2:
