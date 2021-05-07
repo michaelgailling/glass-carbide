@@ -423,7 +423,7 @@ class PCloud:
             return self.temp_storage
 
     def find_file_in_dict(self, filename="", obj_dict={}):
-        result = []
+        result = {}
         if obj_dict["isfolder"] and obj_dict["contents"]:
             for obj in obj_dict["contents"]:
                 result = self.find_file_in_dict(filename, obj)
