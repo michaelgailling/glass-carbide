@@ -128,6 +128,7 @@ class PCloud:
             "password": None
         }
 
+        self.temp_storage = []
         self.regionUrl = None
         self.token = ""
         self.folderId = "0"
@@ -413,6 +414,22 @@ class PCloud:
 
             return res_obj
 
+    def get_pub_link_file_data(self, filename="", code=""):
+        if filename and code:
+            pub_link_dir_res = asyncio.run(self.show_pub_link_directory(code))
+            dir_dict = pub_link_dir_res["metadata"]
+            self.find_file_in_dict(filename, dir_dict)
+
+    def find_file_in_dict(self, filename="", obj_dict={}):
+        result = []
+        if obj_dict["isfolder"] and obj_dict["contents"]:
+            for item in obj_dict["contents"]:
+                result = self.find_file_in_dict(filename, item)
+                if result:
+                    return result
+        elif not obj_dict["isfolder"] and obj_dict["name"][:-4] == filename:
+            self.temp_storage.append(obj_dict)
+
     async def get_pub_link_download(self, code="", file_id=""):
         if code and file_id:
             method_params = {
@@ -431,14 +448,20 @@ class PCloud:
         if url:
             res = requests.get(url)
 
-            res
-
             return res.content
 
 
-# apic = PCloud()
-#
-# apic.set_region("NA")
+
+
+apic = PCloud()
+
+apic.set_region("NA")
+
+apic.get_pub_link_file_data("props_transformer_car_001", "kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V")
+
+for item in apic.temp_storage:
+    print(item)
+
 # pub_link_dir = asyncio.run(apic.show_pub_link_directory("kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V"))
 #
 # print(json.dumps(pub_link_dir["metadata"], sort_keys=True, indent=4))

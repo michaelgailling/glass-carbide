@@ -72,27 +72,27 @@ class ResultsOutputView(QFrame):
             pass
 
     def load_asset_data(self, results=[], headers=[]):
-        ind = headers.index('Asset(s)')
+        ind = headers.index('Assets')
         assets = []
         true_assets = {""}
         temp = []
         for result in results:
             assets.insert(-1, result[ind])
-        for asset in assets:
-            temp = str(asset).split(',')
-            for each in temp:
-                true_assets.add(each)
-        assets.clear()
-        for asset in true_assets:
-            if asset.find(" ", 0, 2) == 0:
-                asset = asset[1:]
-            assets.insert(-1, asset)
+
+        asset_set = set()
+        for item in assets:
+            if "," in item:
+                sub_list = [x.strip() for x in item.split(',')]
+                asset_set = asset_set.union(set(sub_list))
+
+        assets = list(asset_set)
         assets.sort()
-        temp = assets.pop(0)
+
         self.dt_assets.set_dimensions(1, len(results))
         header = [headers.pop(ind)]
         self.dt_assets.set_headers(header)
         self.dt_assets.load_data(assets)
+        self.dt_assets.insert_data_column(header="Cloud Location", insert_before=False, data=[])
 
     def set_data(self, data=[]):
         self.data = data
