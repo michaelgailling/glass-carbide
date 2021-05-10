@@ -29,6 +29,6 @@ class DummyView(QFrame):
     def table_loader(self, results=[]):
         if results:
             headers = results.pop(0)
-            self.table.load_data(results)
+            self.table.load_table(results)
             self.table.set_headers(headers)
 

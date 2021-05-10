@@ -61,7 +61,7 @@ class TableView(QFrame):
 
             self.dt_table.clear_table()
 
-            self.dt_table.load_data(csv_data)
+            self.dt_table.load_table(csv_data)
 
             combo_options = ["None",
                              "Assets",

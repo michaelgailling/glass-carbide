@@ -157,7 +157,7 @@ class DataTable(QFrame):
 
         return widget
 
-    def load_data(self, data=[]):
+    def load_table(self, data=[]):
         height = len(data)
         width = len(data[0])
 
@@ -341,7 +341,7 @@ class AssetDataTable(DataTable):
         self.data = []
         self.mappings = []
 
-    def load_data(self, data=[]):
+    def load_table(self, data=[]):
         height = len(data)
 
         self.set_dimensions(1, height)

@@ -456,14 +456,14 @@ class PCloud:
 
 
 
-apic = PCloud()
-
-apic.set_region("NA")
-
-apic.get_pub_link_file_data("props_transformer_car_001", "kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V")
-
-for item in apic.temp_storage:
-    print(item)
+# apic = PCloud()
+#
+# apic.set_region("NA")
+#
+# apic.get_pub_link_file_data("props_transformer_car_001", "kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V")
+#
+# for item in apic.temp_storage:
+#     print(item)
 
 # pub_link_dir = asyncio.run(apic.show_pub_link_directory("kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V"))
 #
