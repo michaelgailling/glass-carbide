@@ -35,7 +35,8 @@ class ResultsOutputView(QFrame):
         # Combo Boxes
         self.softwareBox = QComboBox(self)
         self.softwareBox.addItem("Select Software   ...")
-        self.softwareBox.setStyleSheet('::section{background-color:white;padding:10 10}')
+        self.softwareBox.setStyleSheet('background-color:white;border:2px solid #1000a0;'
+                                       'padding:13 20;border-radius:10px;font-weight:600;font-size:15px')
         self.comboBox = QVBoxLayout()
         self.comboBox.setSpacing(1)
 
@@ -60,6 +61,8 @@ class ResultsOutputView(QFrame):
         self.setLayout(self.layout)
 
         self.setGeometry(0, 0, 900, 600)
+        self.setStyleSheet('QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6;}'
+                           'LabeledInputWithButton QLabel{font-weight:600}')
 
     def load_table_data(self, results=[]):
         try:

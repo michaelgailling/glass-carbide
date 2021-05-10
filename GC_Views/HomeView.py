@@ -39,9 +39,7 @@ class HomeView(QFrame):
         self.btnFrame = HomeBtnsView()
 
         # Assign methods for buttons
-        self.btnFrame.newBtn.clicked.connect(lambda: self.set_frame_index(1))
-        self.btnFrame.openBtn.clicked.connect(lambda: self.set_frame_index(3))
-        self.btnFrame.saveBtn.clicked.connect(lambda: self.set_frame_index(2))
+        self.btnFrame.startBtn.clicked.connect(lambda: self.set_frame_index(1))
 
         # Logo Picture will be contained in a Label
         self.logo = LogoView()
@@ -53,16 +51,15 @@ class HomeView(QFrame):
 
         # Stacked widget for mapping views
         self.resultFrame = QStackedWidget()
-        self.resultFrame.setStyleSheet('QStackedWidget{border:1px solid #1000A0;background-color:white;}')
         # Blank QFrame for initial load
         self.blank = QFrame()
         # PCloud browser
         self.pCloudView = PCloudView()
         # Mapping view to map project folders
         self.mappingView = DirectoryMappingView(self, self.fio)
-        self.mappingView.setStyleSheet('QFrame{border:none;}')
         # Server selection view to pick local or server directory
         self.serverView = ServerSelectionView()
+        self.serverView.setObjectName('server')
         # Load views to stacked widget
         self.resultFrame.addWidget(self.blank)
         self.resultFrame.addWidget(self.mappingView)

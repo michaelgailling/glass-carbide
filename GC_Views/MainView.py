@@ -11,7 +11,7 @@
 #
 import sys
 from GC_Services.FileIo import FileIo
-from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QStatusBar, QVBoxLayout, QStyle
+from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QStatusBar, QVBoxLayout
 from TabView import TabView
 from GC_Components.MainComponents import MenuBar
 
@@ -33,17 +33,23 @@ class MainView(QMainWindow):
         self.statusBar = QStatusBar()
         self.statusBar.showMessage("This is a status message.", 5000)
         self.setStatusBar(self.statusBar)
+        self.statusBar.setStyleSheet('border:2px solid #1000A0;background-color:#e6e6e6;border-top:none')
 
         # Main window
         self.layout.addWidget(self.tab_widget)
         self.tabFrame.setLayout(self.layout)
         self.setCentralWidget(self.tabFrame)
+        self.centralWidget().setContentsMargins(0, 0, 0, 0)
         self.setWindowTitle("Glass Carbide")
         self.setGeometry(0, 0, 900, 600)
+
+        # Styling
         self.centralWidget().setMinimumSize(900, 600)
+        self.tabFrame.setObjectName('tab')
         self.centralWidget().topLevelWidget().setStyleSheet('border:3px solid #1000A0;font-weight:600')
-        self.centralWidget().parent().setStyleSheet('border:none;')
-        self.setStyleSheet("background-color: white;")
+        self.topLevelWidget().setStyleSheet('QFrame#tab{border-top:1.1px solid #1000A0;border-bottom:none;'
+                                            'border-left:2px solid #1000A0;border-right:2px solid #1000A0;'
+                                            'margin:0;background-color:white;}')
         self.center_screen()
 
     def center_screen(self):

@@ -34,7 +34,8 @@ class TabView(QFrame):
         self.tabWidget = QTabWidget(self)
         self.tabWidget.setStyleSheet("QTabBar::tab {font:Verdana;height:55%;border:3px solid #1000A0;width:390%;"
                                      "background-color:white;color:#1000A0; border-bottom:2px dashed #1000A0;padding:0;"
-                                     "font-weight:600;font-size:13px;margin:0 auto -10 auto;border-radius:13px;}")
+                                     "font-weight:600;font-size:13px;margin:0 auto -10 auto;border-radius:13px;}"
+                                     "QTabBar::tab:selected{background-color:#1000A0;color:white;}")
 
         # Setting views in tabs
         self.set_tab_frame(self.homeView, 0)
@@ -56,6 +57,8 @@ class TabView(QFrame):
         self.layout.addWidget(self.tabWidget)
         self.layout.addWidget(self.main_nav)
         self.setLayout(self.layout)
+        self.setStyleSheet('TableView{border:3px solid #1000A0;margin:0;} '
+                           'ResultsOutputView{border:3px solid #1000A0;margin:0}')
 
     def set_tab_frame(self, frame: QFrame, index_num: int):
         if index_num == 0:
@@ -103,12 +106,7 @@ class TabView(QFrame):
 
     def back_clicked(self):
         if self.tabIndex == 0:
-            msg = QMessageBox()
-            msg.setWindowTitle("Save your progress?")
-            msg.setText("Would you like to save your progress?")
-            msg.setIcon(QMessageBox.Warning)
-            msg.setStandardButtons(QMessageBox.Save | QMessageBox.Cancel | QMessageBox.Close)
-            msg.exec_()
+            pass
         elif self.tabIndex == 1:
             self.tab_index_setter(0)
         elif self.tabIndex == 2:
