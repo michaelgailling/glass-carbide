@@ -1,8 +1,20 @@
+# Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &&
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+
 import asyncio
 import sys
-from PySide2.QtGui import QColor
+from PySide2.QtGui import QColor, Qt, QBrush
 from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetItem, QApplication, QWidget, QComboBox, \
-    QCheckBox
+    QCheckBox, QHeaderView
 
 
 class DataTable(QFrame):
@@ -56,7 +68,13 @@ class DataTable(QFrame):
                 The number of rows
         """
         super(DataTable, self).__init__(parent)
+
+        self.mappings = []
+        self.selections = []
+
         self.table = QTableWidget()
+        self.width = width
+        self.height = height
         self.set_dimensions(width, height)
 
         if log_data:
@@ -71,35 +89,65 @@ class DataTable(QFrame):
         self.table.clear()
 
     def set_dimensions(self, width=0, height=0):
+        self.width = width
+        self.height = height
         self.table.setColumnCount(width)
         self.table.setRowCount(height)
 
     def set_headers(self, headers):
         self.table.setHorizontalHeaderLabels(headers)
+        self.table.horizontalHeader().setStyleSheet('color:#1000A0')
+        self.style_headers()
+
+    def style_headers(self):
+        self.table.horizontalHeader().setStyleSheet("::section{background-color:#1000A0;color:white;font-weight:bold}")
+        self.table.horizontalHeader().setAutoFillBackground(True)
 
     def insert_control_row(self, widget_type=None, start_index=0, options=[]):
         self.table.insertRow(0)
 
-        if widget_type:
-            width = self.table.columnCount()
+        self.height += 1
 
+        if widget_type:
+            width = self.width
+            self.mappings = []
             for x in range(start_index, width):
-                widget = self.create_control_widget(widget_type, options)
-                self.set_cell_widget(widget, x, 0)
+                self.mappings.append(self.create_control_widget(widget_type, options))
+                self.set_cell_widget(self.mappings[-1], x, 0)
 
     def insert_control_column(self, widget_type=None, start_index=0, options=[]):
         self.table.insertColumn(0)
 
-        if widget_type:
-            height = self.table.rowCount()
+        self.width += 1
 
+        if widget_type:
+            height = self.height
+            self.selections = []
             for y in range(start_index, height):
-                widget = self.create_control_widget(widget_type, options)
-                self.set_cell_widget(widget, 0, y)
+                self.selections.append(self.create_control_widget(widget_type, options))
+                self.set_cell_widget(self.selections[-1], 0, y)
+
+    def insert_data_column(self, header="", start_index_y=0, insert_before=True, data=[]):
+        header_item = QTableWidgetItem(header)
+        if insert_before:
+            self.table.insertColumn(0)
+            self.table.setHorizontalHeaderItem(0, header_item)
+            for y in range(start_index_y, len(data)):
+                cell = QTableWidgetItem(data[y])
+                self.table.setItem(y, 0, cell)
+        else:
+            self.table.insertColumn(self.width)
+            self.table.setHorizontalHeaderItem(self.width, header_item)
+            for y in range(start_index_y, len(data)):
+                cell = QTableWidgetItem(data[y])
+                self.table.setItem(y, self.width, cell)
+        self.width += 1
 
     def create_control_widget(self, widget_type=None, options=[]):
         if widget_type == "combobox":
-            widget = QComboBox(self)
+            widget = QComboBox()
+
+            widget.setEditable(True)
 
             if options:
                 widget.addItems(options)
@@ -119,6 +167,15 @@ class DataTable(QFrame):
             for x in range(width):
                 cell = QTableWidgetItem(data[y][x])
                 self.table.setItem(y, x, cell)
+
+        asyncio.run(self.fit_headers_to_content())
+
+    async def fit_headers_to_content(self):
+        header = self.table.horizontalHeader()
+        self.table.verticalHeader().hide()
+        width = self.table.columnCount()
+        for i in range(width):
+            header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
 
     def cell_changed(self, y=0, x=0):
         """
@@ -198,7 +255,7 @@ class DataTable(QFrame):
         cell = QTableWidgetItem(text)
         self.table.setItem(y, x, cell)
 
-    def get_cell_contents(self, x=0, y=0):
+    def get_cell_text(self, x=0, y=0):
         """
         Method for Getting the text content of a cell
 
@@ -232,7 +289,7 @@ class DataTable(QFrame):
         -------
         None
         """
-        cell_text = self.get_cell_contents(x, y)
+        cell_text = self.get_cell_text(x, y)
         bg_color_red = str(self.table.item(y, x).backgroundColor().red())
         bg_color_green = str(self.table.item(y, x).backgroundColor().green())
         bg_color_blue = str(self.table.item(y, x).backgroundColor().blue())
@@ -268,6 +325,32 @@ class DataTable(QFrame):
 
         print()
         print()
+
+
+class MappableDataTable(DataTable):
+    def __init__(self, parent):
+        super(MappableDataTable, self).__init__(parent)
+
+        self.mappings = []
+
+
+class AssetDataTable(DataTable):
+    def __init__(self, parent):
+        super(AssetDataTable, self).__init__(parent)
+
+        self.data = []
+        self.mappings = []
+
+    def load_data(self, data=[]):
+        height = len(data)
+
+        self.set_dimensions(1, height)
+
+        for y in range(height):
+            cell = QTableWidgetItem(data[y])
+            self.table.setItem(y, 0, cell)
+
+        asyncio.run(self.fit_headers_to_content())
 
 
 if __name__ == '__main__':

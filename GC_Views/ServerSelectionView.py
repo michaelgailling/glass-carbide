@@ -28,4 +28,7 @@ class ServerSelectionView(QFrame):
         self.main_layout.addWidget(self.serverPath)
         self.main_layout.addWidget(self.localPath)
         self.setLayout(self.main_layout)
+        self.setStyleSheet('border:none')
+        self.topLevelWidget().setStyleSheet('QFrame{border:none} '
+                                            'LabeledDirectoryInput::QLineEdit{border:1px solid #1000A0}')
 
