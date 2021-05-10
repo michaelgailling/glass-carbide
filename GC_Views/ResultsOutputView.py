@@ -16,6 +16,7 @@ from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLab
 from GC_Components.InputComponents import LabeledDirectoryInput, LabeledInput, LabeledInputWithButton
 from GC_Components.TableComponents import DataTable, AssetDataTable
 from GC_Services.FileIo import FileIo
+from GC_Services.pcloudAPI import PCloud
 
 
 class ResultsOutputView(QFrame):
@@ -30,7 +31,8 @@ class ResultsOutputView(QFrame):
         self.displayLbl = QLabel("Review")
 
         # Root Directory Mapping input
-        self.project_dir = LabeledInputWithButton(self, label_text="pCloud Publink: ", button_text="Scan Public Repo")
+        self.liwb_publink = LabeledInputWithButton(self, label_text="pCloud Publink: ", button_text="Scan Public Repo")
+        # self.liwb_publink.button.clicked.connect()
 
         # Combo Boxes
         self.softwareBox = QComboBox(self)
@@ -53,7 +55,7 @@ class ResultsOutputView(QFrame):
         self.tablesBox.addWidget(self.dt_assets, stretch=1)
 
         # Layout Loading
-        self.comboBox.addWidget(self.project_dir)
+        self.comboBox.addWidget(self.liwb_publink)
         self.comboBox.addWidget(self.softwareBox, alignment=Qt.AlignHCenter)
         self.layout.addItem(self.tablesBox)
         self.layout.addItem(self.comboBox)
@@ -67,7 +69,7 @@ class ResultsOutputView(QFrame):
     def load_table_data(self, results=[]):
         try:
             headers = results.pop(0)
-            self.dt_data.load_data(results)
+            self.dt_data.load_table(results)
             self.dt_data.set_headers(headers)
 
             self.load_asset_data(results, headers)
@@ -94,7 +96,7 @@ class ResultsOutputView(QFrame):
         self.dt_assets.set_dimensions(1, len(results))
         header = [headers.pop(ind)]
         self.dt_assets.set_headers(header)
-        self.dt_assets.load_data(assets)
+        self.dt_assets.load_table(assets)
 
     def set_data(self, data=[]):
         self.data = data
