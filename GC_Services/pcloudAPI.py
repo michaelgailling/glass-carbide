@@ -13,6 +13,8 @@
 import asyncio
 import json
 from hashlib import sha1
+from urllib import parse
+from urllib.parse import parse_qs
 from typing import Dict
 
 import requests
@@ -401,7 +403,12 @@ class PCloud:
 
 ###################Publink Metods##########################
 
-    async def show_pub_link_directory(self, code=""):
+    def get_code_from_url(self, url):
+        parsed_url = parse.urlsplit(url)
+        code = parse_qs(parsed_url.query)["code"]
+        return code[0]
+
+    def get_pub_link_directory(self, code=""):
         if code:
             method_params = {
                 "code": code
@@ -414,13 +421,13 @@ class PCloud:
 
             return res_obj
 
-    def get_pub_link_file_data(self, filename="", code=""):
-        if filename and code:
-            pub_link_dir_res = asyncio.run(self.show_pub_link_directory(code))
-            dir_dict = pub_link_dir_res["metadata"]
+    def get_pub_link_file_data(self, filename="", publink_metadata={}):
+        if filename and publink_metadata:
             self.temp_storage = []
-            self.find_file_in_dict(filename, dir_dict)
+            self.find_file_in_dict(filename, publink_metadata)
             return self.temp_storage
+
+        return None
 
     def find_file_in_dict(self, filename="", obj_dict={}):
         result = {}
@@ -457,6 +464,15 @@ class PCloud:
 
 
 # apic = PCloud()
+#
+# apic.set_region("NA")
+#
+# code = apic.get_code_from_url("https://u.pcloud.link/publink/show?code=kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V")
+#
+# pub_dir = apic.get_pub_link_directory(code)
+#
+# print(json.dumps(pub_dir, sort_keys=True, indent=4))
+
 #
 # apic.set_region("NA")
 #

@@ -25,6 +25,7 @@ class ResultsOutputView(QFrame):
         self.layout = QVBoxLayout()
         self.grid = QGridLayout()
         self.data = []
+        self.assets = []
         self.fio = file_io
 
         # Label
@@ -32,7 +33,7 @@ class ResultsOutputView(QFrame):
 
         # Root Directory Mapping input
         self.liwb_publink = LabeledInputWithButton(self, label_text="pCloud Publink: ", button_text="Scan Public Repo")
-        # self.liwb_publink.button.clicked.connect()
+        self.liwb_publink.button.clicked.connect(self.check_pcloud)
 
         # Combo Boxes
         self.softwareBox = QComboBox(self)
@@ -66,6 +67,16 @@ class ResultsOutputView(QFrame):
         self.setStyleSheet('QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6;}'
                            'LabeledInputWithButton QLabel{font-weight:600}')
 
+    def check_pcloud(self):
+        publink = self.liwb_publink.get_input_text()
+        if publink:
+            apic = PCloud()
+            apic.set_region("NA")
+            code = apic.get_code_from_url(publink)
+            publink_data = apic.get_pub_link_directory(code)
+
+
+
     def load_table_data(self, results=[]):
         try:
             headers = results.pop(0)
@@ -90,13 +101,12 @@ class ResultsOutputView(QFrame):
                 sub_list = [x.strip() for x in item.split(',')]
                 asset_set = asset_set.union(set(sub_list))
 
-        assets = list(asset_set)
-        assets.sort()
-
+        self.assets = list(asset_set)
+        self.assets.sort()
         self.dt_assets.set_dimensions(1, len(results))
         header = [headers.pop(ind)]
         self.dt_assets.set_headers(header)
-        self.dt_assets.load_table(assets)
+        self.dt_assets.load_table(self.assets)
 
     def set_data(self, data=[]):
         self.data = data
