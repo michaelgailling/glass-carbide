@@ -75,7 +75,16 @@ class ResultsOutputView(QFrame):
             code = apic.get_code_from_url(publink)
             publink_data = apic.get_pub_link_directory(code)
 
-
+            for i in range(0, len(self.assets)):
+                file_data = apic.get_pub_link_file_data(self.assets[i], publink_data["metadata"])
+                print(file_data)
+                if not file_data:
+                    self.dt_assets.set_cell_color(0, i, color="red")
+                    self.dt_assets.set_text_color(0, i, "white")
+                elif len(file_data) > 1:
+                    self.dt_assets.set_cell_color(0, i, color="yellow")
+                else:
+                    self.dt_assets.set_cell_color(0, i, color="green")
 
     def load_table_data(self, results=[]):
         try:
