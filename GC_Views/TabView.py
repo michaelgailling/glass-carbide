@@ -78,17 +78,14 @@ class TabView(QFrame):
     def tab_index_getter(self):
         return self.tabIndex
 
-    def dir_getter(self):
-        self.dir = self.fio.project_dir
-        self.tableView.lfi_file_select.set_input_text(self.dir)
-
     def get_selection(self):
         selection = self.tableView.create_selection()
         self.resultsView.data = selection
 
     def continue_clicked(self):
         if self.homeView.mappingView.get_dir_path():
-            self.dir_getter()
+            self.dir = self.fio.project_dir
+            self.tableView.lfi_file_select.set_input_text(self.dir)
 
         if self.tabIndex == 0:
             self.tab_index_setter(1)
