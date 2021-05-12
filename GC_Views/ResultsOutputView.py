@@ -44,10 +44,10 @@ class ResultsOutputView(QFrame):
         self.comboBox.setSpacing(1)
 
         # Results Display
-        self.dt_data = DataTable()
+        self.dt_data = DataTable(self, readonly=True)
 
         # Assets Display
-        self.dt_assets = AssetDataTable(self)
+        self.dt_assets = AssetDataTable(self, readonly=True)
 
         # HBox to contain results and assets tables
         self.tablesBox = QHBoxLayout()
@@ -81,10 +81,18 @@ class ResultsOutputView(QFrame):
                 if not file_data:
                     self.dt_assets.set_cell_color(0, i, color="red")
                     self.dt_assets.set_text_color(0, i, "white")
+                    self.dt_assets.set_cell_tooltip(0, i, "File not found!")
                 elif len(file_data) > 1:
                     self.dt_assets.set_cell_color(0, i, color="yellow")
+                    self.dt_assets.set_text_color(0, i, "black")
+                    self.dt_assets.set_cell_tooltip(0, i, "Multiple files found!")
                 else:
                     self.dt_assets.set_cell_color(0, i, color="green")
+                    self.dt_assets.set_text_color(0, i, "black")
+                    self.dt_assets.set_cell_tooltip(0, i, "Exact Match found!")
+
+    def asset_cell_clicked(self):
+        pass
 
     def load_table_data(self, results=[]):
         try:
@@ -99,8 +107,6 @@ class ResultsOutputView(QFrame):
     def load_asset_data(self, results=[], headers=[]):
         ind = headers.index('Assets')
         assets = []
-        true_assets = {""}
-        temp = []
         for result in results:
             assets.insert(-1, result[ind])
 
