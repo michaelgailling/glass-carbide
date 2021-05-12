@@ -24,58 +24,54 @@ from LogoView import LogoView
 class HomeView(QFrame):
     def __init__(self, parent=None, file_io=FileIo()):
         super(HomeView, self).__init__(parent)
-        self.layout = QHBoxLayout()
-        self.btnBox = QVBoxLayout()
-        self.frameBox = QVBoxLayout()
+
+        # Store Reference to Global Object
         self.fio = file_io
 
-        # Folder creation confirmation variable
-        self.continue_create = True
+        # Initialize Layouts
+        self.hbl_main_layout = QHBoxLayout()
+        self.vbl_left_layout = QVBoxLayout()
+        self.vbl_right_layout = QVBoxLayout()
 
-        # Step Instructions
-        self.instruct = QLabel("Overview of Instructions")
+        # -----------------vbl_left_layout-----------------
+        # Initialize vbl_left_layout GUI Elements
+        self.lv_logo = LogoView(parent=self)
+        self.lbl_instructions = QLabel("Overview of Instructions")
+        self.hbv_home_buttons = HomeBtnsView(parent=self)
 
-        # Home Buttons View with New, Open, Save & Exit buttons
-        self.btnFrame = HomeBtnsView()
+        # Setup vbl_left_layout
+        self.vbl_left_layout.addWidget(self.lv_logo, alignment=Qt.AlignHCenter)
+        self.vbl_left_layout.addWidget(self.lbl_instructions, alignment=Qt.AlignHCenter)
+        self.vbl_left_layout.addWidget(self.hbv_home_buttons)
 
         # Assign methods for buttons
-        self.btnFrame.startBtn.clicked.connect(lambda: self.set_frame_index(1))
+        self.hbv_home_buttons.startBtn.clicked.connect(lambda: self.set_frame_index(1))
 
-        # Logo Picture will be contained in a Label
-        self.logo = LogoView()
+        # -----------------vbl_right_layout-----------------
+        # Initialize vbl_right_layout GUI Elements
+        self.sw_project_setup = QStackedWidget(parent=self)
 
-        # Add logo, instructions and buttons frame
-        self.btnBox.addWidget(self.logo, alignment=Qt.AlignHCenter)
-        self.btnBox.addWidget(self.instruct, alignment=Qt.AlignHCenter)
-        self.btnBox.addWidget(self.btnFrame)
+        # Initialize Directory Mapping Views
+        self.frm_blank = QFrame(parent=self)
+        self.dmv_mapping_view = DirectoryMappingView(parent=self, file_io=self.fio)
 
-        # Stacked widget for mapping views
-        self.resultFrame = QStackedWidget()
-        # Blank QFrame for initial load
-        self.blank = QFrame()
-        # PCloud browser
-        self.pCloudView = PCloudView()
-        # Mapping view to map project folders
-        self.mappingView = DirectoryMappingView(self, self.fio)
-        # Server selection view to pick local or server directory
-        self.serverView = ServerSelectionView()
-        self.serverView.setObjectName('server')
-        # Load views to stacked widget
-        self.resultFrame.addWidget(self.blank)
-        self.resultFrame.addWidget(self.mappingView)
-        self.resultFrame.addWidget(self.serverView)
-        self.resultFrame.addWidget(self.pCloudView)
-        # Vbo
-        self.frameBox.addWidget(self.resultFrame)
+        # Add views to sw_project_setup
+        self.sw_project_setup.addWidget(self.frm_blank)
+        self.sw_project_setup.addWidget(self.dmv_mapping_view)
 
-        # Layout loading
-        self.layout.addItem(self.btnBox)
-        self.layout.addWidget(self.resultFrame)
-        self.setLayout(self.layout)
+        # Setup vbl_right_layout
+        self.vbl_right_layout.addWidget(self.sw_project_setup)
+
+        # -----------------hbl_main_layout-----------------
+        # Add vbl_left_layout and vbl_right_layout to hbl_main_layout
+        self.hbl_main_layout.addItem(self.vbl_left_layout)
+        self.hbl_main_layout.addItem(self.vbl_right_layout)
+        self.setLayout(self.hbl_main_layout)
+
         self.setStyleSheet('HomeBtnsView{border:none} LogoView{border:none} QLabel{border:none}')
 
     def set_frame_index(self, num: int):
-        self.resultFrame.setCurrentIndex(num)
+        self.sw_project_setup.setCurrentIndex(num)
 
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)

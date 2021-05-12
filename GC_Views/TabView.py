@@ -83,7 +83,7 @@ class TabView(QFrame):
         self.resultsView.data = selection
 
     def continue_clicked(self):
-        if self.homeView.mappingView.get_dir_path():
+        if self.homeView.dmv_mapping_view.get_dir_path():
             self.dir = self.fio.project_dir
             self.tableView.lfi_file_select.set_input_text(self.dir)
 
