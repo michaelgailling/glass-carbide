@@ -22,47 +22,44 @@ from GC_Services.pcloudAPI import PCloud
 class ResultsOutputView(QFrame):
     def __init__(self, parent=None, file_io=FileIo()):
         super(ResultsOutputView, self).__init__(parent)
-        self.layout = QVBoxLayout()
-        self.grid = QGridLayout()
+
         self.data = []
         self.assets = []
         self.fio = file_io
 
-        # Label
-        self.displayLbl = QLabel("Review")
+        # ----------------------------------------------
+        # -----------------hbl_tables-------------------
+        # ----------------------------------------------
+        self.hbl_tables = QHBoxLayout()
+
+        self.dt_data = DataTable(self, readonly=True)
+        self.dt_assets = AssetDataTable(self, readonly=True)
+
+        self.hbl_tables.addWidget(self.dt_data, stretch=4)
+        self.hbl_tables.addWidget(self.dt_assets, stretch=1)
+
+        # ----------------------------------------------
+        # -----------------vbl_controls-----------------
+        # ----------------------------------------------
+        self.vbl_controls = QVBoxLayout()
+        self.vbl_controls.setSpacing(1)
 
         # Root Directory Mapping input
         self.liwb_publink = LabeledInputWithButton(self, label_text="pCloud Publink: ", button_text="Scan Public Repo")
         self.liwb_publink.button.clicked.connect(self.check_pcloud)
 
-        # Combo Boxes
-        self.softwareBox = QComboBox(self)
-        self.softwareBox.addItem("Select Software   ...")
-        self.softwareBox.setStyleSheet('background-color:white;border:2px solid #1000a0;'
-                                       'padding:13 20;border-radius:10px;font-weight:600;font-size:15px')
-        self.comboBox = QVBoxLayout()
-        self.comboBox.setSpacing(1)
+        self.vbl_controls.addWidget(self.liwb_publink)
 
-        # Results Display
-        self.dt_data = DataTable(self, readonly=True)
+        # -------------------------------------------------
+        # -----------------vbl_main_layout-----------------
+        # -------------------------------------------------
+        self.vbl_main_layout = QVBoxLayout()
 
-        # Assets Display
-        self.dt_assets = AssetDataTable(self, readonly=True)
+        self.vbl_main_layout.addItem(self.hbl_tables)
+        self.vbl_main_layout.addItem(self.vbl_controls)
+        self.vbl_main_layout.setContentsMargins(30, 20, 30, 30)
 
-        # HBox to contain results and assets tables
-        self.tablesBox = QHBoxLayout()
-        self.tablesBox.addWidget(self.dt_data, stretch=4)
-        # self.tablesBox.addWidget(self.dt_data)
-        self.tablesBox.addWidget(self.dt_assets, stretch=1)
-
-        # Layout Loading
-        self.comboBox.addWidget(self.liwb_publink)
-        self.comboBox.addWidget(self.softwareBox, alignment=Qt.AlignHCenter)
-        self.layout.addItem(self.tablesBox)
-        self.layout.addItem(self.comboBox)
-        self.layout.setContentsMargins(30, 20, 30, 30)
-        self.setLayout(self.layout)
-
+        self.setLayout(self.vbl_main_layout)
         self.setGeometry(0, 0, 900, 600)
         self.setStyleSheet('QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6;}'
                            'LabeledInputWithButton QLabel{font-weight:600}')
