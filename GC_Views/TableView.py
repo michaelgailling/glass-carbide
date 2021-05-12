@@ -21,6 +21,7 @@ from GC_Services.csvIO import CsvIo
 
 class TableView(QFrame):
     def __init__(self, parent=None, file_io=FileIo()):
+        # -------------------------------------------init Start-------------------------------------------
         super(TableView, self).__init__(parent)
         self.csv_handler = CsvIo()
         self.fio = file_io
@@ -58,6 +59,8 @@ class TableView(QFrame):
         self.setGeometry(0, 0, 800, 600)
         self.setStyleSheet('QFrame{font-weight:600;} QLineEdit{border:2px solid #1000A0}'
                            'QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6}')
+
+        # -------------------------------------------init End-------------------------------------------
 
     def load_file(self):
         self.csv_handler.data.clear()

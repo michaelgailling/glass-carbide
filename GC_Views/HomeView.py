@@ -23,6 +23,7 @@ from LogoView import LogoView
 
 class HomeView(QFrame):
     def __init__(self, parent=None, file_io=FileIo()):
+        # -------------------------------------------init Start-------------------------------------------
         super(HomeView, self).__init__(parent)
 
         # -------------------------------------
@@ -81,6 +82,8 @@ class HomeView(QFrame):
         self.setLayout(self.hbl_main_layout)
 
         self.setStyleSheet('HomeBtnsView{border:none} LogoView{border:none} QLabel{border:none}')
+
+        # -------------------------------------------init End-------------------------------------------
 
     def set_frame_index(self, num: int):
         self.sw_project_setup.setCurrentIndex(num)

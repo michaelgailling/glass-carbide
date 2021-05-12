@@ -18,6 +18,7 @@ from GC_Components.MainComponents import MenuBar
 
 class MainView(QMainWindow):
     def __init__(self, parent=None):
+        # -------------------------------------------init Start-------------------------------------------
         super(MainView, self).__init__(parent)
         self.fio = FileIo()
 
@@ -49,6 +50,8 @@ class MainView(QMainWindow):
                                             'border-left:2px solid #1000A0;border-right:2px solid #1000A0;'
                                             'margin:0;background-color:white;}')
         self.center_screen()
+
+        # -------------------------------------------init End-------------------------------------------
 
     def center_screen(self):
         screen = self.topLevelWidget().screen().geometry()

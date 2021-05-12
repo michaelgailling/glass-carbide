@@ -21,6 +21,7 @@ from GC_Services.pcloudAPI import PCloud
 
 class ResultsOutputView(QFrame):
     def __init__(self, parent=None, file_io=FileIo()):
+        # -------------------------------------------init Start-------------------------------------------
         super(ResultsOutputView, self).__init__(parent)
 
         self.data = []
@@ -63,6 +64,8 @@ class ResultsOutputView(QFrame):
         self.setGeometry(0, 0, 900, 600)
         self.setStyleSheet('QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6;}'
                            'LabeledInputWithButton QLabel{font-weight:600}')
+
+        # -------------------------------------------init End-------------------------------------------
 
     def check_pcloud(self):
         publink = self.liwb_publink.get_input_text()

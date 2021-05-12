@@ -20,6 +20,7 @@ from GC_Services.FileIo import FileIo
 
 class TabView(QFrame):
     def __init__(self, parent=None, file_io=FileIo()):
+        # -------------------------------------------init Start-------------------------------------------
         super(TabView, self).__init__(parent)
         self.fio = file_io
         self.dir = ""
@@ -70,6 +71,8 @@ class TabView(QFrame):
         self.setLayout(self.vbl_main_layout)
         self.setStyleSheet('TableView{border:3px solid #1000A0;margin:0;} '
                            'ResultsOutputView{border:3px solid #1000A0;margin:0}')
+
+        # -------------------------------------------init End-------------------------------------------
 
     def set_tab_frame(self, frame: QFrame, index_num: int):
         if index_num == 0:
