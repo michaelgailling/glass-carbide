@@ -25,15 +25,17 @@ class HomeView(QFrame):
     def __init__(self, parent=None, file_io=FileIo()):
         super(HomeView, self).__init__(parent)
 
-        # Store Reference to Global Object
+        # -------------------------------------
+        # -----------------fio-----------------
+        # -------------------------------------
         self.fio = file_io
 
-        # Initialize Layouts
-        self.hbl_main_layout = QHBoxLayout()
-        self.vbl_left_layout = QVBoxLayout()
-        self.vbl_right_layout = QVBoxLayout()
-
+        # -------------------------------------------------
         # -----------------vbl_left_layout-----------------
+        # -------------------------------------------------
+
+        self.vbl_left_layout = QVBoxLayout()
+
         # Initialize vbl_left_layout GUI Elements
         self.lv_logo = LogoView(parent=self)
         self.lbl_instructions = QLabel("Overview of Instructions")
@@ -47,7 +49,12 @@ class HomeView(QFrame):
         # Assign methods for buttons
         self.hbv_home_buttons.startBtn.clicked.connect(lambda: self.set_frame_index(1))
 
+        # --------------------------------------------------
         # -----------------vbl_right_layout-----------------
+        # --------------------------------------------------
+
+        self.vbl_right_layout = QVBoxLayout()
+
         # Initialize vbl_right_layout GUI Elements
         self.sw_project_setup = QStackedWidget(parent=self)
 
@@ -62,7 +69,12 @@ class HomeView(QFrame):
         # Setup vbl_right_layout
         self.vbl_right_layout.addWidget(self.sw_project_setup)
 
+        # -------------------------------------------------
         # -----------------hbl_main_layout-----------------
+        # -------------------------------------------------
+
+        self.hbl_main_layout = QHBoxLayout()
+
         # Add vbl_left_layout and vbl_right_layout to hbl_main_layout
         self.hbl_main_layout.addItem(self.vbl_left_layout)
         self.hbl_main_layout.addItem(self.vbl_right_layout)
@@ -72,6 +84,7 @@ class HomeView(QFrame):
 
     def set_frame_index(self, num: int):
         self.sw_project_setup.setCurrentIndex(num)
+
 
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)

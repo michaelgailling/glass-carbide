@@ -22,27 +22,38 @@ from GC_Services.csvIO import CsvIo
 class TableView(QFrame):
     def __init__(self, parent=None, file_io=FileIo()):
         super(TableView, self).__init__(parent)
-        self.vBox = QVBoxLayout()
         self.csv_handler = CsvIo()
         self.fio = file_io
-        # Table
-        self.dt_table = DataTable(self)
         self.column_definitions = []
 
-        # Labeled File Input
+        # ----------------------------------------------
+        # -----------------dt_table---------------------
+        # ----------------------------------------------
+        self.dt_table = DataTable(self)
+
+        # ----------------------------------------------
+        # -----------------lfi_file_select--------------
+        # ----------------------------------------------
         self.lfi_file_select = LabeledFileInput(self, label_text="Select CSV", file_type="CSV Format (*.csv)")
 
-        # Load Button
+        # ----------------------------------------------
+        # -----------------btn_load_file----------------
+        # ----------------------------------------------
         self.btn_load_file = QPushButton("Load To Table")
+        self.btn_load_file.clicked.connect(self.load_file)
         self.btn_load_file.setStyleSheet("background-color:#1000A0;color:white;padding:13 3;border:2px solid #1000A0;"
                                          "border-radius:10px;font-weight:600;")
-        self.btn_load_file.clicked.connect(self.load_file)
 
-        # Layout loading
-        self.vBox.addWidget(self.dt_table)
-        self.vBox.addWidget(self.lfi_file_select)
-        self.vBox.addWidget(self.btn_load_file, alignment=Qt.AlignHCenter)
-        self.setLayout(self.vBox)
+        # ----------------------------------------------
+        # -----------------vbl_main_layout--------------
+        # ----------------------------------------------
+
+        self.vbl_main_layout = QVBoxLayout()
+
+        self.vbl_main_layout.addWidget(self.dt_table)
+        self.vbl_main_layout.addWidget(self.lfi_file_select)
+        self.vbl_main_layout.addWidget(self.btn_load_file, alignment=Qt.AlignHCenter)
+        self.setLayout(self.vbl_main_layout)
 
         self.setGeometry(0, 0, 800, 600)
         self.setStyleSheet('QFrame{font-weight:600;} QLineEdit{border:2px solid #1000A0}'
