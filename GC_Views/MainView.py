@@ -27,6 +27,7 @@ class MainView(QMainWindow):
         self.setGeometry(0, 0, 900, 600)
 
         self.tab_widget = TabView(self, self.fio)
+        self.tab_widget.setObjectName('tab')
         self.tabIndex = self.tab_widget.tabIndex
 
         # Menu Bar
