@@ -85,7 +85,7 @@ class ResultsOutputView(QFrame):
                 elif len(file_data) > 1:
                     self.dt_assets.set_cell_color(0, i, color="yellow")
                     self.dt_assets.set_text_color(0, i, "black")
-                    self.dt_assets.set_cell_tooltip(0, i, "Multiple files found!")
+                    self.dt_assets.set_cell_tooltip(0, i, "Multiple files found! Most Recent Version Used!")
                 else:
                     self.dt_assets.set_cell_color(0, i, color="green")
                     self.dt_assets.set_text_color(0, i, "black")
