@@ -25,14 +25,33 @@ import requests
 
 
 class PCloud:
-    """PCloud API class:
-        Handles connection from pCloud api service
+    """PCloud
 
-        Attributes:
+                Summary:
+                    A class for pCloud api that includes:
 
-        Methods:
+                    -Handles connection from pCloud api service
 
-    """
+                Attributes:
+                    label, {AttributeName}
+
+                Methods:
+                    get_input_text, {MethodName}
+
+                Attributes
+                ----------
+                    label : QLabel
+                        Text Label for Input Box
+                    {AttributeName} : {AttributeClass}
+                        {Property} for {Type}
+
+                Methods
+                -------
+                    get_input_text(self)
+                        Return the text in the input box
+                    {MethodName}({Parameters})
+                        {Functionality}
+            """
 
     def __init__(self):
         """Constructor:

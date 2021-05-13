@@ -18,7 +18,7 @@ from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetIte
 
 
 class DataTable(QFrame):
-    """Labeled Input
+    """Data Table
 
         Summary:
             A class for a data table that includes:
@@ -334,6 +334,33 @@ class DataTable(QFrame):
 
 
 class AssetDataTable(DataTable):
+    """Asset Data Table
+
+                Summary:
+                    A class for {Type} that includes:
+
+                    -{Description} to the {Location eg left}
+
+                Attributes:
+                    label, {AttributeName}
+
+                Methods:
+                    get_input_text, {MethodName}
+
+                Attributes
+                ----------
+                    label : QLabel
+                        Text Label for Input Box
+                    {AttributeName} : {AttributeClass}
+                        {Property} for {Type}
+
+                Methods
+                -------
+                    get_input_text(self)
+                        Return the text in the input box
+                    {MethodName}({Parameters})
+                        {Functionality}
+            """
     def __init__(self,  parent=None, width=0, height=0, readonly=False, log_data=False):
         super(AssetDataTable, self).__init__(parent)
         self.readonly = readonly

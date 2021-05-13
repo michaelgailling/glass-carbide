@@ -19,6 +19,33 @@ from GC_Services.FileIo import FileIo
 
 
 class TabView(QFrame):
+    """Tab View
+
+                    Summary:
+                        A class for {Type} that includes:
+
+                        -{Description} to the {Location eg left}
+
+                    Attributes:
+                        label, {AttributeName}
+
+                    Methods:
+                        get_input_text, {MethodName}
+
+                    Attributes
+                    ----------
+                        label : QLabel
+                            Text Label for Input Box
+                        {AttributeName} : {AttributeClass}
+                            {Property} for {Type}
+
+                    Methods
+                    -------
+                        get_input_text(self)
+                            Return the text in the input box
+                        {MethodName}({Parameters})
+                            {Functionality}
+                """
     def __init__(self, parent=None, file_io=FileIo()):
         # -------------------------------------------init Start-------------------------------------------
         super(TabView, self).__init__(parent)
