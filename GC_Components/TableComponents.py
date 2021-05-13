@@ -55,7 +55,7 @@ class DataTable(QFrame):
             log_cell(self, x, y)
                 Prints info about the specified cell
     """
-    def __init__(self, parent=None, width=0, height=0, log_data=False):
+    def __init__(self, parent=None, width=0, height=0, readonly=False, log_data=False):
         """
         Constructs all the necessary attributes for the Data Table object.
 
@@ -71,6 +71,7 @@ class DataTable(QFrame):
 
         self.mappings = []
         self.selections = []
+        self.readonly = readonly
 
         self.table = QTableWidget()
         self.width = width
@@ -157,7 +158,7 @@ class DataTable(QFrame):
 
         return widget
 
-    def load_data(self, data=[]):
+    def load_table(self, data=[]):
         height = len(data)
         width = len(data[0])
 
@@ -166,6 +167,8 @@ class DataTable(QFrame):
         for y in range(height):
             for x in range(width):
                 cell = QTableWidgetItem(data[y][x])
+                if self.readonly:
+                    cell.setFlags(Qt.ItemIsEditable)
                 self.table.setItem(y, x, cell)
 
         asyncio.run(self.fit_headers_to_content())
@@ -193,6 +196,9 @@ class DataTable(QFrame):
         None
         """
         asyncio.run(self.log_cell(x, y))
+
+    def set_cell_tooltip(self, x=0, y=0, tooltip_text=""):
+        self.table.item(y, x).setToolTip(tooltip_text)
 
     def set_cell_color(self, x=0, y=0, color="white"):
         """
@@ -327,27 +333,22 @@ class DataTable(QFrame):
         print()
 
 
-class MappableDataTable(DataTable):
-    def __init__(self, parent):
-        super(MappableDataTable, self).__init__(parent)
-
-        self.mappings = []
-
-
 class AssetDataTable(DataTable):
-    def __init__(self, parent):
+    def __init__(self,  parent=None, width=0, height=0, readonly=False, log_data=False):
         super(AssetDataTable, self).__init__(parent)
-
+        self.readonly = readonly
         self.data = []
         self.mappings = []
 
-    def load_data(self, data=[]):
+    def load_table(self, data=[]):
         height = len(data)
 
         self.set_dimensions(1, height)
 
         for y in range(height):
             cell = QTableWidgetItem(data[y])
+            if self.readonly:
+                cell.setFlags(Qt.ItemIsEditable)
             self.table.setItem(y, 0, cell)
 
         asyncio.run(self.fit_headers_to_content())

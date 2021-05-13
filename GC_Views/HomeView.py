@@ -23,88 +23,70 @@ from LogoView import LogoView
 
 class HomeView(QFrame):
     def __init__(self, parent=None, file_io=FileIo()):
+        # -------------------------------------------init Start-------------------------------------------
         super(HomeView, self).__init__(parent)
-        self.layout = QHBoxLayout()
-        self.btnBox = QVBoxLayout()
-        self.frameBox = QVBoxLayout()
+
+        # -------------------------------------
+        # -----------------fio-----------------
+        # -------------------------------------
         self.fio = file_io
 
-        # Folder creation confirmation variable
-        self.continue_create = True
+        # -------------------------------------------------
+        # -----------------vbl_left_layout-----------------
+        # -------------------------------------------------
 
-        # Step Instructions
-        self.instruct = QLabel("Overview of Instructions")
+        self.vbl_left_layout = QVBoxLayout()
 
-        # Home Buttons View with New, Open, Save & Exit buttons
-        self.btnFrame = HomeBtnsView()
+        # Initialize vbl_left_layout GUI Elements
+        self.lv_logo = LogoView(parent=self)
+        self.lbl_instructions = QLabel("Overview of Instructions")
+        self.hbv_home_buttons = HomeBtnsView(parent=self)
+
+        # Setup vbl_left_layout
+        self.vbl_left_layout.addWidget(self.lv_logo, alignment=Qt.AlignHCenter)
+        self.vbl_left_layout.addWidget(self.lbl_instructions, alignment=Qt.AlignHCenter)
+        self.vbl_left_layout.addWidget(self.hbv_home_buttons)
 
         # Assign methods for buttons
-        self.btnFrame.startBtn.clicked.connect(lambda: self.set_frame_index(1))
+        self.hbv_home_buttons.startBtn.clicked.connect(lambda: self.set_frame_index(1))
 
-        # Logo Picture will be contained in a Label
-        self.logo = LogoView()
+        # --------------------------------------------------
+        # -----------------vbl_right_layout-----------------
+        # --------------------------------------------------
 
-        # Add logo, instructions and buttons frame
-        self.btnBox.addWidget(self.logo, alignment=Qt.AlignHCenter)
-        self.btnBox.addWidget(self.instruct, alignment=Qt.AlignHCenter)
-        self.btnBox.addWidget(self.btnFrame)
+        self.vbl_right_layout = QVBoxLayout()
 
-        # Stacked widget for mapping views
-        self.resultFrame = QStackedWidget()
-        # Blank QFrame for initial load
-        self.blank = QFrame()
-        # PCloud browser
-        self.pCloudView = PCloudView()
-        # Mapping view to map project folders
-        self.mappingView = DirectoryMappingView(self, self.fio)
-        # Server selection view to pick local or server directory
-        self.serverView = ServerSelectionView()
-        self.serverView.setObjectName('server')
-        # Load views to stacked widget
-        self.resultFrame.addWidget(self.blank)
-        self.resultFrame.addWidget(self.mappingView)
-        self.resultFrame.addWidget(self.serverView)
-        self.resultFrame.addWidget(self.pCloudView)
-        # Vbo
-        self.frameBox.addWidget(self.resultFrame)
+        # Initialize vbl_right_layout GUI Elements
+        self.sw_project_setup = QStackedWidget(parent=self)
 
-        # Layout loading
-        self.layout.addItem(self.btnBox)
-        self.layout.addWidget(self.resultFrame)
-        self.setLayout(self.layout)
+        # Initialize Directory Mapping Views
+        self.frm_blank = QFrame(parent=self)
+        self.dmv_mapping_view = DirectoryMappingView(parent=self, file_io=self.fio)
+
+        # Add views to sw_project_setup
+        self.sw_project_setup.addWidget(self.frm_blank)
+        self.sw_project_setup.addWidget(self.dmv_mapping_view)
+
+        # Setup vbl_right_layout
+        self.vbl_right_layout.addWidget(self.sw_project_setup)
+
+        # -------------------------------------------------
+        # -----------------hbl_main_layout-----------------
+        # -------------------------------------------------
+
+        self.hbl_main_layout = QHBoxLayout()
+
+        # Add vbl_left_layout and vbl_right_layout to hbl_main_layout
+        self.hbl_main_layout.addItem(self.vbl_left_layout)
+        self.hbl_main_layout.addItem(self.vbl_right_layout)
+        self.setLayout(self.hbl_main_layout)
+
         self.setStyleSheet('HomeBtnsView{border:none} LogoView{border:none} QLabel{border:none}')
 
+        # -------------------------------------------init End-------------------------------------------
+
     def set_frame_index(self, num: int):
-        if num == 1:
-            self.confirm_create()
-        if self.continue_create is True or num != 1:
-            self.resultFrame.setCurrentIndex(num)
-
-    def confirm_create(self):
-        self.continue_create = False
-        # Message Box to confirm creation of sub folders in project directory
-        msg = QMessageBox()
-        msg.setWindowTitle("Are You Sure?")
-        msg.setText("This will create new folders within the selected directory if the folders don't already exist. "
-                    "Would you like to continue?")
-        msg.setIcon(QMessageBox.Warning)
-        # Message Box Buttons
-        msg.setStandardButtons(QMessageBox.Ok | QMessageBox.Cancel)
-        # msg.buttonClicked.connect(self.msg_button_click)
-
-        # Execute Message Box and return value of the clicked message box button
-        returned_value = msg.exec()
-        self.continue_check(returned_value)
-
-    def continue_check(self, return_val):
-        # If condition continues to next screen only if ok button clicked
-        if return_val == QMessageBox.Ok:
-            self.continue_create = True
-        elif return_val == QMessageBox.Cancel:
-            self.continue_create = False
-
-    # def msg_button_click(self):
-        # print("Button clicked")
+        self.sw_project_setup.setCurrentIndex(num)
 
 
 if __name__ == '__main__':
