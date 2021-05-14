@@ -124,13 +124,10 @@ class TabView(QFrame):
         self.rv_resultsView.data = selection
 
     def continue_clicked(self):
-        if self.hv_homeView.dmv_mapping_view.get_dir_path():
-            self.dir = self.fio.project_dir
-            self.tv_tableView.lfi_file_select.set_input_text(self.dir)
+        if self.fio.project_dir:
+            self.tv_tableView.lfi_file_select.set_input_text(self.fio.project_dir)
 
         if self.tabIndex == 0:
-            if self.hv_homeView.current_frame_index == 1:
-                pass
             self.tab_index_setter(1)
         elif self.tabIndex == 1:
             results = self.tv_tableView.create_selection()

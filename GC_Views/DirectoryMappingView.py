@@ -97,6 +97,3 @@ class DirectoryMappingView(QFrame):
     def show_directory_dialog(self):
         directory_path = QFileDialog.getExistingDirectory(self, "Select a Directory")
         self.main_path.set_input_text(directory_path)
-
-    def get_dir_path(self):
-        return self.dir_path
