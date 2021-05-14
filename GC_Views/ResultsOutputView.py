@@ -22,6 +22,33 @@ from GC_Services.pcloudAPI import PCloud
 
 
 class ResultsOutputView(QFrame):
+    """Results Output View
+
+                    Summary:
+                        A class for {Type} that includes:
+
+                        -{Description} to the {Location eg left}
+
+                    Attributes:
+                        label, {AttributeName}
+
+                    Methods:
+                        get_input_text, {MethodName}
+
+                    Attributes
+                    ----------
+                        label : QLabel
+                            Text Label for Input Box
+                        {AttributeName} : {AttributeClass}
+                            {Property} for {Type}
+
+                    Methods
+                    -------
+                        get_input_text(self)
+                            Return the text in the input box
+                        {MethodName}({Parameters})
+                            {Functionality}
+                """
     def __init__(self, parent=None, file_io=FileIo()):
         # -------------------------------------------init Start-------------------------------------------
         super(ResultsOutputView, self).__init__(parent)
@@ -95,7 +122,7 @@ class ResultsOutputView(QFrame):
                 elif len(file_data) > 1:
                     self.dt_assets.set_cell_color(0, i, color="yellow")
                     self.dt_assets.set_text_color(0, i, "black")
-                    self.dt_assets.set_cell_tooltip(0, i, "Multiple files found!")
+                    self.dt_assets.set_cell_tooltip(0, i, "Multiple files found! Most Recent Version Used!")
                     latest_file = self.find_latest_file(file_data=file_data)
                     if latest_file:
                         self.file_metadata.append(latest_file)

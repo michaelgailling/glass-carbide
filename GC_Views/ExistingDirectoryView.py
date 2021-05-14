@@ -10,12 +10,14 @@
 # WIMTACH
 #
 
-from PySide2.QtGui import QPixmap
-from PySide2.QtWidgets import QFrame, QLabel, QVBoxLayout
+
+from PySide2.QtWidgets import QFrame, QVBoxLayout
+
+from GC_Components.InputComponents import LabeledDirectoryInput
 
 
-class LogoView(QFrame):
-    """Logo View
+class ExistingDirectoryView(QFrame):
+    """Existing Directory View
 
                     Summary:
                         A class for {Type} that includes:
@@ -43,13 +45,15 @@ class LogoView(QFrame):
                             {Functionality}
                 """
     def __init__(self, parent=None):
-        super(LogoView, self).__init__(parent)
+        super(ExistingDirectoryView, self).__init__(parent)
 
-        self.logo = QLabel(self)
-        pixmap = QPixmap('../GC_Images/logo.png')
-        self.logo.setPixmap(pixmap)
+        self.directoryPath = LabeledDirectoryInput(self, label_text="Select Root Folder: ")
 
         self.main_layout = QVBoxLayout()
 
-        self.main_layout.addWidget(self.logo)
+        self.main_layout.addWidget(self.directoryPath)
         self.setLayout(self.main_layout)
+        self.setStyleSheet('LabeledDirectoryInput{border:none}')
+        # self.setStyleSheet('border:none')
+        # self.topLevelWidget().setStyleSheet('QFrame{border:none} '
+        #                                    'LabeledDirectoryInput::QLineEdit{border:1px solid #1000A0}')

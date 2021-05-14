@@ -17,6 +17,33 @@ from GC_Components.MainComponents import MenuBar
 
 
 class MainView(QMainWindow):
+    """Main View
+
+                    Summary:
+                        A class for {Type} that includes:
+
+                        -{Description} to the {Location eg left}
+
+                    Attributes:
+                        label, {AttributeName}
+
+                    Methods:
+                        get_input_text, {MethodName}
+
+                    Attributes
+                    ----------
+                        label : QLabel
+                            Text Label for Input Box
+                        {AttributeName} : {AttributeClass}
+                            {Property} for {Type}
+
+                    Methods
+                    -------
+                        get_input_text(self)
+                            Return the text in the input box
+                        {MethodName}({Parameters})
+                            {Functionality}
+                """
     def __init__(self, parent=None):
         # -------------------------------------------init Start-------------------------------------------
         super(MainView, self).__init__(parent)
@@ -27,6 +54,7 @@ class MainView(QMainWindow):
         self.setGeometry(0, 0, 900, 600)
 
         self.tab_widget = TabView(self, self.fio)
+        self.tab_widget.setObjectName('tab')
         self.tabIndex = self.tab_widget.tabIndex
 
         # Menu Bar

@@ -77,32 +77,32 @@ class MenuBar(QMenuBar):
 
 
 class MainButtons(QHBoxLayout):
-    """Main Buttons in container
+    """Main Buttons in an HBox
 
             Summary:
-                A class for an menu bar that includes:
+                A class for {Type} that includes:
 
-                -
+                -{Description} to the {Location eg left}
 
             Attributes:
-
+                label, {AttributeName}
 
             Methods:
-
+                get_input_text, {MethodName}
 
             Attributes
             ----------
                 label : QLabel
                     Text Label for Input Box
-                 :
-
+                {AttributeName} : {AttributeClass}
+                    {Property} for {Type}
 
             Methods
             -------
                 get_input_text(self)
                     Return the text in the input box
-                (self, value : string)
-
+                {MethodName}({Parameters})
+                    {Functionality}
         """
 
     def __init__(self, parent):
@@ -127,8 +127,32 @@ class MainButtons(QHBoxLayout):
 
 
 class MainNavButtons(QFrame):
-    """Main Buttons Test
-        -uses qframe instead of hboxlayout
+    """Main Navigation Buttons
+
+            Summary:
+                A class for {Type} that includes:
+
+                -{Description} to the {Location eg left}
+
+            Attributes:
+                label, {AttributeName}
+
+            Methods:
+                get_input_text, {MethodName}
+
+            Attributes
+            ----------
+                label : QLabel
+                    Text Label for Input Box
+                {AttributeName} : {AttributeClass}
+                    {Property} for {Type}
+
+            Methods
+            -------
+                get_input_text(self)
+                    Return the text in the input box
+                {MethodName}({Parameters})
+                    {Functionality}
         """
 
     def __init__(self, parent=None):

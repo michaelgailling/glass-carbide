@@ -17,6 +17,37 @@ from GC_Services.FileIo import FileIo
 
 
 class DirectoryMappingView(QFrame):
+    """Directory Mapping View
+
+                    Summary:
+                        A class for {Type} that includes:
+
+                        -{Description} to the {Location eg left}
+
+                    Attributes:
+                        label, {AttributeName}
+
+                    Methods:
+                        get_input_text, {MethodName}
+
+                    Attributes
+                    ----------
+                        fio : FileIo
+                            !!!File IO description!!!
+                        mainPath,assetPath,episodePath,animaticsPath,soundsPath : LabeledDirectoryInput
+                            {Property} for {Type}
+
+                    Methods
+                    -------
+                        shared_dir_paths(self)
+                            Return the text in the input box
+                        make_dirs(self)
+                            {Functionality}
+                        dir_getter_filler(self)
+                            {Functionality}
+                        get_dir_path(self)
+                            {Functionality}
+                """
     def __init__(self, parent=None, file_io=FileIo()):
         super(DirectoryMappingView, self).__init__(parent)
         self.dir_path = ""
