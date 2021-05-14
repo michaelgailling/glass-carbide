@@ -11,7 +11,7 @@
 #
 
 
-from PySide2.QtWidgets import QFrame, QVBoxLayout, QFileDialog
+from PySide2.QtWidgets import QFrame, QVBoxLayout, QFileDialog, QPushButton
 from GC_Components.InputComponents import LabeledDirectoryInput
 from GC_Services.FileIo import FileIo
 
@@ -34,7 +34,7 @@ class DirectoryMappingView(QFrame):
                     ----------
                         fio : FileIo
                             !!!File IO description!!!
-                        mainPath,assetPath,episodePath,animaticsPath,soundsPath : LabeledDirectoryInput
+                        main_path,asset_path,episode_path,animatics_path,sounds_path : LabeledDirectoryInput
                             {Property} for {Type}
 
                     Methods
@@ -52,45 +52,51 @@ class DirectoryMappingView(QFrame):
         super(DirectoryMappingView, self).__init__(parent)
         self.dir_path = ""
         self.fio = file_io
-        self.mainPath = LabeledDirectoryInput(self, label_text="Project Directory: ", read_only=True)
-        self.assetPath = LabeledDirectoryInput(self, label_text="Assets: ", read_only=True, btn_enable=False)
-        self.episodePath = LabeledDirectoryInput(self, label_text="Episodes: ", read_only=True, btn_enable=False)
-        self.animaticsPath = LabeledDirectoryInput(self, label_text="Animatics: ", read_only=True, btn_enable=False)
-        self.soundsPath = LabeledDirectoryInput(self, label_text="Sounds: ", read_only=True, btn_enable=False)
+        self.main_path = LabeledDirectoryInput(self, label_text="Project Directory: ", read_only=True)
+        self.asset_path = LabeledDirectoryInput(self, label_text="Assets: ", read_only=True)
+        self.episode_path = LabeledDirectoryInput(self, label_text="Episodes: ", read_only=True)
+        self.animatics_path = LabeledDirectoryInput(self, label_text="Animatics: ", read_only=True)
+        self.sounds_path = LabeledDirectoryInput(self, label_text="Sounds: ", read_only=True)
 
-        self.mainPath.open_directory_dialog = (lambda: self.shared_dir_paths())
+        self.btn_create_directory = QPushButton(parent=self, text="Create New Directories")
+
+        self.main_path.open_directory_dialog = (lambda: self.shared_dir_paths())
+        self.btn_create_directory.clicked.connect(self.make_dirs)
 
         self.main_layout = QVBoxLayout()
 
-        self.main_layout.addWidget(self.mainPath)
-        self.main_layout.addWidget(self.assetPath)
-        self.main_layout.addWidget(self.episodePath)
-        self.main_layout.addWidget(self.animaticsPath)
-        self.main_layout.addWidget(self.soundsPath)
+        self.main_layout.addWidget(self.main_path)
+        self.main_layout.addWidget(self.asset_path)
+        self.main_layout.addWidget(self.episode_path)
+        self.main_layout.addWidget(self.animatics_path)
+        self.main_layout.addWidget(self.sounds_path)
         self.setLayout(self.main_layout)
         self.setStyleSheet('LabeledDirectoryInput{border:none}')
 
     def shared_dir_paths(self):
-        self.dir_path = self.dir_getter_filler()
-        self.fio.project_dir = self.dir_path
+        self.show_directory_dialog()
+        self.fio.project_dir = self.main_path.get_input_text()
+
         if self.fio.project_dir:
-            self.make_dirs()
-            self.assetPath.set_input_text(f"{self.dir_path}/Assets")
-            self.episodePath.set_input_text(f"{self.dir_path}/Episodes")
-            self.animaticsPath.set_input_text(f"{self.dir_path}/Animatics")
-            self.soundsPath.set_input_text(f"{self.dir_path}/Sounds")
+            self.asset_path.set_input_text(f"{self.dir_path}/Assets")
+            self.episode_path.set_input_text(f"{self.dir_path}/Episodes")
+            self.animatics_path.set_input_text(f"{self.dir_path}/Animatics")
+            self.sounds_path.set_input_text(f"{self.dir_path}/Sounds")
 
     def make_dirs(self):
         if self.fio.project_dir:
+            self.fio.asset_dir = self.asset_path.get_input_text()
+            self.fio.episode_dir = self.episode_path.get_input_text()
+            self.fio.animatic_dir = self.animatics_path.get_input_text()
+            self.fio.sound_dir = self.sounds_path.get_input_text()
             self.fio.make_dir("/Assets")
             self.fio.make_dir("/Episodes")
             self.fio.make_dir("/Animatics")
             self.fio.make_dir("/Sounds")
 
-    def dir_getter_filler(self):
+    def show_directory_dialog(self):
         directory_path = QFileDialog.getExistingDirectory(self, "Select a Directory")
-        self.mainPath.set_input_text(directory_path)
-        return directory_path
+        self.main_path.set_input_text(directory_path)
 
     def get_dir_path(self):
         return self.dir_path

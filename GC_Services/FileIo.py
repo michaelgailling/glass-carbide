@@ -2,7 +2,6 @@ import asyncio
 import json
 import os
 
-
 class FileIo:
     """File IO
 
@@ -37,6 +36,9 @@ class FileIo:
         self.episode_dir = ""
         self.animatic_dir = ""
         self.sound_dir = ""
+
+    def validate_path(self, path=""):
+        return os.path.exists(path)
 
     def save_file_to_dir(self, dir_path, filename, file_bytes):
         open(dir_path + "/" + filename, "wb").write(file_bytes)
