@@ -33,21 +33,31 @@ class DirectoryMappingView(QFrame):
                     Attributes
                     ----------
                         main_layout : QVBoxLayout
+                        dir_path : str
+                            Stores direct path for selected root folder
                         fio : FileIo
-                            !!!File IO description!!!
-                        mainPath, assetPath, episodePath, animaticsPath, soundsPath : LabeledDirectoryInput
-                            {Property} for {Type}
+                            !!! File input & output
+                        mainPath : LabeledDirectoryInput
+                            Labeled Directory Input for root directory path
+                        assetPath: LabeledDirectoryInput
+                            Labeled Directory Input for asset directory path
+                        episodePath : LabeledDirectoryInput
+                            Labeled Directory Input for episode directory path
+                        animaticsPath : LabeledDirectoryInput
+                            Labeled Directory Input for animatics directory path
+                        soundsPath : LabeledDirectoryInput
+                            Labeled Directory Input for sounds directory path
 
                     Methods
                     -------
                         shared_dir_paths(self)
-                            Return the text in the input box
+                            !!! Auto-generates sub-directory paths
                         make_dirs(self)
-                            {Functionality}
+                            Create directories/folders in root directory
                         dir_getter_filler(self)
-                            {Functionality}
+                            !!! Passes root directory path to TableView
                         get_dir_path(self)
-                            {Functionality}
+                            Returns directory path
                 """
     def __init__(self, parent=None, file_io=FileIo()):
         """Constructor:

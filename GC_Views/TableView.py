@@ -31,21 +31,20 @@ class TableView(QFrame):
                         label, {AttributeName}
 
                     Methods:
-                        get_input_text, {MethodName}
+                        load_file, create_selection
 
                     Attributes
                     ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+                        csv_handler : CsvIo
+                        fio : file_io
+                        column_definitions : []
 
                     Methods
                     -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
+                        load_file(self)
+                            Loads CSV to table
+                        create_selection(self)
+                            Returns selected data from table
                 """
     def __init__(self, parent=None, file_io=FileIo()):
         """Constructor:

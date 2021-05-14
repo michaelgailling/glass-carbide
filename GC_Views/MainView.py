@@ -25,24 +25,24 @@ class MainView(QMainWindow):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        label, {AttributeName}
+                        menuBar, statusBar, fio, tab_widget
 
                     Methods:
-                        get_input_text, {MethodName}
+                        center_screen
 
                     Attributes
                     ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+                        menuBar = MenuBar
+                        statusBar = QStatusBar
+                        fio : FileIo
+                            !!! File input & output
+                        tab_widget : TabView
+                            Tab View for tabs/steps
 
                     Methods
                     -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
+                        center_screen(self)
+                            Positions application in center of screen
                 """
     def __init__(self, parent=None):
         """Constructor:
@@ -62,6 +62,7 @@ class MainView(QMainWindow):
         self.setWindowTitle("Glass Carbide")
         self.setGeometry(0, 0, 900, 600)
 
+        # Tab Widget
         self.tab_widget = TabView(self, self.fio)
         self.tab_widget.setObjectName('tab')
         self.tabIndex = self.tab_widget.tabIndex

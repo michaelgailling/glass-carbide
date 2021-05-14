@@ -30,17 +30,32 @@ class HomeView(QFrame):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        label, {AttributeName}
+                        vbl_left_layout, lbl_instructions, lv_logo, hbv_home_buttons, sw_project_setup,
+                        dmv_mapping_view, edv_existing_view
 
                     Methods:
                         set_frame_index
 
                     Attributes
                     ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+                        vbl_left_layout : QVBoxLayout
+                        vbl_right_layout : QVBoxLayout
+                        fio : FileIo
+                            !!! File input & output
+                        lbl_instructions : QLabel
+                            Text Label for Instructions
+                        lv_logo = LogoView
+                            LogoView for logo display
+                        hbv_home_buttons = HomeBtnsView
+                            Home Button view for home buttons
+                        sw_project_setup : QStackedWidget
+                            StackedWidget for browsing Home button views
+                        frm_blank : QFrame
+                            Blank view for initial load of frame
+                        dmv_mapping_view : DirectoryMappingView
+                            Directory mapping view for project folder & sub-folders
+                        edv_existing_view : ExistingDirectoryView
+                            Directory view for selecting root file to open
 
                     Methods
                     -------
@@ -55,7 +70,7 @@ class HomeView(QFrame):
                                 self
                                 parent : QFrame
                                 file_io : FileIo
-                                    File input & output
+                                    !!! File input & output
                             Returns:
                                 None
                         """

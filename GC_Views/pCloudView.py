@@ -25,24 +25,20 @@ class PCloudView(QFrame):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        label, {AttributeName}
+                        main_layout, pCloudPath
 
                     Methods:
-                        get_input_text, {MethodName}
+                        None
 
                     Attributes
                     ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+                        main_layout : QVBoxLayout
+                        pCloudPath : LabeledInputWithButton
+                            Labeled Input With Button for pCloud link
 
                     Methods
                     -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
+                        None
                 """
     def __init__(self, parent=None):
         """Constructor:

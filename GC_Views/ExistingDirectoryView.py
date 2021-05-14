@@ -25,7 +25,7 @@ class ExistingDirectoryView(QFrame):
                         -{Description}
 
                     Attributes:
-                        main_layout, {AttributeName}
+                        main_layout, directoryPath
 
                     Methods:
                         None
@@ -33,9 +33,9 @@ class ExistingDirectoryView(QFrame):
                     Attributes
                     ----------
                         main_layout : QVBoxLayout
-                            Layout for
+                            Vertical Layout
                         directoryPath : LabeledDirectoryInput
-                            {Property} for {Type}
+                            !!! {Property} for {Type}
 
                     Methods
                     -------

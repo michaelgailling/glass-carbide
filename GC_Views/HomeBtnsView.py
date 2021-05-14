@@ -22,7 +22,7 @@ class HomeBtnsView(QFrame):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        label, {AttributeName}
+                        btnBox, startBtn, openBtn, exitBtn
 
                     Methods:
                         None
@@ -31,8 +31,12 @@ class HomeBtnsView(QFrame):
                     ----------
                         btnBox : QVBoxLayout
                             Layout vertically stacks buttons
-                        startBtn, openBtn, exitBtn : QPushButton
-                            Buttons for home screen functionality
+                        startBtn : QPushButton
+                            Button for starting new project
+                        openBtn : QPushButton
+                            Button for opening existing project
+                        exitBtn : QPushButton
+                            Button for exiting application
 
                     Methods
                     -------
