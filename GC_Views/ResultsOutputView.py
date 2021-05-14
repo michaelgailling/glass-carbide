@@ -9,9 +9,11 @@
 # Organization:
 # WIMTACH
 #
+from datetime import datetime
 import sys
 from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLabel, QGridLayout, QHBoxLayout
+from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLabel, QGridLayout, QHBoxLayout, \
+    QPushButton
 
 from GC_Components.InputComponents import LabeledDirectoryInput, LabeledInput, LabeledInputWithButton
 from GC_Components.TableComponents import DataTable, AssetDataTable
@@ -64,6 +66,8 @@ class ResultsOutputView(QFrame):
 
         self.data = []
         self.assets = []
+        self.file_metadata = []
+        self.cloud_scanned = False
         self.fio = file_io
 
         # ----------------------------------------------
@@ -87,7 +91,13 @@ class ResultsOutputView(QFrame):
         self.liwb_publink = LabeledInputWithButton(self, label_text="pCloud Publink: ", button_text="Scan Public Repo")
         self.liwb_publink.button.clicked.connect(self.check_pcloud)
 
+        # Download Button
+        self.btn_download = QPushButton(parent=self, text="Download Scanned Files")
+        self.btn_download.clicked.connect(self.download_assets)
+        self.btn_download.setEnabled(False)
+
         self.vbl_controls.addWidget(self.liwb_publink)
+        self.vbl_controls.addWidget(self.btn_download)
 
         # -------------------------------------------------
         # -----------------vbl_main_layout-----------------
@@ -115,7 +125,7 @@ class ResultsOutputView(QFrame):
 
             for i in range(0, len(self.assets)):
                 file_data = apic.get_pub_link_file_data(self.assets[i], publink_data["metadata"])
-                print(file_data)
+
                 if not file_data:
                     self.dt_assets.set_cell_color(0, i, color="red")
                     self.dt_assets.set_text_color(0, i, "white")
@@ -124,10 +134,33 @@ class ResultsOutputView(QFrame):
                     self.dt_assets.set_cell_color(0, i, color="yellow")
                     self.dt_assets.set_text_color(0, i, "black")
                     self.dt_assets.set_cell_tooltip(0, i, "Multiple files found! Most Recent Version Used!")
+                    latest_file = self.find_latest_file(file_data=file_data)
+                    if latest_file:
+                        self.file_metadata.append(latest_file)
                 else:
                     self.dt_assets.set_cell_color(0, i, color="green")
                     self.dt_assets.set_text_color(0, i, "black")
                     self.dt_assets.set_cell_tooltip(0, i, "Exact Match found!")
+                    self.file_metadata.extend(file_data)
+            for item in self.file_metadata:
+                print(item)
+            self.cloud_scanned = True
+
+    def find_latest_file(self, file_data=[]):
+        latest_file = {}
+        latest_date = 0
+        for item in file_data:
+            if item["name"][-3:] == "fla" or item["name"][-3:] == "psd":
+                modified_date = item["modified"]
+                modified_date = datetime.strptime(modified_date, '%a, %d %b %Y %H:%M:%S %z')
+                unix_timestamp = modified_date.timestamp()
+                if unix_timestamp > latest_date:
+                    latest_date = unix_timestamp
+                    latest_file = item
+        return latest_file
+
+    def download_assets(self):
+        pass
 
     def asset_cell_clicked(self):
         pass
