@@ -240,6 +240,9 @@ class LabeledDirectoryInput(QFrame):
 
         self.setLayout(self.hBox)
 
+    def set_button_enable(self, btn_enable=True):
+        self.fileDialogButton.setEnabled(btn_enable)
+
     def get_input_text(self):
         text = self.input.text()
         return text

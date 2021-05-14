@@ -129,6 +129,8 @@ class TabView(QFrame):
             self.tv_tableView.lfi_file_select.set_input_text(self.dir)
 
         if self.tabIndex == 0:
+            if self.hv_homeView.current_frame_index == 1:
+                pass
             self.tab_index_setter(1)
         elif self.tabIndex == 1:
             results = self.tv_tableView.create_selection()
