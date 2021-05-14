@@ -32,6 +32,14 @@ class FileIo:
                         {Functionality}
             """
     def __init__(self):
+        """Constructor:
+            Initialize file browsing service
+
+            Parameters:
+                self
+            Returns:
+                None
+        """
         self.project_dir = ""
         self.asset_dir = ""
         self.episode_dir = ""

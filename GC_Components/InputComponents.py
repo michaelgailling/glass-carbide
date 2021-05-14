@@ -44,6 +44,18 @@ class LabeledInput(QFrame):
                 Sets the input box text
     """
     def __init__(self, parent, label_text="", input_text=""):
+        """
+                        Constructs all the necessary attributes for the LabeledInput object.
+
+                        Parameters
+                        ----------
+                            self
+                            parent : QFrame
+                            label_text : str
+                                The number of columns
+                            input_text : str
+                                The number of rows
+                        """
         super(LabeledInput, self).__init__(parent)
 
         self.label = QLabel(self, text=label_text)
@@ -94,6 +106,22 @@ class LabeledInputWithButton(QFrame):
                 Sets the input box text
     """
     def __init__(self, parent, label_text="", input_text="", button_text="", btn_enable=True):
+        """
+                        Constructs all the necessary attributes for the LabeledInputWithButton object.
+
+                        Parameters
+                        ----------
+                            self
+                            parent : QFrame
+                            label_text : str
+                                The text for label
+                            input_text : str
+                                The text for input field
+                            button_text : str
+                                The text for the button
+                            btn_enable : bool
+                                Set button enabled status
+                        """
         super(LabeledInputWithButton, self).__init__(parent)
 
         self.label = QLabel(self, text=label_text)
@@ -154,6 +182,20 @@ class DirectoryInput(QFrame):
                     Opens the directory selection dialog
         """
     def __init__(self, parent, input_text="", read_only=False, btn_enable=True):
+        """
+                        Constructs all the necessary attributes for the DirectoryInput object.
+
+                        Parameters
+                        ----------
+                            self
+                            parent : QFrame
+                            input_text : str
+                                The text for input field
+                            btn_enable : bool
+                                Set button enabled status
+                            read_only : bool
+                                Set readonly status for input field
+                        """
         super(DirectoryInput, self).__init__(parent)
 
         self.input = QLineEdit(self)
@@ -219,6 +261,22 @@ class LabeledDirectoryInput(QFrame):
                     Opens the directory selection dialog
         """
     def __init__(self, parent, label_text="", input_text="", read_only=False, btn_enable=True):
+        """
+                        Constructs all the necessary attributes for the LabeledDirectoryInput object.
+
+                        Parameters
+                        ----------
+                            self
+                            parent : QFrame
+                            label_text : str
+                                The text for label
+                            input_text : str
+                                The text for input field
+                            btn_enable : bool
+                                Set button enabled status
+                            read_only : bool
+                                Set readonly status
+                        """
         super(LabeledDirectoryInput, self).__init__(parent)
 
         self.label = QLabel(self, text=label_text)
@@ -285,6 +343,22 @@ class FileInput(QFrame):
                 Opens the file selection dialog
     """
     def __init__(self, parent, file_type="", input_text="", read_only=False, btn_enable=True):
+        """
+                        Constructs all the necessary attributes for the FileInput object.
+
+                        Parameters
+                        ----------
+                            self
+                            parent : QFrame
+                            file_type : str
+                                The type of file
+                            input_text : str
+                                The text for input field
+                            btn_enable : bool
+                                Set button enabled status
+                            read_only : bool
+                                Set readonly status
+                        """
         super(FileInput, self).__init__(parent)
 
         self.file_type = file_type
@@ -356,6 +430,24 @@ class LabeledFileInput(QFrame):
                 Opens the file selection dialog
     """
     def __init__(self, parent, label_text="", file_type="", input_text="", read_only=False, btn_enable=True):
+        """
+                        Constructs all the necessary attributes for the LabeledFileInput object.
+
+                        Parameters
+                        ----------
+                            self
+                            parent : QFrame
+                            label_text : str
+                                The text for label
+                            file_type : str
+                                The type of file
+                            input_text : str
+                                The text for input field
+                            btn_enable : bool
+                                Set button enabled status
+                            read_only : bool
+                                Set readonly status
+                        """
         super(LabeledFileInput, self).__init__(parent)
 
         self.file_type = file_type

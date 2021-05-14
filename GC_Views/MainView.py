@@ -45,6 +45,15 @@ class MainView(QMainWindow):
                             {Functionality}
                 """
     def __init__(self, parent=None):
+        """Constructor:
+                                    Initialize Main View
+
+                                    Parameters:
+                                        self
+                                        parent : QMainWindow
+                                    Returns:
+                                        None
+                                """
         # -------------------------------------------init Start-------------------------------------------
         super(MainView, self).__init__(parent)
         self.fio = FileIo()

@@ -47,6 +47,17 @@ class TabView(QFrame):
                             {Functionality}
                 """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+                                    Initialize Image Preview View
+
+                                    Parameters:
+                                        self
+                                        parent : QFrame
+                                        file_io : FileIo
+                                            {Description}
+                                    Returns:
+                                        None
+                                """
         # -------------------------------------------init Start-------------------------------------------
         super(TabView, self).__init__(parent)
         self.fio = file_io

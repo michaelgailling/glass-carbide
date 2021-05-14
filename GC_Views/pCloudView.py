@@ -45,6 +45,15 @@ class PCloudView(QFrame):
                             {Functionality}
                 """
     def __init__(self, parent=None):
+        """Constructor:
+                                    Initialize pCloud View
+
+                                    Parameters:
+                                        self
+                                        parent : QFrame
+                                    Returns:
+                                        None
+                                """
         super(PCloudView, self).__init__(parent)
 
         self.pCloudPath = LabeledInputWithButton(self, label_text="Public Shared Link: ", button_text="Open")

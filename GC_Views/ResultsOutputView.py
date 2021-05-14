@@ -48,6 +48,17 @@ class ResultsOutputView(QFrame):
                             {Functionality}
                 """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+                                    Initialize Results Output View
+
+                                    Parameters:
+                                        self
+                                        parent : QFrame
+                                        file_io : FileIo
+                                            {Description}
+                                    Returns:
+                                        None
+                                """
         # -------------------------------------------init Start-------------------------------------------
         super(ResultsOutputView, self).__init__(parent)
 

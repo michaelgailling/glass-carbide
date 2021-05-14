@@ -44,6 +44,14 @@ class CsvIo:
                         {Functionality}
             """
     def __init__(self):
+        """Constructor:
+            Initialize CSV parsing service
+
+            Parameters:
+                self
+            Returns:
+                None
+        """
         self.data = []
 
     def import_data(self, file_path="", handle_header=True, log_data=False):

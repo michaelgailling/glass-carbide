@@ -33,7 +33,7 @@ class HomeView(QFrame):
                         label, {AttributeName}
 
                     Methods:
-                        get_input_text, {MethodName}
+                        set_frame_index
 
                     Attributes
                     ----------
@@ -44,12 +44,21 @@ class HomeView(QFrame):
 
                     Methods
                     -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
+                        set_frame_index(self, num: int)
+                            Set index for display
                 """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+                            Initialize Home View
+
+                            Parameters:
+                                self
+                                parent : QFrame
+                                file_io : FileIo
+                                    File input & output
+                            Returns:
+                                None
+                        """
         # -------------------------------------------init Start-------------------------------------------
         super(HomeView, self).__init__(parent)
 

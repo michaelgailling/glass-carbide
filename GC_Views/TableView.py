@@ -48,6 +48,17 @@ class TableView(QFrame):
                             {Functionality}
                 """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+                                    Initialize Table View
+
+                                    Parameters:
+                                        self
+                                        parent : QFrame
+                                        file_io : FileIo
+                                            {Description}
+                                    Returns:
+                                        None
+                                """
         # -------------------------------------------init Start-------------------------------------------
         super(TableView, self).__init__(parent)
         self.csv_handler = CsvIo()

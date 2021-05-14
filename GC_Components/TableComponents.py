@@ -61,11 +61,16 @@ class DataTable(QFrame):
 
         Parameters
         ----------
-            parent : QWidget
+            self
+            parent : QFrame
             width : int
                 The number of columns
             height : int
                 The number of rows
+            readonly : bool
+                Set readonly status
+            log_data : bool
+                Set log recording status
         """
         super(DataTable, self).__init__(parent)
 
@@ -337,9 +342,7 @@ class AssetDataTable(DataTable):
     """Asset Data Table
 
                 Summary:
-                    A class for {Type} that includes:
-
-                    -{Description} to the {Location eg left}
+                    A class for loading assets in a data table
 
                 Attributes:
                     label, {AttributeName}
@@ -349,19 +352,31 @@ class AssetDataTable(DataTable):
 
                 Attributes
                 ----------
-                    label : QLabel
-                        Text Label for Input Box
                     {AttributeName} : {AttributeClass}
                         {Property} for {Type}
 
                 Methods
                 -------
-                    get_input_text(self)
-                        Return the text in the input box
-                    {MethodName}({Parameters})
-                        {Functionality}
+                    load_table(self, data=[])
+                        Loads passed in array of assets in DataTable
             """
     def __init__(self,  parent=None, width=0, height=0, readonly=False, log_data=False):
+        """
+                Constructs all the necessary attributes for the AssetDataTable object.
+
+                Parameters
+                ----------
+                    self
+                    parent : DataTable
+                    width : int
+                        The number of columns
+                    height : int
+                        The number of rows
+                    readonly : bool
+                        Set readonly status
+                    log_data : bool
+                        Set log recording status
+                """
         super(AssetDataTable, self).__init__(parent)
         self.readonly = readonly
         self.data = []
@@ -379,14 +394,3 @@ class AssetDataTable(DataTable):
             self.table.setItem(y, 0, cell)
 
         asyncio.run(self.fit_headers_to_content())
-
-
-if __name__ == '__main__':
-    qApp = QApplication(sys.argv)
-    tab = DataTable(width=2, height=1)
-    tab.set_cell_text(0, 0, "Hello")
-    tab.set_cell_color(0, 0, "red")
-    tab.set_cell_text(1, 0, "World")
-    tab.set_cell_color(1, 0, "Green")
-    tab.show()
-    sys.exit(qApp.exec_())

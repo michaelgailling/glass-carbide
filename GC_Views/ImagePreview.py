@@ -31,6 +31,15 @@ class ImagePreView(QFrame):
                             {Functionality}
                 """
     def __init__(self, parent=None):
+        """Constructor:
+                            Initialize Image Preview View
+
+                            Parameters:
+                                self
+                                parent : QFrame
+                            Returns:
+                                None
+                        """
         super(ImagePreView, self).__init__(parent)
 
         self.logo = QLabel(self)

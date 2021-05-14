@@ -20,21 +20,22 @@ class DirectoryMappingView(QFrame):
     """Directory Mapping View
 
                     Summary:
-                        A class for {Type} that includes:
+                        A class for mapping of directories that includes:
 
-                        -{Description} to the {Location eg left}
+                        -{Description} stacked vertically in the center
 
                     Attributes:
-                        label, {AttributeName}
+                        main_layout, fio, mainPath, assetPath, episodePath, animaticsPath, soundsPath
 
                     Methods:
-                        get_input_text, {MethodName}
+                        get_input_text, make_dirs, dir_getter_filler, get_dir_path
 
                     Attributes
                     ----------
+                        main_layout : QVBoxLayout
                         fio : FileIo
                             !!!File IO description!!!
-                        mainPath,assetPath,episodePath,animaticsPath,soundsPath : LabeledDirectoryInput
+                        mainPath, assetPath, episodePath, animaticsPath, soundsPath : LabeledDirectoryInput
                             {Property} for {Type}
 
                     Methods
@@ -49,6 +50,17 @@ class DirectoryMappingView(QFrame):
                             {Functionality}
                 """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+                    Initialize Directory Mapping View
+
+                    Parameters:
+                        self
+                        parent : QFrame
+                        file_io : FileIo
+                            File input & output
+                    Returns:
+                        None
+                """
         super(DirectoryMappingView, self).__init__(parent)
         self.dir_path = ""
         self.fio = file_io

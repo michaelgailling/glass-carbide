@@ -45,6 +45,15 @@ class ServerSelectionView(QFrame):
                             {Functionality}
                 """
     def __init__(self, parent=None):
+        """Constructor:
+                                    Initialize Server Selection View
+
+                                    Parameters:
+                                        self
+                                        parent : QFrame
+                                    Returns:
+                                        None
+                                """
         super(ServerSelectionView, self).__init__(parent)
 
         self.serverPath = LabeledDirectoryInput(self, label_text="Select Server Directory: ")

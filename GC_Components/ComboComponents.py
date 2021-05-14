@@ -42,6 +42,14 @@ class EmbeddableComboBox(QWidget):
                     {Functionality}
         """
     def __init__(self, parent=None):
+        """
+                Constructs all the necessary attributes for the EmbeddableCombBox  object.
+
+                Parameters
+                ----------
+                    self
+                    parent : QWidget
+                """
         super(EmbeddableComboBox, self).__init__(parent)
 
         self.combo = QComboBox()

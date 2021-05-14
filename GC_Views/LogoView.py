@@ -43,6 +43,15 @@ class LogoView(QFrame):
                             {Functionality}
                 """
     def __init__(self, parent=None):
+        """Constructor:
+                                    Initialize Logo View
+
+                                    Parameters:
+                                        self
+                                        parent : QFrame
+                                    Returns:
+                                        None
+                                """
         super(LogoView, self).__init__(parent)
 
         self.logo = QLabel(self)

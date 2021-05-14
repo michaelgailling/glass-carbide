@@ -45,6 +45,14 @@ class MenuBar(QMenuBar):
         """
 
     def __init__(self, parent):
+        """
+                                Constructs all the necessary attributes for the MenuBar object.
+
+                                Parameters
+                                ----------
+                                    self
+                                    parent : QMenuBar
+                                """
         super(MenuBar, self).__init__(parent)
         self.setStyleSheet("background-color: #e6e6e6")
 
@@ -106,6 +114,14 @@ class MainButtons(QHBoxLayout):
         """
 
     def __init__(self, parent):
+        """
+                    Constructs all the necessary attributes for the Main Buttons container object.
+
+                    Parameters
+                    ----------
+                        self
+                        parent : QHboxLayout
+                    """
         super(MainButtons, self).__init__(parent)
 
         # Spacer label
@@ -156,6 +172,14 @@ class MainNavButtons(QFrame):
         """
 
     def __init__(self, parent=None):
+        """
+                            Constructs all the necessary attributes for the MainNavBar object.
+
+                            Parameters
+                            ----------
+                                self
+                                parent : QFrame
+                            """
         super(MainNavButtons, self).__init__(parent)
 
         self.layout = QHBoxLayout()

@@ -28,6 +28,14 @@ class MainWindow:
 
             """
     def __init__(self):
+        """Constructor:
+           Initialize Main Window object
+
+                            Parameters:
+                                self
+                            Returns:
+                                None
+                        """
         self.title = "Glass Carbide"
         self.top = 100
         self.left = 100
