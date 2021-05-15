@@ -24,13 +24,15 @@ class LabeledInput(QFrame):
             -Label to the left
 
         Attributes:
-            label, input
+            hBox, label, input
 
         Methods:
             get_input_text, set_input_text
 
         Attributes
         ----------
+            hBox : QHBoxLayout
+                    Horizontal layout
             label : QLabel
                 Text Label for Input Box
             input : QLineEdit
@@ -86,17 +88,21 @@ class LabeledInputWithButton(QFrame):
             -Label to the left
 
         Attributes:
-            label, input
+            hBox, label, input, button
 
         Methods:
             get_input_text, set_input_text
 
         Attributes
         ----------
+            hBox : QHBoxLayout
+                    Horizontal layout
             label : QLabel
                 Text Label for Input Box
             input : QLineEdit
                 Input Box for text entry
+            button : QPushButton
+                Button opens file dialog
 
         Methods
         -------
@@ -160,13 +166,15 @@ class DirectoryInput(QFrame):
                 -File dialog button to the right
 
             Attributes:
-                input, fileDialogButton
+                hBox, input, fileDialogButton
 
             Methods:
                 get_input_text, set_input_text, open_directory_dialog
 
             Attributes
             ----------
+                hBox : QHBoxLayout
+                    Horizontal layout
                 fileDialogButton : QPushButton
                     A button that opens a file dialog
                 input : QLineEdit
@@ -237,13 +245,15 @@ class LabeledDirectoryInput(QFrame):
                 -File dialog button to the right
 
             Attributes:
-                label, input, fileDialogButton
+                hBox, label, input, fileDialogButton
 
             Methods:
                 get_input_text, set_input_text, open_directory_dialog
 
             Attributes
             ----------
+                hBox : QHBoxLayout
+                    Horizontal layout
                 label : QLabel
                     Text Label for Input Box
                 fileDialogButton : QPushButton
@@ -321,7 +331,7 @@ class FileInput(QFrame):
             -File dialog button to the right
 
         Attributes:
-            input, fileDialogButton
+            input, fileDialogButton, hBox, file_type
 
         Methods:
             get_input_text, set_input_text, open_file_dialog
@@ -332,6 +342,10 @@ class FileInput(QFrame):
                 A button that opens a file dialog
             input : QLineEdit
                 Input Box for text entry
+            hBox : QHBoxLayout
+                Horizontal layout
+            file_type : str
+                The type of file
 
         Methods
         -------
@@ -406,19 +420,23 @@ class LabeledFileInput(QFrame):
             -File dialog button to the right
 
         Attributes:
-            label, input, fileDialogButton
+            hBox, label, input, fileDialogButton, file_type
 
         Methods:
             get_input_text, set_input_text, open_file_dialog
 
         Attributes
         ----------
+            hBox : QHBoxLayout
+                Horizontal layout
             label : QLabel
                 Text Label for Input Box
             fileDialogButton : QPushButton
                 A button that opens a file dialog
             input : QLineEdit
                 Input Box for text entry
+            file_type : str
+                The type of file
 
         Methods
         -------

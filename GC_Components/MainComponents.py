@@ -93,24 +93,23 @@ class MainButtons(QHBoxLayout):
                 -{Description} to the {Location eg left}
 
             Attributes:
-                label, {AttributeName}
+                statLbl, continueBtn, cancelBtn
 
             Methods:
-                get_input_text, {MethodName}
+                None
 
             Attributes
             ----------
-                label : QLabel
-                    Text Label for Input Box
-                {AttributeName} : {AttributeClass}
-                    {Property} for {Type}
+                statLbl : QLabel
+                    Blank Label for spacing
+                continueBtn : QPushButton
+                    Pushbutton to continue to next step/tab
+                cancelBtn : QPushButton
+                    Pushbutton to go back to previous step/tab
 
             Methods
             -------
-                get_input_text(self)
-                    Return the text in the input box
-                {MethodName}({Parameters})
-                    {Functionality}
+                None
         """
 
     def __init__(self, parent):

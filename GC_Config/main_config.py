@@ -9,22 +9,19 @@ class MainWindow:
                     -
 
                 Attributes:
-
+                    self
 
                 Methods:
-
+                    None
 
                 Attributes
                 ----------
-                    label : QLabel
-                        Text Label for Input Box
-                     :
+                    self
 
 
                 Methods
                 -------
-                    get_input_text(self)
-                        Return the text in the input box
+                    None
 
             """
     def __init__(self):
