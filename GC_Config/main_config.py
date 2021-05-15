@@ -4,19 +4,25 @@ class MainWindow:
     """Main Window
 
                 Summary:
-                    A class for an menu bar that includes:
+                    A class for the Main window that includes:
 
-                    -
+                    - Position
+                    - Size
+                    - Title
 
                 Attributes:
-                    self
+                    title, top, left, width, height
 
                 Methods:
                     None
 
                 Attributes
                 ----------
-                    self
+                    title : str
+                    top : int
+                    left : int
+                    width : int
+                    height : int
 
 
                 Methods
@@ -36,5 +42,5 @@ class MainWindow:
         self.title = "Glass Carbide"
         self.top = 100
         self.left = 100
-        self.width = 640
-        self.height = 480
+        self.width = 800
+        self.height = 600

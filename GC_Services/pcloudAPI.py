@@ -33,24 +33,88 @@ class PCloud:
                     -Handles connection from pCloud api service
 
                 Attributes:
-                    label, {AttributeName}
+                    result_codes, regionUrlDict, user_details, temp_storage, regionUrl, token, folderId
 
                 Methods:
-                    get_input_text, {MethodName}
+                    handle_response, set_region, set_username, set_password, user_details_valid, handle_status_code,
+                    handle_result_code, valid_token, auth, get_digest, create_password_digest, auth_digest, auth2,
+                    list_folder, create_folder, rename_folder, delete_folder, file_stats, upload_file, rename_file,
+                    get_file_link, get_code_from_url, get_pub_link_directory, get_pub_link_file_data, find_file_in_dict,
+                    get_pub_link_download, download_file(self, url)
 
                 Attributes
                 ----------
-                    label : QLabel
-                        Text Label for Input Box
-                    {AttributeName} : {AttributeClass}
-                        {Property} for {Type}
+                    result_codes : {int:str}
+                        Dictionary of result codes and corresponding message
+                    regionUrlDict : {str:str}
+                        Dictionary of regions and respective urls
+                    user_details : {str:str}
+                        Dictionary of usernames and passwords
+                    temp_storage : []
+                        Array variable for temporary storage
+                    regionUrl : str
+                        String for regional url
+                    token : str
+                         String for auth token
+                    folderId : str
+                        String for folder ID #
 
                 Methods
                 -------
-                    get_input_text(self)
-                        Return the text in the input box
-                    {MethodName}({Parameters})
-                        {Functionality}
+                    handle_response(self, res)
+                        Returns parsed url response
+                    set_region(self, region="NA")
+                        Sets region for url based on region
+                    set_username(self, username)
+                        Sets username
+                    set_password(self, password)
+                        Sets password
+                    user_details_valid(self)
+                        Returns bool value of validation of username and password
+                    handle_status_code(self, response)
+                        Returns status code of response
+                    handle_result_code(self, result_code=None)
+                        !!! Returns bool value result code
+                    valid_token(self)
+                        Returns bool value of testing if token is null
+                    auth(self)
+                        !!! Description
+                    get_digest(self)
+                        Returns username and password as digest
+                    create_password_digest(self, digest)
+                        Encodes username and password into digest
+                    auth_digest(self)
+                        Authenticates digest
+                    auth2(self)
+                        !!! Empty
+                    list_folder(self, folder_id=None)
+                        Returns dictionary of folder/directory metadata
+                    create_folder(self, folder_id="0", name="")
+                        Creates a new folder/directory and returns response
+                    rename_folder(self, folder_id=None, to_name="")
+                        Renames an existing folder/directory and returns response
+                    delete_folder(self, folder_id="0")
+                        Removes a folder/directory and returns response
+                    file_stats(self, file_id=None)
+                        !!! Returns file metadata
+                    upload_file(self, folder_id=None, file_path=None, file_name=None)
+                        Uploads selected file to selected folder/directory and returns response
+                    rename_file(self, file_id=None, to_name="")
+                        Renames an existing file and returns response
+                    get_file_link(self, file_id=None)
+                        Returns file link and response
+                    get_code_from_url(self, url)
+                        Returns response code of query
+                    get_pub_link_directory(self, code="")
+                        !!! Returns pub link directory
+                    get_pub_link_file_data(self, filename="", publink_metadata={})
+                        !!! Returns file metadata from publink
+                    find_file_in_dict(self, filename="", obj_dict={})
+                        Searches for file in publink contents and returns results metadata
+                    get_pub_link_download(self, code="", file_id="")
+                        Returns publink download link for selected file
+                    download_file(self, url)
+                        Downloads and returns selected file
             """
 
     def __init__(self):
