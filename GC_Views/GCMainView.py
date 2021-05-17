@@ -18,7 +18,7 @@ from GC_Views.GCTabView import GCTabView
 
 
 class GCMainView(QMainWindow):
-    """Main View
+    """GC Main View
 
         Summary:
             A class for {Type} that includes:
@@ -33,8 +33,6 @@ class GCMainView(QMainWindow):
 
         Attributes
         ----------
-            menuBar = MenuBar
-            statusBar = QStatusBar
             fio : FileIo
                 !!! File input & output
             tab_widget : TabView

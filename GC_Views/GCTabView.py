@@ -20,7 +20,27 @@ from GC_Services.FileIo import FileIo
 
 
 class GCTabView(QFrame):
+    """GC Tab View
 
+        Summary:
+            A class for {Type} that includes:
+
+            -{Description} to the {Location eg left}
+
+        Attributes:
+
+
+        Methods:
+
+
+        Attributes
+        ----------
+
+
+        Methods
+        -------
+
+    """
     def __init__(self, parent=None, file_io=FileIo()):
         # -------------------------------------------init Start-------------------------------------------
         super(GCTabView, self).__init__(parent)

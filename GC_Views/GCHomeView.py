@@ -19,27 +19,27 @@ from GC_Views.GCLogoView import GCLogoView
 
 
 class GCHomeView(QFrame):
-    """Home View
+    """GC Home View
 
-                    Summary:
-                        A class for {Type} that includes:
+        Summary:
+            A class for {Type} that includes:
 
-                        -{Description} to the {Location eg left}
+            -{Description} to the {Location eg left}
 
-                    Attributes:
-                        label, {AttributeName}
-
-                    Methods:
-                        get_input_text, {MethodName}
-
-                    Attributes
-                    ----------
+        Attributes:
 
 
-                    Methods
-                    -------
+        Methods:
 
-                """
+
+        Attributes
+        ----------
+
+
+        Methods
+        -------
+
+    """
     def __init__(self, parent=None, file_io=FileIo()):
         """Constructor:
             Initialize Home View
