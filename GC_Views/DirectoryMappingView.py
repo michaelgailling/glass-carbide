@@ -63,16 +63,16 @@ class DirectoryMappingView(QFrame):
         super(DirectoryMappingView, self).__init__(parent)
         self.dir_path = ""
         self.fio = file_io
-        self.main_path = LabeledDirectoryInput(self, label_text="Project Directory: ", read_only=True)
-        self.asset_path = LabeledDirectoryInput(self, label_text="Assets: ", read_only=True)
-        self.episode_path = LabeledDirectoryInput(self, label_text="Episodes: ", read_only=True)
-        self.animatics_path = LabeledDirectoryInput(self, label_text="Animatics: ", read_only=True)
-        self.sounds_path = LabeledDirectoryInput(self, label_text="Sounds: ", read_only=True)
+        self.ldi_main_path = LabeledDirectoryInput(self, label_text="Project Directory: ", read_only=True)
+        self.ldi_asset_path = LabeledDirectoryInput(self, label_text="Assets: ", read_only=True)
+        self.ldi_episode_path = LabeledDirectoryInput(self, label_text="Episodes: ", read_only=True)
+        self.ldi_animatics_path = LabeledDirectoryInput(self, label_text="Animatics: ", read_only=True)
+        self.ldi_sounds_path = LabeledDirectoryInput(self, label_text="Sounds: ", read_only=True)
 
-        self.btn_create_directory = QPushButton(parent=self, text="Create New Directories")
+        self.btn_create_new_directory = QPushButton(parent=self, text="Create New Directories")
 
-        self.main_path.open_directory_dialog = (lambda: self.shared_dir_paths())
-        self.btn_create_directory.clicked.connect(self.make_dirs)
+        self.ldi_main_path.open_directory_dialog = (lambda: self.shared_dir_paths())
+        self.btn_create_new_directory.clicked.connect(self.make_dirs)
 
         self.vbl_main_layout = QVBoxLayout(self)
 

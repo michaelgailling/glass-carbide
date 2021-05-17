@@ -11,12 +11,14 @@
 #
 import sys
 from GC_Services.FileIo import FileIo
-from PySide2.QtWidgets import QApplication, QMainWindow, QFrame, QStatusBar, QVBoxLayout
+from PySide2.QtWidgets import QApplication, QMainWindow
+
+from GC_Views.GCTabView import GCTabView
 from TabView import TabView
-from GC_Components.MainComponents import MenuBar
 
 
-class MainView(QMainWindow):
+
+class GCMainView(QMainWindow):
     """Main View
 
         Summary:
@@ -55,25 +57,15 @@ class MainView(QMainWindow):
                 None
         """
         # -------------------------------------------init Start-------------------------------------------
-        super(MainView, self).__init__(parent)
+        super(GCMainView, self).__init__(parent)
         self.fio = FileIo()
 
         # Main window config
         self.setWindowTitle("Glass Carbide")
         self.setGeometry(0, 0, 900, 600)
 
-        self.tab_widget = TabView(self, self.fio)
+        self.tab_widget = GCTabView(self, self.fio)
         self.tab_widget.setObjectName('tab')
-
-        # Menu Bar
-        self.menuBar = MenuBar(self)
-        self.setMenuBar(self.menuBar)
-
-        # Status Bar
-        self.statusBar = QStatusBar()
-        self.statusBar.showMessage("This is a status message.", 5000)
-        self.setStatusBar(self.statusBar)
-        self.statusBar.setStyleSheet('border:2px solid #1000A0;background-color:#e6e6e6;border-top:none')
 
         # Main window
         self.setCentralWidget(self.tab_widget)
@@ -81,10 +73,10 @@ class MainView(QMainWindow):
 
         # Styling
         self.centralWidget().setMinimumSize(900, 600)
-        self.centralWidget().topLevelWidget().setStyleSheet('border:3px solid #1000A0;font-weight:600')
-        self.topLevelWidget().setStyleSheet('QFrame#tab{border-top:1.1px solid #1000A0;border-bottom:none;'
-                                            'border-left:2px solid #1000A0;border-right:2px solid #1000A0;'
-                                            'margin:0;background-color:white;}')
+        # self.centralWidget().topLevelWidget().setStyleSheet('border:3px solid #1000A0;font-weight:600')
+        # self.topLevelWidget().setStyleSheet('QFrame#tab{border-top:1.1px solid #1000A0;border-bottom:none;'
+        #                                     'border-left:2px solid #1000A0;border-right:2px solid #1000A0;'
+        #                                     'margin:0;background-color:white;}')
         self.center_screen()
 
         # -------------------------------------------init End-------------------------------------------
@@ -98,7 +90,7 @@ class MainView(QMainWindow):
 
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
-    mainBase = MainView()
+    mainBase = GCMainView()
     mainBase.show()
     # directory.show()
     sys.exit(qApp.exec_())
