@@ -14,7 +14,6 @@ from GC_Services.FileIo import FileIo
 from PySide2.QtWidgets import QApplication, QMainWindow
 
 from GC_Views.GCTabView import GCTabView
-from TabView import TabView
 
 
 
