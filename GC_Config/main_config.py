@@ -4,43 +4,32 @@ class MainWindow:
     """Main Window
 
                 Summary:
-                    A class for the Main window that includes:
+                    A class for an menu bar that includes:
 
-                    - Position
-                    - Size
-                    - Title
+                    -
 
                 Attributes:
-                    title, top, left, width, height
+
 
                 Methods:
-                    None
+
 
                 Attributes
                 ----------
-                    title : str
-                    top : int
-                    left : int
-                    width : int
-                    height : int
+                    label : QLabel
+                        Text Label for Input Box
+                     :
 
 
                 Methods
                 -------
-                    None
+                    get_input_text(self)
+                        Return the text in the input box
 
             """
     def __init__(self):
-        """Constructor:
-           Initialize Main Window object
-
-                            Parameters:
-                                self
-                            Returns:
-                                None
-                        """
         self.title = "Glass Carbide"
         self.top = 100
         self.left = 100
-        self.width = 800
-        self.height = 600
+        self.width = 640
+        self.height = 480

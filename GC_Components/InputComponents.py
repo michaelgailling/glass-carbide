@@ -24,15 +24,13 @@ class LabeledInput(QFrame):
             -Label to the left
 
         Attributes:
-            hBox, label, input
+            label, input
 
         Methods:
             get_input_text, set_input_text
 
         Attributes
         ----------
-            hBox : QHBoxLayout
-                    Horizontal layout
             label : QLabel
                 Text Label for Input Box
             input : QLineEdit
@@ -46,18 +44,6 @@ class LabeledInput(QFrame):
                 Sets the input box text
     """
     def __init__(self, parent, label_text="", input_text=""):
-        """
-                        Constructs all the necessary attributes for the LabeledInput object.
-
-                        Parameters
-                        ----------
-                            self
-                            parent : QFrame
-                            label_text : str
-                                The number of columns
-                            input_text : str
-                                The number of rows
-                        """
         super(LabeledInput, self).__init__(parent)
 
         self.label = QLabel(self, text=label_text)
@@ -88,21 +74,17 @@ class LabeledInputWithButton(QFrame):
             -Label to the left
 
         Attributes:
-            hBox, label, input, button
+            label, input
 
         Methods:
             get_input_text, set_input_text
 
         Attributes
         ----------
-            hBox : QHBoxLayout
-                    Horizontal layout
             label : QLabel
                 Text Label for Input Box
             input : QLineEdit
                 Input Box for text entry
-            button : QPushButton
-                Button opens file dialog
 
         Methods
         -------
@@ -112,22 +94,6 @@ class LabeledInputWithButton(QFrame):
                 Sets the input box text
     """
     def __init__(self, parent, label_text="", input_text="", button_text="", btn_enable=True):
-        """
-                        Constructs all the necessary attributes for the LabeledInputWithButton object.
-
-                        Parameters
-                        ----------
-                            self
-                            parent : QFrame
-                            label_text : str
-                                The text for label
-                            input_text : str
-                                The text for input field
-                            button_text : str
-                                The text for the button
-                            btn_enable : bool
-                                Set button enabled status
-                        """
         super(LabeledInputWithButton, self).__init__(parent)
 
         self.label = QLabel(self, text=label_text)
@@ -166,15 +132,13 @@ class DirectoryInput(QFrame):
                 -File dialog button to the right
 
             Attributes:
-                hBox, input, fileDialogButton
+                input, fileDialogButton
 
             Methods:
                 get_input_text, set_input_text, open_directory_dialog
 
             Attributes
             ----------
-                hBox : QHBoxLayout
-                    Horizontal layout
                 fileDialogButton : QPushButton
                     A button that opens a file dialog
                 input : QLineEdit
@@ -190,20 +154,6 @@ class DirectoryInput(QFrame):
                     Opens the directory selection dialog
         """
     def __init__(self, parent, input_text="", read_only=False, btn_enable=True):
-        """
-                        Constructs all the necessary attributes for the DirectoryInput object.
-
-                        Parameters
-                        ----------
-                            self
-                            parent : QFrame
-                            input_text : str
-                                The text for input field
-                            btn_enable : bool
-                                Set button enabled status
-                            read_only : bool
-                                Set readonly status for input field
-                        """
         super(DirectoryInput, self).__init__(parent)
 
         self.input = QLineEdit(self)
@@ -245,15 +195,13 @@ class LabeledDirectoryInput(QFrame):
                 -File dialog button to the right
 
             Attributes:
-                hBox, label, input, fileDialogButton
+                label, input, fileDialogButton
 
             Methods:
                 get_input_text, set_input_text, open_directory_dialog
 
             Attributes
             ----------
-                hBox : QHBoxLayout
-                    Horizontal layout
                 label : QLabel
                     Text Label for Input Box
                 fileDialogButton : QPushButton
@@ -271,22 +219,6 @@ class LabeledDirectoryInput(QFrame):
                     Opens the directory selection dialog
         """
     def __init__(self, parent, label_text="", input_text="", read_only=False, btn_enable=True):
-        """
-                        Constructs all the necessary attributes for the LabeledDirectoryInput object.
-
-                        Parameters
-                        ----------
-                            self
-                            parent : QFrame
-                            label_text : str
-                                The text for label
-                            input_text : str
-                                The text for input field
-                            btn_enable : bool
-                                Set button enabled status
-                            read_only : bool
-                                Set readonly status
-                        """
         super(LabeledDirectoryInput, self).__init__(parent)
 
         self.label = QLabel(self, text=label_text)
@@ -334,7 +266,7 @@ class FileInput(QFrame):
             -File dialog button to the right
 
         Attributes:
-            input, fileDialogButton, hBox, file_type
+            input, fileDialogButton
 
         Methods:
             get_input_text, set_input_text, open_file_dialog
@@ -345,10 +277,6 @@ class FileInput(QFrame):
                 A button that opens a file dialog
             input : QLineEdit
                 Input Box for text entry
-            hBox : QHBoxLayout
-                Horizontal layout
-            file_type : str
-                The type of file
 
         Methods
         -------
@@ -360,22 +288,6 @@ class FileInput(QFrame):
                 Opens the file selection dialog
     """
     def __init__(self, parent, file_type="", input_text="", read_only=False, btn_enable=True):
-        """
-                        Constructs all the necessary attributes for the FileInput object.
-
-                        Parameters
-                        ----------
-                            self
-                            parent : QFrame
-                            file_type : str
-                                The type of file
-                            input_text : str
-                                The text for input field
-                            btn_enable : bool
-                                Set button enabled status
-                            read_only : bool
-                                Set readonly status
-                        """
         super(FileInput, self).__init__(parent)
 
         self.file_type = file_type
@@ -423,23 +335,19 @@ class LabeledFileInput(QFrame):
             -File dialog button to the right
 
         Attributes:
-            hBox, label, input, fileDialogButton, file_type
+            label, input, fileDialogButton
 
         Methods:
             get_input_text, set_input_text, open_file_dialog
 
         Attributes
         ----------
-            hBox : QHBoxLayout
-                Horizontal layout
             label : QLabel
                 Text Label for Input Box
             fileDialogButton : QPushButton
                 A button that opens a file dialog
             input : QLineEdit
                 Input Box for text entry
-            file_type : str
-                The type of file
 
         Methods
         -------
@@ -451,24 +359,6 @@ class LabeledFileInput(QFrame):
                 Opens the file selection dialog
     """
     def __init__(self, parent, label_text="", file_type="", input_text="", read_only=False, btn_enable=True):
-        """
-                        Constructs all the necessary attributes for the LabeledFileInput object.
-
-                        Parameters
-                        ----------
-                            self
-                            parent : QFrame
-                            label_text : str
-                                The text for label
-                            file_type : str
-                                The type of file
-                            input_text : str
-                                The text for input field
-                            btn_enable : bool
-                                Set button enabled status
-                            read_only : bool
-                                Set readonly status
-                        """
         super(LabeledFileInput, self).__init__(parent)
 
         self.file_type = file_type

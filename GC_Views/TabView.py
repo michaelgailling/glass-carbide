@@ -27,54 +27,26 @@ class TabView(QFrame):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        fio, dir, hv_homeView, tv_tableView, rv_resultsView, tw_tabWidget, tabIndex, mnb_main_nav,
-                        vbl_main_layout
+                        label, {AttributeName}
 
                     Methods:
-                        set_tab_frame, tab_index_setter, tab_index_getter, get_selection, continue_clicked, back_clicked
+                        get_input_text, {MethodName}
 
                     Attributes
                     ----------
-                        vbl_main_layout : QVBoxLayout
-                        fio : FileIo
-                        dir : str
-                        hv_homeView : HomeView
-                        tv_tableView : TableView
-                        rv_resultsView : ResultsOutputView
-                        tw_tabWidget : QTabWidget
-                            Tab widget for navigating views/steps
-                        tabIndex : int
-                            Int variable stores tab index of tab widget
-                        mnb_main_nav : MainNavButtons
-                            Main window navigation buttons
+                        label : QLabel
+                            Text Label for Input Box
+                        {AttributeName} : {AttributeClass}
+                            {Property} for {Type}
 
                     Methods
                     -------
-                        set_tab_frame(self, frame: QFrame, index_num: int)
-                            Sets tab widget current index
-                        tab_index_setter(self, index_num: int)
-                            Enables only current tab
-                        tab_index_getter(self)
-                            Returns current tab index
-                        get_selection(self)
-                            Gets selected data from tv_tableView and passes it to rv_resultsView
-                        continue_clicked(self)
-                            Navigates to next tab/step when continue button clicked
-                        back_clicked(self)
-                            Navigates to previous tab/step when back button clicked
+                        get_input_text(self)
+                            Return the text in the input box
+                        {MethodName}({Parameters})
+                            {Functionality}
                 """
     def __init__(self, parent=None, file_io=FileIo()):
-        """Constructor:
-                                    Initialize Image Preview View
-
-                                    Parameters:
-                                        self
-                                        parent : QFrame
-                                        file_io : FileIo
-                                            !!! File input & output
-                                    Returns:
-                                        None
-                                """
         # -------------------------------------------init Start-------------------------------------------
         super(TabView, self).__init__(parent)
         self.fio = file_io
