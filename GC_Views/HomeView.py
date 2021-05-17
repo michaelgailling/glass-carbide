@@ -44,6 +44,17 @@ class HomeView(QFrame):
 
                 """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+            Initialize Home View
+
+            Parameters:
+                self
+                parent : QFrame
+                file_io : FileIo
+                    !!! File input & output
+            Returns:
+                None
+        """
         # -------------------------------------------init Start-------------------------------------------
         super(HomeView, self).__init__(parent)
 

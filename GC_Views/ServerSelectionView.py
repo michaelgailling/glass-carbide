@@ -19,32 +19,36 @@ from GC_Components.InputComponents import LabeledDirectoryInput
 class ServerSelectionView(QFrame):
     """Server Selection View
 
-                    Summary:
-                        A class for {Type} that includes:
+        Summary:
+            A class for {Type} that includes:
 
-                        -{Description} to the {Location eg left}
+            -{Description} to the {Location eg left}
 
-                    Attributes:
-                        label, {AttributeName}
+        Attributes:
+            serverPath, localPath
 
-                    Methods:
-                        get_input_text, {MethodName}
+        Methods:
+            None
 
-                    Attributes
-                    ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+        Attributes
+        ----------
+            serverPath : LabeledDirectoryInput
+            localPath = LabeledDirectoryInput
 
-                    Methods
-                    -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
-                """
+        Methods
+        -------
+            None
+    """
     def __init__(self, parent=None):
+        """Constructor:
+            Initialize Server Selection View
+
+            Parameters:
+                self
+                parent : QFrame
+            Returns:
+                None
+        """
         super(ServerSelectionView, self).__init__(parent)
 
         self.serverPath = LabeledDirectoryInput(self, label_text="Select Server Directory: ")

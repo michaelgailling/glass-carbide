@@ -19,32 +19,39 @@ from GC_Components.InputComponents import LabeledDirectoryInput
 class ExistingDirectoryView(QFrame):
     """Existing Directory View
 
-                    Summary:
-                        A class for {Type} that includes:
+        Summary:
+            A class for {Type} that includes:
 
-                        -{Description} to the {Location eg left}
+            -{Description}
 
-                    Attributes:
-                        label, {AttributeName}
+        Attributes:
+            main_layout, directoryPath
 
-                    Methods:
-                        get_input_text, {MethodName}
+        Methods:
+            None
 
-                    Attributes
-                    ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+        Attributes
+        ----------
+            main_layout : QVBoxLayout
+                Vertical Layout
+            directoryPath : LabeledDirectoryInput
+                !!! {Property} for {Type}
 
-                    Methods
-                    -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
-                """
+        Methods
+        -------
+            None
+    """
+
     def __init__(self, parent=None):
+        """Constructor:
+            Initialize Existing Directory View
+
+            Parameters:
+                self
+                parent : QFrame
+            Returns:
+                None
+        """
         super(ExistingDirectoryView, self).__init__(parent)
 
         self.directoryPath = LabeledDirectoryInput(self, label_text="Select Root Folder: ")

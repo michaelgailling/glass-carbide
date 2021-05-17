@@ -22,32 +22,42 @@ from GC_Services.csvIO import CsvIo
 class TableView(QFrame):
     """Table View
 
-                    Summary:
-                        A class for {Type} that includes:
+        Summary:
+            A class for {Type} that includes:
 
-                        -{Description} to the {Location eg left}
+            -{Description} to the {Location eg left}
 
-                    Attributes:
-                        label, {AttributeName}
+        Attributes:
+            label, {AttributeName}
 
-                    Methods:
-                        get_input_text, {MethodName}
+        Methods:
+            load_file, create_selection
 
-                    Attributes
-                    ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+        Attributes
+        ----------
+            csv_handler : CsvIo
+            fio : file_io
+            column_definitions : []
 
-                    Methods
-                    -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
-                """
+        Methods
+        -------
+            load_file(self)
+                Loads CSV to table
+            create_selection(self)
+                Returns selected data from table
+    """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+            Initialize Table View
+
+            Parameters:
+                self
+                parent : QFrame
+                file_io : FileIo
+                    {Description}
+            Returns:
+                None
+        """
         # -------------------------------------------init Start-------------------------------------------
         super(TableView, self).__init__(parent)
         self.csv_handler = CsvIo()

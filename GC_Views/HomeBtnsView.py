@@ -16,32 +16,42 @@ from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout
 class HomeBtnsView(QFrame):
     """Home Buttons View
 
-                    Summary:
-                        A class for {Type} that includes:
+        Summary:
+            A class for {Type} that includes:
 
-                        -{Description} to the {Location eg left}
+            -{Description} to the {Location eg left}
 
-                    Attributes:
-                        label, {AttributeName}
+        Attributes:
+            btnBox, startBtn, openBtn, exitBtn
 
-                    Methods:
-                        get_input_text, {MethodName}
+        Methods:
+            None
 
-                    Attributes
-                    ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+        Attributes
+        ----------
+            btnBox : QVBoxLayout
+                Layout vertically stacks buttons
+            startBtn : QPushButton
+                Button for starting new project
+            openBtn : QPushButton
+                Button for opening existing project
+            exitBtn : QPushButton
+                Button for exiting application
 
-                    Methods
-                    -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
-                """
+        Methods
+        -------
+            None
+    """
     def __init__(self, parent=None):
+        """Constructor:
+            Initialize Home Buttons View
+
+            Parameters:
+                self
+                parent : QFrame
+            Returns:
+                None
+        """
         super(HomeBtnsView, self).__init__(parent)
         self.btnBox = QVBoxLayout()
 
