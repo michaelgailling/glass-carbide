@@ -70,8 +70,8 @@ class GCHomeView(QFrame):
         self.lv_logo = GCLogoView()
         self.lbl_instructions = QLabel("Overview of Instructions")
 
-        self.btn_start = QPushButton("Start")
-        self.btn_open = QPushButton("Open Existing")
+        self.btn_start = QPushButton("New Directory")
+        self.btn_open = QPushButton("Existing Directory")
         self.btn_exit = QPushButton("Exit")
 
         # Setup vbl_left_layout
@@ -97,12 +97,12 @@ class GCHomeView(QFrame):
 
         # Initialize Directory Mapping Views
         self.frm_blank = QFrame()
-        self.dmv_mapping_view = GCCreateDirectoryView(None, file_io=self.fio)
+        self.cdv_mapping_view = GCCreateDirectoryView(None, file_io=self.fio)
         self.edv_existing_view = ExistingDirectoryView(None)
 
         # Add views to sw_project_setup
         self.sw_project_setup.addWidget(self.frm_blank)
-        self.sw_project_setup.addWidget(self.dmv_mapping_view)
+        self.sw_project_setup.addWidget(self.cdv_mapping_view)
         self.sw_project_setup.addWidget(self.edv_existing_view)
 
         # Setup vbl_right_layout

@@ -85,15 +85,9 @@ class GCCreateDirectoryView(QFrame):
         self.setLayout(self.vbl_main_layout)
         self.setStyleSheet('LabeledDirectoryInput{border:none}')
 
-    def validate_path(self, path=""):
-        if path:
-            return self.fio.validate_path(path)
-        else:
-            return False
-
     def plan_dir_structure(self):
         self.show_directory_dialog()
-        valid_path = self.validate_path(self.ldi_main_path.get_input_text())
+        valid_path = self.fio.validate_path(self.ldi_main_path.get_input_text())
         if valid_path:
             self.fill_directory_listings()
         else:
@@ -103,7 +97,7 @@ class GCCreateDirectoryView(QFrame):
             msg_warning.exec_()
 
     def create_dir_structure(self):
-        valid_path = self.validate_path(self.ldi_main_path.get_input_text())
+        valid_path = self.fio.validate_path(self.ldi_main_path.get_input_text())
         if valid_path:
             self.make_dirs()
             self.update_fio()
