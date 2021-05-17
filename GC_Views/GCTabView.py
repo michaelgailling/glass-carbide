@@ -113,9 +113,11 @@ class GCTabView(QFrame):
 
     def handle_table_view_transition(self):
         selection = self.tv_tableView.create_selection()
-        self.rv_resultsView.load_table_data(selection)
-        self.set_tab_index(2)
-
+        if selection:
+            self.rv_resultsView.load_table_data(selection)
+            self.set_tab_index(2)
+        else:
+            self.issue_warning_prompt("No shots were selected. Cannot Proceed!")
 
     def issue_warning_prompt(self, message=""):
         msg_warning = QMessageBox()
