@@ -12,7 +12,7 @@
 import sys
 
 from PySide2 import QtCore
-from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QApplication, QHBoxLayout, QPushButton
+from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QApplication, QHBoxLayout, QPushButton, QMessageBox
 from GC_Views.GCHomeView import GCHomeView
 from GC_Views.GCResultsOutputView import GCResultsOutputView
 from GC_Views.GCTableView import GCTableView
@@ -88,11 +88,34 @@ class GCTabView(QFrame):
     def continue_clicked(self):
         tab_index = self.get_tab_index()
         if tab_index == 0:
-            self.set_tab_index(1)
+            self.handle_home_view_transition()
         elif tab_index == 1:
             self.set_tab_index(2)
         elif tab_index == 2:
             pass
+
+    def handle_home_view_transition(self):
+        frame_index = self.hv_homeView.get_frame_index()
+        if frame_index == 0:
+            self.issue_warning_prompt("Please setup default directory structure!")
+
+        elif frame_index == 1:
+            valid_dir = self.fio.validate_path(self.hv_homeView.cdv_create_view.ldi_main_path.get_input_text())
+            if valid_dir:
+                self.hv_homeView.cdv_create_view.update_fio()
+                self.tv_tableView.lfi_file_select.set_input_text(self.fio.project_dir)
+                self.set_tab_index(1)
+            else:
+                self.issue_warning_prompt("Invalid directory!")
+
+        elif frame_index == 2:
+            self.set_tab_index(1)
+
+    def issue_warning_prompt(self, message=""):
+        msg_warning = QMessageBox()
+        msg_warning.setIcon(QMessageBox.Warning)
+        msg_warning.setText(message)
+        msg_warning.exec_()
 
     def back_clicked(self):
         tab_index = self.get_tab_index()

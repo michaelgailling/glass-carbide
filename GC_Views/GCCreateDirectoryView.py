@@ -104,7 +104,7 @@ class GCCreateDirectoryView(QFrame):
         else:
             msg_warning = QMessageBox()
             msg_warning.setIcon(QMessageBox.Warning)
-            msg_warning.setText("Invalid directory path entered!")
+            msg_warning.setText("Invalid directory path entered! Cannot Create!")
             msg_warning.exec_()
 
     def show_directory_dialog(self):

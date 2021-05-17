@@ -97,12 +97,12 @@ class GCHomeView(QFrame):
 
         # Initialize Directory Mapping Views
         self.frm_blank = QFrame()
-        self.cdv_mapping_view = GCCreateDirectoryView(None, file_io=self.fio)
+        self.cdv_create_view = GCCreateDirectoryView(None, file_io=self.fio)
         self.edv_existing_view = ExistingDirectoryView(None)
 
         # Add views to sw_project_setup
         self.sw_project_setup.addWidget(self.frm_blank)
-        self.sw_project_setup.addWidget(self.cdv_mapping_view)
+        self.sw_project_setup.addWidget(self.cdv_create_view)
         self.sw_project_setup.addWidget(self.edv_existing_view)
 
         # Setup vbl_right_layout
