@@ -9,8 +9,9 @@
 # Organization:
 # WIMTACH
 #
+import sys
 
-from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QMessageBox
+from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QMessageBox, QApplication
 from GC_Components.MainComponents import MainNavButtons
 from TableView import TableView
 from HomeView import HomeView
@@ -96,16 +97,16 @@ class TabView(QFrame):
                                      "QTabBar::tab:selected{background-color:#1000A0;color:white;}")
 
         # Setting views in tabs
-        self.set_tab_frame(self.hv_homeView, 0)
-        self.set_tab_frame(self.tv_tableView, 1)
-        self.set_tab_frame(self.rv_resultsView, 2)
+        # self.set_tab_frame(self.hv_homeView, 0)
+        # self.set_tab_frame(self.tv_tableView, 1)
+        # self.set_tab_frame(self.rv_resultsView, 2)
 
-        # Tab Index Variable
-        self.tabIndex = 0
-        self.tw_tabWidget.setCurrentIndex(0)
-        self.tw_tabWidget.setTabEnabled(0, True)
-        self.tw_tabWidget.setTabEnabled(1, False)
-        self.tw_tabWidget.setTabEnabled(2, False)
+        # # Tab Index Variable
+        # self.tabIndex = 0
+        # self.tw_tabWidget.setCurrentIndex(0)
+        # self.tw_tabWidget.setTabEnabled(0, True)
+        # self.tw_tabWidget.setTabEnabled(1, False)
+        # self.tw_tabWidget.setTabEnabled(2, False)
 
         # ----------------------------------------------
         # -----------------mnb_main_nav-----------------
@@ -136,7 +137,7 @@ class TabView(QFrame):
             heading = "Load CSV and Select Assets"
         elif index_num == 2:
             heading = "Preview"
-        self.tw_tabWidget.insertTab(index_num, frame, f"Step {index_num + 1} - {heading}")
+        self.tw_tabWidget.insertTab(index_num, frame, heading)
 
     def tab_index_setter(self, index_num=0):
         self.tw_tabWidget.setCurrentIndex(index_num)
@@ -176,3 +177,10 @@ class TabView(QFrame):
             self.tab_index_setter(0)
         elif self.tabIndex == 2:
             self.tab_index_setter(1)
+
+if __name__ == '__main__':
+    qApp = QApplication(sys.argv)
+    tabview = TabView()
+    tabview.show()
+    # directory.show()
+    sys.exit(qApp.exec_())

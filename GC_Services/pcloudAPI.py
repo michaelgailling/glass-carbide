@@ -22,6 +22,7 @@ import requests
 
 # https://api.pcloud.com/userinfo?getauth=1&logout=1&username={username}&password={password}
 # https://api.pcloud.com/listfolder?auth={token}&folderid={folderid}
+from GC_Models.PCloudFileModel import PCloudFileModel
 
 
 class PCloud:
@@ -521,7 +522,9 @@ class PCloud:
                 if result:
                     return result
         elif not obj_dict["isfolder"] and filename in obj_dict["name"][:-4]:
-            self.temp_storage.append(obj_dict)
+            file_obj = PCloudFileModel()
+            file_obj.load_data(obj_dict)
+            self.temp_storage.append(file_obj)
             return None
 
     async def get_pub_link_download(self, code="", file_id=""):
@@ -545,73 +548,5 @@ class PCloud:
             return res.content
 
 
-
-
-# apic = PCloud()
-#
-# apic.set_region("NA")
-#
-# code = apic.get_code_from_url("https://u.pcloud.link/publink/show?code=kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V")
-#
-# pub_dir = apic.get_pub_link_directory(code)
-#
-# print(json.dumps(pub_dir, sort_keys=True, indent=4))
-
-#
-# apic.set_region("NA")
-#
-# apic.get_pub_link_file_data("props_transformer_car_001", "kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V")
-#
-# for item in apic.temp_storage:
-#     print(item)
-
-# pub_link_dir = asyncio.run(apic.show_pub_link_directory("kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V"))
-#
-# print(json.dumps(pub_link_dir["metadata"], sort_keys=True, indent=4))
-#
-# pub_link_download = asyncio.run(apic.get_pub_link_download(code="kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V", file_id="27739405968"))
-#
-# print(json.dumps(pub_link_download, sort_keys=True, indent=4))
-#
-# host = "http://" + pub_link_download["hosts"][0]
-# path = pub_link_download["path"]
-#
-# url = host + path
-#
-# file_res = asyncio.run(apic.download_file(url))
-#
-# print(file_res)
-#
-# open("../TEST.jpg", "wb").write(file_res)
-
-# apic.set_region("NA")
-# apic.set_username("deedtmp+liknb@gmail.com")
-# apic.set_password("fakenews")
-#
-# print()
-# asyncio.run(apic.auth_digest())
-# print("Token: " + apic.token)
-# createdir = asyncio.run(apic.create_folder("0", "New Dir"))
-# print()
-# print()
-# filedir = asyncio.run(apic.list_folder("0"))
-#
-# print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
-# print()
-# print()
-# for item in filedir["contents"]:
-#     if item["name"] == "New Dir":
-#         asyncio.run(apic.rename_folder(item["folderid"], "Better Folder"))
-# print()
-# print()
-# filedir = asyncio.run(apic.list_folder("0"))
-# print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
-# print()
-# print()
-# for item in filedir["contents"]:
-#     if item["name"] == "Better Folder":
-#         asyncio.run(apic.delete_folder(item["folderid"]))
-# print()
-# print()
-# filedir = asyncio.run(apic.list_folder("0"))
-# print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
+if __name__ == '__main__':
+    pass

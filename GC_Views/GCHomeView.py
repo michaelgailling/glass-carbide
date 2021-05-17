@@ -11,38 +11,35 @@
 #
 import sys
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QPixmap
-from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget, QMessageBox
-from DirectoryMappingView import DirectoryMappingView
+from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget, QPushButton
 from GC_Services.FileIo import FileIo
 from ExistingDirectoryView import ExistingDirectoryView
-from HomeBtnsView import HomeBtnsView
-from pCloudView import PCloudView
-from LogoView import LogoView
+from GC_Views.GCCreateDirectoryView import GCCreateDirectoryView
+from GC_Views.GCLogoView import GCLogoView
 
 
-class HomeView(QFrame):
-    """Home View
+class GCHomeView(QFrame):
+    """GC Home View
 
-                    Summary:
-                        A class for {Type} that includes:
+        Summary:
+            A class for {Type} that includes:
 
-                        -{Description} to the {Location eg left}
+            -{Description} to the {Location eg left}
 
-                    Attributes:
-                        label, {AttributeName}
-
-                    Methods:
-                        get_input_text, {MethodName}
-
-                    Attributes
-                    ----------
+        Attributes:
 
 
-                    Methods
-                    -------
+        Methods:
 
-                """
+
+        Attributes
+        ----------
+
+
+        Methods
+        -------
+
+    """
     def __init__(self, parent=None, file_io=FileIo()):
         """Constructor:
             Initialize Home View
@@ -56,7 +53,7 @@ class HomeView(QFrame):
                 None
         """
         # -------------------------------------------init Start-------------------------------------------
-        super(HomeView, self).__init__(parent)
+        super(GCHomeView, self).__init__(parent)
 
         # -------------------------------------
         # -----------------fio-----------------
@@ -70,18 +67,24 @@ class HomeView(QFrame):
         self.vbl_left_layout = QVBoxLayout()
 
         # Initialize vbl_left_layout GUI Elements
-        self.lv_logo = LogoView(parent=self)
+        self.lv_logo = GCLogoView()
         self.lbl_instructions = QLabel("Overview of Instructions")
-        self.hbv_home_buttons = HomeBtnsView(parent=self)
+
+        self.btn_start = QPushButton("New Directory")
+        self.btn_open = QPushButton("Existing Directory")
+        self.btn_exit = QPushButton("Exit")
 
         # Setup vbl_left_layout
         self.vbl_left_layout.addWidget(self.lv_logo, alignment=Qt.AlignHCenter)
         self.vbl_left_layout.addWidget(self.lbl_instructions, alignment=Qt.AlignHCenter)
-        self.vbl_left_layout.addWidget(self.hbv_home_buttons)
+        self.vbl_left_layout.addWidget(self.btn_start)
+        self.vbl_left_layout.addWidget(self.btn_open)
+        self.vbl_left_layout.addWidget(self.btn_exit)
 
         # Assign methods for buttons
-        self.hbv_home_buttons.startBtn.clicked.connect(lambda: self.set_frame_index(1))
-        self.hbv_home_buttons.openBtn.clicked.connect(lambda: self.set_frame_index(2))
+        self.btn_start.clicked.connect(self.set_new_project_frame)
+        self.btn_open.clicked.connect(self.set_existing_project_frame)
+        self.btn_exit.clicked.connect(lambda: self.topLevelWidget().close())
 
         # --------------------------------------------------
         # -----------------vbl_right_layout-----------------
@@ -90,20 +93,17 @@ class HomeView(QFrame):
         self.vbl_right_layout = QVBoxLayout()
 
         # Initialize vbl_right_layout GUI Elements
-        self.sw_project_setup = QStackedWidget(parent=self)
+        self.sw_project_setup = QStackedWidget()
 
         # Initialize Directory Mapping Views
-        self.frm_blank = QFrame(parent=self)
-        self.dmv_mapping_view = DirectoryMappingView(parent=self, file_io=self.fio)
-        self.edv_existing_view = ExistingDirectoryView(parent=self)
+        self.frm_blank = QFrame()
+        self.cdv_create_view = GCCreateDirectoryView(None, file_io=self.fio)
+        self.edv_existing_view = ExistingDirectoryView(None)
 
         # Add views to sw_project_setup
         self.sw_project_setup.addWidget(self.frm_blank)
-        self.sw_project_setup.addWidget(self.dmv_mapping_view)
+        self.sw_project_setup.addWidget(self.cdv_create_view)
         self.sw_project_setup.addWidget(self.edv_existing_view)
-
-        # Store the current Index for external use
-        self.current_frame_index = 0
 
         # Setup vbl_right_layout
         self.vbl_right_layout.addWidget(self.sw_project_setup)
@@ -119,18 +119,24 @@ class HomeView(QFrame):
         self.hbl_main_layout.addItem(self.vbl_right_layout)
         self.setLayout(self.hbl_main_layout)
 
-        self.setStyleSheet('HomeBtnsView{border:none} LogoView{border:none} QLabel{border:none}')
-
         # -------------------------------------------init End-------------------------------------------
 
     def set_frame_index(self, num=0):
-        self.current_frame_index = num
         self.sw_project_setup.setCurrentIndex(num)
+
+    def get_frame_index(self):
+        return self.sw_project_setup.currentIndex()
+
+    def set_new_project_frame(self):
+        self.set_frame_index(1)
+
+    def set_existing_project_frame(self):
+        self.set_frame_index(2)
 
 
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
-    hom = HomeView()
+    hom = GCHomeView()
     hom.show()
     sys.exit(qApp.exec_())
 
