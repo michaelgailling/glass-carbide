@@ -11,7 +11,7 @@
 #
 
 
-from PySide2.QtWidgets import QFrame, QVBoxLayout, QFileDialog, QPushButton
+from PySide2.QtWidgets import QFrame, QVBoxLayout, QFileDialog, QPushButton, QMessageBox
 from GC_Components.InputComponents import LabeledDirectoryInput
 from GC_Services.FileIo import FileIo
 
@@ -63,18 +63,18 @@ class DirectoryMappingView(QFrame):
         super(DirectoryMappingView, self).__init__(parent)
         self.dir_path = ""
         self.fio = file_io
-        self.ldi_main_path = LabeledDirectoryInput(self, label_text="Project Directory: ", read_only=True)
-        self.ldi_asset_path = LabeledDirectoryInput(self, label_text="Assets: ", read_only=True)
-        self.ldi_episode_path = LabeledDirectoryInput(self, label_text="Episodes: ", read_only=True)
-        self.ldi_animatics_path = LabeledDirectoryInput(self, label_text="Animatics: ", read_only=True)
-        self.ldi_sounds_path = LabeledDirectoryInput(self, label_text="Sounds: ", read_only=True)
+        self.ldi_main_path = LabeledDirectoryInput(None, label_text="Project Directory: ", read_only=True)
+        self.ldi_asset_path = LabeledDirectoryInput(None, label_text="Assets: ", read_only=True)
+        self.ldi_episode_path = LabeledDirectoryInput(None, label_text="Episodes: ", read_only=True)
+        self.ldi_animatics_path = LabeledDirectoryInput(None, label_text="Animatics: ", read_only=True)
+        self.ldi_sounds_path = LabeledDirectoryInput(None, label_text="Sounds: ", read_only=True)
 
-        self.btn_create_new_directory = QPushButton(parent=self, text="Create New Directories")
+        self.btn_create_new_directory = QPushButton(text="Create New Directories")
 
         self.ldi_main_path.open_directory_dialog = self.plan_dir_structure
         self.btn_create_new_directory.clicked.connect(self.create_dir_structure)
 
-        self.vbl_main_layout = QVBoxLayout(self)
+        self.vbl_main_layout = QVBoxLayout()
 
         self.vbl_main_layout.addWidget(self.ldi_main_path)
         self.vbl_main_layout.addWidget(self.ldi_asset_path)
@@ -86,7 +86,10 @@ class DirectoryMappingView(QFrame):
         self.setStyleSheet('LabeledDirectoryInput{border:none}')
 
     def validate_path(self, path=""):
-        return self.fio.validate_path(path)
+        if path:
+            return self.fio.validate_path(path)
+        else:
+            return False
 
     def plan_dir_structure(self):
         self.show_directory_dialog()
@@ -97,6 +100,11 @@ class DirectoryMappingView(QFrame):
         if valid_path:
             self.make_dirs()
             self.update_fio()
+        else:
+            msg_warning = QMessageBox()
+            msg_warning.setIcon(QMessageBox.Warning)
+            msg_warning.setText("Invalid directory path entered!")
+            msg_warning.exec_()
 
     def show_directory_dialog(self):
         directory_path = QFileDialog.getExistingDirectory(self, "Select a Directory")

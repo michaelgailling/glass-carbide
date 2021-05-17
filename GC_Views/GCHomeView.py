@@ -93,12 +93,12 @@ class GCHomeView(QFrame):
         self.vbl_right_layout = QVBoxLayout()
 
         # Initialize vbl_right_layout GUI Elements
-        self.sw_project_setup = QStackedWidget(parent=self)
+        self.sw_project_setup = QStackedWidget()
 
         # Initialize Directory Mapping Views
-        self.frm_blank = QFrame(parent=self)
-        self.dmv_mapping_view = DirectoryMappingView(parent=self, file_io=self.fio)
-        self.edv_existing_view = ExistingDirectoryView(parent=self)
+        self.frm_blank = QFrame()
+        self.dmv_mapping_view = DirectoryMappingView(None, file_io=self.fio)
+        self.edv_existing_view = ExistingDirectoryView(None)
 
         # Add views to sw_project_setup
         self.sw_project_setup.addWidget(self.frm_blank)
