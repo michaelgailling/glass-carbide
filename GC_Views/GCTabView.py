@@ -90,7 +90,7 @@ class GCTabView(QFrame):
         if tab_index == 0:
             self.handle_home_view_transition()
         elif tab_index == 1:
-            self.set_tab_index(2)
+            self.handle_table_view_transition()
         elif tab_index == 2:
             pass
 
@@ -110,6 +110,12 @@ class GCTabView(QFrame):
 
         elif frame_index == 2:
             self.set_tab_index(1)
+
+    def handle_table_view_transition(self):
+        selection = self.tv_tableView.create_selection()
+        self.rv_resultsView.load_table_data(selection)
+        self.set_tab_index(2)
+
 
     def issue_warning_prompt(self, message=""):
         msg_warning = QMessageBox()
