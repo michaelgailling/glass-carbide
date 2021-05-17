@@ -24,39 +24,26 @@ class CsvIo:
                     -{Description} to the {Location eg left}
 
                 Attributes:
-                    self
+                    label, {AttributeName}
 
                 Methods:
-                    import_data, load, handler_headers, calc_prob, trim_columns, log_data
+                    get_input_text, {MethodName}
 
                 Attributes
                 ----------
-                    self
+                    label : QLabel
+                        Text Label for Input Box
+                    {AttributeName} : {AttributeClass}
+                        {Property} for {Type}
 
                 Methods
                 -------
-                    import_data(self, file_path="", handle_header=True, log_data=False)
-                        Returns CSV data
-                    load(self, file_path="")
-                        Opens CSV and loads data
-                    handler_headers(self)
-                        !!! Processes headers !!!
-                    calc_prob(self)
-                        Returns percentage of empty cells in row
-                    trim_columns(self)
-                        Trims columns from data
-                    log_data(self)
-                        Prints out contents of data
+                    get_input_text(self)
+                        Return the text in the input box
+                    {MethodName}({Parameters})
+                        {Functionality}
             """
     def __init__(self):
-        """Constructor:
-            Initialize CSV parsing service
-
-            Parameters:
-                self
-            Returns:
-                None
-        """
         self.data = []
 
     def import_data(self, file_path="", handle_header=True, log_data=False):

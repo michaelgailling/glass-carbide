@@ -23,33 +23,26 @@ class LogoView(QFrame):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        logo, main_layout, pixmap
+                        label, {AttributeName}
 
                     Methods:
-                        None
+                        get_input_text, {MethodName}
 
                     Attributes
                     ----------
-                        main_layout : QVBoxLayout
-                        logo : QLabel
-                            Label for storing logo pixmap
-                        pixmap : QPixmap
-                            Pixmap for logo
+                        label : QLabel
+                            Text Label for Input Box
+                        {AttributeName} : {AttributeClass}
+                            {Property} for {Type}
 
                     Methods
                     -------
-                        None
+                        get_input_text(self)
+                            Return the text in the input box
+                        {MethodName}({Parameters})
+                            {Functionality}
                 """
     def __init__(self, parent=None):
-        """Constructor:
-                                    Initialize Logo View
-
-                                    Parameters:
-                                        self
-                                        parent : QFrame
-                                    Returns:
-                                        None
-                                """
         super(LogoView, self).__init__(parent)
 
         self.logo = QLabel(self)
