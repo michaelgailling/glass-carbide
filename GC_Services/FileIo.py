@@ -58,7 +58,15 @@ class FileIo:
     def save_file_to_dir(self, dir_path, filename, file_bytes):
         open(dir_path + "/" + filename, "wb").write(file_bytes)
 
-    def make_dir(self, dir_path):
+    def make_dir(self, dir_path=""):
+        try:
+            os.makedirs(dir_path)
+        except OSError:
+            print("Fail - Directory Exists: %s " % dir_path)
+        else:
+            print("Success - Directory Created: %s " % dir_path)
+
+    def make_sub_dir(self, dir_path):
         try:
             os.makedirs(self.project_dir + dir_path)
         except OSError:

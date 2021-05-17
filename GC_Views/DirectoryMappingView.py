@@ -71,8 +71,8 @@ class DirectoryMappingView(QFrame):
 
         self.btn_create_new_directory = QPushButton(parent=self, text="Create New Directories")
 
-        self.ldi_main_path.open_directory_dialog = (lambda: self.shared_dir_paths())
-        self.btn_create_new_directory.clicked.connect(self.make_dirs)
+        self.ldi_main_path.open_directory_dialog = self.plan_dir_structure
+        self.btn_create_new_directory.clicked.connect(self.create_dir_structure)
 
         self.vbl_main_layout = QVBoxLayout(self)
 
@@ -85,27 +85,40 @@ class DirectoryMappingView(QFrame):
         self.setLayout(self.vbl_main_layout)
         self.setStyleSheet('LabeledDirectoryInput{border:none}')
 
-    def shared_dir_paths(self):
+    def validate_path(self, path=""):
+        return self.fio.validate_path(path)
+
+    def plan_dir_structure(self):
         self.show_directory_dialog()
-        self.fio.project_dir = self.main_path.get_input_text()
+        self.fill_directory_listings()
 
-        if self.fio.project_dir:
-            self.asset_path.set_input_text(f"{self.dir_path}/Assets")
-            self.episode_path.set_input_text(f"{self.dir_path}/Episodes")
-            self.animatics_path.set_input_text(f"{self.dir_path}/Animatics")
-            self.sounds_path.set_input_text(f"{self.dir_path}/Sounds")
-
-    def make_dirs(self):
-        if self.fio.project_dir:
-            self.fio.asset_dir = self.ldi_asset_path.get_input_text()
-            self.fio.episode_dir = self.ldi_episode_path.get_input_text()
-            self.fio.animatic_dir = self.ldi_animatics_path.get_input_text()
-            self.fio.sound_dir = self.ldi_sounds_path.get_input_text()
-            self.fio.make_dir("/Assets")
-            self.fio.make_dir("/Episodes")
-            self.fio.make_dir("/Animatics")
-            self.fio.make_dir("/Sounds")
+    def create_dir_structure(self):
+        valid_path = self.validate_path(self.ldi_main_path.get_input_text())
+        if valid_path:
+            self.make_dirs()
+            self.update_fio()
 
     def show_directory_dialog(self):
         directory_path = QFileDialog.getExistingDirectory(self, "Select a Directory")
         self.ldi_main_path.set_input_text(directory_path)
+
+    def fill_directory_listings(self):
+        dir_path = self.ldi_main_path.get_input_text()
+        self.ldi_asset_path.set_input_text(f"{dir_path}/Assets")
+        self.ldi_episode_path.set_input_text(f"{dir_path}/Episodes")
+        self.ldi_animatics_path.set_input_text(f"{dir_path}/Animatics")
+        self.ldi_sounds_path.set_input_text(f"{dir_path}/Sounds")
+
+    def make_dirs(self):
+        self.fio.make_dir(self.ldi_main_path.get_input_text())
+        self.fio.make_dir(self.ldi_asset_path.get_input_text())
+        self.fio.make_dir(self.ldi_episode_path.get_input_text())
+        self.fio.make_dir(self.ldi_animatics_path.get_input_text())
+        self.fio.make_dir(self.ldi_sounds_path.get_input_text())
+
+    def update_fio(self):
+        self.fio.project_dir = self.ldi_main_path.get_input_text()
+        self.fio.asset_dir = self.ldi_asset_path.get_input_text()
+        self.fio.episode_dir = self.ldi_episode_path.get_input_text()
+        self.fio.animatic_dir = self.ldi_animatics_path.get_input_text()
+        self.fio.sound_dir = self.ldi_sounds_path.get_input_text()
