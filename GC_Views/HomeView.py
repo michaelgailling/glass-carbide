@@ -121,6 +121,9 @@ class HomeView(QFrame):
         self.sw_project_setup.addWidget(self.dmv_mapping_view)
         self.sw_project_setup.addWidget(self.edv_existing_view)
 
+        # Store the current Index for external use
+        self.current_frame_index = 0
+
         # Setup vbl_right_layout
         self.vbl_right_layout.addWidget(self.sw_project_setup)
 
@@ -139,7 +142,8 @@ class HomeView(QFrame):
 
         # -------------------------------------------init End-------------------------------------------
 
-    def set_frame_index(self, num: int):
+    def set_frame_index(self, num=0):
+        self.current_frame_index = num
         self.sw_project_setup.setCurrentIndex(num)
 
 

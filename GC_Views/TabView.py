@@ -129,14 +129,14 @@ class TabView(QFrame):
 
         # -------------------------------------------init End-------------------------------------------
 
-    def set_tab_frame(self, frame: QFrame, index_num: int):
+    def set_tab_frame(self, frame=QFrame(), index_num=0):
         if index_num == 0:
-            msg = "Select Folder Directories for Project Mapping"
+            heading = "Select Folder Directories for Project Mapping"
         elif index_num == 1:
-            msg = "Load CSV and Select Assets"
+            heading = "Load CSV and Select Assets"
         elif index_num == 2:
-            msg = "Preview"
-        self.tw_tabWidget.insertTab(index_num, frame, f"Step {index_num + 1} - {msg}")
+            heading = "Preview"
+        self.tw_tabWidget.insertTab(index_num, frame, f"Step {index_num + 1} - {heading}")
 
     def tab_index_setter(self, index_num=0):
         self.tw_tabWidget.setCurrentIndex(index_num)
@@ -152,9 +152,8 @@ class TabView(QFrame):
         self.rv_resultsView.data = selection
 
     def continue_clicked(self):
-        if self.hv_homeView.dmv_mapping_view.get_dir_path():
-            self.dir = self.fio.project_dir
-            self.tv_tableView.lfi_file_select.set_input_text(self.dir)
+        if self.fio.project_dir:
+            self.tv_tableView.lfi_file_select.set_input_text(self.fio.project_dir)
 
         if self.tabIndex == 0:
             self.tab_index_setter(1)
