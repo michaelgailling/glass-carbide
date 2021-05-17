@@ -17,32 +17,39 @@ from PySide2.QtWidgets import QFrame, QLabel, QVBoxLayout
 class LogoView(QFrame):
     """Logo View
 
-                    Summary:
-                        A class for {Type} that includes:
+        Summary:
+            A class for {Type} that includes:
 
-                        -{Description} to the {Location eg left}
+            -{Description} to the {Location eg left}
 
-                    Attributes:
-                        label, {AttributeName}
+        Attributes:
+            logo, main_layout, pixmap
 
-                    Methods:
-                        get_input_text, {MethodName}
+        Methods:
+            None
 
-                    Attributes
-                    ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+        Attributes
+        ----------
+            main_layout : QVBoxLayout
+            logo : QLabel
+                Label for storing logo pixmap
+            pixmap : QPixmap
+                Pixmap for logo
 
-                    Methods
-                    -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
-                """
+        Methods
+        -------
+            None
+    """
     def __init__(self, parent=None):
+        """Constructor:
+            Initialize Logo View
+
+            Parameters:
+                self
+                parent : QFrame
+            Returns:
+                None
+        """
         super(LogoView, self).__init__(parent)
 
         self.logo = QLabel(self)

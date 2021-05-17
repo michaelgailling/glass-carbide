@@ -5,32 +5,47 @@ import os
 class FileIo:
     """File IO
 
-                Summary:
-                    A class for {Type} that includes:
+        Summary:
+            A class for {Type} that includes:
 
-                    -{Description} to the {Location eg left}
+            -{Description} to the {Location eg left}
 
-                Attributes:
-                    label, {AttributeName}
+        Attributes:
+            project_dir, asset_dir, episode_dir, animatic_dir, sound_dir
 
-                Methods:
-                    get_input_text, {MethodName}
+        Methods:
+            save_file_to_dir, make_dir
 
-                Attributes
-                ----------
-                    label : QLabel
-                        Text Label for Input Box
-                    {AttributeName} : {AttributeClass}
-                        {Property} for {Type}
+        Attributes
+        ----------
+            project_dir : str
+                Root directory path
+            asset_dir : str
+                Asset directory path
+            episode_dir : str
+                Episode directory path
+            animatic_dir : str
+                Animatics directory path
+            sound_dir : str
+                Sounds directory path
 
-                Methods
-                -------
-                    get_input_text(self)
-                        Return the text in the input box
-                    {MethodName}({Parameters})
-                        {Functionality}
-            """
+        Methods
+        -------
+            save_file_to_dir(self, dir_path, filename, file_bytes)
+                Saves file to directory
+            make_dir(self, dir_path)
+                Creates directories
+    """
+
     def __init__(self):
+        """Constructor:
+            Initialize file browsing service
+
+            Parameters:
+                self
+            Returns:
+                None
+        """
         self.project_dir = ""
         self.asset_dir = ""
         self.episode_dir = ""

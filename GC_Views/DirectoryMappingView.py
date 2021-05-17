@@ -49,6 +49,17 @@ class DirectoryMappingView(QFrame):
                             {Functionality}
                 """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+            Initialize Directory Mapping View
+
+            Parameters:
+                self
+                parent : QFrame
+                file_io : FileIo
+                    File input & output
+            Returns:
+                None
+        """
         super(DirectoryMappingView, self).__init__(parent)
         self.dir_path = ""
         self.fio = file_io

@@ -19,32 +19,37 @@ from GC_Components.InputComponents import LabeledInputWithButton
 class PCloudView(QFrame):
     """PCloud View
 
-                    Summary:
-                        A class for {Type} that includes:
+        Summary:
+            A class for {Type} that includes:
 
-                        -{Description} to the {Location eg left}
+            -{Description} to the {Location eg left}
 
-                    Attributes:
-                        label, {AttributeName}
+        Attributes:
+            main_layout, pCloudPath
 
-                    Methods:
-                        get_input_text, {MethodName}
+        Methods:
+            None
 
-                    Attributes
-                    ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+        Attributes
+        ----------
+            main_layout : QVBoxLayout
+            pCloudPath : LabeledInputWithButton
+                Labeled Input With Button for pCloud link
 
-                    Methods
-                    -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
-                """
+        Methods
+        -------
+            None
+    """
     def __init__(self, parent=None):
+        """Constructor:
+            Initialize pCloud View
+
+            Parameters:
+                self
+                parent : QFrame
+            Returns:
+                None
+        """
         super(PCloudView, self).__init__(parent)
 
         self.pCloudPath = LabeledInputWithButton(self, label_text="Public Shared Link: ", button_text="Open")

@@ -19,32 +19,41 @@ from GC_Components.MainComponents import MenuBar
 class MainView(QMainWindow):
     """Main View
 
-                    Summary:
-                        A class for {Type} that includes:
+        Summary:
+            A class for {Type} that includes:
 
-                        -{Description} to the {Location eg left}
+            -{Description} to the {Location eg left}
 
-                    Attributes:
-                        label, {AttributeName}
+        Attributes:
+            menuBar, statusBar, fio, tab_widget
 
-                    Methods:
-                        get_input_text, {MethodName}
+        Methods:
+            center_screen
 
-                    Attributes
-                    ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+        Attributes
+        ----------
+            menuBar = MenuBar
+            statusBar = QStatusBar
+            fio : FileIo
+                !!! File input & output
+            tab_widget : TabView
+                Tab View for tabs/steps
 
-                    Methods
-                    -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
-                """
+        Methods
+        -------
+            center_screen(self)
+                Positions application in center of screen
+    """
     def __init__(self, parent=None):
+        """Constructor:
+            Initialize Main View
+
+            Parameters:
+                self
+                parent : QMainWindow
+            Returns:
+                None
+        """
         # -------------------------------------------init Start-------------------------------------------
         super(MainView, self).__init__(parent)
         self.fio = FileIo()
