@@ -93,7 +93,14 @@ class DirectoryMappingView(QFrame):
 
     def plan_dir_structure(self):
         self.show_directory_dialog()
-        self.fill_directory_listings()
+        valid_path = self.validate_path(self.ldi_main_path.get_input_text())
+        if valid_path:
+            self.fill_directory_listings()
+        else:
+            msg_warning = QMessageBox()
+            msg_warning.setIcon(QMessageBox.Warning)
+            msg_warning.setText("Invalid directory path entered!")
+            msg_warning.exec_()
 
     def create_dir_structure(self):
         valid_path = self.validate_path(self.ldi_main_path.get_input_text())
@@ -108,7 +115,8 @@ class DirectoryMappingView(QFrame):
 
     def show_directory_dialog(self):
         directory_path = QFileDialog.getExistingDirectory(self, "Select a Directory")
-        self.ldi_main_path.set_input_text(directory_path)
+        if len(directory_path) > 3:
+            self.ldi_main_path.set_input_text(directory_path)
 
     def fill_directory_listings(self):
         dir_path = self.ldi_main_path.get_input_text()
