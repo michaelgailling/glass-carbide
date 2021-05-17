@@ -25,30 +25,26 @@ class ServerSelectionView(QFrame):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        serverPath, localPath
+                        label, {AttributeName}
 
                     Methods:
-                        None
+                        get_input_text, {MethodName}
 
                     Attributes
                     ----------
-                        serverPath : LabeledDirectoryInput
-                        localPath = LabeledDirectoryInput
+                        label : QLabel
+                            Text Label for Input Box
+                        {AttributeName} : {AttributeClass}
+                            {Property} for {Type}
 
                     Methods
                     -------
-                        None
+                        get_input_text(self)
+                            Return the text in the input box
+                        {MethodName}({Parameters})
+                            {Functionality}
                 """
     def __init__(self, parent=None):
-        """Constructor:
-                                    Initialize Server Selection View
-
-                                    Parameters:
-                                        self
-                                        parent : QFrame
-                                    Returns:
-                                        None
-                                """
         super(ServerSelectionView, self).__init__(parent)
 
         self.serverPath = LabeledDirectoryInput(self, label_text="Select Server Directory: ")

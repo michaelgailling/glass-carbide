@@ -25,31 +25,26 @@ class PCloudView(QFrame):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        main_layout, pCloudPath
+                        label, {AttributeName}
 
                     Methods:
-                        None
+                        get_input_text, {MethodName}
 
                     Attributes
                     ----------
-                        main_layout : QVBoxLayout
-                        pCloudPath : LabeledInputWithButton
-                            Labeled Input With Button for pCloud link
+                        label : QLabel
+                            Text Label for Input Box
+                        {AttributeName} : {AttributeClass}
+                            {Property} for {Type}
 
                     Methods
                     -------
-                        None
+                        get_input_text(self)
+                            Return the text in the input box
+                        {MethodName}({Parameters})
+                            {Functionality}
                 """
     def __init__(self, parent=None):
-        """Constructor:
-                                    Initialize pCloud View
-
-                                    Parameters:
-                                        self
-                                        parent : QFrame
-                                    Returns:
-                                        None
-                                """
         super(PCloudView, self).__init__(parent)
 
         self.pCloudPath = LabeledInputWithButton(self, label_text="Public Shared Link: ", button_text="Open")

@@ -25,35 +25,26 @@ class MainView(QMainWindow):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        menuBar, statusBar, fio, tab_widget
+                        label, {AttributeName}
 
                     Methods:
-                        center_screen
+                        get_input_text, {MethodName}
 
                     Attributes
                     ----------
-                        menuBar = MenuBar
-                        statusBar = QStatusBar
-                        fio : FileIo
-                            !!! File input & output
-                        tab_widget : TabView
-                            Tab View for tabs/steps
+                        label : QLabel
+                            Text Label for Input Box
+                        {AttributeName} : {AttributeClass}
+                            {Property} for {Type}
 
                     Methods
                     -------
-                        center_screen(self)
-                            Positions application in center of screen
+                        get_input_text(self)
+                            Return the text in the input box
+                        {MethodName}({Parameters})
+                            {Functionality}
                 """
     def __init__(self, parent=None):
-        """Constructor:
-                                    Initialize Main View
-
-                                    Parameters:
-                                        self
-                                        parent : QMainWindow
-                                    Returns:
-                                        None
-                                """
         # -------------------------------------------init Start-------------------------------------------
         super(MainView, self).__init__(parent)
         self.fio = FileIo()
@@ -62,7 +53,6 @@ class MainView(QMainWindow):
         self.setWindowTitle("Glass Carbide")
         self.setGeometry(0, 0, 900, 600)
 
-        # Tab Widget
         self.tab_widget = TabView(self, self.fio)
         self.tab_widget.setObjectName('tab')
         self.tabIndex = self.tab_widget.tabIndex

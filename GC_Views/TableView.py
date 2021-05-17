@@ -31,33 +31,23 @@ class TableView(QFrame):
                         label, {AttributeName}
 
                     Methods:
-                        load_file, create_selection
+                        get_input_text, {MethodName}
 
                     Attributes
                     ----------
-                        csv_handler : CsvIo
-                        fio : file_io
-                        column_definitions : []
+                        label : QLabel
+                            Text Label for Input Box
+                        {AttributeName} : {AttributeClass}
+                            {Property} for {Type}
 
                     Methods
                     -------
-                        load_file(self)
-                            Loads CSV to table
-                        create_selection(self)
-                            Returns selected data from table
+                        get_input_text(self)
+                            Return the text in the input box
+                        {MethodName}({Parameters})
+                            {Functionality}
                 """
     def __init__(self, parent=None, file_io=FileIo()):
-        """Constructor:
-                                    Initialize Table View
-
-                                    Parameters:
-                                        self
-                                        parent : QFrame
-                                        file_io : FileIo
-                                            {Description}
-                                    Returns:
-                                        None
-                                """
         # -------------------------------------------init Start-------------------------------------------
         super(TableView, self).__init__(parent)
         self.csv_handler = CsvIo()

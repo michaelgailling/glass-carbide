@@ -22,36 +22,26 @@ class HomeBtnsView(QFrame):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        btnBox, startBtn, openBtn, exitBtn
+                        label, {AttributeName}
 
                     Methods:
-                        None
+                        get_input_text, {MethodName}
 
                     Attributes
                     ----------
-                        btnBox : QVBoxLayout
-                            Layout vertically stacks buttons
-                        startBtn : QPushButton
-                            Button for starting new project
-                        openBtn : QPushButton
-                            Button for opening existing project
-                        exitBtn : QPushButton
-                            Button for exiting application
+                        label : QLabel
+                            Text Label for Input Box
+                        {AttributeName} : {AttributeClass}
+                            {Property} for {Type}
 
                     Methods
                     -------
-                        None
+                        get_input_text(self)
+                            Return the text in the input box
+                        {MethodName}({Parameters})
+                            {Functionality}
                 """
     def __init__(self, parent=None):
-        """Constructor:
-                            Initialize Home Buttons View
-
-                            Parameters:
-                                self
-                                parent : QFrame
-                            Returns:
-                                None
-                        """
         super(HomeBtnsView, self).__init__(parent)
         self.btnBox = QVBoxLayout()
 
