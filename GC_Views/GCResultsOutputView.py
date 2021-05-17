@@ -181,8 +181,8 @@ class GCResultsOutputView(QFrame):
         latest_file = {}
         latest_date = 0
         for item in file_data:
-            if item["name"][-3:] == "fla" or item["name"][-3:] == "psd":
-                modified_date = item["modified"]
+            if item.name[-3:] == "fla" or item.name[-3:] == "psd":
+                modified_date = item.modified
                 modified_date = datetime.strptime(modified_date, '%a, %d %b %Y %H:%M:%S %z')
                 unix_timestamp = modified_date.timestamp()
                 if unix_timestamp > latest_date:
