@@ -12,9 +12,9 @@
 import sys
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget, QPushButton
-from DirectoryMappingView import DirectoryMappingView
 from GC_Services.FileIo import FileIo
 from ExistingDirectoryView import ExistingDirectoryView
+from GC_Views.GCCreateDirectoryView import GCCreateDirectoryView
 from GC_Views.GCLogoView import GCLogoView
 
 
@@ -97,7 +97,7 @@ class GCHomeView(QFrame):
 
         # Initialize Directory Mapping Views
         self.frm_blank = QFrame()
-        self.dmv_mapping_view = DirectoryMappingView(None, file_io=self.fio)
+        self.dmv_mapping_view = GCCreateDirectoryView(None, file_io=self.fio)
         self.edv_existing_view = ExistingDirectoryView(None)
 
         # Add views to sw_project_setup

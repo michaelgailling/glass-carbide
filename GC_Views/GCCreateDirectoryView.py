@@ -16,7 +16,7 @@ from GC_Components.InputComponents import LabeledDirectoryInput
 from GC_Services.FileIo import FileIo
 
 
-class DirectoryMappingView(QFrame):
+class GCCreateDirectoryView(QFrame):
     """Directory Mapping View
 
                     Summary:
@@ -60,7 +60,7 @@ class DirectoryMappingView(QFrame):
             Returns:
                 None
         """
-        super(DirectoryMappingView, self).__init__(parent)
+        super(GCCreateDirectoryView, self).__init__(parent)
         self.dir_path = ""
         self.fio = file_io
         self.ldi_main_path = LabeledDirectoryInput(None, label_text="Project Directory: ", read_only=True)
@@ -115,7 +115,7 @@ class DirectoryMappingView(QFrame):
 
     def show_directory_dialog(self):
         directory_path = QFileDialog.getExistingDirectory(self, "Select a Directory")
-        if len(directory_path) > 3:
+        if len(directory_path) > 6:
             self.ldi_main_path.set_input_text(directory_path)
 
     def fill_directory_listings(self):

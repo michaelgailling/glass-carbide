@@ -91,5 +91,4 @@ if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     mainBase = GCMainView()
     mainBase.show()
-    # directory.show()
     sys.exit(qApp.exec_())
