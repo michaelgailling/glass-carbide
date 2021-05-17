@@ -78,8 +78,8 @@ class HomeView(QFrame):
         self.vbl_left_layout.addWidget(self.hbv_home_buttons)
 
         # Assign methods for buttons
-        self.hbv_home_buttons.startBtn.clicked.connect(lambda: self.set_frame_index(1))
-        self.hbv_home_buttons.openBtn.clicked.connect(lambda: self.set_frame_index(2))
+        self.hbv_home_buttons.btn_start.clicked.connect(lambda: self.set_frame_index(1))
+        self.hbv_home_buttons.btn_open.clicked.connect(lambda: self.set_frame_index(2))
 
         # --------------------------------------------------
         # -----------------vbl_right_layout-----------------
