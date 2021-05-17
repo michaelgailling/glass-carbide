@@ -13,8 +13,9 @@ import asyncio
 import sys
 
 from GC_Config import main_config
-from PySide2.QtGui import QIcon, QPixmap
-from PySide2.QtWidgets import QApplication, QWidget, QMainWindow, QAction, QFrame, QVBoxLayout, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, QLabel, QMessageBox
+from PySide2.QtGui import QIcon
+from PySide2.QtWidgets import QApplication, QWidget, QMainWindow, QAction, QFileDialog, QTableWidget, QTableWidgetItem, QHBoxLayout, \
+    QMessageBox
 
 from GC_Views.DirectoryMappingView import DirectoryMappingView
 from GC_Views.LogoView import LogoView

@@ -11,13 +11,11 @@
 #
 import sys
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QPixmap
-from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget, QMessageBox
+from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget
 from DirectoryMappingView import DirectoryMappingView
 from GC_Services.FileIo import FileIo
 from ExistingDirectoryView import ExistingDirectoryView
-from HomeBtnsView import HomeBtnsView
-from pCloudView import PCloudView
+from GC_Views.HomeBtnsView import HomeBtnsView
 from LogoView import LogoView
 
 

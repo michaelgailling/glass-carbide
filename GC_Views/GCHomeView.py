@@ -11,14 +11,12 @@
 #
 import sys
 from PySide2.QtCore import Qt
-from PySide2.QtGui import QPixmap
-from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget, QMessageBox
+from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget
 from DirectoryMappingView import DirectoryMappingView
 from GC_Services.FileIo import FileIo
 from ExistingDirectoryView import ExistingDirectoryView
+from GC_Views.GCLogoView import GCLogoView
 from HomeBtnsView import HomeBtnsView
-from pCloudView import PCloudView
-from LogoView import LogoView
 
 
 class GCHomeView(QFrame):
@@ -70,7 +68,7 @@ class GCHomeView(QFrame):
         self.vbl_left_layout = QVBoxLayout()
 
         # Initialize vbl_left_layout GUI Elements
-        self.lv_logo = LogoView(parent=self)
+        self.lv_logo = GCLogoView(parent=self)
         self.lbl_instructions = QLabel("Overview of Instructions")
         self.hbv_home_buttons = HomeBtnsView(parent=self)
 

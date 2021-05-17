@@ -11,11 +11,10 @@
 #
 from datetime import datetime
 import sys
-from PySide2.QtCore import Qt
-from PySide2.QtWidgets import QApplication, QComboBox, QFrame, QVBoxLayout, QLabel, QGridLayout, QHBoxLayout, \
-    QPushButton
 
-from GC_Components.InputComponents import LabeledDirectoryInput, LabeledInput, LabeledInputWithButton
+from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QPushButton
+
+from GC_Components.InputComponents import LabeledInputWithButton
 from GC_Components.TableComponents import DataTable, AssetDataTable
 from GC_Services.FileIo import FileIo
 from GC_Services.pcloudAPI import PCloud

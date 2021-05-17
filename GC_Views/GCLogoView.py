@@ -14,7 +14,7 @@ from PySide2.QtGui import QPixmap
 from PySide2.QtWidgets import QFrame, QLabel, QVBoxLayout
 
 
-class LogoView(QFrame):
+class GCLogoView(QFrame):
     """Logo View
 
         Summary:
@@ -50,7 +50,7 @@ class LogoView(QFrame):
             Returns:
                 None
         """
-        super(LogoView, self).__init__(parent)
+        super(GCLogoView, self).__init__(parent)
 
         self.logo = QLabel(self)
         pixmap = QPixmap('../GC_Images/logo.png')

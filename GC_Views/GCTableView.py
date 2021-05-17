@@ -12,7 +12,7 @@
 import sys
 
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QTableWidgetItem, QHBoxLayout, QComboBox
+from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout
 from GC_Services.FileIo import FileIo
 from GC_Components.InputComponents import LabeledFileInput
 from GC_Components.TableComponents import DataTable

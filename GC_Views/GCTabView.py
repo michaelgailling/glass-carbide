@@ -12,8 +12,7 @@
 import sys
 
 from PySide2 import QtCore
-from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QMessageBox, QApplication, QHBoxLayout, QPushButton
-from GC_Components.MainComponents import MainNavButtons
+from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QApplication, QHBoxLayout, QPushButton
 from GC_Views.GCHomeView import GCHomeView
 from GC_Views.GCResultsOutputView import GCResultsOutputView
 from GC_Views.GCTableView import GCTableView
