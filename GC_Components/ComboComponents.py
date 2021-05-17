@@ -22,26 +22,36 @@ class EmbeddableComboBox(QWidget):
                 -{Description} to the {Location eg left}
 
             Attributes:
-                label, {AttributeName}
+                combo, hbox
 
             Methods:
-                get_input_text, {MethodName}
+                current_text, set_editable, add_items
 
             Attributes
             ----------
-                label : QLabel
+                combo : QComboBox
                     Text Label for Input Box
-                {AttributeName} : {AttributeClass}
+                hbox : QHBoxLayout
                     {Property} for {Type}
 
             Methods
             -------
-                get_input_text(self)
-                    Return the text in the input box
-                {MethodName}({Parameters})
-                    {Functionality}
+                current_text(self):
+                    Returns combo box text
+                set_editable(self, editable=False):
+                    Sets combo box as editable
+                add_items(self, items)
+                    Adds list item to combo box
         """
     def __init__(self, parent=None):
+        """
+                Constructs all the necessary attributes for the EmbeddableCombBox  object.
+
+                Parameters
+                ----------
+                    self
+                    parent : QWidget
+                """
         super(EmbeddableComboBox, self).__init__(parent)
 
         self.combo = QComboBox()

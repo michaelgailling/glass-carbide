@@ -30,26 +30,69 @@ class ResultsOutputView(QFrame):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        label, {AttributeName}
+                        data, assets, file_metadata, cloud_scanned, fio, hbl_tables, vbl_controls, vbl_main_layout,
+                        dt_data, dt_assets, liwb_publink, btn_download
 
                     Methods:
-                        get_input_text, {MethodName}
+                        check_pcloud, find_latest_file, download_assets, asset_cell_clicked, load_table_data,
+                        load_asset_data, set_data
 
                     Attributes
                     ----------
-                        label : QLabel
-                            Text Label for Input Box
-                        {AttributeName} : {AttributeClass}
-                            {Property} for {Type}
+                        data : []
+                            Array for selected data from table view
+                        assets : []
+                            Array of selected asset listings
+                        file_metadata : []
+                            !!! for !!!
+                        cloud_scanned : bool
+                            Bool for whether pCloud scan successful
+                        fio : FileIo
+                            !!! File input & output
+                        hbl_tables : QHBoxLayout
+                            HBox layout for tables
+                        vbl_controls : QVBoxLayout
+                            VBox layout for pCloud buttons
+                        vbl_main_layout = QVBoxLayout
+                            Main VBox layout
+                        dt_data : DataTable
+                            Data Table for selected columns and rows
+                        dt_assets : AssetDataTable
+                            Data Table for selected assets
+                        liwb_publink = LabeledInputWithButton
+                            Labeled Input With Button for pCloud/publink access
+                        btn_download = QPushButton
+                            Button to download selected assets
 
                     Methods
                     -------
-                        get_input_text(self)
-                            Return the text in the input box
-                        {MethodName}({Parameters})
-                            {Functionality}
+                        check_pcloud(self)
+                            Checks pCloud/publink for assets
+                        find_latest_file(self, file_data=[])
+                            Returns latest modified file from list of same-named assets
+                        download_assets(self)
+                            Downloads assets to respective directory
+                        asset_cell_clicked(self)
+                            !!! when asset cell is clicked
+                        load_table_data(self, results=[])
+                            Loads selected columns and rows in Data Table
+                        load_asset_data(self, results=[], headers=[])
+                            Loads selected assets in Data Table
+                        set_data(self, data=[])
+                            !!! Sets data to !!!
                 """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+                                    Initialize Results Output View
+
+                                    Parameters:
+                                        self
+                                        parent : QFrame
+                                        file_io : FileIo
+                                            !!! File input & output
+                                    Returns:
+                                        None
+                                """
         # -------------------------------------------init Start-------------------------------------------
         super(ResultsOutputView, self).__init__(parent)
 

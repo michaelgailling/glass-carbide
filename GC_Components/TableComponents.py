@@ -11,10 +11,8 @@
 #
 
 import asyncio
-import sys
-from PySide2.QtGui import QColor, Qt, QBrush
-from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetItem, QApplication, QWidget, QComboBox, \
-    QCheckBox, QHeaderView
+from PySide2.QtGui import QColor, Qt
+from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetItem, QComboBox, QCheckBox, QHeaderView
 
 
 class DataTable(QFrame):
@@ -30,30 +28,67 @@ class DataTable(QFrame):
             -Method for setting and getting cell values
 
         Attributes:
-            table
+            vbox, mappings, selections, readonly, table, width, height
 
         Methods:
-            cell_changed, set_cell_color, set_text_color, set_cell_contents, get_cell_contents, log_cell
+            clear_table, set_dimensions, set_headers, style_headers, insert_control_row, insert_control_column,
+            insert_data_column, create_control_widget, load_table, fit_headers_to_content, cell_changed,
+            set_cell_tooltip, set_cell_color, set_text_color, set_cell_widget, set_cell_text, get_cell_text
 
         Attributes
         ----------
-            table : QTable
-                Table for holding data
+            vbox : QVBoxLayout
+                Vertical Layout
+            mappings : []
+                !!! Array of mappings of !!!
+            selections : []
+                Array of selected rows and columns
+            readonly : bool
+                Variable for whether cell is editable or readonly
+            table : QTableWidget
+                Table to which data is loaded
+            width : int
+                Width of table
+            height : int
+                Height of table
 
         Methods
         -------
+            clear_table(self)
+                Clears table contents
+            set_dimensions(self, width=0, height=0)
+                Sets number of columns and rows in table
+            set_headers(self, headers)
+                Sets table headers
+            style_headers(self)
+                Sets styling for headers
+            insert_control_row(self, widget_type=None, start_index=0, options=[])
+                Inserts control row in table
+            insert_control_column(self, widget_type=None, start_index=0, options=[])
+                Inserts control column in table
+            insert_data_column(self, header="", start_index_y=0, insert_before=True, data=[])
+                Inserts data by column
+            create_control_widget(self, widget_type=None, options=[])
+                Inserts combo boxes if control row or check boxes if control column
+            load_table(self, data=[])
+                Loads data to table
+            fit_headers_to_content(self)
+                Sets header width to fit widest column
             cell_changed(self, y, x)
                 Slot for cell changed signal
+            set_cell_tooltip(self, x=0, y=0, tooltip_text="")
+                Set tooltip for cell
             set_cell_color(self, x=0, y=0, color="white")
                 Sets the background color of the specified cell
             set_text_color(self, x=0, y=0, color="black")
                 Sets the text color of the specified cell
-            set_cell_contents(self, x=0, y=0, text="")
-                Sets the contents of the specified cell
-            get_cell_contents(self, x=0, y=0)
-                Gets the contents of the specified cell
-            log_cell(self, x, y)
-                Prints info about the specified cell
+            set_cell_widget(self,  widget=None, x=0, y=0,)
+                Sets the cell's widget
+            set_cell_text(self, x=0, y=0, text="")
+                Sets the text of the specified cell
+            get_cell_text(self, x=0, y=0)
+                Gets the text of the specified cell
+
     """
     def __init__(self, parent=None, width=0, height=0, readonly=False, log_data=False):
         """
@@ -61,11 +96,16 @@ class DataTable(QFrame):
 
         Parameters
         ----------
-            parent : QWidget
+            self
+            parent : QFrame
             width : int
                 The number of columns
             height : int
                 The number of rows
+            readonly : bool
+                Set readonly status
+            log_data : bool
+                Set log recording status
         """
         super(DataTable, self).__init__(parent)
 
@@ -337,31 +377,45 @@ class AssetDataTable(DataTable):
     """Asset Data Table
 
                 Summary:
-                    A class for {Type} that includes:
-
-                    -{Description} to the {Location eg left}
+                    A class for loading assets in a data table
 
                 Attributes:
-                    label, {AttributeName}
+                    mappings, data, readonly
 
                 Methods:
-                    get_input_text, {MethodName}
+                    load_table
 
                 Attributes
                 ----------
-                    label : QLabel
-                        Text Label for Input Box
-                    {AttributeName} : {AttributeClass}
-                        {Property} for {Type}
+                    mappings : []
+                        !!! Array of mappings of !!!
+                    data : []
+                        Array of data from selected column
+                    readonly : bool
+                        Variable for whether cell is editable or readonly
 
                 Methods
                 -------
-                    get_input_text(self)
-                        Return the text in the input box
-                    {MethodName}({Parameters})
-                        {Functionality}
+                    load_table(self, data=[])
+                        Loads passed in array of assets in DataTable
             """
     def __init__(self,  parent=None, width=0, height=0, readonly=False, log_data=False):
+        """
+                Constructs all the necessary attributes for the AssetDataTable object.
+
+                Parameters
+                ----------
+                    self
+                    parent : DataTable
+                    width : int
+                        The number of columns
+                    height : int
+                        The number of rows
+                    readonly : bool
+                        Set readonly status
+                    log_data : bool
+                        Set log recording status
+                """
         super(AssetDataTable, self).__init__(parent)
         self.readonly = readonly
         self.data = []
@@ -379,14 +433,3 @@ class AssetDataTable(DataTable):
             self.table.setItem(y, 0, cell)
 
         asyncio.run(self.fit_headers_to_content())
-
-
-if __name__ == '__main__':
-    qApp = QApplication(sys.argv)
-    tab = DataTable(width=2, height=1)
-    tab.set_cell_text(0, 0, "Hello")
-    tab.set_cell_color(0, 0, "red")
-    tab.set_cell_text(1, 0, "World")
-    tab.set_cell_color(1, 0, "Green")
-    tab.show()
-    sys.exit(qApp.exec_())

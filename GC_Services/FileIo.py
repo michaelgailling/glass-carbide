@@ -11,26 +11,40 @@ class FileIo:
                     -{Description} to the {Location eg left}
 
                 Attributes:
-                    label, {AttributeName}
+                    project_dir, asset_dir, episode_dir, animatic_dir, sound_dir
 
                 Methods:
-                    get_input_text, {MethodName}
+                    save_file_to_dir, make_dir
 
                 Attributes
                 ----------
-                    label : QLabel
-                        Text Label for Input Box
-                    {AttributeName} : {AttributeClass}
-                        {Property} for {Type}
+                    project_dir : str
+                        Root directory path
+                    asset_dir : str
+                        Asset directory path
+                    episode_dir : str
+                        Episode directory path
+                    animatic_dir : str
+                        Animatics directory path
+                    sound_dir : str
+                        Sounds directory path
 
                 Methods
                 -------
-                    get_input_text(self)
-                        Return the text in the input box
-                    {MethodName}({Parameters})
-                        {Functionality}
+                    save_file_to_dir(self, dir_path, filename, file_bytes)
+                        Saves file to directory
+                    make_dir(self, dir_path)
+                        Creates directories
             """
     def __init__(self):
+        """Constructor:
+            Initialize file browsing service
+
+            Parameters:
+                self
+            Returns:
+                None
+        """
         self.project_dir = ""
         self.asset_dir = ""
         self.episode_dir = ""

@@ -20,35 +20,57 @@ class DirectoryMappingView(QFrame):
     """Directory Mapping View
 
                     Summary:
-                        A class for {Type} that includes:
+                        A class for mapping of directories that includes:
 
-                        -{Description} to the {Location eg left}
+                        -{Description} stacked vertically in the center
 
                     Attributes:
-                        label, {AttributeName}
+                        main_layout, fio, mainPath, assetPath, episodePath, animaticsPath, soundsPath
 
                     Methods:
-                        get_input_text, {MethodName}
+                        get_input_text, make_dirs, dir_getter_filler, get_dir_path
 
                     Attributes
                     ----------
+                        main_layout : QVBoxLayout
+                        dir_path : str
+                            Stores direct path for selected root folder
                         fio : FileIo
-                            !!!File IO description!!!
-                        main_path,asset_path,episode_path,animatics_path,sounds_path : LabeledDirectoryInput
-                            {Property} for {Type}
+                            !!! File input & output
+                        mainPath : LabeledDirectoryInput
+                            Labeled Directory Input for root directory path
+                        assetPath: LabeledDirectoryInput
+                            Labeled Directory Input for asset directory path
+                        episodePath : LabeledDirectoryInput
+                            Labeled Directory Input for episode directory path
+                        animaticsPath : LabeledDirectoryInput
+                            Labeled Directory Input for animatics directory path
+                        soundsPath : LabeledDirectoryInput
+                            Labeled Directory Input for sounds directory path
 
                     Methods
                     -------
                         shared_dir_paths(self)
-                            Return the text in the input box
+                            !!! Auto-generates sub-directory paths
                         make_dirs(self)
-                            {Functionality}
+                            Create directories/folders in root directory
                         dir_getter_filler(self)
-                            {Functionality}
+                            !!! Passes root directory path to TableView
                         get_dir_path(self)
-                            {Functionality}
+                            Returns directory path
                 """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+                    Initialize Directory Mapping View
+
+                    Parameters:
+                        self
+                        parent : QFrame
+                        file_io : FileIo
+                            File input & output
+                    Returns:
+                        None
+                """
         super(DirectoryMappingView, self).__init__(parent)
         self.dir_path = ""
         self.fio = file_io

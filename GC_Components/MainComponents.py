@@ -45,6 +45,14 @@ class MenuBar(QMenuBar):
         """
 
     def __init__(self, parent):
+        """
+                                Constructs all the necessary attributes for the MenuBar object.
+
+                                Parameters
+                                ----------
+                                    self
+                                    parent : QMenuBar
+                                """
         super(MenuBar, self).__init__(parent)
         self.setStyleSheet("background-color: #e6e6e6")
 
@@ -85,27 +93,34 @@ class MainButtons(QHBoxLayout):
                 -{Description} to the {Location eg left}
 
             Attributes:
-                label, {AttributeName}
+                statLbl, continueBtn, cancelBtn
 
             Methods:
-                get_input_text, {MethodName}
+                None
 
             Attributes
             ----------
-                label : QLabel
-                    Text Label for Input Box
-                {AttributeName} : {AttributeClass}
-                    {Property} for {Type}
+                statLbl : QLabel
+                    Blank Label for spacing
+                continueBtn : QPushButton
+                    Pushbutton to continue to next step/tab
+                cancelBtn : QPushButton
+                    Pushbutton to go back to previous step/tab
 
             Methods
             -------
-                get_input_text(self)
-                    Return the text in the input box
-                {MethodName}({Parameters})
-                    {Functionality}
+                None
         """
 
     def __init__(self, parent):
+        """
+                    Constructs all the necessary attributes for the Main Buttons container object.
+
+                    Parameters
+                    ----------
+                        self
+                        parent : QHboxLayout
+                    """
         super(MainButtons, self).__init__(parent)
 
         # Spacer label
@@ -156,6 +171,14 @@ class MainNavButtons(QFrame):
         """
 
     def __init__(self, parent=None):
+        """
+                            Constructs all the necessary attributes for the MainNavBar object.
+
+                            Parameters
+                            ----------
+                                self
+                                parent : QFrame
+                            """
         super(MainNavButtons, self).__init__(parent)
 
         self.layout = QHBoxLayout()
