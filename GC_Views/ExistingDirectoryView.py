@@ -61,6 +61,6 @@ class ExistingDirectoryView(QFrame):
         self.main_layout.addWidget(self.directoryPath)
         self.setLayout(self.main_layout)
         self.setStyleSheet('LabeledDirectoryInput{border:none}')
-        # self.setStyleSheet('border:none')
-        # self.topLevelWidget().setStyleSheet('QFrame{border:none} '
-        #                                    'LabeledDirectoryInput::QLineEdit{border:1px solid #1000A0}')
+        self.setStyleSheet('border:none')
+        self.topLevelWidget().setStyleSheet('QFrame{border:none} '
+                                            'LabeledDirectoryInput::QLineEdit{border:1px solid #1000A0}')

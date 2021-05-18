@@ -12,6 +12,7 @@
 from datetime import datetime
 import sys
 
+from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QPushButton
 
 from GC_Components.InputComponents import LabeledInputWithButton
@@ -128,7 +129,7 @@ class GCResultsOutputView(QFrame):
         self.btn_download.setEnabled(False)
 
         self.vbl_controls.addWidget(self.liwb_publink)
-        self.vbl_controls.addWidget(self.btn_download)
+        self.vbl_controls.addWidget(self.btn_download, alignment=Qt.AlignHCenter)
 
         # -------------------------------------------------
         # -----------------vbl_main_layout-----------------
@@ -141,8 +142,7 @@ class GCResultsOutputView(QFrame):
 
         self.setLayout(self.vbl_main_layout)
         self.setGeometry(0, 0, 900, 600)
-        # self.setStyleSheet('QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6;}'
-        #                    'LabeledInputWithButton QLabel{font-weight:600}')
+        self.setStyleSheet('QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6;}')
 
         # -------------------------------------------init End-------------------------------------------
 

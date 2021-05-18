@@ -10,7 +10,7 @@
 # WIMTACH
 #
 
-from PySide2.QtGui import QPixmap
+from PySide2.QtGui import QPixmap, Qt
 from PySide2.QtWidgets import QFrame, QLabel, QVBoxLayout
 
 
@@ -58,5 +58,5 @@ class GCLogoView(QFrame):
 
         self.main_layout = QVBoxLayout()
 
-        self.main_layout.addWidget(self.logo)
+        self.main_layout.addWidget(self.logo, alignment=Qt.AlignCenter)
         self.setLayout(self.main_layout)

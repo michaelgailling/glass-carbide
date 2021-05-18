@@ -11,6 +11,7 @@
 #
 import sys
 from PySide2.QtCore import Qt
+from PySide2.QtGui import QFont
 from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget, QPushButton
 from GC_Services.FileIo import FileIo
 from ExistingDirectoryView import ExistingDirectoryView
@@ -67,19 +68,26 @@ class GCHomeView(QFrame):
         self.vbl_left_layout = QVBoxLayout()
 
         # Initialize vbl_left_layout GUI Elements
-        self.lv_logo = GCLogoView()
+        # Instructions Label
         self.lbl_instructions = QLabel("Overview of Instructions")
+        self.lbl_instructions.setAlignment(Qt.AlignCenter)
+        font = QFont("Helvetica", 11, 300, True)
+        self.lbl_instructions.setFont(font)
+        self.lbl_instructions.setStyleSheet('QLabel{margin:auto auto 175 auto}')
 
         self.btn_start = QPushButton("New Directory")
         self.btn_open = QPushButton("Existing Directory")
         self.btn_exit = QPushButton("Exit")
+        self.btn_exit.setStyleSheet("margin:75 auto 0 auto;color:#1000A0; background-color:rgb(255,255,255);padding:10;"
+                                    "border:2px solid #1000A0;border-radius:20px")
+        self.btn_start.setStyleSheet('margin-bottom:10')
 
         # Setup vbl_left_layout
-        self.vbl_left_layout.addWidget(self.lv_logo, alignment=Qt.AlignHCenter)
-        self.vbl_left_layout.addWidget(self.lbl_instructions, alignment=Qt.AlignHCenter)
+        self.vbl_left_layout.addWidget(self.lbl_instructions)
         self.vbl_left_layout.addWidget(self.btn_start)
         self.vbl_left_layout.addWidget(self.btn_open)
         self.vbl_left_layout.addWidget(self.btn_exit)
+        self.vbl_left_layout.setAlignment(Qt.AlignCenter)
 
         # Assign methods for buttons
         self.btn_start.clicked.connect(self.set_new_project_frame)
@@ -96,12 +104,12 @@ class GCHomeView(QFrame):
         self.sw_project_setup = QStackedWidget()
 
         # Initialize Directory Mapping Views
-        self.frm_blank = QFrame()
+        self.lv_logo = GCLogoView()
         self.cdv_create_view = GCCreateDirectoryView(None, file_io=self.fio)
         self.edv_existing_view = ExistingDirectoryView(None)
 
         # Add views to sw_project_setup
-        self.sw_project_setup.addWidget(self.frm_blank)
+        self.sw_project_setup.addWidget(self.lv_logo)
         self.sw_project_setup.addWidget(self.cdv_create_view)
         self.sw_project_setup.addWidget(self.edv_existing_view)
 
@@ -118,6 +126,7 @@ class GCHomeView(QFrame):
         self.hbl_main_layout.addItem(self.vbl_left_layout)
         self.hbl_main_layout.addItem(self.vbl_right_layout)
         self.setLayout(self.hbl_main_layout)
+        self.setStyleSheet('QStackedWidget{border:3px solid #1000A0; margin:25 40; padding:20}')
 
         # -------------------------------------------init End-------------------------------------------
 
