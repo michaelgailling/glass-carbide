@@ -176,31 +176,36 @@ class GCResultsOutputView(QFrame):
         apic = PCloud()
         apic.set_region("NA")
 
+        publink_cumulative_data = {}
+
         if self.publinks:
             for publink in self.publinks:
-                if publink:
-                    code = apic.get_code_from_url(publink)
-                    publink_data = apic.get_pub_link_directory(code)
+                code = apic.get_code_from_url(publink)
+                publink_data = apic.get_pub_link_directory(code)["metadata"]
+                if not publink_cumulative_data:
+                    publink_cumulative_data = publink_data
+                else:
+                    publink_cumulative_data["contents"].extend(publink_data["contents"])
 
-                    for i in range(0, len(self.filenames)):
-                        file_data = apic.get_pub_link_file_data(self.filenames[i], publink_data["metadata"])
+            for i in range(0, len(self.filenames)):
+                file_data = apic.get_pub_link_file_data(self.filenames[i], publink_cumulative_data)
 
-                        if not file_data:
-                            self.dt_files.set_cell_color(0, i, color="red")
-                            self.dt_files.set_text_color(0, i, "white")
-                            self.dt_files.set_cell_tooltip(0, i, "File not found!")
-                        elif len(file_data) > 1:
-                            self.dt_files.set_cell_color(0, i, color="yellow")
-                            self.dt_files.set_text_color(0, i, "black")
-                            self.dt_files.set_cell_tooltip(0, i, "Multiple files found! Most Recent Version Used!")
-                            latest_file = self.find_latest_file(file_data=file_data)
-                            if latest_file:
-                                self.file_metadata.append(latest_file)
-                        else:
-                            self.dt_files.set_cell_color(0, i, color="green")
-                            self.dt_files.set_text_color(0, i, "black")
-                            self.dt_files.set_cell_tooltip(0, i, "Exact Match found!")
-                            self.file_metadata.extend(file_data)
+                if not file_data:
+                    self.dt_files.set_cell_color(0, i, color="red")
+                    self.dt_files.set_text_color(0, i, "white")
+                    self.dt_files.set_cell_tooltip(0, i, "File not found!")
+                elif len(file_data) > 1:
+                    self.dt_files.set_cell_color(0, i, color="yellow")
+                    self.dt_files.set_text_color(0, i, "black")
+                    self.dt_files.set_cell_tooltip(0, i, "Multiple files found! Most Recent Version Used!")
+                    latest_file = self.find_latest_file(file_data=file_data)
+                    if latest_file:
+                        self.file_metadata.append(latest_file)
+                else:
+                    self.dt_files.set_cell_color(0, i, color="green")
+                    self.dt_files.set_text_color(0, i, "black")
+                    self.dt_files.set_cell_tooltip(0, i, "Exact Match found!")
+                    self.file_metadata.extend(file_data)
 
             for item in self.file_metadata:
                 print(item)
