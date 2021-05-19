@@ -161,6 +161,7 @@ class GCTabView(QFrame):
 
     def home_view_transition(self):
         frame_index = self.hv_homeView.get_frame_index()
+
         if frame_index == 0:
             self.issue_warning_prompt("Please setup default directory structure!")
 
@@ -173,7 +174,7 @@ class GCTabView(QFrame):
     def table_view_transition(self):
         selection = self.tv_tableView.create_selection()
         if selection:
-            self.rv_resultsView.load_table_data(selection)
+            self.rv_resultsView.load_shot_table_data(selection)
             self.set_tab_index(2)
         else:
             self.issue_warning_prompt("No shots were selected. Cannot Proceed!")
