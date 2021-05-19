@@ -168,13 +168,15 @@ class GCResultsOutputView(QFrame):
 
     def add_cloud_link(self):
         publink = self.liwb_publink.get_input_text()
-        if publink not in self.publinks:
+        if publink and publink not in self.publinks:
             self.publinks.append(publink)
             self.dt_cloud_links.load_table(data=self.publinks)
 
     def check_pcloud(self):
         apic = PCloud()
         apic.set_region("NA")
+
+        self.file_metadata = []
 
         publink_cumulative_data = {}
 
@@ -215,7 +217,7 @@ class GCResultsOutputView(QFrame):
         latest_file = {}
         latest_date = 0
         for item in file_data:
-            if item.name[-3:] == "fla" or item.name[-3:] == "psd":
+            if item.name[-3:] == "fla" or item.name[-3:] == "psd" or item.name[-3:] == "wav" or item.name[-3:] == "mov":
                 modified_date = item.modified
                 modified_date = datetime.strptime(modified_date, '%a, %d %b %Y %H:%M:%S %z')
                 unix_timestamp = modified_date.timestamp()
@@ -227,7 +229,7 @@ class GCResultsOutputView(QFrame):
     def download_assets(self):
         pass
 
-    def asset_cell_clicked(self):
+    def filename_cell_clicked(self):
         pass
 
     def load_shot_table_data(self, selected_shots=[]):
@@ -245,13 +247,15 @@ class GCResultsOutputView(QFrame):
         shot_data = self.dt_shot_data.get_table_data()
 
         raw_filenames = []
-        index = shot_headers.index('ShotCode')
-        for item in shot_data:
-            raw_filenames.insert(-1, item[index])
+        if "ShotCode" in shot_headers:
+            index = shot_headers.index('ShotCode')
+            for item in shot_data:
+                raw_filenames.insert(-1, item[index])
 
-        index = shot_headers.index('Assets')
-        for item in shot_data:
-            raw_filenames.insert(-1, item[index])
+        if "Assets" in shot_headers:
+            index = shot_headers.index('Assets')
+            for item in shot_data:
+                raw_filenames.insert(-1, item[index])
 
         self.filenames = self.create_unique_file_list(raw_filenames)
 
