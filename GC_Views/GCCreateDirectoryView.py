@@ -9,8 +9,7 @@
 # Organization:
 # WIMTACH
 #
-
-
+from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QFrame, QVBoxLayout, QFileDialog, QPushButton, QMessageBox
 from GC_Components.InputComponents import LabeledDirectoryInput
 from GC_Services.FileIo import FileIo
@@ -81,9 +80,11 @@ class GCCreateDirectoryView(QFrame):
         self.vbl_main_layout.addWidget(self.ldi_episode_path)
         self.vbl_main_layout.addWidget(self.ldi_animatics_path)
         self.vbl_main_layout.addWidget(self.ldi_sounds_path)
-        self.vbl_main_layout.addWidget(self.btn_create_new_directory)
+        self.vbl_main_layout.addWidget(self.btn_create_new_directory, alignment=Qt.AlignHCenter)
         self.setLayout(self.vbl_main_layout)
-        self.setStyleSheet('LabeledDirectoryInput{border:none}')
+        self.setStyleSheet('border:none;')
+        self.topLevelWidget().setStyleSheet('QFrame{border:none} '
+                                            'LabeledDirectoryInput::QLineEdit{border:1px solid #1000A0}')
 
     def plan_dir_structure(self):
         self.show_directory_dialog()

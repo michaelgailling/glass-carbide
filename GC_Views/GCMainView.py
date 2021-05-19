@@ -10,8 +10,12 @@
 # WIMTACH
 #
 import sys
+
+from PySide2.QtGui import QFont
+
+from GC_Components.MainComponents import MenuBar
 from GC_Services.FileIo import FileIo
-from PySide2.QtWidgets import QApplication, QMainWindow
+from PySide2.QtWidgets import QApplication, QMainWindow, QStatusBar
 
 from GC_Views.GCTabView import GCTabView
 
@@ -61,20 +65,31 @@ class GCMainView(QMainWindow):
         self.setWindowTitle("Glass Carbide")
         self.setGeometry(0, 0, 900, 600)
 
+        # Tab Widget
         self.tab_widget = GCTabView(self, self.fio)
-        self.tab_widget.setObjectName('tab')
+
+        # Menu Bar
+        self.menuBar = MenuBar(self)
+        self.setMenuBar(self.menuBar)
+
+        # Status Bar
+        self.statusBar = QStatusBar()
+        self.statusBar.showMessage("This is a status message.", 5000)
+        self.setStatusBar(self.statusBar)
+        self.statusBar.setStyleSheet('QStatusBar{border:1px solid #1000A0;background-color:#e6e6e6;border-top:none;}')
 
         # Main window
         self.setCentralWidget(self.tab_widget)
-        self.centralWidget().setContentsMargins(0, 0, 0, 0)
+        self.centralWidget().setContentsMargins(-3, -3, -3, -3)
 
         # Styling
         self.centralWidget().setMinimumSize(900, 600)
-        # self.centralWidget().topLevelWidget().setStyleSheet('border:3px solid #1000A0;font-weight:600')
-        # self.topLevelWidget().setStyleSheet('QFrame#tab{border-top:1.1px solid #1000A0;border-bottom:none;'
-        #                                     'border-left:2px solid #1000A0;border-right:2px solid #1000A0;'
-        #                                     'margin:0;background-color:white;}')
         self.center_screen()
+        self.topLevelWidget().setStyleSheet('QMainWindow{background-color:white;border:1px solid #1000A0;}'
+                                            'MenuBar{border-bottom:1px solid #1000A0;background-color:#e6e6e6;}'
+                                            'QLabel{font-weight:600} QLineEdit{border:1px solid #1000A0}'
+                                            'QPushButton{font-weight:600;background-color:#1000A0;border-radius:20px;'
+                                            'padding:10;color:rgb(255,255,255);margin:1 5;border:2px solid #1000A0;}')
 
         # -------------------------------------------init End-------------------------------------------
 

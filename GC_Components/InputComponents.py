@@ -137,7 +137,7 @@ class LabeledInputWithButton(QFrame):
         self.input.setStyleSheet('border:2px solid #1000a0')
 
         self.button = QPushButton(button_text)
-        self.button.setStyleSheet("background-color:#1000A0;color:white;margin:5 1;padding:12 3;border-radius:10px;"
+        self.button.setStyleSheet("background-color:#1000A0;color:white;margin:5 1;padding:15 5;border-radius:10px;"
                                   "font-weight:600;")
         self.button.setEnabled(btn_enable)
         self.button.setObjectName('browse')
@@ -296,7 +296,7 @@ class LabeledDirectoryInput(QFrame):
         self.input.setReadOnly(read_only)
 
         self.fileDialogButton = QPushButton(self, text="Browse")
-        self.fileDialogButton.setStyleSheet("background-color:#1000A0;color:white;margin:3 0;padding:8 3;"
+        self.fileDialogButton.setStyleSheet("background-color:#1000A0;color:white;margin:3 0;padding:9 5;"
                                             "border-radius:10px")
         self.fileDialogButton.clicked.connect(self.open_directory_dialog)
         self.fileDialogButton.setEnabled(btn_enable)
@@ -480,7 +480,7 @@ class LabeledFileInput(QFrame):
         self.input.setReadOnly(read_only)
 
         self.fileDialogButton = QPushButton(label_text)
-        self.fileDialogButton.setStyleSheet("background-color:#1000A0;color:white;margin:3 0;padding:12 3;"
+        self.fileDialogButton.setStyleSheet("background-color:#1000A0;color:white;margin:3 0;padding:15 5;"
                                             "border-radius:10px;font-weight:600;")
         self.fileDialogButton.clicked.connect(self.open_file_dialog)
         self.fileDialogButton.setEnabled(btn_enable)

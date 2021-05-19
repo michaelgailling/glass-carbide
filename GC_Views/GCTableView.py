@@ -94,9 +94,8 @@ class GCTableView(QFrame):
         self.setLayout(self.vbl_main_layout)
 
         self.setGeometry(0, 0, 800, 600)
-        # self.setStyleSheet('QFrame{font-weight:600;} QLineEdit{border:2px solid #1000A0}'
-        #                    'QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6}'
-        #                    'QCheckBox{width:90%;margin: 0 auto;}')
+        self.setStyleSheet('QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6;}'
+                           'QCheckBox{width:90%;margin: 0 auto;} QTableWidget{font-weight:600}')
 
         # -------------------------------------------init End-------------------------------------------
 
