@@ -75,8 +75,8 @@ class GCHomeView(QFrame):
         self.lbl_instructions.setFont(font)
         self.lbl_instructions.setStyleSheet('QLabel{margin:auto auto 175 auto}')
 
-        self.btn_start = QPushButton("New Directory")
-        self.btn_open = QPushButton("Existing Directory")
+        self.btn_start = QPushButton("Setup Project")
+        # self.btn_open = QPushButton("Existing Directory")
         self.btn_exit = QPushButton("Exit")
         self.btn_exit.setStyleSheet("margin:75 auto 0 auto;color:#1000A0; background-color:rgb(255,255,255);padding:10;"
                                     "border:2px solid #1000A0;border-radius:20px")
@@ -85,13 +85,13 @@ class GCHomeView(QFrame):
         # Setup vbl_left_layout
         self.vbl_left_layout.addWidget(self.lbl_instructions)
         self.vbl_left_layout.addWidget(self.btn_start)
-        self.vbl_left_layout.addWidget(self.btn_open)
+        # self.vbl_left_layout.addWidget(self.btn_open)
         self.vbl_left_layout.addWidget(self.btn_exit)
         self.vbl_left_layout.setAlignment(Qt.AlignCenter)
 
         # Assign methods for buttons
         self.btn_start.clicked.connect(self.set_new_project_frame)
-        self.btn_open.clicked.connect(self.set_existing_project_frame)
+        # self.btn_open.clicked.connect(self.set_existing_project_frame)
         self.btn_exit.clicked.connect(lambda: self.topLevelWidget().close())
 
         # --------------------------------------------------
@@ -106,12 +106,12 @@ class GCHomeView(QFrame):
         # Initialize Directory Mapping Views
         self.lv_logo = GCLogoView()
         self.cdv_create_view = GCCreateDirectoryView(None, file_io=self.fio)
-        self.edv_existing_view = ExistingDirectoryView(None)
+        # self.edv_existing_view = ExistingDirectoryView(None)
 
         # Add views to sw_project_setup
         self.sw_project_setup.addWidget(self.lv_logo)
         self.sw_project_setup.addWidget(self.cdv_create_view)
-        self.sw_project_setup.addWidget(self.edv_existing_view)
+        # self.sw_project_setup.addWidget(self.edv_existing_view)
 
         # Setup vbl_right_layout
         self.vbl_right_layout.addWidget(self.sw_project_setup)

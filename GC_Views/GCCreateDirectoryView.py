@@ -60,7 +60,6 @@ class GCCreateDirectoryView(QFrame):
                 None
         """
         super(GCCreateDirectoryView, self).__init__(parent)
-        self.dir_path = ""
         self.fio = file_io
         self.ldi_main_path = LabeledDirectoryInput(None, label_text="Project Directory: ", read_only=True)
         self.ldi_asset_path = LabeledDirectoryInput(None, label_text="Assets: ", read_only=True)

@@ -20,7 +20,6 @@ from PySide2.QtWidgets import QApplication, QMainWindow, QStatusBar
 from GC_Views.GCTabView import GCTabView
 
 
-
 class GCMainView(QMainWindow):
     """GC Main View
 

@@ -121,30 +121,56 @@ class GCTabView(QFrame):
     def continue_clicked(self):
         tab_index = self.get_tab_index()
         if tab_index == 0:
-            self.handle_home_view_transition()
+            self.home_view_transition()
         elif tab_index == 1:
-            self.handle_table_view_transition()
+            self.table_view_transition()
         elif tab_index == 2:
             pass
 
-    def handle_home_view_transition(self):
+    def dirs_are_valid(self):
+        project_path = self.hv_homeView.cdv_create_view.ldi_main_path.get_input_text()
+        animatic_path = self.hv_homeView.cdv_create_view.ldi_animatics_path.get_input_text()
+        asset_path = self.hv_homeView.cdv_create_view.ldi_asset_path.get_input_text()
+        episode_path = self.hv_homeView.cdv_create_view.ldi_episode_path.get_input_text()
+        sound_path = self.hv_homeView.cdv_create_view.ldi_sounds_path.get_input_text()
+
+        valid_project_path = self.fio.validate_path(project_path)
+        valid_animatic_path = self.fio.validate_path(animatic_path)
+        valid_asset_path = self.fio.validate_path(asset_path)
+        valid_episode_path = self.fio.validate_path(episode_path)
+        valid_sound_path = self.fio.validate_path(sound_path)
+
+        if valid_project_path and valid_animatic_path and valid_asset_path and valid_episode_path and valid_sound_path:
+            return True
+        else:
+            warning_message = "Errors detected in path mapping!"
+            warning_message += "\nPlease ensure the following directories exist!"
+            if not valid_project_path:
+                warning_message += f"\nInvalid - Project Path: {project_path}"
+            if not valid_asset_path:
+                warning_message += f"\nInvalid - Asset Path: {asset_path}"
+            if not valid_animatic_path:
+                warning_message += f"\nInvalid - Animatic Path: {animatic_path}"
+            if not valid_episode_path:
+                warning_message += f"\nInvalid - Episode Path: {episode_path}"
+            if not valid_sound_path:
+                warning_message += f"\nInvalid - Sound Path: {sound_path}"
+
+            self.issue_warning_prompt(warning_message)
+            return False
+
+    def home_view_transition(self):
         frame_index = self.hv_homeView.get_frame_index()
         if frame_index == 0:
             self.issue_warning_prompt("Please setup default directory structure!")
 
         elif frame_index == 1:
-            valid_dir = self.fio.validate_path(self.hv_homeView.cdv_create_view.ldi_main_path.get_input_text())
-            if valid_dir:
+            if self.dirs_are_valid():
                 self.hv_homeView.cdv_create_view.update_fio()
                 self.tv_tableView.lfi_file_select.set_input_text(self.fio.project_dir)
                 self.set_tab_index(1)
-            else:
-                self.issue_warning_prompt("Invalid directory!")
 
-        elif frame_index == 2:
-            self.set_tab_index(1)
-
-    def handle_table_view_transition(self):
+    def table_view_transition(self):
         selection = self.tv_tableView.create_selection()
         if selection:
             self.rv_resultsView.load_table_data(selection)
