@@ -111,6 +111,8 @@ class DataTable(QFrame):
         """
         super(DataTable, self).__init__(parent)
 
+        self.headers =[]
+
         self.mappings = []
         self.selections = []
         self.readonly = readonly
@@ -122,6 +124,7 @@ class DataTable(QFrame):
 
         if log_data:
             self.table.cellChanged.connect(self.cell_changed)
+        self.table.verticalHeader().hide()
 
         self.vbox = QVBoxLayout()
         self.vbox.addWidget(self.table)
@@ -137,10 +140,17 @@ class DataTable(QFrame):
         self.table.setColumnCount(width)
         self.table.setRowCount(height)
 
+    def get_dimensions(self):
+        return {"x": self.width, "y": self.height}
+
     def set_headers(self, headers):
+        self.headers = headers
         self.table.setHorizontalHeaderLabels(headers)
         self.table.horizontalHeader().setStyleSheet('color:#1000A0')
         self.style_headers()
+
+    def get_headers(self):
+        return self.headers
 
     def style_headers(self):
         self.table.horizontalHeader().setStyleSheet("::section{background-color:#1000A0;color:white;font-weight:bold}")
@@ -213,11 +223,24 @@ class DataTable(QFrame):
                     cell.setFlags(Qt.ItemIsEditable)
                 self.table.setItem(y, x, cell)
 
-        asyncio.run(self.fit_headers_to_content())
+        # asyncio.run(self.fit_headers_to_content())
+
+    def get_table_data(self):
+        table_data = []
+
+        for y in range(self.height):
+            table_row = []
+
+            for x in range(self.width):
+                table_row.append(self.get_cell_text(x, y))
+
+            table_data.append(table_row)
+
+        return table_data
+
 
     async def fit_headers_to_content(self):
         header = self.table.horizontalHeader()
-        self.table.verticalHeader().hide()
         width = self.table.columnCount()
         for i in range(width):
             header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
@@ -375,7 +398,7 @@ class DataTable(QFrame):
         print()
 
 
-class AssetDataTable(DataTable):
+class SimpleDataTable(DataTable):
     """Asset Data Table
 
         Summary:
@@ -419,7 +442,7 @@ class AssetDataTable(DataTable):
                 log_data : bool
                     Set log recording status
         """
-        super(AssetDataTable, self).__init__(parent)
+        super(SimpleDataTable, self).__init__(parent)
         self.readonly = readonly
         self.data = []
         self.mappings = []
@@ -441,9 +464,12 @@ class AssetDataTable(DataTable):
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     tab = DataTable(width=2, height=1)
+    tab.set_headers(["one", "two"])
     tab.set_cell_text(0, 0, "Hello")
     tab.set_cell_color(0, 0, "red")
     tab.set_cell_text(1, 0, "World")
     tab.set_cell_color(1, 0, "Green")
     tab.show()
+    print(tab.get_headers())
+    print(tab.get_table_data())
     sys.exit(qApp.exec_())
