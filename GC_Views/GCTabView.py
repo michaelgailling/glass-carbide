@@ -182,6 +182,7 @@ class GCTabView(QFrame):
     def issue_warning_prompt(self, message=""):
         msg_warning = QMessageBox()
         msg_warning.setIcon(QMessageBox.Warning)
+        msg_warning.setWindowTitle("Alert")
         msg_warning.setText(message)
         msg_warning.exec_()
 

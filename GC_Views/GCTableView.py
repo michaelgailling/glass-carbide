@@ -12,7 +12,7 @@
 import sys
 
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout
+from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QMessageBox
 from GC_Services.FileIo import FileIo
 from GC_Components.InputComponents import LabeledFileInput
 from GC_Components.TableComponents import DataTable
@@ -127,6 +127,12 @@ class GCTableView(QFrame):
             self.dt_table.insert_control_column("checkbox", 1)
 
             self.dt_table.set_headers(csv_headers)
+        else:
+            msg_warning = QMessageBox()
+            msg_warning.setIcon(QMessageBox.Warning)
+            msg_warning.setWindowTitle("Before Loading")
+            msg_warning.setText("Select CSV to Load")
+            msg_warning.exec_()
 
     def create_selection(self):
         width = self.dt_table.width

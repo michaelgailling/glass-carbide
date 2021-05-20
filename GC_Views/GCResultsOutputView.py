@@ -19,6 +19,7 @@ from GC_Components.InputComponents import LabeledInputWithButton
 from GC_Components.TableComponents import DataTable, SimpleDataTable
 from GC_Services.FileIo import FileIo
 from GC_Services.pcloudAPI import PCloud
+from GCFileDetailsView import FileDetailsView
 
 
 class GCResultsOutputView(QFrame):
@@ -141,12 +142,13 @@ class GCResultsOutputView(QFrame):
 
         # Download Button
         self.btn_download = QPushButton(text="Download Scanned Files")
-        self.btn_download.clicked.connect(self.download_assets)
-        self.btn_download.setEnabled(False)
+        # self.btn_download.clicked.connect(self.download_assets)
+        # self.btn_download.setEnabled(False)
+        self.btn_download.clicked.connect(self.test_popup)
 
         self.vbl_control_buttons.addWidget(self.liwb_publink)
-        self.vbl_control_buttons.addWidget(self.btn_scan)
-        self.vbl_control_buttons.addWidget(self.btn_download)
+        self.vbl_control_buttons.addWidget(self.btn_scan, alignment=Qt.AlignHCenter)
+        self.vbl_control_buttons.addWidget(self.btn_download, alignment=Qt.AlignHCenter)
 
         self.hbl_controls.addWidget(self.dt_cloud_links)
         self.hbl_controls.addLayout(self.vbl_control_buttons)
@@ -157,7 +159,7 @@ class GCResultsOutputView(QFrame):
         self.vbl_main_layout = QVBoxLayout()
 
         self.vbl_main_layout.addLayout(self.hbl_tables, stretch=4)
-        self.vbl_main_layout.addLayout(self.hbl_controls, stretch=2)
+        self.vbl_main_layout.addLayout(self.hbl_controls, stretch=1)
         self.vbl_main_layout.setContentsMargins(30, 20, 30, 30)
 
         self.setLayout(self.vbl_main_layout)
@@ -277,6 +279,11 @@ class GCResultsOutputView(QFrame):
 
     def set_data(self, data=[]):
         self.data = data
+
+    def test_popup(self):
+        popup_frame = FileDetailsView()
+        popup_frame.show()
+        popup_frame.exec_()
 
 
 if __name__ == '__main__':
