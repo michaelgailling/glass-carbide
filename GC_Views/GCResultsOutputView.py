@@ -9,6 +9,7 @@
 # Organization:
 # WIMTACH
 #
+import json
 from datetime import datetime
 import sys
 
@@ -40,7 +41,7 @@ class GCResultsOutputView(QFrame):
 
         Attributes
         ----------
-            data : []
+            shot_data : []
                 Array for selected data from table view
             files : []
                 Array of selected asset listings
@@ -97,13 +98,14 @@ class GCResultsOutputView(QFrame):
         # -------------------------------------------init Start-------------------------------------------
         super(GCResultsOutputView, self).__init__(parent)
 
-        self.data = []
+        self.shot_data = []
         self.filenames = []
         self.file_metadata = []
         self.publinks = []
         self.cloud_scanned = False
         self.fio = file_io
-
+        self.apic = PCloud()
+        self.apic.set_region("NA")
         # ----------------------------------------------
         # -----------------hbl_tables-------------------
         # ----------------------------------------------
@@ -173,47 +175,69 @@ class GCResultsOutputView(QFrame):
         if publink and publink not in self.publinks:
             self.publinks.append(publink)
             self.dt_cloud_links.load_table(data=self.publinks)
+            self.liwb_publink.set_input_text("")
+
+    def get_codes(self):
+        codes = []
+        for publink in self.publinks:
+            codes.append(self.apic.get_code_from_url(publink))
+        return codes
+
+    def get_publink_data(self, codes=[]):
+        publink_data = []
+        if codes:
+            for code in codes:
+                data = self.apic.get_pub_link_directory(code)["metadata"]
+                publink_data.append(data)
+            return publink_data
+        else:
+            return None
 
     def check_pcloud(self):
-        apic = PCloud()
-        apic.set_region("NA")
+        self.search_for_files()
+        self.color_cells()
 
-        self.file_metadata = []
+    def search_for_files(self):
+        if codes := self.get_codes():
+            if publink_data:= self.get_publink_data(codes):
+                self.file_metadata = []
+                for filename in self.filenames:
+                    for i in range(len(publink_data)):
+                        found_files = self.apic.get_pub_link_file_data(filename, publink_data[i])
+                        if found_files:
+                            if type(found_files) is list:
+                                for file in found_files:
+                                    file.publink_code = codes[i]
+                                    self.file_metadata.append(file)
+                            else:
+                                file.publink_code = codes[i]
+                                self.file_metadata.append(found_files)
 
-        publink_cumulative_data = {}
+                for file in self.file_metadata:
+                    print(file)
 
-        if self.publinks:
-            for publink in self.publinks:
-                code = apic.get_code_from_url(publink)
-                publink_data = apic.get_pub_link_directory(code)["metadata"]
-                if not publink_cumulative_data:
-                    publink_cumulative_data = publink_data
-                else:
-                    publink_cumulative_data["contents"].extend(publink_data["contents"])
+    def color_cells(self):
+        for i in range(len(self.filenames)):
+            filename = self.filenames[i]
+            matched_files = []
+            for file_data in self.file_metadata:
+                if filename in file_data.name:
+                    matched_files.append(file_data)
 
-            for i in range(0, len(self.filenames)):
-                file_data = apic.get_pub_link_file_data(self.filenames[i], publink_cumulative_data)
+            number_of_matches = len(matched_files)
 
-                if not file_data:
-                    self.dt_files.set_cell_color(0, i, color="red")
-                    self.dt_files.set_text_color(0, i, "white")
-                    self.dt_files.set_cell_tooltip(0, i, "File not found!")
-                elif len(file_data) > 1:
-                    self.dt_files.set_cell_color(0, i, color="yellow")
-                    self.dt_files.set_text_color(0, i, "black")
-                    self.dt_files.set_cell_tooltip(0, i, "Multiple files found! Most Recent Version Used!")
-                    latest_file = self.find_latest_file(file_data=file_data)
-                    if latest_file:
-                        self.file_metadata.append(latest_file)
-                else:
-                    self.dt_files.set_cell_color(0, i, color="green")
-                    self.dt_files.set_text_color(0, i, "black")
-                    self.dt_files.set_cell_tooltip(0, i, "Exact Match found!")
-                    self.file_metadata.extend(file_data)
-
-            for item in self.file_metadata:
-                print(item)
-            self.cloud_scanned = True
+            if number_of_matches == 0:
+                self.dt_files.set_cell_color(0, i, color="red")
+                self.dt_files.set_text_color(0, i, "white")
+                self.dt_files.set_cell_tooltip(0, i, "File not found!")
+            elif number_of_matches == 1:
+                self.dt_files.set_cell_color(0, i, color="yellow")
+                self.dt_files.set_text_color(0, i, "black")
+                self.dt_files.set_cell_tooltip(0, i, "Multiple files found! Most Recent Version Used!")
+            elif number_of_matches > 1:
+                self.dt_files.set_cell_color(0, i, color="green")
+                self.dt_files.set_text_color(0, i, "black")
+                self.dt_files.set_cell_tooltip(0, i, "Exact Match found!")
 
     def find_latest_file(self, file_data=[]):
         latest_file = {}
@@ -277,8 +301,8 @@ class GCResultsOutputView(QFrame):
                 asset_set.add(item)
         return list(asset_set)
 
-    def set_data(self, data=[]):
-        self.data = data
+    def set_shot_data(self, data=[]):
+        self.shot_data = data
 
     def test_popup(self):
         popup_frame = FileDetailsView()
