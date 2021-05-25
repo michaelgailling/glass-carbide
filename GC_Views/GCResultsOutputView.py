@@ -203,8 +203,7 @@ class GCResultsOutputView(QFrame):
                 self.file_metadata = []
                 for filename in self.filenames:
                     for i in range(len(publink_data)):
-                        found_files = self.apic.get_pub_link_file_data(filename, publink_data[i])
-                        if found_files:
+                        if found_files := self.apic.get_pub_link_file_data(filename, publink_data[i]):
                             if type(found_files) is list:
                                 for file in found_files:
                                     file.publink_code = codes[i]
@@ -233,7 +232,7 @@ class GCResultsOutputView(QFrame):
             elif number_of_matches == 1:
                 self.dt_files.set_cell_color(0, i, color="yellow")
                 self.dt_files.set_text_color(0, i, "black")
-                self.dt_files.set_cell_tooltip(0, i, "Multiple files found! Most Recent Version Used!")
+                self.dt_files.set_cell_tooltip(0, i, "Multiple files found!")
             elif number_of_matches > 1:
                 self.dt_files.set_cell_color(0, i, color="green")
                 self.dt_files.set_text_color(0, i, "black")
