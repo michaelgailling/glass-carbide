@@ -195,7 +195,11 @@ class GCResultsOutputView(QFrame):
 
     def check_pcloud(self):
         self.search_for_files()
+        self.classify_files()
         self.color_cells()
+
+        for file in self.file_metadata:
+            print(file)
 
     def search_for_files(self):
         if codes := self.get_codes():
@@ -212,17 +216,33 @@ class GCResultsOutputView(QFrame):
                                 file.publink_code = codes[i]
                                 self.file_metadata.append(found_files)
 
-                for file in self.file_metadata:
-                    print(file)
+    def get_matching_files(self, filename=""):
+        matched_files = []
+        for file_data in self.file_metadata:
+            if filename in file_data.name:
+                matched_files.append(file_data)
+        return matched_files
+
+    def classify_files(self):
+        file_extensions = {
+            "audio": ["wav", "mp3", "ogg", "flac"],
+            "video": ["mov", "mp4", "mpg", "avi", "wmv"],
+            "image": ["jpg", "gif", "bmp", "fla", "psd", "png"]
+        }
+
+        for i in range(len(self.file_metadata)):
+            file_data = self.file_metadata[i]
+            file_extension = file_data.name[-4:]
+            for file_type in file_extensions:
+                if not self.file_metadata[i].file_type:
+                    for extension in file_extensions[file_type]:
+                        if extension in file_extension:
+                            self.file_metadata[i].file_type = str(file_type)
 
     def color_cells(self):
         for i in range(len(self.filenames)):
             filename = self.filenames[i]
-            matched_files = []
-            for file_data in self.file_metadata:
-                if filename in file_data.name:
-                    matched_files.append(file_data)
-
+            matched_files = self.get_matching_files(filename)
             number_of_matches = len(matched_files)
 
             if number_of_matches == 0:
