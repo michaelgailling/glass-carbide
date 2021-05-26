@@ -527,7 +527,7 @@ class PCloud:
             self.temp_storage.append(file_obj)
             return None
 
-    async def get_pub_link_download(self, code="", file_id=""):
+    def get_pub_link_download(self, code="", file_id=""):
         if code and file_id:
             method_params = {
                 "code": code,
@@ -541,7 +541,7 @@ class PCloud:
 
             return res_obj
 
-    async def download_file(self, url):
+    def download_file(self, url):
         if url:
             res = requests.get(url)
 

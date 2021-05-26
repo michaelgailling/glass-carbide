@@ -46,11 +46,11 @@ class GCTabView(QFrame):
         # -------------------------------------------init Start-------------------------------------------
         super(GCTabView, self).__init__(parent)
         self.fio = file_io
-
+        self.parent = parent
         # Views for tabs
-        self.hv_homeView = GCHomeView(None,self.fio)
-        self.tv_tableView = GCTableView(None,self.fio)
-        self.rv_resultsView = GCResultsOutputView(None,self.fio)
+        self.hv_homeView = GCHomeView(self, self.fio)
+        self.tv_tableView = GCTableView(self, self.fio)
+        self.rv_resultsView = GCResultsOutputView(self, self.fio)
 
         # ----------------------------------------------
         # -----------------hbl_tab_layout-----------------
