@@ -134,23 +134,23 @@ class GCResultsOutputView(QFrame):
         self.dt_cloud_links.set_headers(["Publinks"])
 
         # Publink labeled input with button
-        self.liwb_publink = LabeledInputWithButton(self, label_text="pCloud Publink: ", button_text="Add Link")
-        self.liwb_publink.button.clicked.connect(self.add_cloud_link)
+        self.liwb_add_publink = LabeledInputWithButton(self, label_text="pCloud Publink: ", button_text="Add Link")
+        self.liwb_add_publink.button.clicked.connect(self.add_publink_clicked)
 
         # vbl_control_buttons
         self.vbl_control_buttons = QVBoxLayout()
 
         # Scan button
         self.btn_scan = QPushButton(text="Scan Linked Repos")
-        self.btn_scan.clicked.connect(self.check_pcloud)
+        self.btn_scan.clicked.connect(self.scan_pcloud_clicked)
 
         # Download Button
-        self.btn_download = QPushButton(text="Download Scanned Files")
-        self.btn_download.clicked.connect(self.download_files)
+        self.btn_download_files = QPushButton(text="Download Scanned Files")
+        self.btn_download_files.clicked.connect(self.download_files)
 
-        self.vbl_control_buttons.addWidget(self.liwb_publink)
+        self.vbl_control_buttons.addWidget(self.liwb_add_publink)
         self.vbl_control_buttons.addWidget(self.btn_scan, alignment=Qt.AlignHCenter)
-        self.vbl_control_buttons.addWidget(self.btn_download, alignment=Qt.AlignHCenter)
+        self.vbl_control_buttons.addWidget(self.btn_download_files, alignment=Qt.AlignHCenter)
 
         self.hbl_controls.addWidget(self.dt_cloud_links)
         self.hbl_controls.addLayout(self.vbl_control_buttons)
@@ -169,37 +169,65 @@ class GCResultsOutputView(QFrame):
         self.setStyleSheet('QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6;}')
 
         # -------------------------------------------init End-------------------------------------------
+    def add_publink_clicked(self):
+        self.add_publink_to_table()
 
-    def add_cloud_link(self):
-        publink = self.liwb_publink.get_input_text()
-        if publink and publink not in self.publinks:
-            self.publinks.append(publink)
-            self.dt_cloud_links.load_table(data=self.publinks)
-            self.liwb_publink.set_input_text("")
-
-    def get_codes(self):
-        codes = []
-        for publink in self.publinks:
-            codes.append(self.apic.get_code_from_url(publink))
-        return codes
-
-    def get_publink_data(self, codes=[]):
-        publink_data = []
-        if codes:
-            for code in codes:
-                data = self.apic.get_pub_link_directory(code)["metadata"]
-                publink_data.append(data)
-            return publink_data
-        else:
-            return None
-
-    def check_pcloud(self):
+    def scan_pcloud_clicked(self):
         self.search_for_files()
         self.classify_files()
         self.color_filename_cells()
         self.color_shot_table()
         for file in self.file_metadata:
             print(file)
+
+    def download_files_clicked(self):
+        self.download_files()
+
+    def load_shot_table_data(self, selected_shots=[]):
+        try:
+            headers = selected_shots.pop(0)
+            self.dt_shot_data.load_table(selected_shots)
+            self.dt_shot_data.set_headers(headers)
+
+            self.load_filename_table()
+        except IndexError or PermissionError:
+            pass
+
+    def load_filename_table(self):
+        shot_headers = self.dt_shot_data.get_headers()
+        shot_data = self.dt_shot_data.get_table_data()
+
+        raw_filenames = []
+        if "ShotCode" in shot_headers:
+            index = shot_headers.index('ShotCode')
+            for item in shot_data:
+                raw_filenames.insert(-1, item[index])
+
+        if "Assets" in shot_headers:
+            index = shot_headers.index('Assets')
+            for item in shot_data:
+                raw_filenames.insert(-1, item[index])
+
+        self.filenames = self.create_unique_filename_list(raw_filenames)
+
+        self.filenames.sort()
+        self.dt_files.set_dimensions(1, len(shot_data))
+        header = ["Filenames"]
+        self.dt_files.set_headers(header)
+        self.dt_files.load_table(self.filenames)
+
+    def add_publink_to_table(self):
+        publink = self.liwb_add_publink.get_input_text()
+        if publink and publink not in self.publinks:
+            self.publinks.append(publink)
+            self.dt_cloud_links.load_table(data=self.publinks)
+            self.liwb_add_publink.set_input_text("")
+
+    def get_codes(self):
+        codes = []
+        for publink in self.publinks:
+            codes.append(self.apic.get_code_from_url(publink))
+        return codes
 
     def search_for_files(self):
         if codes := self.get_codes():
@@ -216,12 +244,15 @@ class GCResultsOutputView(QFrame):
                                 file.publink_code = codes[i]
                                 self.file_metadata.append(found_files)
 
-    def get_matching_files(self, filename=""):
-        matched_files = []
-        for file_data in self.file_metadata:
-            if filename in file_data.name:
-                matched_files.append(file_data)
-        return matched_files
+    def get_publink_data(self, codes=[]):
+        publink_data = []
+        if codes:
+            for code in codes:
+                data = self.apic.get_pub_link_directory(code)["metadata"]
+                publink_data.append(data)
+            return publink_data
+        else:
+            return None
 
     def classify_files(self):
         file_extensions = {
@@ -288,6 +319,13 @@ class GCResultsOutputView(QFrame):
                             self.dt_shot_data.set_text_color(x, y, "black")
                             self.dt_shot_data.set_cell_tooltip(x, y, "Exact Match found!")
 
+    def get_matching_files(self, filename=""):
+        matched_files = []
+        for file_data in self.file_metadata:
+            if filename in file_data.name:
+                matched_files.append(file_data)
+        return matched_files
+
     def find_latest_file(self, file_data=[]):
         latest_file = {}
         latest_date = 0
@@ -304,11 +342,11 @@ class GCResultsOutputView(QFrame):
     def download_files(self):
         num_processed = 0
         num_of_files = len(self.file_metadata)
-        main_window = self.parent.parent
         progress = 0
-        main_window.progress_bar.setValue(0)
+        self.update_progress_bar(progress)
 
         for file_data in self.file_metadata:
+
             code = file_data.publink_code
             file_id = file_data.fileid
 
@@ -327,42 +365,14 @@ class GCResultsOutputView(QFrame):
                 dir_path = self.fio.asset_dir
 
             self.fio.save_file_to_dir(dir_path, file_data.name, downloaded_file)
+
             num_processed += 1
             progress = floor((num_processed / num_of_files) * 100)
-            main_window.progress_bar.setValue(progress)
+            self.update_progress_bar(progress)
 
-    def load_shot_table_data(self, selected_shots=[]):
-        try:
-            headers = selected_shots.pop(0)
-            self.dt_shot_data.load_table(selected_shots)
-            self.dt_shot_data.set_headers(headers)
-
-            self.load_filename_table()
-        except IndexError or PermissionError:
-            pass
-
-    def load_filename_table(self):
-        shot_headers = self.dt_shot_data.get_headers()
-        shot_data = self.dt_shot_data.get_table_data()
-
-        raw_filenames = []
-        if "ShotCode" in shot_headers:
-            index = shot_headers.index('ShotCode')
-            for item in shot_data:
-                raw_filenames.insert(-1, item[index])
-
-        if "Assets" in shot_headers:
-            index = shot_headers.index('Assets')
-            for item in shot_data:
-                raw_filenames.insert(-1, item[index])
-
-        self.filenames = self.create_unique_filename_list(raw_filenames)
-
-        self.filenames.sort()
-        self.dt_files.set_dimensions(1, len(shot_data))
-        header = ["Filenames"]
-        self.dt_files.set_headers(header)
-        self.dt_files.load_table(self.filenames)
+    def update_progress_bar(self, percent=0):
+        main_window = self.parent.parent
+        main_window.progress_bar.setValue(percent)
 
     def create_unique_filename_list(self, assets=[]):
         asset_set = set()
