@@ -196,14 +196,14 @@ class GCResultsOutputView(QFrame):
     def check_pcloud(self):
         self.search_for_files()
         self.classify_files()
-        self.color_cells()
-
+        self.color_filename_cells()
+        self.color_shot_table()
         for file in self.file_metadata:
             print(file)
 
     def search_for_files(self):
         if codes := self.get_codes():
-            if publink_data:= self.get_publink_data(codes):
+            if publink_data := self.get_publink_data(codes):
                 self.file_metadata = []
                 for filename in self.filenames:
                     for i in range(len(publink_data)):
@@ -239,7 +239,7 @@ class GCResultsOutputView(QFrame):
                         if extension in file_extension:
                             self.file_metadata[i].file_type = str(file_type)
 
-    def color_cells(self):
+    def color_filename_cells(self):
         for i in range(len(self.filenames)):
             filename = self.filenames[i]
             matched_files = self.get_matching_files(filename)
@@ -249,14 +249,44 @@ class GCResultsOutputView(QFrame):
                 self.dt_files.set_cell_color(0, i, color="red")
                 self.dt_files.set_text_color(0, i, "white")
                 self.dt_files.set_cell_tooltip(0, i, "File not found!")
-            elif number_of_matches == 1:
+            elif number_of_matches > 1:
                 self.dt_files.set_cell_color(0, i, color="yellow")
                 self.dt_files.set_text_color(0, i, "black")
                 self.dt_files.set_cell_tooltip(0, i, "Multiple files found!")
-            elif number_of_matches > 1:
+            elif number_of_matches == 1:
                 self.dt_files.set_cell_color(0, i, color="green")
                 self.dt_files.set_text_color(0, i, "black")
                 self.dt_files.set_cell_tooltip(0, i, "Exact Match found!")
+
+    def color_shot_table(self):
+        for i in range(len(self.filenames)):
+            filename = self.filenames[i]
+            matched_files = self.get_matching_files(filename)
+            number_of_matches = len(matched_files)
+
+            dimensions = self.dt_shot_data.get_dimensions()
+
+            for y in range(dimensions["y"]):
+                for x in range(dimensions["x"]):
+                    cell_text = self.dt_shot_data.get_cell_text(x, y)
+                    if "," in cell_text:
+                        cell_text = cell_text.split(",")
+                    else:
+                        cell_text = [cell_text]
+
+                    if filename in cell_text:
+                        if number_of_matches == 0:
+                            self.dt_shot_data.set_cell_color(x, y, color="red")
+                            self.dt_shot_data.set_text_color(x, y, "white")
+                            self.dt_shot_data.set_cell_tooltip(x, y, "File not found!")
+                        elif number_of_matches > 1:
+                            self.dt_shot_data.set_cell_color(x, y, color="yellow")
+                            self.dt_shot_data.set_text_color(x, y, "black")
+                            self.dt_shot_data.set_cell_tooltip(x, y, "Multiple files found!")
+                        elif number_of_matches == 1:
+                            self.dt_shot_data.set_cell_color(x, y, color="green")
+                            self.dt_shot_data.set_text_color(x, y, "black")
+                            self.dt_shot_data.set_cell_tooltip(x, y, "Exact Match found!")
 
     def find_latest_file(self, file_data=[]):
         latest_file = {}
@@ -302,7 +332,7 @@ class GCResultsOutputView(QFrame):
             for item in shot_data:
                 raw_filenames.insert(-1, item[index])
 
-        self.filenames = self.create_unique_file_list(raw_filenames)
+        self.filenames = self.create_unique_filename_list(raw_filenames)
 
         self.filenames.sort()
         self.dt_files.set_dimensions(1, len(shot_data))
@@ -310,7 +340,8 @@ class GCResultsOutputView(QFrame):
         self.dt_files.set_headers(header)
         self.dt_files.load_table(self.filenames)
 
-    def create_unique_file_list(self, assets=[]):
+
+    def create_unique_filename_list(self, assets=[]):
         asset_set = set()
         for item in assets:
             if "," in item:
