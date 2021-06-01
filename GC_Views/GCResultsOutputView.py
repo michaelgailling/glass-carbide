@@ -15,7 +15,7 @@ from datetime import datetime
 import sys
 from math import floor
 
-from PySide2.QtCore import Qt
+from PySide2.QtCore import Qt, QThreadPool, Slot
 from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QPushButton
 
 from GC_Components.InputComponents import LabeledInputWithButton
@@ -23,6 +23,7 @@ from GC_Components.TableComponents import DataTable, SimpleDataTable
 from GC_Services.FileIo import FileIo
 from GC_Services.pcloudAPI import PCloud
 from GCFileDetailsView import FileDetailsView
+from GC_Threading.Worker import DownloadWorker
 
 
 class GCResultsOutputView(QFrame):
@@ -108,6 +109,9 @@ class GCResultsOutputView(QFrame):
         self.fio = file_io
         self.apic = PCloud()
         self.apic.set_region("NA")
+
+        self.threadpool = QThreadPool()
+        print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
         # ----------------------------------------------
         # -----------------hbl_tables-------------------
         # ----------------------------------------------
@@ -340,39 +344,21 @@ class GCResultsOutputView(QFrame):
         return latest_file
 
     def download_files(self):
-        num_processed = 0
-        num_of_files = len(self.file_metadata)
-        progress = 0
-        self.update_progress_bar(progress)
+        self.btn_download_files.setEnabled(False)
+        print("Download Button Pressed")
+        worker = DownloadWorker(self.file_metadata, self.fio)
+        worker.signals.update_progress.connect(self.update_progress_bar)
+        worker.signals.finished.connect(self.download_finished)
+        self.threadpool.start(worker)
 
-        for file_data in self.file_metadata:
-
-            code = file_data.publink_code
-            file_id = file_data.fileid
-
-            download_data = self.apic.get_pub_link_download(code, file_id)
-            download_link = f"http://{download_data['hosts'][0]}{download_data['path']}"
-            downloaded_file = self.apic.download_file(download_link)
-
-            file_type = file_data.file_type
-            dir_path = ""
-
-            if file_type == "audio":
-                dir_path = self.fio.sound_dir
-            elif file_type == "video":
-                dir_path = self.fio.animatic_dir
-            elif file_type == "image":
-                dir_path = self.fio.asset_dir
-
-            self.fio.save_file_to_dir(dir_path, file_data.name, downloaded_file)
-
-            num_processed += 1
-            progress = floor((num_processed / num_of_files) * 100)
-            self.update_progress_bar(progress)
-
+    @Slot()
     def update_progress_bar(self, percent=0):
         main_window = self.parent.parent
         main_window.progress_bar.setValue(percent)
+
+    @Slot()
+    def download_finished(self):
+        self.btn_download_files.setEnabled(True)
 
     def create_unique_filename_list(self, assets=[]):
         asset_set = set()
