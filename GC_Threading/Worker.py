@@ -1,0 +1,79 @@
+import sys
+import traceback
+from datetime import time
+
+from math import floor
+
+from PySide2.QtCore import QRunnable, Slot, QObject, Signal
+
+from GC_Services import pcloudAPI
+from GC_Services.FileIo import FileIo
+from GC_Services.pcloudAPI import PCloud
+
+
+class DownloadWorkerSignals(QObject):
+    '''
+    Defines the signals available from a running worker thread.
+
+    Supported signals are:
+
+    progress
+        returns percent as an integer
+    finished
+        No data
+    '''
+    update_progress = Signal(int)
+    finished = Signal()
+
+
+class DownloadWorker(QRunnable):
+    '''
+    Download Worker Thread
+    '''
+
+    def __init__(self, file_metadata, fio=FileIo()):
+        super(DownloadWorker, self).__init__()
+
+        self.file_metadata = file_metadata
+
+        self.apic = PCloud()
+        self.apic.set_region("NA")
+        self.fio = fio
+
+        self.signals = DownloadWorkerSignals()
+
+    @Slot()
+    def run(self):
+        num_processed = 0
+        num_of_files = len(self.file_metadata)
+        progress = 0
+        self.signals.update_progress.emit(progress)
+
+        for file_data in self.file_metadata:
+
+            print(f"Downloading: {file_data.name}")
+
+            code = file_data.publink_code
+            file_id = file_data.fileid
+
+            download_data = self.apic.get_pub_link_download(code, file_id)
+            download_link = f"http://{download_data['hosts'][0]}{download_data['path']}"
+            downloaded_file = self.apic.download_file(download_link)
+
+            file_type = file_data.file_type
+            dir_path = ""
+
+            if file_type == "audio":
+                dir_path = self.fio.sound_dir
+            elif file_type == "video":
+                dir_path = self.fio.animatic_dir
+            elif file_type == "image":
+                dir_path = self.fio.asset_dir
+
+            self.fio.save_file_to_dir(dir_path, file_data.name, downloaded_file)
+
+            num_processed += 1
+            progress = floor((num_processed / num_of_files) * 100)
+            self.signals.update_progress.emit(progress)
+
+        self.signals.finished.emit()

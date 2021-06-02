@@ -15,7 +15,7 @@ from PySide2.QtGui import QFont
 
 from GC_Components.MainComponents import MenuBar
 from GC_Services.FileIo import FileIo
-from PySide2.QtWidgets import QApplication, QMainWindow, QStatusBar
+from PySide2.QtWidgets import QApplication, QMainWindow, QStatusBar, QProgressBar
 
 from GC_Views.GCTabView import GCTabView
 
@@ -76,6 +76,13 @@ class GCMainView(QMainWindow):
         self.statusBar.showMessage("This is a status message.", 5000)
         self.setStatusBar(self.statusBar)
         self.statusBar.setStyleSheet('QStatusBar{border:1px solid #1000A0;background-color:#e6e6e6;border-top:none;}')
+
+        # Progress Bar
+        self.progress_bar = QProgressBar()
+        self.progress_bar.setMinimum(0)
+        self.progress_bar.setMaximum(100)
+        self.progress_bar.setValue(0)
+        self.statusBar.addPermanentWidget(self.progress_bar)
 
         # Main window
         self.setCentralWidget(self.tab_widget)
