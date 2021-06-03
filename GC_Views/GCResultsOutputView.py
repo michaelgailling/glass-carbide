@@ -344,7 +344,7 @@ class GCResultsOutputView(QFrame):
         return latest_file
 
     def download_files(self):
-        self.btn_download_files.setEnabled(False)
+        self.enable_buttons(False)
         print("Download Button Pressed")
         worker = DownloadWorker(self.file_metadata, self.fio)
         worker.signals.update_progress.connect(self.update_progress_bar)
@@ -358,7 +358,15 @@ class GCResultsOutputView(QFrame):
 
     @Slot()
     def download_finished(self):
-        self.btn_download_files.setEnabled(True)
+        self.enable_buttons()
+
+    def enable_buttons(self, val=True):
+        self.btn_download_files.setEnabled(val)
+        self.btn_scan.setEnabled(val)
+        self.btn_update.setEnabled(val)
+        self.parent.btn_back.setEnabled(val)
+        self.parent.btn_continue.setEnabled(val)
+
 
     def create_unique_filename_list(self, assets=[]):
         asset_set = set()
