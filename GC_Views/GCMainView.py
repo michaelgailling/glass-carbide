@@ -29,7 +29,7 @@ class GCMainView(QMainWindow):
             -{Description} to the {Location eg left}
 
         Attributes:
-            menuBar, statusBar, fio, tab_widget
+            menuBar, statusBar, fio, tab_widget, progress_bar,
 
         Methods:
             center_screen
@@ -37,9 +37,15 @@ class GCMainView(QMainWindow):
         Attributes
         ----------
             fio : FileIo
-                !!! File input & output
+                File input & output
             tab_widget : TabView
                 Tab View for tabs/steps
+            menuBar : MenuBar
+                Menu Bar
+            self.statusBar : QStatusBar
+                Status Bar
+            progress_bar : QProgressBar
+                Progress Bar for download progress
 
         Methods
         -------

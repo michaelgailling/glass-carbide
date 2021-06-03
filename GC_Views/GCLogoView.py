@@ -34,7 +34,7 @@ class GCLogoView(QFrame):
             logo : QLabel
                 Label for storing logo pixmap
             pixmap : QPixmap
-                Pixmap for logo
+                Pixmap for logo display
 
         Methods
         -------

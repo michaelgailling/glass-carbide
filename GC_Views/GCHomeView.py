@@ -28,17 +28,38 @@ class GCHomeView(QFrame):
             -{Description} to the {Location eg left}
 
         Attributes:
-
+            fio, vbl_left_layout, vbl_right_layout, btn_start, btn_exit, sw_project_setup, hbl_main_layout
 
         Methods:
-
+            set_frame_index, get_frame_index, set_new_project_frame
 
         Attributes
         ----------
-
+            fio : FileIo
+                File input & output
+            hbl_main_layout : QHBoxLayout
+                Horizontal main layout
+            vbl_left_layout : QVBoxLayout
+                Vertical layout for left side of screen
+            vbl_right_layout : QVBoxLayout
+                Vertical layout for right side of screen
+            lbl_instructions : QLabel
+                Label for instructions
+            btn_start : QPushButton
+                Button to start project setup
+            btn_exit : QPushButton
+                Button to exit application
+            sw_project_setup : QStackedWidget
+                StackedWidget to switch between logo and create directory views
 
         Methods
         -------
+            set_frame_index(self, num: int):
+                Sets frame index to num parameter
+            get_frame_index(self):
+                Gets current frame index
+            set_new_project_frame(self):
+                Sets frame index to cdv_create_view
 
     """
     def __init__(self, parent=None, file_io=FileIo()):
@@ -49,7 +70,7 @@ class GCHomeView(QFrame):
                 self
                 parent : QFrame
                 file_io : FileIo
-                    !!! File input & output
+                    File input & output
             Returns:
                 None
         """
@@ -111,7 +132,6 @@ class GCHomeView(QFrame):
         # Add views to sw_project_setup
         self.sw_project_setup.addWidget(self.lv_logo)
         self.sw_project_setup.addWidget(self.cdv_create_view)
-        # self.sw_project_setup.addWidget(self.edv_existing_view)
 
         # Setup vbl_right_layout
         self.vbl_right_layout.addWidget(self.sw_project_setup)
@@ -138,9 +158,6 @@ class GCHomeView(QFrame):
 
     def set_new_project_frame(self):
         self.set_frame_index(1)
-
-    def set_existing_project_frame(self):
-        self.set_frame_index(2)
 
 
 if __name__ == '__main__':

@@ -24,28 +24,46 @@ class GCCreateDirectoryView(QFrame):
                         -{Description} to the {Location eg left}
 
                     Attributes:
-                        label, {AttributeName}
+                        label, ldi_main_path, ldi_asset_path, ldi_episode_path, ldi_animatics_path, ldi_sounds_path,
+                        vbl_main_layout, btn_create_new_directory
 
                     Methods:
-                        get_input_text, {MethodName}
+                        plan_dir_structure, create_dir_structure, show_directory_dialog, fill_directory_listings,
+                        make_dirs, update_fio
 
                     Attributes
                     ----------
                         fio : FileIo
                             !!!File IO description!!!
-                        main_path,asset_path,episode_path,animatics_path,sounds_path : LabeledDirectoryInput
-                            {Property} for {Type}
+                        vbl_main_layout : QVBoxLayout
+                            Main vertical layout
+                        ldi_main_path : LabeledDirectoryInput
+                            LabeledDirectoryInput for project root directory
+                        ldi_asset_path : LabeledDirectoryInput
+                            LabeledDirectoryInput for assets directory
+                        ldi_episode_path : LabeledDirectoryInput
+                            LabeledDirectoryInput for episodes directory
+                        ldi_animatics_path : LabeledDirectoryInput
+                            LabeledDirectoryInput for animatics directory
+                        ldi_sounds_path : LabeledDirectoryInput
+                            LabeledDirectoryInput for sounds directory
+                        btn_create_new_directory: QPushButton
+                            Button for creating new directories
 
                     Methods
                     -------
-                        shared_dir_paths(self)
-                            Return the text in the input box
-                        make_dirs(self)
+                        plan_dir_structure(self):
                             {Functionality}
-                        dir_getter_filler(self)
-                            {Functionality}
-                        get_dir_path(self)
-                            {Functionality}
+                        create_dir_structure(self):
+                            Validates root directory path & calls make_dirs method
+                        show_directory_dialog(self):
+                            Sets input path to File Dialog selection
+                        fill_directory_listings(self):
+                            Sets subdirectory paths based on main_path
+                        make_dirs(self):
+                            Creates new directories
+                        update_fio(self):
+                            Updates fio
                 """
     def __init__(self, parent=None, file_io=FileIo()):
         """Constructor:

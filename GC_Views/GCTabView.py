@@ -29,18 +29,46 @@ class GCTabView(QFrame):
             -{Description} to the {Location eg left}
 
         Attributes:
-
+            fio, parent, hv_homeView, tv_tableView, rv_resultsView,hbl_tab_layout, tw_tabWidget, hbl_nav_buttons_layout,
+            spacer, btn_back, btn_continue, vbl_main_layout
 
         Methods:
-
+            set_tab_index, get_tab_index, continue_clicked, dirs_are_valid, home_view_transition, table_view_transition,
+            issue_warning_prompt, back_clicked
 
         Attributes
         ----------
-
+            fio : FileIo
+            parent : QFrame
+            hv_homeView : GCHomeView
+            tv_tableView : GCTableView
+            rv_resultsView : GCResultsOutputView
+            hbl_tab_layout : QHBoxLayout
+            tw_tabWidget : QTabWidget
+            hbl_nav_buttons_layout : QHBoxLayout
+            spacer : QLabel
+            btn_back : QPushButton
+            btn_continue : QPushButton
+            vbl_main_layout : QVBoxLayout
 
         Methods
         -------
-
+            set_tab_index(self, index_num=0)
+                Sets tab index of tw_tabWidget
+            get_tab_index(self)
+                Return current tab index of tw_tabWidget
+            continue_clicked(self)
+                Moves tab index forward when btn_continue clicked
+            dirs_are_valid(self)
+                Returns bool for whether directories are valid
+            home_view_transition(self)
+                Transitions tab index for index 0 to index 1
+            table_view_transition(self)
+                Transitions tab index for index 1 to index 2
+            issue_warning_prompt(self, message="")
+                Issues QMessageBox warning with string message parameter
+            back_clicked(self)
+                Moves tab index backward when btn_back clicked
     """
     def __init__(self, parent=None, file_io=FileIo()):
         # -------------------------------------------init Start-------------------------------------------

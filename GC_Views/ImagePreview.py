@@ -19,6 +19,7 @@ class ImagePreView(QFrame):
         Attributes
         ----------
             main_layout : QVBoxLayout
+             Vertical main layout
             logo : QLabel
                 Label for storing logo pixmap
             pixmap : QPixmap
