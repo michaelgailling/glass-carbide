@@ -32,7 +32,7 @@ class EmbeddableComboBox(QWidget):
                  combo : QComboBox
                      Text Label for Input Box
                  hbox : QHBoxLayout
-                     {Property} for {Type}
+                     Horizontal main layout
 
              Methods
              -------

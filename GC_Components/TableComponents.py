@@ -41,8 +41,10 @@ class DataTable(QFrame):
         ----------
             vbox : QVBoxLayout
                 Vertical Layout
+            headers : []
+                Array of headers
             mappings : []
-                !!! Array of mappings of !!!
+                Array of mappings of !!!!!
             selections : []
                 Array of selected rows and columns
             readonly : bool
@@ -60,6 +62,10 @@ class DataTable(QFrame):
                 Clears table contents
             set_dimensions(self, width=0, height=0)
                 Sets number of columns and rows in table
+            get_dimensions(self)
+                Returns table dimensions
+            get_headers(self)
+                Returns table headers
             set_headers(self, headers)
                 Sets table headers
             style_headers(self)
@@ -74,6 +80,8 @@ class DataTable(QFrame):
                 Inserts combo boxes if control row or check boxes if control column
             load_table(self, data=[])
                 Loads data to table
+            get_table_data(self)
+                Returns table data contents
             fit_headers_to_content(self)
                 Sets header width to fit widest column
             cell_changed(self, y, x)
@@ -90,6 +98,8 @@ class DataTable(QFrame):
                 Sets the text of the specified cell
             get_cell_text(self, x=0, y=0)
                 Gets the text of the specified cell
+            log_cell(self, x=0, y=0)
+                Method for logging the current state of a cell to console
     """
 
     def __init__(self, parent=None, width=0, height=0, readonly=False, log_data=False):

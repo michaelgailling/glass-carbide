@@ -24,21 +24,27 @@ class MenuBar(QMenuBar):
                 -
 
             Attributes:
-
+                file_menu, open_button, new_button, save_button, exit_button
 
             Methods:
-
+                None
 
             Attributes
             ----------
-                label : QLabel
-                    Text Label for Input Box
+                file_menu : QMenuBar
+                    Menu Bar with File option
+                open_button : QAction
+                    Open option in Menu Bar, under File
+                new_button : QAction
+                    New option in Menu Bar, under File
+                save_button : QAction
+                    Save option in Menu Bar, under File
+                exit_button : QAction
+                    Exit option in Menu Bar, under File
 
             Methods
             -------
-                get_input_text(self)
-                    Return the text in the input box
-                (self, value : string)
+                Nonw
         """
 
     def __init__(self, parent):
@@ -147,24 +153,25 @@ class MainNavButtons(QFrame):
                 -{Description} to the {Location eg left}
 
             Attributes:
-                label, {AttributeName}
+                layout, statLbl, continueBtn, cancelBtn
 
             Methods:
-                get_input_text, {MethodName}
+                None
 
             Attributes
             ----------
-                label : QLabel
-                    Text Label for Input Box
-                {AttributeName} : {AttributeClass}
-                    {Property} for {Type}
+                layout : QHBoxLayout
+                    Horizontal main layout
+                statLbl : QLabel
+                    Blank Label for spacing
+                continueBtn : QPushButton
+                    Pushbutton to continue to next step/tab
+                cancelBtn : QPushButton
+                    Pushbutton to go back to previous step/tab
 
             Methods
             -------
-                get_input_text(self)
-                    Return the text in the input box
-                {MethodName}({Parameters})
-                    {Functionality}
+                None
         """
 
     def __init__(self, parent=None):

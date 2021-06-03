@@ -248,7 +248,7 @@ class LabeledDirectoryInput(QFrame):
                 hBox, label, input, fileDialogButton
 
             Methods:
-                get_input_text, set_input_text, open_directory_dialog
+                set_button_enable, get_input_text, set_input_text, open_directory_dialog
 
             Attributes
             ----------
@@ -263,6 +263,8 @@ class LabeledDirectoryInput(QFrame):
 
             Methods
             -------
+                set_button_enable(self, btn_enable=True)
+                    Enables/disables button based on bool parameter
                 get_input_text(self)
                     Return the text in the input box
                 set_input_text(self, value : string)

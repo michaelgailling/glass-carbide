@@ -11,7 +11,46 @@
 #
 
 class PCloudFileModel:
+    """PCloudFileModel
+
+            Summary:
+                A class for {Type} that includes:
+
+                -{Description}
+
+            Attributes:
+                name, fileid, parent_folder_id, created, modified, thumb, size, publink_code, file_type
+
+            Methods:
+                load_data, __str__
+
+            Attributes
+            ----------
+                name : str
+                fileid : str
+                parent_folder_id : str
+                created : str
+                modified = ""
+                thumb : bool
+                size : int
+                publink_code : str
+                file_type : str
+            Methods
+            -------
+                load_data(self, file_dict={})
+                    Parses data from dictionary
+                __str__(self)
+                    Returns string representation
+
+    """
     def __init__(self):
+        """
+            Constructs all the necessary attributes for the PCloudFileModel object.
+
+            Parameters
+            ----------
+                self
+        """
         self.name = ""
         self.fileid = ""
         self.parent_folder_id = ""
