@@ -23,9 +23,11 @@ class FileDetailsView(QFrame):
     """File Details View
 
                         Summary:
-                            A class for {Type} that includes:
+                            A class for viewing pcloud file details that includes:
 
-                            -{Description} to the {Location eg left}
+                            -Data Table for list of files to the left
+                            -TextBrowser for file details in the center
+                            -Frame containing Label for file's thumbnail image & buttons on right
 
                         Attributes:
                             hbl_main_layout, vbl_img_btns_layout, lbl_duplicates, lbl_details, lbl_thumbnail, dt_table,

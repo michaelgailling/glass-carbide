@@ -19,19 +19,20 @@ class CsvIo:
     """CSV IO
 
         Summary:
-            A class for {Type} that includes:
+            A class for CsvIo that includes:
 
-            -{Description} to the {Location eg left}
+            -Handling of CSVs
 
         Attributes:
-            self
+            data
 
         Methods:
             import_data, load, handler_headers, calc_prob, trim_columns, log_data
 
         Attributes
         ----------
-            self
+            data : []
+                Array of CSV data
 
         Methods
         -------
@@ -40,9 +41,9 @@ class CsvIo:
             load(self, file_path="")
                 Opens CSV and loads data
             handler_headers(self)
-                !!! Processes headers !!!
+                Processes headers to determine header trimming
             calc_prob(self)
-                Returns percentage of empty cells in row
+                Returns percentage of empty cells in row (worthless row)
             trim_columns(self)
                 Trims columns from data
             log_data(self)

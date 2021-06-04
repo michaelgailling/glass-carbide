@@ -24,9 +24,10 @@ class GCTabView(QFrame):
     """GC Tab View
 
         Summary:
-            A class for {Type} that includes:
+            A class for Tab Viewing that includes:
 
-            -{Description} to the {Location eg left}
+            -TabWidget in center
+            -Indexed views for TabWidget
 
         Attributes:
             fio, parent, hv_homeView, tv_tableView, rv_resultsView,hbl_tab_layout, tw_tabWidget, hbl_nav_buttons_layout,
@@ -71,6 +72,16 @@ class GCTabView(QFrame):
                 Moves tab index backward when btn_back clicked
     """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+                    Initialize Tab View
+
+                    Parameters:
+                        self
+                        parent : QFrame
+                        file_io : FileIo
+                    Returns:
+                        None
+                """
         # -------------------------------------------init Start-------------------------------------------
         super(GCTabView, self).__init__(parent)
         self.fio = file_io

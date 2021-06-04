@@ -46,7 +46,7 @@ class LabeledInput(QFrame):
                   Sets the input box text
       """
     def __init__(self, parent, label_text="", input_text=""):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the LabeledInput object.
 
             Parameters
@@ -112,7 +112,7 @@ class LabeledInputWithButton(QFrame):
                 Sets the input box text
     """
     def __init__(self, parent, label_text="", input_text="", button_text="", btn_enable=True):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the LabeledInputWithButton object.
 
             Parameters
@@ -190,7 +190,7 @@ class DirectoryInput(QFrame):
                     Opens the directory selection dialog
         """
     def __init__(self, parent, input_text="", read_only=False, btn_enable=True):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the DirectoryInput object.
 
             Parameters
@@ -273,7 +273,7 @@ class LabeledDirectoryInput(QFrame):
                     Opens the directory selection dialog
         """
     def __init__(self, parent, label_text="", input_text="", read_only=False, btn_enable=True):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the LabeledDirectoryInput object.
 
             Parameters
@@ -362,7 +362,7 @@ class FileInput(QFrame):
                 Opens the file selection dialog
     """
     def __init__(self, parent, file_type="", input_text="", read_only=False, btn_enable=True):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the FileInput object.
 
             Parameters
@@ -453,7 +453,7 @@ class LabeledFileInput(QFrame):
                 Opens the file selection dialog
     """
     def __init__(self, parent, label_text="", file_type="", input_text="", read_only=False, btn_enable=True):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the LabeledFileInput object.
 
             Parameters

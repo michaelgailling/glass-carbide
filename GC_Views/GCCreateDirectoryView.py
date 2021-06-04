@@ -19,9 +19,10 @@ class GCCreateDirectoryView(QFrame):
     """Directory Mapping View
 
                     Summary:
-                        A class for {Type} that includes:
+                        A class for creating directories that includes:
 
-                        -{Description} to the {Location eg left}
+                        -LabeledDirectoryInputs in a vertical layout
+                        -Button for creating new directories
 
                     Attributes:
                         label, ldi_main_path, ldi_asset_path, ldi_episode_path, ldi_animatics_path, ldi_sounds_path,

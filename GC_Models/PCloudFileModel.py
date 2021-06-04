@@ -14,9 +14,7 @@ class PCloudFileModel:
     """PCloudFileModel
 
             Summary:
-                A class for {Type} that includes:
-
-                -{Description}
+                A class that models PCloud file results
 
             Attributes:
                 name, fileid, parent_folder_id, created, modified, thumb, size, publink_code, file_type

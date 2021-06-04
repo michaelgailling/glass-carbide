@@ -30,9 +30,12 @@ class GCResultsOutputView(QFrame):
     """Results Output View
 
         Summary:
-            A class for {Type} that includes:
+            A class for viewing results of CSV selection & searching/downloading results on pcloud that includes:
 
-            -{Description} to the {Location eg left}
+            -Data Table of selected results to the top left
+            -Data Table of selected filenames from results
+            -Data Table of added pcloud links
+            -VBox with LabeledInputWithButton for adding pcloud links & buttons for scanning & downloading from pcloud
 
         Attributes:
             parent, shot_data, filenames, file_metadata, publinks, cloud_scanned, fio, apic, threadpool, hbl_tables,

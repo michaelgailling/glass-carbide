@@ -23,9 +23,11 @@ class GCTableView(QFrame):
     """Table View
 
         Summary:
-            A class for {Type} that includes:
+            A class for load & display of CSV on Data Table that includes:
 
-            -{Description} to the {Location eg left}
+            -Data Table of CSV on top
+            -LabeledFileInput for CSV selection and Load button on bottom
+
 
         Attributes:
             csv_handler, fio, column_definitions, dt_table, lfi_file_select, btn_load_file, vbl_main_layout

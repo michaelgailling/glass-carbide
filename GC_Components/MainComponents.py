@@ -21,7 +21,7 @@ class MenuBar(QMenuBar):
             Summary:
                 A class for an menu bar that includes:
 
-                -
+                -File menu with Open, New, Save & Exit actions
 
             Attributes:
                 file_menu, open_button, new_button, save_button, exit_button
@@ -91,9 +91,9 @@ class MainButtons(QHBoxLayout):
     """Main Buttons in an HBox
 
             Summary:
-                A class for {Type} that includes:
+                A class for MainButtons that includes:
 
-                -{Description} to the {Location eg left}
+                -Continue & Back buttons in a horizontal layout
 
             Attributes:
                 statLbl, continueBtn, cancelBtn
@@ -116,7 +116,7 @@ class MainButtons(QHBoxLayout):
         """
 
     def __init__(self, parent):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the Main Buttons container object.
 
             Parameters
@@ -148,9 +148,9 @@ class MainNavButtons(QFrame):
     """Main Navigation Buttons
 
             Summary:
-                A class for {Type} that includes:
+                A class for MainNavButtons that includes:
 
-                -{Description} to the {Location eg left}
+                -Continue & Back buttons in a horizontal layout
 
             Attributes:
                 layout, statLbl, continueBtn, cancelBtn
@@ -175,7 +175,7 @@ class MainNavButtons(QFrame):
         """
 
     def __init__(self, parent=None):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the MainNavBar object.
 
             Parameters

@@ -1,6 +1,14 @@
-import sys
-import traceback
-from datetime import time
+# Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &&
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
 
 from math import floor
 
@@ -13,14 +21,15 @@ from GC_Services.pcloudAPI import PCloud
 
 class DownloadWorkerSignals(QObject):
     '''
-    Defines the signals available from a running worker thread.
+    DownloadWorkerSignals
+        Defines the signals available from a running worker thread.
 
-    Supported signals are:
+        Supported signals are:
 
-    progress
-        returns percent as an integer
-    finished
-        No data
+        progress
+            returns percent as an integer
+        finished
+            No data
     '''
     update_progress = Signal(int)
     finished = Signal()
@@ -31,7 +40,7 @@ class DownloadWorker(QRunnable):
     Download Worker Thread
 
         Summary:
-            A class for {Type} that includes:
+            A class for DownloadWorker that includes:
 
             -{Description}
 

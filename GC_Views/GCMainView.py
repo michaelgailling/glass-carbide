@@ -24,9 +24,12 @@ class GCMainView(QMainWindow):
     """GC Main View
 
         Summary:
-            A class for {Type} that includes:
+            A class for Main View of application that includes:
 
-            -{Description} to the {Location eg left}
+            -Central tab view
+            -MenuBar at top
+            -StatusBar at bottom left
+            -ProgressBar at bottom right
 
         Attributes:
             menuBar, statusBar, fio, tab_widget, progress_bar,

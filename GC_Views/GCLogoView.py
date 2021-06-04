@@ -18,9 +18,9 @@ class GCLogoView(QFrame):
     """Logo View
 
         Summary:
-            A class for {Type} that includes:
+            A class for GCLogoView that includes:
 
-            -{Description} to the {Location eg left}
+            -Pixmap in a label in center of frame
 
         Attributes:
             logo, main_layout, pixmap

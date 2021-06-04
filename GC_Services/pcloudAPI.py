@@ -65,7 +65,7 @@ class PCloud:
             handle_response(self, res)
                 Returns parsed url response
             set_region(self, region="NA")
-                Sets region for url based on region
+                Sets region for url based on region & returns bool value of operation success
             set_username(self, username)
                 Sets username
             set_password(self, password)
@@ -84,10 +84,14 @@ class PCloud:
                 Returns username and password as digest
             create_password_digest(self, digest)
                 Encodes username and password into digest
+            get_digest(self)
+                Returns digest from pcloud url
+            create_password_digest(self, digest)
+                Returns digest encoded password
             auth_digest(self)
                 Authenticates digest
             auth2(self)
-                !!! Empty
+                Empty
             list_folder(self, folder_id=None)
                 Returns dictionary of folder/directory metadata
             create_folder(self, folder_id="0", name="")

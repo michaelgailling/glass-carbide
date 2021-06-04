@@ -23,9 +23,10 @@ class GCHomeView(QFrame):
     """GC Home View
 
         Summary:
-            A class for {Type} that includes:
+            A class for HomeView that includes:
 
-            -{Description} to the {Location eg left}
+            -Buttons and Instructions label on the left
+            -StackedWidget for switching between GCCreateDirectoryView & GCLogoView on the right
 
         Attributes:
             fio, vbl_left_layout, vbl_right_layout, btn_start, btn_exit, sw_project_setup, hbl_main_layout
@@ -51,6 +52,10 @@ class GCHomeView(QFrame):
                 Button to exit application
             sw_project_setup : QStackedWidget
                 StackedWidget to switch between logo and create directory views
+            lv_logo : GCLogoView
+                QFrame containing logo
+            cdv_create_view : GCCreateDirectoryView
+                QFrame containing view for directory setup
 
         Methods
         -------

@@ -6,9 +6,9 @@ class ImagePreView(QFrame):
     """Image Preview
 
         Summary:
-            A class for {Type} that includes:
+            A class for Viewing Images that includes:
 
-            -{Description} to the {Location eg left}
+            -Pixmap in a label in a vertical layout
 
         Attributes:
             logo, main_layout, pixmap

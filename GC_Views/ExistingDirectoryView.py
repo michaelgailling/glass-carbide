@@ -20,9 +20,9 @@ class ExistingDirectoryView(QFrame):
     """Existing Directory View
 
         Summary:
-            A class for {Type} that includes:
+            A class for ExistingDirectoryView that includes:
 
-            -{Description}
+            -LabeledDirectoryInput in a vertical layout
 
         Attributes:
             main_layout, directoryPath

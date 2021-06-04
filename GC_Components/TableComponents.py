@@ -103,7 +103,7 @@ class DataTable(QFrame):
     """
 
     def __init__(self, parent=None, width=0, height=0, readonly=False, log_data=False):
-        """
+        """Constructor:
         Constructs all the necessary attributes for the Data Table object.
 
         Parameters
@@ -436,7 +436,7 @@ class SimpleDataTable(DataTable):
     """
 
     def __init__(self,  parent=None, width=0, height=0, readonly=False, log_data=False):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the AssetDataTable object.
 
             Parameters
