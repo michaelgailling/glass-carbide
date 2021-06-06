@@ -137,6 +137,7 @@ class GCResultsOutputView(QFrame):
 
         # Publink list
         self.dt_cloud_links = DataTable(None, readonly=True)
+        self.dt_cloud_links.set_dimensions(1, 0)
         self.dt_cloud_links.set_headers(["Publinks"])
 
         # Publink labeled input with button
@@ -228,10 +229,11 @@ class GCResultsOutputView(QFrame):
             self.dt_files.add_row([name])
 
     def add_publink_to_table(self):
+        self.dt_cloud_links.set_headers(["Publinks"])
         publink = self.liwb_add_publink.get_input_text()
         if publink and publink not in self.publinks:
             self.publinks.append(publink)
-            self.dt_cloud_links.load_table(data=self.publinks)
+            self.dt_cloud_links.add_row([publink])
             self.liwb_add_publink.set_input_text("")
 
     def get_codes(self):
@@ -269,7 +271,7 @@ class GCResultsOutputView(QFrame):
         file_extensions = {
             "audio": ["wav", "mp3", "ogg", "flac"],
             "video": ["mov", "mp4", "mpg", "avi", "wmv"],
-            "image": ["jpg", "gif", "bmp", "fla", "psd", "png"]
+            "image": ["jpg", "gif", "bmp", "fla", "psd", "png", "jpeg"]
         }
 
         for i in range(len(self.file_metadata)):

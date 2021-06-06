@@ -550,6 +550,47 @@ class DataTable(QFrame):
 
         return combo
 
+    def set_cell_tooltip(self, x=0, y=0, tooltip_text=""):
+        self.table.item(y, x).setToolTip(tooltip_text)
+
+    def set_cell_color(self, x=0, y=0, color="white"):
+        """
+        Method for setting the bg color of a cell
+
+        Parameters
+        ----------
+        x : int
+            Cell X co-ordinate
+        y: int
+            Cell Y co-ordinate
+        color : string
+            Color as to set cell background color
+
+        Returns
+        -------
+        None
+        """
+        self.table.item(y, x).setBackgroundColor(QColor(color))
+
+    def set_text_color(self, x=0, y=0, color="black"):
+        """
+        Method for setting the text color of a cell
+
+        Parameters
+        ----------
+        x : int
+            Cell X co-ordinate
+        y: int
+            Cell Y co-ordinate
+        color : string
+            Color to set cell text color
+
+        Returns
+        -------
+        None
+        """
+        self.table.item(y, x).setTextColor(QColor(color))
+
     # Table data functions
     def add_row(self, row=[]):
         row_len = len(row)
@@ -714,6 +755,45 @@ class DataTable(QFrame):
 
         return rows
 
+    def set_cell_text(self, x=0, y=0, text=""):
+        """
+        Method for setting the text content of a cell
+
+        Parameters
+        ----------
+        x : int
+            Cell X co-ordinate
+        y: int
+            Cell Y co-ordinate
+        text : string
+            Text to set cell content
+
+        Returns
+        -------
+        None
+        """
+        cell = QTableWidgetItem(text)
+        self.table.setItem(y, x, cell)
+
+    def get_cell_text(self, x=0, y=0):
+        """
+        Method for Getting the text content of a cell
+
+        Parameters
+        ----------
+        x : int
+            Cell X co-ordinate
+        y: int
+            Cell Y co-ordinate
+
+        Returns
+        -------
+        text_content : string
+            Text content of specified cell
+        """
+        text_content = self.table.item(y, x).text()
+        return text_content
+
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     dt_table = DataTable(readonly=True)
@@ -725,7 +805,7 @@ if __name__ == '__main__':
     mapping_row = [mapping_options, mapping_options, mapping_options, mapping_options, mapping_options]
 
     test_arr = [
-                    # mapping_row,
+                    mapping_row,
                     [False, "OLD", "OLD", "OLD", "OLD"],
                     [False, "OLD", "OLD", "OLD", "OLD"],
                     [False, "OLD", "OLD", "OLD", "OLD"],
