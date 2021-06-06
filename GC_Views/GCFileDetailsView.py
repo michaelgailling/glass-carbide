@@ -13,13 +13,13 @@ import sys
 
 from PySide2.QtCore import Qt
 from PySide2.QtWidgets import QFrame, QHBoxLayout, QFileDialog, QPushButton, QMessageBox, QVBoxLayout, QApplication, \
-    QTextBrowser, QLabel
+    QTextBrowser, QLabel, QWidget
 from GC_Components.InputComponents import LabeledDirectoryInput
 from GC_Components.TableComponents import DataTable
 from GC_Services.FileIo import FileIo
 
 
-class FileDetailsView(QFrame):
+class FileDetailsView(QWidget):
     """File Details View
 
                         Summary:
@@ -52,7 +52,9 @@ class FileDetailsView(QFrame):
             Returns:
                 None
         """
-        super(FileDetailsView, self).__init__(parent)
+        super().__init__()
+        self.parent = parent
+
         self.hbl_main_layout = QHBoxLayout()
         self.vbl_img_btns_layout = QVBoxLayout()
 

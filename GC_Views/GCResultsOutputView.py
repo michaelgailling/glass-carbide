@@ -19,7 +19,7 @@ from PySide2.QtCore import Qt, QThreadPool, Slot
 from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QPushButton
 
 from GC_Components.InputComponents import LabeledInputWithButton
-from GC_Components.TableComponents import DataTable, SimpleDataTable
+from GC_Components.TableComponents import DataTable
 from GC_Services.FileIo import FileIo
 from GC_Services.pcloudAPI import PCloud
 from GCFileDetailsView import FileDetailsView
@@ -109,6 +109,8 @@ class GCResultsOutputView(QFrame):
         self.fio = file_io
         self.apic = PCloud()
         self.apic.set_region("NA")
+        self.popup_frame = FileDetailsView(self)
+
 
         self.threadpool = QThreadPool()
         print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
@@ -118,7 +120,8 @@ class GCResultsOutputView(QFrame):
         self.hbl_tables = QHBoxLayout()
 
         self.dt_shot_data = DataTable(None, readonly=False)
-        self.dt_files = SimpleDataTable(None, readonly=True)
+        self.dt_files = DataTable(None, readonly=True)
+        self.dt_files.table.cellDoubleClicked.connect(self.file_table_cell_clicked)
 
         self.btn_update = QPushButton("Update Filenames ---->")
         self.btn_update.clicked.connect(self.load_filename_table)
@@ -133,8 +136,7 @@ class GCResultsOutputView(QFrame):
         self.hbl_controls = QHBoxLayout()
 
         # Publink list
-        self.dt_cloud_links = SimpleDataTable(None, readonly=True)
-        self.dt_cloud_links.load_table([])
+        self.dt_cloud_links = DataTable(None, readonly=True)
         self.dt_cloud_links.set_headers(["Publinks"])
 
         # Publink labeled input with button
@@ -187,6 +189,9 @@ class GCResultsOutputView(QFrame):
     def download_files_clicked(self):
         self.download_files()
 
+    def file_table_cell_clicked(self, row=0, column=0):
+        self.popup_frame.show()
+
     def load_shot_table_data(self, selected_shots=[]):
         try:
             headers = selected_shots.pop(0)
@@ -199,7 +204,7 @@ class GCResultsOutputView(QFrame):
 
     def load_filename_table(self):
         shot_headers = self.dt_shot_data.get_headers()
-        shot_data = self.dt_shot_data.get_table_data()
+        shot_data = self.dt_shot_data.get_all_rows()
 
         raw_filenames = []
         if "ShotCode" in shot_headers:
@@ -215,10 +220,12 @@ class GCResultsOutputView(QFrame):
         self.filenames = self.create_unique_filename_list(raw_filenames)
 
         self.filenames.sort()
-        self.dt_files.set_dimensions(1, len(shot_data))
+        self.dt_files.set_dimensions(1, 0)
+        self.dt_files.clear_table()
         header = ["Filenames"]
         self.dt_files.set_headers(header)
-        self.dt_files.load_table(self.filenames)
+        for name in self.filenames:
+            self.dt_files.add_row([name])
 
     def add_publink_to_table(self):
         publink = self.liwb_add_publink.get_input_text()
@@ -384,7 +391,6 @@ class GCResultsOutputView(QFrame):
     def test_popup(self):
         popup_frame = FileDetailsView()
         popup_frame.show()
-        popup_frame.exec_()
 
 
 if __name__ == '__main__':
