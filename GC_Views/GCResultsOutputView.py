@@ -120,7 +120,7 @@ class GCResultsOutputView(QFrame):
         self.hbl_tables = QHBoxLayout()
 
         self.dt_shot_data = DataTable(None, readonly=False)
-        self.dt_files = DataTable(None, readonly=True)
+        self.dt_files = DataTable(None, readonly=False)
         self.dt_files.table.cellDoubleClicked.connect(self.file_table_cell_clicked)
 
         self.btn_update = QPushButton("Update Filenames ---->")
@@ -184,14 +184,34 @@ class GCResultsOutputView(QFrame):
         self.classify_files()
         self.color_filename_cells()
         self.color_shot_table()
+        self.cloud_scanned = True
         for file in self.file_metadata:
             print(file)
 
     def download_files_clicked(self):
-        self.download_files()
+        if self.cloud_scanned:
+            self.download_files()
+        else:
+            self.parent.issue_warning_prompt("Please scan pCloud!")
 
     def file_table_cell_clicked(self, row=0, column=0):
-        self.popup_frame.show()
+        if self.cloud_scanned:
+            filename = self.dt_files.get_row(row)
+            filename = filename[0]
+            print(filename)
+
+            file_data = []
+            for file in self.file_metadata:
+                if filename in file.name:
+                    file_data.append(file)
+
+            self.popup_frame.dt_file_list.table.clear()
+
+            self.popup_frame.set_file_list(file_data)
+
+            self.popup_frame.show()
+        else:
+            self.parent.issue_warning_prompt("Please scan pCloud!")
 
     def load_shot_table_data(self, selected_shots=[]):
         try:
@@ -219,11 +239,11 @@ class GCResultsOutputView(QFrame):
                 raw_filenames.insert(-1, item[index])
 
         self.filenames = self.create_unique_filename_list(raw_filenames)
-
         self.filenames.sort()
-        self.dt_files.set_dimensions(1, 0)
-        self.dt_files.clear_table()
+
         header = ["Filenames"]
+        self.dt_files.clear_table()
+        self.dt_files.set_dimensions(1, 0)
         self.dt_files.set_headers(header)
         for name in self.filenames:
             self.dt_files.add_row([name])

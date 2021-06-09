@@ -21,6 +21,7 @@ class PCloudFileModel:
         self.size = 0
         self.publink_code = ""
         self.file_type = ""
+        self.ignore = False
 
     def load_data(self, file_dict={}):
         self.name = file_dict["name"]

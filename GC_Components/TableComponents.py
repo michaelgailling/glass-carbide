@@ -796,7 +796,7 @@ class DataTable(QFrame):
 
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
-    dt_table = DataTable(readonly=True)
+    dt_table = DataTable(readonly=False)
     dt_table.set_dimensions(5)
     dt_table.set_headers(["","","","",""])
     dt_table.style_headers()
