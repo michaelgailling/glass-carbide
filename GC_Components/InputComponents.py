@@ -46,7 +46,7 @@ class LabeledInput(QFrame):
                   Sets the input box text
       """
     def __init__(self, parent, label_text="", input_text=""):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the LabeledInput object.
 
             Parameters
@@ -112,7 +112,7 @@ class LabeledInputWithButton(QFrame):
                 Sets the input box text
     """
     def __init__(self, parent, label_text="", input_text="", button_text="", btn_enable=True):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the LabeledInputWithButton object.
 
             Parameters
@@ -190,7 +190,7 @@ class DirectoryInput(QFrame):
                     Opens the directory selection dialog
         """
     def __init__(self, parent, input_text="", read_only=False, btn_enable=True):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the DirectoryInput object.
 
             Parameters
@@ -248,7 +248,7 @@ class LabeledDirectoryInput(QFrame):
                 hBox, label, input, fileDialogButton
 
             Methods:
-                get_input_text, set_input_text, open_directory_dialog
+                set_button_enable, get_input_text, set_input_text, open_directory_dialog
 
             Attributes
             ----------
@@ -263,6 +263,8 @@ class LabeledDirectoryInput(QFrame):
 
             Methods
             -------
+                set_button_enable(self, btn_enable=True)
+                    Enables/disables button based on bool parameter
                 get_input_text(self)
                     Return the text in the input box
                 set_input_text(self, value : string)
@@ -271,7 +273,7 @@ class LabeledDirectoryInput(QFrame):
                     Opens the directory selection dialog
         """
     def __init__(self, parent, label_text="", input_text="", read_only=False, btn_enable=True):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the LabeledDirectoryInput object.
 
             Parameters
@@ -360,7 +362,7 @@ class FileInput(QFrame):
                 Opens the file selection dialog
     """
     def __init__(self, parent, file_type="", input_text="", read_only=False, btn_enable=True):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the FileInput object.
 
             Parameters
@@ -451,7 +453,7 @@ class LabeledFileInput(QFrame):
                 Opens the file selection dialog
     """
     def __init__(self, parent, label_text="", file_type="", input_text="", read_only=False, btn_enable=True):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the LabeledFileInput object.
 
             Parameters

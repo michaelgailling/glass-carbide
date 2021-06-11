@@ -17,9 +17,9 @@ class EmbeddableComboBox(QWidget):
     """Embeddable ComboBox
 
              Summary:
-                 A class for {Type} that includes:
+                 A class for EmbeddableComboBox that includes:
 
-                 -{Description} to the {Location eg left}
+                 -Embeddable ComboBox in a horizontal layout
 
              Attributes:
                  combo, hbox
@@ -32,7 +32,7 @@ class EmbeddableComboBox(QWidget):
                  combo : QComboBox
                      Text Label for Input Box
                  hbox : QHBoxLayout
-                     {Property} for {Type}
+                     Horizontal main layout
 
              Methods
              -------
@@ -44,7 +44,7 @@ class EmbeddableComboBox(QWidget):
                      Adds list item to combo box
          """
     def __init__(self, parent=None):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the EmbeddableCombBox  object.
 
             Parameters

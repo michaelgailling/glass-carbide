@@ -1,6 +1,14 @@
-import sys
-import traceback
-from datetime import time
+# Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &&
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
 
 from math import floor
 
@@ -13,14 +21,15 @@ from GC_Services.pcloudAPI import PCloud
 
 class DownloadWorkerSignals(QObject):
     '''
-    Defines the signals available from a running worker thread.
+    DownloadWorkerSignals
+        Defines the signals available from a running worker thread.
 
-    Supported signals are:
+        Supported signals are:
 
-    progress
-        returns percent as an integer
-    finished
-        No data
+        progress
+            returns percent as an integer
+        finished
+            No data
     '''
     update_progress = Signal(int)
     finished = Signal()
@@ -29,9 +38,49 @@ class DownloadWorkerSignals(QObject):
 class DownloadWorker(QRunnable):
     '''
     Download Worker Thread
+
+        Summary:
+            A class for DownloadWorker that includes:
+
+            -{Description}
+
+        Attributes:
+            file_metadata, apic, apic.set_region, fio, signals
+
+        Methods:
+            run
+
+        Attributes
+        ----------
+            file_metadata : !!!!!!!!!!!
+                Metadata of  !!!!!
+            apic : PCloud
+                PCloud API class
+            fio : FileIo
+                File input/output
+            signals : DownloadWorkerSignals
+                DownloadWorkerSignals for signals from running worker threads
+
+        Methods
+        -------
+            run(self)
+                !!! Multithreads downloads
     '''
 
     def __init__(self, file_metadata, fio=FileIo()):
+        """
+            Constructs all the necessary attributes for the PCloudFileModel object.
+
+                Parameters
+                ----------
+                    self
+                    file_metadata
+                        Metadata for file
+                    fio
+                        FileIo for file input/output
+        :param file_metadata:
+        :param fio:
+        """
         super(DownloadWorker, self).__init__()
 
         self.file_metadata = file_metadata

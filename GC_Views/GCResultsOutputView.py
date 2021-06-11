@@ -30,61 +30,107 @@ class GCResultsOutputView(QFrame):
     """Results Output View
 
         Summary:
-            A class for {Type} that includes:
+            A class for viewing results of CSV selection & searching/downloading results on pcloud that includes:
 
-            -{Description} to the {Location eg left}
+            -Data Table of selected results to the top left
+            -Data Table of selected filenames from results
+            -Data Table of added pcloud links
+            -VBox with LabeledInputWithButton for adding pcloud links & buttons for scanning & downloading from pcloud
 
         Attributes:
-            data, assets, file_metadata, cloud_scanned, fio, hbl_tables, vbl_controls, vbl_main_layout,
-            dt_data, dt_assets, liwb_publink, btn_download
+            parent, shot_data, filenames, file_metadata, publinks, cloud_scanned, fio, apic, threadpool, hbl_tables,
+            dt_shot_data, dt_files, hbl_controls, dt_cloud_links, liwb_add_publink, vbl_control_buttons, btn_scan,
+            btn_download_files, vbl_main_layout
 
         Methods:
-            check_pcloud, find_latest_file, download_assets, asset_cell_clicked, load_table_data,
-            load_asset_data, set_data
+            add_publink_clicked, scan_pcloud_clicked, download_files_clicked, load_shot_table_data, load_filename_table,
+            add_publink_to_table, get_codes, search_for_files, get_publink_data, classify_files, color_filename_cells,
+            color_shot_table, get_matching_files, find_latest_file, download_files, update_progress_bar, test_popup,
+            download_finished, create_unique_filename_list, set_shot_data
 
         Attributes
         ----------
+            parent : QFrame
+                Parent QFrame
             shot_data : []
                 Array for selected data from table view
-            files : []
-                Array of selected asset listings
+            filenames : []
+                Array of selected asset listings/filenames
             file_metadata : []
-                !!! for !!!
+                Array for metadata for selected files
+            publinks : []
+                Array for user-inputted publinks
             cloud_scanned : bool
                 Bool for whether pCloud scan successful
             fio : FileIo
-                !!! File input & output
+                File input & output
+            apic : PCloud
+                PCloud API class
+            threadpool : QThreadPool
+                Threadpool for multithreading threads
             hbl_tables : QHBoxLayout
                 HBox layout for tables
-            hbl_controls : QVBoxLayout
-                VBox layout for pCloud buttons
-            vbl_main_layout = QVBoxLayout
-                Main VBox layout
             dt_shot_data : DataTable
                 Data Table for selected columns and rows
             dt_files : SimpleDataTable
                 Data Table for selected assets
-            liwb_publink = LabeledInputWithButton
+            hbl_controls : QVBoxLayout
+                VBox layout for pCloud buttons
+            dt_cloud_links : SimpleDataTable
+                Data Table for publinks
+            liwb_add_publink : LabeledInputWithButton
                 Labeled Input With Button for pCloud/publink access
-            btn_download = QPushButton
-                Button to download selected assets
+            vbl_control_buttons : QVBoxLayout
+                Vertical layout for control buttons
+            btn_scan : QPushButton
+                Button for scanning PCloud
+            btn_download_files : QPushButton
+                Button for downloading selected files from PCloud
+            vbl_main_layout = QVBoxLayout
+                Main VBox layout
 
         Methods
         -------
-            check_pcloud(self)
-                Checks pCloud/publink for assets
+            add_publink_clicked(self)
+                Adds publink to dt_cloud_links table when Add Link button clicked
+            scan_pcloud_clicked(self)
+                Checks pCloud/publink for files when Scan Repo button clicked
+            download_files_clicked(self)
+                Calls download_files method when Download button clicked
+            load_shot_table_data(self, results=[])
+                Loads selected shot columns and rows in dt_shot_data Data Table
+            load_filename_table(self, results=[], headers=[])
+                Loads selected files/assets in dt_files Data Table
+            add_publink_to_table(self)
+                Adds user-inputted publink to dt_cloud_links Data Table
+            get_codes(self)
+                Returns PCloud API call response codes
+            search_for_files(self)
+                Searches pcloud publinks for selected files
+            get_publink_data(self, codes=[])
+                Returns publink metadata
+            classify_files(self)
+                Classifies files according to file extensions
+            color_filename_cells(self)
+                Colors cells of dt_files Data Table based on file status
+            color_shot_table(self)
+                Colors cells of dt_shot_data_table Data table based on file status
+            get_matching_files(self, filename="")
+                Returns list of filenames with multiple pcloud entries
             find_latest_file(self, file_data=[])
-                Returns latest modified file from list of same-named assets
-            download_assets(self)
-                Downloads assets to respective directory
-            asset_cell_clicked(self)
-                !!! when asset cell is clicked
-            load_table_data(self, results=[])
-                Loads selected columns and rows in Data Table
-            load_asset_data(self, results=[], headers=[])
-                Loads selected assets in Data Table
-            set_data(self, data=[])
-                !!! Sets data to !!!
+                Returns latest modified file from list of same-named filenames
+            download_files(self)
+                Downloads assets/files to respective directory. Disables download button for download length
+            update_progress_bar(self, percent=0)
+                Updates progress bar of main window to reflect download progress
+            download_finished(self)
+                Enables download button on download completion
+            create_unique_filename_list(self, assets=[])
+                Returns list of unique filename from list of filenames
+            set_shot_data(self, data=[])
+                Sets shot_data to user selections
+            test_popup(self)
+                Pops up FileDetailsView
     """
     def __init__(self, parent=None, file_io=FileIo()):
         """Constructor:

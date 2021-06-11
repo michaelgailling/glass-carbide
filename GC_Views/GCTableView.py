@@ -23,12 +23,14 @@ class GCTableView(QFrame):
     """Table View
 
         Summary:
-            A class for {Type} that includes:
+            A class for load & display of CSV on Data Table that includes:
 
-            -{Description} to the {Location eg left}
+            -Data Table of CSV on top
+            -LabeledFileInput for CSV selection and Load button on bottom
+
 
         Attributes:
-            label, {AttributeName}
+            csv_handler, fio, column_definitions, dt_table, lfi_file_select, btn_load_file, vbl_main_layout
 
         Methods:
             load_file, create_selection
@@ -36,8 +38,19 @@ class GCTableView(QFrame):
         Attributes
         ----------
             csv_handler : CsvIo
+                CsvIo handles load, parse and display of csv files
             fio : file_io
+                File input & output
             column_definitions : []
+                Array for column definitions of dt_table Data Table
+            dt_table : DataTable
+                Data table for csv
+            lfi_file_select : LabeledFileInput
+                LabeledFileInput for open file dialogue to select csv file
+            btn_load_file : QPushButton
+                Button to load selected csv to dt_table Data Table
+            vbl_main_layout : QVBoxLayout
+                Main Vertical Layout
 
         Methods
         -------
@@ -79,8 +92,6 @@ class GCTableView(QFrame):
         # ----------------------------------------------
         self.btn_load_file = QPushButton("Load To Table")
         self.btn_load_file.clicked.connect(self.load_file)
-        # self.btn_load_file.setStyleSheet("background-color:#1000A0;color:white;padding:13 3;border:2px solid #1000A0;"
-        #                                  "border-radius:10px;font-weight:600;")
 
         # ----------------------------------------------
         # -----------------vbl_main_layout--------------

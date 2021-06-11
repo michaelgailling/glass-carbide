@@ -481,6 +481,7 @@ from PySide2.QtWidgets import QFrame, QTableWidget, QVBoxLayout, QTableWidgetIte
 #         asyncio.run(self.fit_headers_to_content())
 
 
+
 class DataTable(QFrame):
 
     def __init__(self, parent=None, width=0, height=0, readonly=False, log_data=False):
@@ -803,7 +804,6 @@ if __name__ == '__main__':
 
     mapping_options = ["option", "option", "option", "option", "option", "option"]
     mapping_row = [mapping_options, mapping_options, mapping_options, mapping_options, mapping_options]
-
     test_arr = [
                     mapping_row,
                     [False, "OLD", "OLD", "OLD", "OLD"],
@@ -811,6 +811,7 @@ if __name__ == '__main__':
                     [False, "OLD", "OLD", "OLD", "OLD"],
                     [False, "OLD", "OLD", "OLD", "OLD"],
                 ]
+
 
     dt_table.show()
 

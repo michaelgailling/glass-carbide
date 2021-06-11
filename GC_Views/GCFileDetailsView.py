@@ -25,22 +25,47 @@ class FileDetailsView(QWidget):
     """File Details View
 
                         Summary:
-                            A class for {Type} that includes:
+                            A class for viewing pcloud file details that includes:
 
-                            -{Description} to the {Location eg left}
+                            -Data Table for list of files to the left
+                            -TextBrowser for file details in the center
+                            -Frame containing Label for file's thumbnail image & buttons on right
 
                         Attributes:
-
+                            hbl_main_layout, vbl_img_btns_layout, lbl_duplicates, lbl_details, lbl_thumbnail, dt_table,
+                            tb_details, lbl_thumbnail, btn_check, btn_change, img_btn_frame
 
                         Methods:
-
+                            None
 
                         Attributes
                         ----------
-
+                            hbl_main_layout : QHBoxLayout
+                                Main horizontal layout
+                            vbl_img_btns_layout : QVBoxLayout
+                                Vertical layout for image & buttons
+                            lbl_duplicates : QLabel
+                                Label for duplicates
+                            lbl_details : QLabel
+                                Label for details
+                            lbl_thumbnail : QLabel
+                                Label for thumbnail
+                            dt_table : DataTable
+                                Data Table for list of duplicates
+                            tb_details : QTextBrowser
+                                Text Browser for File details
+                            lbl_thumbnail : QLabel
+                                Label for thumbnail image
+                            btn_check = QPushButton
+                                Button for
+                            btn_change = QPushButton
+                                Button for
+                            img_btn_frame = QFrame
+                                QFrame to display thumbnail image and buttons
 
                         Methods
                         -------
+                            None
 
                     """
 
@@ -74,7 +99,6 @@ class FileDetailsView(QWidget):
         # Vertical Box for File details
         self.vbl_details = QVBoxLayout()
         self.vbl_details.addWidget(self.lbl_details)
-
 
         # PixMap for file thumbnail
         self.lbl_thumbnail = QLabel(self)

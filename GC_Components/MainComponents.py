@@ -21,24 +21,30 @@ class MenuBar(QMenuBar):
             Summary:
                 A class for an menu bar that includes:
 
-                -
+                -File menu with Open, New, Save & Exit actions
 
             Attributes:
-
+                file_menu, open_button, new_button, save_button, exit_button
 
             Methods:
-
+                None
 
             Attributes
             ----------
-                label : QLabel
-                    Text Label for Input Box
+                file_menu : QMenuBar
+                    Menu Bar with File option
+                open_button : QAction
+                    Open option in Menu Bar, under File
+                new_button : QAction
+                    New option in Menu Bar, under File
+                save_button : QAction
+                    Save option in Menu Bar, under File
+                exit_button : QAction
+                    Exit option in Menu Bar, under File
 
             Methods
             -------
-                get_input_text(self)
-                    Return the text in the input box
-                (self, value : string)
+                Nonw
         """
 
     def __init__(self, parent):
@@ -85,9 +91,9 @@ class MainButtons(QHBoxLayout):
     """Main Buttons in an HBox
 
             Summary:
-                A class for {Type} that includes:
+                A class for MainButtons that includes:
 
-                -{Description} to the {Location eg left}
+                -Continue & Back buttons in a horizontal layout
 
             Attributes:
                 statLbl, continueBtn, cancelBtn
@@ -110,7 +116,7 @@ class MainButtons(QHBoxLayout):
         """
 
     def __init__(self, parent):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the Main Buttons container object.
 
             Parameters
@@ -142,33 +148,34 @@ class MainNavButtons(QFrame):
     """Main Navigation Buttons
 
             Summary:
-                A class for {Type} that includes:
+                A class for MainNavButtons that includes:
 
-                -{Description} to the {Location eg left}
+                -Continue & Back buttons in a horizontal layout
 
             Attributes:
-                label, {AttributeName}
+                layout, statLbl, continueBtn, cancelBtn
 
             Methods:
-                get_input_text, {MethodName}
+                None
 
             Attributes
             ----------
-                label : QLabel
-                    Text Label for Input Box
-                {AttributeName} : {AttributeClass}
-                    {Property} for {Type}
+                layout : QHBoxLayout
+                    Horizontal main layout
+                statLbl : QLabel
+                    Blank Label for spacing
+                continueBtn : QPushButton
+                    Pushbutton to continue to next step/tab
+                cancelBtn : QPushButton
+                    Pushbutton to go back to previous step/tab
 
             Methods
             -------
-                get_input_text(self)
-                    Return the text in the input box
-                {MethodName}({Parameters})
-                    {Functionality}
+                None
         """
 
     def __init__(self, parent=None):
-        """
+        """Constructor:
             Constructs all the necessary attributes for the MainNavBar object.
 
             Parameters
