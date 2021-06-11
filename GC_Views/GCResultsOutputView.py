@@ -40,13 +40,13 @@ class GCResultsOutputView(QFrame):
         Attributes:
             parent, shot_data, filenames, file_metadata, publinks, cloud_scanned, fio, apic, threadpool, hbl_tables,
             dt_shot_data, dt_files, hbl_controls, dt_cloud_links, liwb_add_publink, vbl_control_buttons, btn_scan,
-            btn_download_files, vbl_main_layout
+            btn_download_files, btn_cancel_download, vbl_main_layout
 
         Methods:
             add_publink_clicked, scan_pcloud_clicked, download_files_clicked, load_shot_table_data, load_filename_table,
             add_publink_to_table, get_codes, search_for_files, get_publink_data, classify_files, color_filename_cells,
             color_shot_table, get_matching_files, find_latest_file, download_files, update_progress_bar, test_popup,
-            download_finished, create_unique_filename_list, set_shot_data
+            download_finished, create_unique_filename_list, set_shot_data, cancel_download
 
         Attributes
         ----------
@@ -86,6 +86,8 @@ class GCResultsOutputView(QFrame):
                 Button for scanning PCloud
             btn_download_files : QPushButton
                 Button for downloading selected files from PCloud
+            btn_cancel_download : QPushButton
+                Button for cancelling download of files from pcloud
             vbl_main_layout = QVBoxLayout
                 Main VBox layout
 
@@ -131,6 +133,8 @@ class GCResultsOutputView(QFrame):
                 Sets shot_data to user selections
             test_popup(self)
                 Pops up FileDetailsView
+            cancel_download(self):
+                Cancels download of files
     """
     def __init__(self, parent=None, file_io=FileIo()):
         """Constructor:
@@ -201,9 +205,14 @@ class GCResultsOutputView(QFrame):
         self.btn_download_files = QPushButton(text="Download Scanned Files")
         self.btn_download_files.clicked.connect(self.download_files)
 
+        # Cancel Download Button
+        self.btn_cancel_download = QPushButton(text="Cancel Download")
+        self.btn_cancel_download.clicked.connect(self.cancel_download)
+
         self.vbl_control_buttons.addWidget(self.liwb_add_publink)
         self.vbl_control_buttons.addWidget(self.btn_scan, alignment=Qt.AlignHCenter)
         self.vbl_control_buttons.addWidget(self.btn_download_files, alignment=Qt.AlignHCenter)
+        self.vbl_control_buttons.addWidget(self.btn_cancel_download, alignment=Qt.AlignHCenter)
 
         self.hbl_controls.addWidget(self.dt_cloud_links)
         self.hbl_controls.addLayout(self.vbl_control_buttons)
@@ -459,6 +468,9 @@ class GCResultsOutputView(QFrame):
     def test_popup(self):
         popup_frame = FileDetailsView()
         popup_frame.show()
+
+    def cancel_download(self):
+        pass
 
 
 if __name__ == '__main__':
