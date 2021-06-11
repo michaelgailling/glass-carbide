@@ -101,17 +101,17 @@ class FileDetailsView(QWidget):
         self.lbl_thumbnail.setObjectName("thumbnail")
 
         # Buttons
-        self.btn_include = QPushButton("Include")
+        self.btn_include = QPushButton("Include File")
         self.btn_include.clicked.connect(self.include_file)
-        self.btn_ignore = QPushButton("Ignore")
+        self.btn_ignore = QPushButton("Ignore File")
         self.btn_ignore.clicked.connect(self.ignore_file)
 
         # Vertical Layout Adding
         self.img_btn_frame = QFrame()
         self.img_btn_frame.setStyleSheet('::section{background-color:white}')
         self.vbl_img_btns_layout.addWidget(self.lbl_thumbnail, alignment=Qt.AlignCenter)
-        self.vbl_img_btns_layout.addWidget(self.btn_include)
-        self.vbl_img_btns_layout.addWidget(self.btn_ignore)
+        self.vbl_img_btns_layout.addWidget(self.btn_include, alignment=Qt.AlignHCenter)
+        self.vbl_img_btns_layout.addWidget(self.btn_ignore, alignment=Qt.AlignHCenter)
         self.img_btn_frame.setLayout(self.vbl_img_btns_layout)
         self.img_btn_frame.setObjectName("picArea")
 
@@ -128,7 +128,7 @@ class FileDetailsView(QWidget):
                            'QLabel#details{background-color:white;color:#1000A0;font-family:Arial;font-size:15}'
                            'QTableWidget{background-color:white;font-weight:600} QFrame#picArea{background-color:white}'
                            'QPushButton{font-weight:600;background-color:#1000A0;border-radius:20px;'
-                           'padding:10;color:rgb(255,255,255);margin:1 36;border:2px solid #1000A0;}')
+                           'padding:10 133;color:rgb(255,255,255);margin:1 30;border:2px solid #1000A0;}')
 
         self.setStyleSheet('background-color:#e6e6e6')
 
@@ -168,24 +168,24 @@ class FileDetailsView(QWidget):
                                                      size="1024x512")
 
             pixmap.loadFromData(thumbnail)
-            pixmap = pixmap.scaledToWidth(self.img_btn_frame.width()-10)
+            pixmap = pixmap.scaledToWidth(self.img_btn_frame.width()-13)
             self.lbl_thumbnail.setPixmap(pixmap)
         else:
             file_extension = self.selected_file.name[-4:]
             if "wav" in file_extension:
-                pixmap = QPixmap('../GC_Images/wavicon.png').scaledToWidth(350)
+                pixmap = QPixmap('../GC_Images/wavicon.png').scaledToWidth(400)
                 self.lbl_thumbnail.setPixmap(pixmap)
             elif "fla" in file_extension:
-                pixmap = QPixmap('../GC_Images/flaicon.png').scaledToWidth(350)
+                pixmap = QPixmap('../GC_Images/flaicon.png').scaledToWidth(400)
                 self.lbl_thumbnail.setPixmap(pixmap)
             elif "png" in file_extension:
-                pixmap = QPixmap('../GC_Images/pngicon.png').scaledToWidth(350)
+                pixmap = QPixmap('../GC_Images/pngicon.png').scaledToWidth(400)
                 self.lbl_thumbnail.setPixmap(pixmap)
             elif "mp4" in file_extension:
-                pixmap = QPixmap('../GC_Images/mp4icon.png').scaledToWidth(350)
+                pixmap = QPixmap('../GC_Images/mp4icon.png').scaledToWidth(400)
                 self.lbl_thumbnail.setPixmap(pixmap)
             elif "psd" in file_extension:
-                pixmap = QPixmap('../GC_Images/psdicon.png').scaledToWidth(350)
+                pixmap = QPixmap('../GC_Images/psdicon.png').scaledToWidth(400)
                 self.lbl_thumbnail.setPixmap(pixmap)
             else:
                 pixmap = QPixmap()

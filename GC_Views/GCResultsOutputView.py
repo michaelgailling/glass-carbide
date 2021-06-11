@@ -208,6 +208,8 @@ class GCResultsOutputView(QFrame):
         # Cancel Download Button
         self.btn_cancel_download = QPushButton(text="Cancel Download")
         self.btn_cancel_download.clicked.connect(self.cancel_download)
+        self.btn_cancel_download.setStyleSheet("margin:3 auto;color:#1000A0;background-color:rgb(255,255,255);"
+                                               "padding:10;border:2px solid #1000A0;border-radius:20px;font-weight:600;")
 
         self.vbl_control_buttons.addWidget(self.liwb_add_publink)
         self.vbl_control_buttons.addWidget(self.btn_scan, alignment=Qt.AlignHCenter)
@@ -251,6 +253,8 @@ class GCResultsOutputView(QFrame):
 
     def file_table_cell_clicked(self, row=0, column=0):
         if self.cloud_scanned:
+            self.popup_frame.lbl_details.setText("File Details")
+            self.popup_frame.lbl_thumbnail.clear()
             filename = self.dt_files.get_row(row)
             filename = filename[0]
             print(filename)
