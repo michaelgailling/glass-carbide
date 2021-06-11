@@ -35,5 +35,6 @@ class PCloudFileModel:
     def __str__(self):
         file_data = f"\nFilename: {self.name} \nFile ID: {self.fileid} \nParent Folder ID: {self.parent_folder_id} " \
                     f"\nCreated: {self.created} \nModified: {self.modified} \nThumbnail Available: {self.thumb} " \
-                    f"\nFile Size: {self.size}\nPublink Code: {self.publink_code}\nFile Type: {self.file_type}\n"
+                    f"\nFile Size: {self.size} Bytes\nPublink Code: {self.publink_code}\nFile Type: {self.file_type}" \
+                    f"\nIgnore File: {self.ignore}\n"
         return f"-------------------------------------{file_data}-------------------------------------"

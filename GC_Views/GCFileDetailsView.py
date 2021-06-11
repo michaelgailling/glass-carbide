@@ -71,8 +71,10 @@ class FileDetailsView(QWidget):
         self.dt_file_list = DataTable(self)
         self.dt_file_list.set_dimensions(1, 0)
         self.dt_file_list.table.cellDoubleClicked.connect(self.file_table_cell_clicked)
-        # Text Box for File details
-        self.tb_details = QTextBrowser()
+        # Vertical Box for File details
+        self.vbl_details = QVBoxLayout()
+        self.vbl_details.addWidget(self.lbl_details)
+
 
         # PixMap for file thumbnail
         self.lbl_thumbnail = QLabel(self)
@@ -85,15 +87,15 @@ class FileDetailsView(QWidget):
         # Vertical Layout Adding
         self.img_btn_frame = QFrame()
         self.img_btn_frame.setStyleSheet('::section{background-color:white}')
-        self.img_btn_frame.setMaximumWidth(256)
+        self.img_btn_frame.setMaximumWidth(512)
         self.vbl_img_btns_layout.addWidget(self.lbl_thumbnail)
         # self.vbl_img_btns_layout.addWidget(self.btn_change)
         self.vbl_img_btns_layout.addWidget(self.btn_check)
         self.img_btn_frame.setLayout(self.vbl_img_btns_layout)
 
         # Main Layout
-        self.hbl_main_layout.addWidget(self.dt_file_list)
-        self.hbl_main_layout.addWidget(self.tb_details)
+        self.hbl_main_layout.addWidget(self.dt_file_list, stretch=1)
+        self.hbl_main_layout.addLayout(self.vbl_details)
         self.hbl_main_layout.addWidget(self.img_btn_frame, stretch=1)
         self.setLayout(self.hbl_main_layout)
 
@@ -132,6 +134,7 @@ class FileDetailsView(QWidget):
 
     def display_file_data(self):
         self.set_thumbnail()
+        self.lbl_details.setText(str(self.selected_file))
 
     def set_thumbnail(self):
         thumbnail = None
