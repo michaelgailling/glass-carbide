@@ -16,6 +16,7 @@ from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QApplication, QHB
     QLabel
 from GC_Views.GCHomeView import GCHomeView
 from GC_Views.GCResultsOutputView import GCResultsOutputView
+
 from GC_Views.GCTableView import GCTableView
 from GC_Services.FileIo import FileIo
 
@@ -211,7 +212,7 @@ class GCTabView(QFrame):
                 self.set_tab_index(1)
 
     def table_view_transition(self):
-        selection = self.tv_tableView.create_selection()
+        selection = self.tv_tableView.get_all_selected()
         if selection:
             self.rv_resultsView.load_shot_table_data(selection)
             self.set_tab_index(2)

@@ -531,6 +531,19 @@ class PCloud:
             self.temp_storage.append(file_obj)
             return None
 
+    def getpubthumb(self, code="", file_id="", size="512x1024"):
+        if code and file_id:
+            method_params = {
+                "code": code,
+                "fileid": file_id,
+                "size": size
+            }
+
+            url = self.regionUrl + "getpubthumb"
+            res = requests.get(url, params=method_params)
+
+            return res.content
+
     def get_pub_link_download(self, code="", file_id=""):
         if code and file_id:
             method_params = {
@@ -553,4 +566,6 @@ class PCloud:
 
 
 if __name__ == '__main__':
-    pass
+    apic = PCloud()
+    apic.set_region("NA")
+    apic.getpubthumb(code="kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V", file_id="27739405968")

@@ -19,7 +19,7 @@ from PySide2.QtCore import Qt, QThreadPool, Slot
 from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QPushButton
 
 from GC_Components.InputComponents import LabeledInputWithButton
-from GC_Components.TableComponents import DataTable, SimpleDataTable
+from GC_Components.TableComponents import DataTable
 from GC_Services.FileIo import FileIo
 from GC_Services.pcloudAPI import PCloud
 from GCFileDetailsView import FileDetailsView
@@ -155,6 +155,8 @@ class GCResultsOutputView(QFrame):
         self.fio = file_io
         self.apic = PCloud()
         self.apic.set_region("NA")
+        self.popup_frame = FileDetailsView(self)
+
 
         self.threadpool = QThreadPool()
         print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
@@ -164,7 +166,8 @@ class GCResultsOutputView(QFrame):
         self.hbl_tables = QHBoxLayout()
 
         self.dt_shot_data = DataTable(None, readonly=False)
-        self.dt_files = SimpleDataTable(None, readonly=True)
+        self.dt_files = DataTable(None, readonly=False)
+        self.dt_files.table.cellDoubleClicked.connect(self.file_table_cell_clicked)
 
         self.btn_update = QPushButton("Update Filenames ---->")
         self.btn_update.clicked.connect(self.load_filename_table)
@@ -179,8 +182,8 @@ class GCResultsOutputView(QFrame):
         self.hbl_controls = QHBoxLayout()
 
         # Publink list
-        self.dt_cloud_links = SimpleDataTable(None, readonly=True)
-        self.dt_cloud_links.load_table([])
+        self.dt_cloud_links = DataTable(None, readonly=True)
+        self.dt_cloud_links.set_dimensions(1, 0)
         self.dt_cloud_links.set_headers(["Publinks"])
 
         # Publink labeled input with button
@@ -227,11 +230,34 @@ class GCResultsOutputView(QFrame):
         self.classify_files()
         self.color_filename_cells()
         self.color_shot_table()
+        self.cloud_scanned = True
         for file in self.file_metadata:
             print(file)
 
     def download_files_clicked(self):
-        self.download_files()
+        if self.cloud_scanned:
+            self.download_files()
+        else:
+            self.parent.issue_warning_prompt("Please scan pCloud!")
+
+    def file_table_cell_clicked(self, row=0, column=0):
+        if self.cloud_scanned:
+            filename = self.dt_files.get_row(row)
+            filename = filename[0]
+            print(filename)
+
+            file_data = []
+            for file in self.file_metadata:
+                if filename in file.name:
+                    file_data.append(file)
+
+            self.popup_frame.dt_file_list.table.clear()
+
+            self.popup_frame.set_file_list(file_data)
+
+            self.popup_frame.show()
+        else:
+            self.parent.issue_warning_prompt("Please scan pCloud!")
 
     def load_shot_table_data(self, selected_shots=[]):
         try:
@@ -245,7 +271,7 @@ class GCResultsOutputView(QFrame):
 
     def load_filename_table(self):
         shot_headers = self.dt_shot_data.get_headers()
-        shot_data = self.dt_shot_data.get_table_data()
+        shot_data = self.dt_shot_data.get_all_rows()
 
         raw_filenames = []
         if "ShotCode" in shot_headers:
@@ -259,18 +285,21 @@ class GCResultsOutputView(QFrame):
                 raw_filenames.insert(-1, item[index])
 
         self.filenames = self.create_unique_filename_list(raw_filenames)
-
         self.filenames.sort()
-        self.dt_files.set_dimensions(1, len(shot_data))
+
         header = ["Filenames"]
+        self.dt_files.clear_table()
+        self.dt_files.set_dimensions(1, 0)
         self.dt_files.set_headers(header)
-        self.dt_files.load_table(self.filenames)
+        for name in self.filenames:
+            self.dt_files.add_row([name])
 
     def add_publink_to_table(self):
+        self.dt_cloud_links.set_headers(["Publinks"])
         publink = self.liwb_add_publink.get_input_text()
         if publink and publink not in self.publinks:
             self.publinks.append(publink)
-            self.dt_cloud_links.load_table(data=self.publinks)
+            self.dt_cloud_links.add_row([publink])
             self.liwb_add_publink.set_input_text("")
 
     def get_codes(self):
@@ -308,7 +337,7 @@ class GCResultsOutputView(QFrame):
         file_extensions = {
             "audio": ["wav", "mp3", "ogg", "flac"],
             "video": ["mov", "mp4", "mpg", "avi", "wmv"],
-            "image": ["jpg", "gif", "bmp", "fla", "psd", "png"]
+            "image": ["jpg", "gif", "bmp", "fla", "psd", "png", "jpeg"]
         }
 
         for i in range(len(self.file_metadata)):
@@ -390,7 +419,7 @@ class GCResultsOutputView(QFrame):
         return latest_file
 
     def download_files(self):
-        self.btn_download_files.setEnabled(False)
+        self.enable_buttons(False)
         print("Download Button Pressed")
         worker = DownloadWorker(self.file_metadata, self.fio)
         worker.signals.update_progress.connect(self.update_progress_bar)
@@ -404,7 +433,15 @@ class GCResultsOutputView(QFrame):
 
     @Slot()
     def download_finished(self):
-        self.btn_download_files.setEnabled(True)
+        self.enable_buttons()
+
+    def enable_buttons(self, val=True):
+        self.btn_download_files.setEnabled(val)
+        self.btn_scan.setEnabled(val)
+        self.btn_update.setEnabled(val)
+        self.parent.btn_back.setEnabled(val)
+        self.parent.btn_continue.setEnabled(val)
+
 
     def create_unique_filename_list(self, assets=[]):
         asset_set = set()
@@ -422,7 +459,6 @@ class GCResultsOutputView(QFrame):
     def test_popup(self):
         popup_frame = FileDetailsView()
         popup_frame.show()
-        popup_frame.exec_()
 
 
 if __name__ == '__main__':

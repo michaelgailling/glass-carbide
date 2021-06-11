@@ -12,7 +12,7 @@
 import sys
 
 from PySide2.QtGui import Qt
-from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QMessageBox
+from PySide2.QtWidgets import QApplication, QFrame, QPushButton, QVBoxLayout, QMessageBox, QCheckBox
 from GC_Services.FileIo import FileIo
 from GC_Components.InputComponents import LabeledFileInput
 from GC_Components.TableComponents import DataTable
@@ -121,7 +121,8 @@ class GCTableView(QFrame):
             csv_headers.insert(0, "Select")
             csv_data = self.csv_handler.data[1:]
 
-            self.dt_table.clear_table()
+            for item in csv_data:
+                item.insert(0, False)
 
             self.dt_table.load_table(csv_data)
 
@@ -132,12 +133,16 @@ class GCTableView(QFrame):
                              "Frames",
                              "Resolution",
                              ""]
+            combo_row = [False]
+            for i in range(self.dt_table.width - 1):
+                combo_row.append(combo_options)
 
-            self.dt_table.insert_control_row("combobox", 0, combo_options)
+            self.dt_table.insert_row(combo_row)
 
-            self.dt_table.insert_control_column("checkbox", 1)
+            self.dt_table.table.cellWidget(0, 0).clicked.connect(self.select_all)
 
             self.dt_table.set_headers(csv_headers)
+
         else:
             msg_warning = QMessageBox()
             msg_warning.setIcon(QMessageBox.Warning)
@@ -145,13 +150,51 @@ class GCTableView(QFrame):
             msg_warning.setText("Select CSV to Load")
             msg_warning.exec_()
 
+    def select_all(self):
+        test = QCheckBox()
+
+        is_checked = self.dt_table.table.cellWidget(0, 0).isChecked()
+
+        if(is_checked):
+            for y in range(self.dt_table.height):
+                self.dt_table.table.cellWidget(y, 0).setChecked(True)
+        else:
+            for y in range(self.dt_table.height):
+                self.dt_table.table.cellWidget(y, 0).setChecked(False)
+
+        self.get_all_selected()
+
+    def get_all_selected(self):
+        all_rows = self.dt_table.get_all_rows()
+        combos = all_rows.pop(0)[1:]
+        selected_rows = [combos]
+
+        for i in range(0, len(all_rows)):
+            row = all_rows[i]
+            row_selected = row[0]
+            if row_selected:
+                selected_rows.append(row[1:])
+
+        for x in range(len(combos)-1, -1, -1):
+            header = selected_rows[0][x]
+            if header == "None":
+                for y in range(len(selected_rows)):
+                    del selected_rows[y][x]
+
+        return selected_rows
+
+
+
+
+
+
     def create_selection(self):
         width = self.dt_table.width
         height = self.dt_table.height
 
         current_table = []
 
-        for y in range(1, height):
+        for y in range(0, height):
             row = []
             for x in range(1, width):
                 row.append(self.dt_table.get_cell_text(x, y))
