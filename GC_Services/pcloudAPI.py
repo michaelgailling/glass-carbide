@@ -13,6 +13,8 @@
 import asyncio
 import json
 from hashlib import sha1
+from urllib import parse
+from urllib.parse import parse_qs
 from typing import Dict
 
 import requests
@@ -20,16 +22,104 @@ import requests
 
 # https://api.pcloud.com/userinfo?getauth=1&logout=1&username={username}&password={password}
 # https://api.pcloud.com/listfolder?auth={token}&folderid={folderid}
+from GC_Models.PCloudFileModel import PCloudFileModel
 
 
 class PCloud:
-    """PCloud API class:
-        Handles connection from pCloud api service
+    """PCloud
+
+        Summary:
+            A class for pCloud api that includes:
+
+            -Handles connection from pCloud api service
 
         Attributes:
+            result_codes, regionUrlDict, user_details, temp_storage, regionUrl, token, folderId
 
         Methods:
+            handle_response, set_region, set_username, set_password, user_details_valid, handle_status_code,
+            handle_result_code, valid_token, auth, get_digest, create_password_digest, auth_digest, auth2,
+            list_folder, create_folder, rename_folder, delete_folder, file_stats, upload_file, rename_file,
+            get_file_link, get_code_from_url, get_pub_link_directory, get_pub_link_file_data, find_file_in_dict,
+            get_pub_link_download, download_file(self, url)
 
+        Attributes
+        ----------
+            result_codes : {int:str}
+                Dictionary of result codes and corresponding message
+            regionUrlDict : {str:str}
+                Dictionary of regions and respective urls
+            user_details : {str:str}
+                Dictionary of usernames and passwords
+            temp_storage : []
+                Array variable for temporary storage
+            regionUrl : str
+                String for regional url
+            token : str
+                 String for auth token
+            folderId : str
+                String for folder ID #
+
+        Methods
+        -------
+            handle_response(self, res)
+                Returns parsed url response
+            set_region(self, region="NA")
+                Sets region for url based on region & returns bool value of operation success
+            set_username(self, username)
+                Sets username
+            set_password(self, password)
+                Sets password
+            user_details_valid(self)
+                Returns bool value of validation of username and password
+            handle_status_code(self, response)
+                Returns status code of response
+            handle_result_code(self, result_code=None)
+                !!! Returns bool value result code
+            valid_token(self)
+                Returns bool value of testing if token is null
+            auth(self)
+                !!! Description
+            get_digest(self)
+                Returns username and password as digest
+            create_password_digest(self, digest)
+                Encodes username and password into digest
+            get_digest(self)
+                Returns digest from pcloud url
+            create_password_digest(self, digest)
+                Returns digest encoded password
+            auth_digest(self)
+                Authenticates digest
+            auth2(self)
+                Empty
+            list_folder(self, folder_id=None)
+                Returns dictionary of folder/directory metadata
+            create_folder(self, folder_id="0", name="")
+                Creates a new folder/directory and returns response
+            rename_folder(self, folder_id=None, to_name="")
+                Renames an existing folder/directory and returns response
+            delete_folder(self, folder_id="0")
+                Removes a folder/directory and returns response
+            file_stats(self, file_id=None)
+                !!! Returns file metadata
+            upload_file(self, folder_id=None, file_path=None, file_name=None)
+                Uploads selected file to selected folder/directory and returns response
+            rename_file(self, file_id=None, to_name="")
+                Renames an existing file and returns response
+            get_file_link(self, file_id=None)
+                Returns file link and response
+            get_code_from_url(self, url)
+                Returns response code of query
+            get_pub_link_directory(self, code="")
+                !!! Returns pub link directory
+            get_pub_link_file_data(self, filename="", publink_metadata={})
+                !!! Returns file metadata from publink
+            find_file_in_dict(self, filename="", obj_dict={})
+                Searches for file in publink contents and returns results metadata
+            get_pub_link_download(self, code="", file_id="")
+                Returns publink download link for selected file
+            download_file(self, url)
+                Downloads and returns selected file
     """
 
     def __init__(self):
@@ -41,6 +131,7 @@ class PCloud:
             Returns:
                 None
         """
+
         self.result_codes = {
             1000: "Log in required.",
             1004: "No fileid or path provided.",
@@ -401,7 +492,12 @@ class PCloud:
 
 ###################Publink Metods##########################
 
-    async def show_pub_link_directory(self, code=""):
+    def get_code_from_url(self, url):
+        parsed_url = parse.urlsplit(url)
+        code = parse_qs(parsed_url.query)["code"]
+        return code[0]
+
+    def get_pub_link_directory(self, code=""):
         if code:
             method_params = {
                 "code": code
@@ -414,13 +510,13 @@ class PCloud:
 
             return res_obj
 
-    def get_pub_link_file_data(self, filename="", code=""):
-        if filename and code:
-            pub_link_dir_res = asyncio.run(self.show_pub_link_directory(code))
-            dir_dict = pub_link_dir_res["metadata"]
+    def get_pub_link_file_data(self, filename="", publink_metadata={}):
+        if filename and publink_metadata:
             self.temp_storage = []
-            self.find_file_in_dict(filename, dir_dict)
+            self.find_file_in_dict(filename, publink_metadata)
             return self.temp_storage
+
+        return None
 
     def find_file_in_dict(self, filename="", obj_dict={}):
         result = {}
@@ -430,10 +526,25 @@ class PCloud:
                 if result:
                     return result
         elif not obj_dict["isfolder"] and filename in obj_dict["name"][:-4]:
-            self.temp_storage.append(obj_dict)
+            file_obj = PCloudFileModel()
+            file_obj.load_data(obj_dict)
+            self.temp_storage.append(file_obj)
             return None
 
-    async def get_pub_link_download(self, code="", file_id=""):
+    def getpubthumb(self, code="", file_id="", size="512x1024"):
+        if code and file_id:
+            method_params = {
+                "code": code,
+                "fileid": file_id,
+                "size": size
+            }
+
+            url = self.regionUrl + "getpubthumb"
+            res = requests.get(url, params=method_params)
+
+            return res.content
+
+    def get_pub_link_download(self, code="", file_id=""):
         if code and file_id:
             method_params = {
                 "code": code,
@@ -447,71 +558,14 @@ class PCloud:
 
             return res_obj
 
-    async def download_file(self, url):
+    def download_file(self, url):
         if url:
             res = requests.get(url)
 
             return res.content
 
 
-
-
-apic = PCloud()
-
-apic.set_region("NA")
-
-apic.get_pub_link_file_data("props_transformer_car_001", "kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V")
-
-for item in apic.temp_storage:
-    print(item)
-
-# pub_link_dir = asyncio.run(apic.show_pub_link_directory("kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V"))
-#
-# print(json.dumps(pub_link_dir["metadata"], sort_keys=True, indent=4))
-#
-# pub_link_download = asyncio.run(apic.get_pub_link_download(code="kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V", file_id="27739405968"))
-#
-# print(json.dumps(pub_link_download, sort_keys=True, indent=4))
-#
-# host = "http://" + pub_link_download["hosts"][0]
-# path = pub_link_download["path"]
-#
-# url = host + path
-#
-# file_res = asyncio.run(apic.download_file(url))
-#
-# print(file_res)
-#
-# open("../TEST.jpg", "wb").write(file_res)
-
-# apic.set_region("NA")
-# apic.set_username("deedtmp+liknb@gmail.com")
-# apic.set_password("fakenews")
-#
-# print()
-# asyncio.run(apic.auth_digest())
-# print("Token: " + apic.token)
-# createdir = asyncio.run(apic.create_folder("0", "New Dir"))
-# print()
-# print()
-# filedir = asyncio.run(apic.list_folder("0"))
-#
-# print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
-# print()
-# print()
-# for item in filedir["contents"]:
-#     if item["name"] == "New Dir":
-#         asyncio.run(apic.rename_folder(item["folderid"], "Better Folder"))
-# print()
-# print()
-# filedir = asyncio.run(apic.list_folder("0"))
-# print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
-# print()
-# print()
-# for item in filedir["contents"]:
-#     if item["name"] == "Better Folder":
-#         asyncio.run(apic.delete_folder(item["folderid"]))
-# print()
-# print()
-# filedir = asyncio.run(apic.list_folder("0"))
-# print("File Data: " + json.dumps(filedir, sort_keys=True, indent=4))
+if __name__ == '__main__':
+    apic = PCloud()
+    apic.set_region("NA")
+    apic.getpubthumb(code="kZXpOjXZnGCxvIiKSzJbuYQUiakTARUrXj7V", file_id="27739405968")

@@ -20,33 +20,85 @@ from GC_Services.csvIO import CsvIo
 
 
 class TableView(QFrame):
+    """Table View
+
+        Summary:
+            A class for {Type} that includes:
+
+            -{Description} to the {Location eg left}
+
+        Attributes:
+            label, {AttributeName}
+
+        Methods:
+            load_file, create_selection
+
+        Attributes
+        ----------
+            csv_handler : CsvIo
+            fio : file_io
+            column_definitions : []
+
+        Methods
+        -------
+            load_file(self)
+                Loads CSV to table
+            create_selection(self)
+                Returns selected data from table
+    """
     def __init__(self, parent=None, file_io=FileIo()):
+        """Constructor:
+            Initialize Table View
+
+            Parameters:
+                self
+                parent : QFrame
+                file_io : FileIo
+                    {Description}
+            Returns:
+                None
+        """
+        # -------------------------------------------init Start-------------------------------------------
         super(TableView, self).__init__(parent)
-        self.vBox = QVBoxLayout()
         self.csv_handler = CsvIo()
         self.fio = file_io
-        # Table
-        self.dt_table = DataTable(self)
         self.column_definitions = []
 
-        # Labeled File Input
+        # ----------------------------------------------
+        # -----------------dt_table---------------------
+        # ----------------------------------------------
+        self.dt_table = DataTable(self)
+
+        # ----------------------------------------------
+        # -----------------lfi_file_select--------------
+        # ----------------------------------------------
         self.lfi_file_select = LabeledFileInput(self, label_text="Select CSV", file_type="CSV Format (*.csv)")
 
-        # Load Button
+        # ----------------------------------------------
+        # -----------------btn_load_file----------------
+        # ----------------------------------------------
         self.btn_load_file = QPushButton("Load To Table")
+        self.btn_load_file.clicked.connect(self.load_file)
         self.btn_load_file.setStyleSheet("background-color:#1000A0;color:white;padding:13 3;border:2px solid #1000A0;"
                                          "border-radius:10px;font-weight:600;")
-        self.btn_load_file.clicked.connect(self.load_file)
 
-        # Layout loading
-        self.vBox.addWidget(self.dt_table)
-        self.vBox.addWidget(self.lfi_file_select)
-        self.vBox.addWidget(self.btn_load_file, alignment=Qt.AlignHCenter)
-        self.setLayout(self.vBox)
+        # ----------------------------------------------
+        # -----------------vbl_main_layout--------------
+        # ----------------------------------------------
+
+        self.vbl_main_layout = QVBoxLayout()
+
+        self.vbl_main_layout.addWidget(self.dt_table)
+        self.vbl_main_layout.addWidget(self.lfi_file_select)
+        self.vbl_main_layout.addWidget(self.btn_load_file, alignment=Qt.AlignHCenter)
+        self.setLayout(self.vbl_main_layout)
 
         self.setGeometry(0, 0, 800, 600)
         self.setStyleSheet('QFrame{font-weight:600;} QLineEdit{border:2px solid #1000A0}'
-                           'QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6}')
+                           'QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6}'
+                           'QCheckBox{width:90%;margin: 0 auto;}')
+
+        # -------------------------------------------init End-------------------------------------------
 
     def load_file(self):
         self.csv_handler.data.clear()
@@ -61,7 +113,7 @@ class TableView(QFrame):
 
             self.dt_table.clear_table()
 
-            self.dt_table.load_data(csv_data)
+            self.dt_table.load_table(csv_data)
 
             combo_options = ["None",
                              "Assets",

@@ -16,7 +16,48 @@ import csv
 
 
 class CsvIo:
+    """CSV IO
+
+        Summary:
+            A class for CsvIo that includes:
+
+            -Handling of CSVs
+
+        Attributes:
+            data
+
+        Methods:
+            import_data, load, handler_headers, calc_prob, trim_columns, log_data
+
+        Attributes
+        ----------
+            data : []
+                Array of CSV data
+
+        Methods
+        -------
+            import_data(self, file_path="", handle_header=True, log_data=False)
+                Returns CSV data
+            load(self, file_path="")
+                Opens CSV and loads data
+            handler_headers(self)
+                Processes headers to determine header trimming
+            calc_prob(self)
+                Returns percentage of empty cells in row (worthless row)
+            trim_columns(self)
+                Trims columns from data
+            log_data(self)
+                Prints out contents of data
+    """
     def __init__(self):
+        """Constructor:
+            Initialize CSV parsing service
+
+            Parameters:
+                self
+            Returns:
+                None
+        """
         self.data = []
 
     def import_data(self, file_path="", handle_header=True, log_data=False):

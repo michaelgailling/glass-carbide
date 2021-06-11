@@ -1,14 +1,26 @@
+# Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &&
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+
 from PySide2.QtGui import QPixmap
 from PySide2.QtWidgets import QFrame, QLabel, QVBoxLayout
 
 
-class ImagePreView(QFrame):
-    """Image Preview
+class LogoView(QFrame):
+    """Logo View
 
         Summary:
-            A class for Viewing Images that includes:
+            A class for {Type} that includes:
 
-            -Pixmap in a label in a vertical layout
+            -{Description} to the {Location eg left}
 
         Attributes:
             logo, main_layout, pixmap
@@ -19,7 +31,6 @@ class ImagePreView(QFrame):
         Attributes
         ----------
             main_layout : QVBoxLayout
-             Vertical main layout
             logo : QLabel
                 Label for storing logo pixmap
             pixmap : QPixmap
@@ -31,7 +42,7 @@ class ImagePreView(QFrame):
     """
     def __init__(self, parent=None):
         """Constructor:
-            Initialize Image Preview View
+            Initialize Logo View
 
             Parameters:
                 self
@@ -39,10 +50,10 @@ class ImagePreView(QFrame):
             Returns:
                 None
         """
-        super(ImagePreView, self).__init__(parent)
+        super(LogoView, self).__init__(parent)
 
         self.logo = QLabel(self)
-        pixmap = QPixmap('octo.png')
+        pixmap = QPixmap('../../GC_Images/logo.png')
         self.logo.setPixmap(pixmap)
 
         self.main_layout = QVBoxLayout()
