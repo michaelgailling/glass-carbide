@@ -318,13 +318,16 @@ class GCResultsOutputView(QFrame):
     def add_publink_to_table(self):
         self.dt_cloud_links.set_headers(["Publinks"])
         publink = self.liwb_add_publink.get_input_text()
-        if publink and publink not in self.publinks:
-            self.publinks.append(publink)
-            self.dt_cloud_links.add_row([publink])
-            self.liwb_add_publink.set_input_text("")
-
-        resized_header = self.dt_cloud_links.table.horizontalHeader()
-        resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        if publink.startswith("http"):
+            if publink and publink not in self.publinks:
+                self.publinks.append(publink)
+                self.dt_cloud_links.add_row([publink])
+                self.liwb_add_publink.set_input_text("")
+                self.dt_cloud_links.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+            else:
+                self.parent.issue_warning_prompt("Please enter valid Publink")
+        else:
+            self.parent.issue_warning_prompt("Please enter valid Publink")
 
     def get_codes(self):
         codes = []
