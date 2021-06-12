@@ -161,9 +161,11 @@ class GCResultsOutputView(QFrame):
         self.apic.set_region("NA")
         self.popup_frame = FileDetailsView(self)
 
+        self.worker = DownloadWorker()
 
         self.threadpool = QThreadPool()
         print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+
         # ----------------------------------------------
         # -----------------hbl_tables-------------------
         # ----------------------------------------------
@@ -267,6 +269,8 @@ class GCResultsOutputView(QFrame):
             self.popup_frame.dt_file_list.table.clear()
 
             self.popup_frame.set_file_list(file_data)
+
+            self.popup_frame.file_table_cell_clicked(row=0)
 
             self.popup_frame.show()
         else:
@@ -434,10 +438,10 @@ class GCResultsOutputView(QFrame):
     def download_files(self):
         self.enable_buttons(False)
         print("Download Button Pressed")
-        worker = DownloadWorker(self.file_metadata, self.fio)
-        worker.signals.update_progress.connect(self.update_progress_bar)
-        worker.signals.finished.connect(self.download_finished)
-        self.threadpool.start(worker)
+        self.worker = DownloadWorker(self.file_metadata, self.fio)
+        self.worker.signals.update_progress.connect(self.update_progress_bar)
+        self.worker.signals.finished.connect(self.download_finished)
+        self.threadpool.start(self.worker)
 
     @Slot()
     def update_progress_bar(self, percent=0):
@@ -447,6 +451,7 @@ class GCResultsOutputView(QFrame):
     @Slot()
     def download_finished(self):
         self.enable_buttons()
+        self.update_progress_bar(0)
 
     def enable_buttons(self, val=True):
         self.btn_download_files.setEnabled(val)
@@ -474,7 +479,7 @@ class GCResultsOutputView(QFrame):
         popup_frame.show()
 
     def cancel_download(self):
-        pass
+        self.worker.cancel_download()
 
 
 if __name__ == '__main__':

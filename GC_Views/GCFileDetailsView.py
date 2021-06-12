@@ -193,10 +193,28 @@ class FileDetailsView(QWidget):
             self.lbl_thumbnail.resize(self.img_btn_frame.width(), self.img_btn_frame.height())
 
     def include_file(self):
-        pass
+        for file in self.file_data:
+            if file.name == self.selected_file.name:
+                file.ignore = False
+                self.selected_file.ignore = False
+                self.update_download_que()
+                break
+        self.lbl_details.setText(str(self.selected_file))
 
     def ignore_file(self):
-        pass
+        for file in self.file_data:
+            if file.name == self.selected_file.name:
+                file.ignore = True
+                self.selected_file.ignore = True
+                self.update_download_que()
+                break
+        self.lbl_details.setText(str(self.selected_file))
+
+    def update_download_que(self):
+        parent = self.parent
+        for file in self.parent.file_metadata:
+            if file.name == self.selected_file.name:
+                file.ignore = self.selected_file.ignore
 
 
 if __name__ == '__main__':
