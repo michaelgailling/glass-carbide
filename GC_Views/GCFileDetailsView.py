@@ -14,7 +14,7 @@ import sys
 from PySide2.QtCore import Qt
 from PySide2.QtGui import QPixmap, QFont
 from PySide2.QtWidgets import QFrame, QHBoxLayout, QFileDialog, QPushButton, QMessageBox, QVBoxLayout, QApplication, \
-    QTextBrowser, QLabel, QWidget
+    QTextBrowser, QLabel, QWidget, QHeaderView
 from GC_Components.InputComponents import LabeledDirectoryInput
 from GC_Components.TableComponents import DataTable
 from GC_Models.PCloudFileModel import PCloudFileModel
@@ -153,6 +153,9 @@ class FileDetailsView(QWidget):
             filenames.append([file.name])
 
         self.dt_file_list.load_table(filenames)
+
+        resized_header = self.dt_file_list.table.horizontalHeader()
+        resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
 
     def display_file_data(self):
         self.set_thumbnail()
