@@ -89,7 +89,7 @@ class FileDetailsView(QWidget):
         # Table of Files with Duplicates
         self.dt_file_list = DataTable(self)
         self.dt_file_list.set_dimensions(1, 0)
-        self.dt_file_list.table.cellDoubleClicked.connect(self.file_table_cell_clicked)
+        self.dt_file_list.table.cellClicked.connect(self.file_table_cell_clicked)
 
         # Vertical Box for File details
         self.vbl_details = QVBoxLayout()
