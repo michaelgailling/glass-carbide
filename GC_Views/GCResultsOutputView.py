@@ -16,7 +16,7 @@ import sys
 from math import floor
 
 from PySide2.QtCore import Qt, QThreadPool, Slot
-from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QPushButton
+from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QPushButton, QHeaderView
 
 from GC_Components.InputComponents import LabeledInputWithButton
 from GC_Components.TableComponents import DataTable
@@ -283,12 +283,17 @@ class GCResultsOutputView(QFrame):
             self.dt_shot_data.set_headers(headers)
 
             self.load_filename_table()
+
+            resized_header = self.dt_shot_data.table.horizontalHeader()
+            for i in range(0, len(headers)):
+                resized_header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
         except IndexError or PermissionError:
             pass
 
     def load_filename_table(self):
         shot_headers = self.dt_shot_data.get_headers()
         shot_data = self.dt_shot_data.get_all_rows()
+        longest_contents = 0
 
         raw_filenames = []
         if "ShotCode" in shot_headers:
@@ -311,13 +316,22 @@ class GCResultsOutputView(QFrame):
         for name in self.filenames:
             self.dt_files.add_row([name])
 
+        resized_header = self.dt_files.table.horizontalHeader()
+        resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+
     def add_publink_to_table(self):
         self.dt_cloud_links.set_headers(["Publinks"])
         publink = self.liwb_add_publink.get_input_text()
-        if publink and publink not in self.publinks:
-            self.publinks.append(publink)
-            self.dt_cloud_links.add_row([publink])
-            self.liwb_add_publink.set_input_text("")
+        if publink.startswith("http"):
+            if publink and publink not in self.publinks:
+                self.publinks.append(publink)
+                self.dt_cloud_links.add_row([publink])
+                self.liwb_add_publink.set_input_text("")
+                self.dt_cloud_links.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+            else:
+                self.parent.issue_warning_prompt("Please enter valid Publink")
+        else:
+            self.parent.issue_warning_prompt("Please enter valid Publink")
 
     def get_codes(self):
         codes = []
