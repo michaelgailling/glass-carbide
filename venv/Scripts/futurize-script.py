@@ -1,4 +1,4 @@
-#!c:\python-workspace\glass-carbide\venv\scripts\python.exe
+#!c:\python-workspace\gc\glass-carbide\venv\scripts\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'future==0.18.2','console_scripts','futurize'
 import re
 import sys

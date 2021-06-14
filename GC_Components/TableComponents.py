@@ -741,13 +741,16 @@ class DataTable(QFrame):
             raise Exception("Invalid Parameter: y_index is out of bounds!")
 
     def load_table(self, data_arr=[]):
-        width = len(data_arr[0])
-        height = len(data_arr)
+        try:
+            width = len(data_arr[0])
+            height = len(data_arr)
 
-        self.set_dimensions(width)
+            self.set_dimensions(width)
 
-        for item in data_arr:
-            self.add_row(item)
+            for item in data_arr:
+                self.add_row(item)
+        except IndexError as e:
+            pass
 
     def get_all_rows(self):
         rows = []
@@ -795,6 +798,7 @@ class DataTable(QFrame):
         text_content = self.table.item(y, x).text()
         return text_content
 
+
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     dt_table = DataTable(readonly=False)
@@ -812,15 +816,10 @@ if __name__ == '__main__':
                     [False, "OLD", "OLD", "OLD", "OLD"],
                 ]
 
-
     dt_table.show()
 
     dt_table.load_table(test_arr)
 
-
-    # for item in test_arr:
-    #     dt_table.add_row(item)
-    #
     for i in range(dt_table.height):
         print(dt_table.get_row(i))
 

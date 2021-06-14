@@ -16,13 +16,13 @@ import sys
 from math import floor
 
 from PySide2.QtCore import Qt, QThreadPool, Slot
-from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QPushButton
+from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QPushButton, QHeaderView
 
 from GC_Components.InputComponents import LabeledInputWithButton
 from GC_Components.TableComponents import DataTable
 from GC_Services.FileIo import FileIo
 from GC_Services.pcloudAPI import PCloud
-from GCFileDetailsView import FileDetailsView
+from GC_Views.GCFileDetailsView import FileDetailsView
 from GC_Threading.Worker import DownloadWorker
 
 
@@ -40,13 +40,13 @@ class GCResultsOutputView(QFrame):
         Attributes:
             parent, shot_data, filenames, file_metadata, publinks, cloud_scanned, fio, apic, threadpool, hbl_tables,
             dt_shot_data, dt_files, hbl_controls, dt_cloud_links, liwb_add_publink, vbl_control_buttons, btn_scan,
-            btn_download_files, vbl_main_layout
+            btn_download_files, btn_cancel_download, vbl_main_layout
 
         Methods:
             add_publink_clicked, scan_pcloud_clicked, download_files_clicked, load_shot_table_data, load_filename_table,
             add_publink_to_table, get_codes, search_for_files, get_publink_data, classify_files, color_filename_cells,
             color_shot_table, get_matching_files, find_latest_file, download_files, update_progress_bar, test_popup,
-            download_finished, create_unique_filename_list, set_shot_data
+            download_finished, create_unique_filename_list, set_shot_data, cancel_download
 
         Attributes
         ----------
@@ -86,6 +86,8 @@ class GCResultsOutputView(QFrame):
                 Button for scanning PCloud
             btn_download_files : QPushButton
                 Button for downloading selected files from PCloud
+            btn_cancel_download : QPushButton
+                Button for cancelling download of files from pcloud
             vbl_main_layout = QVBoxLayout
                 Main VBox layout
 
@@ -131,6 +133,8 @@ class GCResultsOutputView(QFrame):
                 Sets shot_data to user selections
             test_popup(self)
                 Pops up FileDetailsView
+            cancel_download(self):
+                Cancels download of files
     """
     def __init__(self, parent=None, file_io=FileIo()):
         """Constructor:
@@ -157,9 +161,11 @@ class GCResultsOutputView(QFrame):
         self.apic.set_region("NA")
         self.popup_frame = FileDetailsView(self)
 
+        self.worker = DownloadWorker()
 
         self.threadpool = QThreadPool()
         print("Multithreading with maximum %d threads" % self.threadpool.maxThreadCount())
+
         # ----------------------------------------------
         # -----------------hbl_tables-------------------
         # ----------------------------------------------
@@ -201,9 +207,16 @@ class GCResultsOutputView(QFrame):
         self.btn_download_files = QPushButton(text="Download Scanned Files")
         self.btn_download_files.clicked.connect(self.download_files)
 
+        # Cancel Download Button
+        self.btn_cancel_download = QPushButton(text="Cancel Download")
+        self.btn_cancel_download.clicked.connect(self.cancel_download)
+        self.btn_cancel_download.setStyleSheet("margin:3 auto;color:#1000A0;background-color:rgb(255,255,255);"
+                                               "padding:10;border:2px solid #1000A0;border-radius:20px;font-weight:600;")
+
         self.vbl_control_buttons.addWidget(self.liwb_add_publink)
         self.vbl_control_buttons.addWidget(self.btn_scan, alignment=Qt.AlignHCenter)
         self.vbl_control_buttons.addWidget(self.btn_download_files, alignment=Qt.AlignHCenter)
+        self.vbl_control_buttons.addWidget(self.btn_cancel_download, alignment=Qt.AlignHCenter)
 
         self.hbl_controls.addWidget(self.dt_cloud_links)
         self.hbl_controls.addLayout(self.vbl_control_buttons)
@@ -242,6 +255,8 @@ class GCResultsOutputView(QFrame):
 
     def file_table_cell_clicked(self, row=0, column=0):
         if self.cloud_scanned:
+            self.popup_frame.lbl_details.setText("File Details")
+            self.popup_frame.lbl_thumbnail.clear()
             filename = self.dt_files.get_row(row)
             filename = filename[0]
             print(filename)
@@ -255,6 +270,8 @@ class GCResultsOutputView(QFrame):
 
             self.popup_frame.set_file_list(file_data)
 
+            self.popup_frame.file_table_cell_clicked(row=0)
+
             self.popup_frame.show()
         else:
             self.parent.issue_warning_prompt("Please scan pCloud!")
@@ -266,12 +283,17 @@ class GCResultsOutputView(QFrame):
             self.dt_shot_data.set_headers(headers)
 
             self.load_filename_table()
+
+            resized_header = self.dt_shot_data.table.horizontalHeader()
+            for i in range(0, len(headers)):
+                resized_header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
         except IndexError or PermissionError:
             pass
 
     def load_filename_table(self):
         shot_headers = self.dt_shot_data.get_headers()
         shot_data = self.dt_shot_data.get_all_rows()
+        longest_contents = 0
 
         raw_filenames = []
         if "ShotCode" in shot_headers:
@@ -294,13 +316,22 @@ class GCResultsOutputView(QFrame):
         for name in self.filenames:
             self.dt_files.add_row([name])
 
+        resized_header = self.dt_files.table.horizontalHeader()
+        resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+
     def add_publink_to_table(self):
         self.dt_cloud_links.set_headers(["Publinks"])
         publink = self.liwb_add_publink.get_input_text()
-        if publink and publink not in self.publinks:
-            self.publinks.append(publink)
-            self.dt_cloud_links.add_row([publink])
-            self.liwb_add_publink.set_input_text("")
+        if publink.startswith("http"):
+            if publink and publink not in self.publinks:
+                self.publinks.append(publink)
+                self.dt_cloud_links.add_row([publink])
+                self.liwb_add_publink.set_input_text("")
+                self.dt_cloud_links.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+            else:
+                self.parent.issue_warning_prompt("Please enter valid Publink")
+        else:
+            self.parent.issue_warning_prompt("Please enter valid Publink")
 
     def get_codes(self):
         codes = []
@@ -421,10 +452,10 @@ class GCResultsOutputView(QFrame):
     def download_files(self):
         self.enable_buttons(False)
         print("Download Button Pressed")
-        worker = DownloadWorker(self.file_metadata, self.fio)
-        worker.signals.update_progress.connect(self.update_progress_bar)
-        worker.signals.finished.connect(self.download_finished)
-        self.threadpool.start(worker)
+        self.worker = DownloadWorker(self.file_metadata, self.fio)
+        self.worker.signals.update_progress.connect(self.update_progress_bar)
+        self.worker.signals.finished.connect(self.download_finished)
+        self.threadpool.start(self.worker)
 
     @Slot()
     def update_progress_bar(self, percent=0):
@@ -434,6 +465,7 @@ class GCResultsOutputView(QFrame):
     @Slot()
     def download_finished(self):
         self.enable_buttons()
+        self.update_progress_bar(0)
 
     def enable_buttons(self, val=True):
         self.btn_download_files.setEnabled(val)
@@ -459,6 +491,9 @@ class GCResultsOutputView(QFrame):
     def test_popup(self):
         popup_frame = FileDetailsView()
         popup_frame.show()
+
+    def cancel_download(self):
+        self.worker.cancel_download()
 
 
 if __name__ == '__main__':
