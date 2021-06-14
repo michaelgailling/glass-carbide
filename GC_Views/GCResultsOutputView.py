@@ -22,7 +22,7 @@ from GC_Components.InputComponents import LabeledInputWithButton
 from GC_Components.TableComponents import DataTable
 from GC_Services.FileIo import FileIo
 from GC_Services.pcloudAPI import PCloud
-from GCFileDetailsView import FileDetailsView
+from GC_Views.GCFileDetailsView import FileDetailsView
 from GC_Threading.Worker import DownloadWorker
 
 

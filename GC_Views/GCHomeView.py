@@ -14,7 +14,6 @@ from PySide2.QtCore import Qt
 from PySide2.QtGui import QFont
 from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QLabel, QStackedWidget, QPushButton
 from GC_Services.FileIo import FileIo
-from ExistingDirectoryView import ExistingDirectoryView
 from GC_Views.GCCreateDirectoryView import GCCreateDirectoryView
 from GC_Views.GCLogoView import GCLogoView
 
