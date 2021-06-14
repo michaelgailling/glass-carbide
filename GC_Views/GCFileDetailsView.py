@@ -131,6 +131,7 @@ class FileDetailsView(QWidget):
                            'padding:10 133;color:rgb(255,255,255);margin:1 30;border:2px solid #1000A0;}')
 
         self.setStyleSheet('background-color:#e6e6e6')
+        self.setWindowTitle("File Matches And Details")
 
     def file_table_cell_clicked(self, row=0, column=0):
         filename = self.dt_file_list.get_row(row)[0]
@@ -156,6 +157,7 @@ class FileDetailsView(QWidget):
 
         resized_header = self.dt_file_list.table.horizontalHeader()
         resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        self.dt_file_list.table.setHorizontalHeaderLabels(["Files Found"])
 
     def display_file_data(self):
         self.set_thumbnail()

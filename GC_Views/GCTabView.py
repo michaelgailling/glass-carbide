@@ -105,7 +105,7 @@ class GCTabView(QFrame):
 
         self.tw_tabWidget.insertTab(0, self.hv_homeView, "Project Setup - Configure Directory for Project Mapping")
         self.tw_tabWidget.insertTab(1, self.tv_tableView, "Asset Selection - Load CSV and Select Assets")
-        self.tw_tabWidget.insertTab(2, self.rv_resultsView, "Review and Check")
+        self.tw_tabWidget.insertTab(2, self.rv_resultsView, "PCloud Processing  - Edit, Scan & Download Files")
 
         self.tw_tabWidget.setTabEnabled(0, True)
         self.tw_tabWidget.setTabEnabled(1, False)
