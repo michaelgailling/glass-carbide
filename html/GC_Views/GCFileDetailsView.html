@@ -1,0 +1,726 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>GC_Views.GCFileDetailsView API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>GC_Views.GCFileDetailsView</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &amp;&amp;
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+import sys
+
+from PySide2.QtCore import Qt
+from PySide2.QtGui import QPixmap, QFont
+from PySide2.QtWidgets import QFrame, QHBoxLayout, QFileDialog, QPushButton, QMessageBox, QVBoxLayout, QApplication, \
+    QTextBrowser, QLabel, QWidget, QHeaderView
+from GC_Components.InputComponents import LabeledDirectoryInput
+from GC_Components.TableComponents import DataTable
+from GC_Models.PCloudFileModel import PCloudFileModel
+from GC_Services.FileIo import FileIo
+
+
+class FileDetailsView(QWidget):
+    &#34;&#34;&#34;File Details View
+
+                        Summary:
+                            A class for viewing pcloud file details that includes:
+
+                            -Data Table for list of files to the left
+                            -TextBrowser for file details in the center
+                            -Frame containing Label for file&#39;s thumbnail image &amp; buttons on right
+
+                        Attributes:
+                            hbl_main_layout, vbl_img_btns_layout, lbl_duplicates, lbl_details, lbl_thumbnail, dt_table,
+                            lbl_thumbnail, btn_include, btn_ignore, img_btn_frame
+
+                        Methods:
+                            None
+
+                        Attributes
+                        ----------
+                            hbl_main_layout : QHBoxLayout
+                                Main horizontal layout
+                            vbl_img_btns_layout : QVBoxLayout
+                                Vertical layout for image &amp; buttons
+                            lbl_details : QLabel
+                                Label for file details text
+                            dt_table : DataTable
+                                Data Table for list of duplicates
+                            lbl_thumbnail : QLabel
+                                Label for thumbnail image
+                            btn_include = QPushButton
+                                Button for including file in download
+                            btn_ignore = QPushButton
+                                Button for ignoring file in download
+                            img_btn_frame = QFrame
+                                QFrame to display thumbnail image and buttons
+
+                        Methods
+                        -------
+                            None
+
+                    &#34;&#34;&#34;
+
+    def __init__(self, parent=None):
+        &#34;&#34;&#34;Constructor:
+            Initialize Directory Mapping View
+
+            Parameters:
+                self
+                parent : QFrame
+            Returns:
+                None
+        &#34;&#34;&#34;
+        super().__init__()
+        self.parent = parent
+        self.file_data = []
+        self.selected_file = None
+
+        self.hbl_main_layout = QHBoxLayout()
+        self.vbl_img_btns_layout = QVBoxLayout()
+
+        # File details Label
+        self.lbl_details = QLabel(&#34;Files Details&#34;)
+        self.lbl_details.setObjectName(&#34;details&#34;)
+        self.lbl_details.setAlignment(Qt.AlignCenter)
+
+        # Table of Files with Duplicates
+        self.dt_file_list = DataTable(self)
+        self.dt_file_list.set_dimensions(1, 0)
+        self.dt_file_list.table.cellClicked.connect(self.file_table_cell_clicked)
+
+        # Vertical Box for File details
+        self.vbl_details = QVBoxLayout()
+        self.vbl_details.addWidget(self.dt_file_list)
+        self.vbl_details.addWidget(self.lbl_details)
+
+        # PixMap for file thumbnail
+        self.lbl_thumbnail = QLabel(self)
+        self.lbl_thumbnail.setObjectName(&#34;thumbnail&#34;)
+
+        # Buttons
+        self.btn_include = QPushButton(&#34;Include File&#34;)
+        self.btn_include.clicked.connect(self.include_file)
+        self.btn_ignore = QPushButton(&#34;Ignore File&#34;)
+        self.btn_ignore.clicked.connect(self.ignore_file)
+
+        # Vertical Layout Adding
+        self.img_btn_frame = QFrame()
+        self.img_btn_frame.setStyleSheet(&#39;::section{background-color:white}&#39;)
+        self.vbl_img_btns_layout.addWidget(self.lbl_thumbnail, alignment=Qt.AlignCenter)
+        self.vbl_img_btns_layout.addWidget(self.btn_include, alignment=Qt.AlignHCenter)
+        self.vbl_img_btns_layout.addWidget(self.btn_ignore, alignment=Qt.AlignHCenter)
+        self.img_btn_frame.setLayout(self.vbl_img_btns_layout)
+        self.img_btn_frame.setObjectName(&#34;picArea&#34;)
+
+        # Main Layout
+        self.hbl_main_layout.addLayout(self.vbl_details)
+        self.hbl_main_layout.addWidget(self.img_btn_frame, stretch=1)
+        self.setLayout(self.hbl_main_layout)
+
+        # Styling
+        self.setGeometry(133, 133, 1000, 600)
+        self.setObjectName(&#39;dupePop&#39;)
+        self.setStyleSheet(&#39;QFrame{border:1px solid #1000A0;background-color:#e6e6e6;padding:0;margin:1px;}&#39;
+                           &#39;DataTable{background-color:#1000A0} QHBoxLayout#mainbox{background-color:#e6e6e6}&#39;
+                           &#39;QLabel#details{background-color:white;color:#1000A0;font-family:Arial;font-size:15}&#39;
+                           &#39;QTableWidget{background-color:white;font-weight:600} QFrame#picArea{background-color:white}&#39;
+                           &#39;QPushButton{font-weight:600;background-color:#1000A0;border-radius:20px;&#39;
+                           &#39;padding:10 133;color:rgb(255,255,255);margin:1 30;border:2px solid #1000A0;}&#39;)
+
+        self.setStyleSheet(&#39;background-color:#e6e6e6&#39;)
+
+    def file_table_cell_clicked(self, row=0, column=0):
+        filename = self.dt_file_list.get_row(row)[0]
+        self.selected_file = None
+
+        for file in self.file_data:
+            if file.name == filename:
+                self.selected_file = file
+                break
+
+        if self.selected_file:
+            self.display_file_data()
+
+    def set_file_list(self, file_data=[]):
+        self.file_data = file_data
+
+        filenames = []
+
+        for file in file_data:
+            filenames.append([file.name])
+
+        self.dt_file_list.load_table(filenames)
+
+        resized_header = self.dt_file_list.table.horizontalHeader()
+        resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+
+    def display_file_data(self):
+        self.set_thumbnail()
+        self.lbl_details.setText(str(self.selected_file))
+
+    def set_thumbnail(self):
+        thumbnail = None
+        pixmap = QPixmap()
+        self.lbl_thumbnail.clear()
+        if self.selected_file.thumb:
+            thumbnail = self.parent.apic.getpubthumb(code=self.selected_file.publink_code,
+                                                     file_id=self.selected_file.fileid,
+                                                     size=&#34;1024x512&#34;)
+
+            pixmap.loadFromData(thumbnail)
+            pixmap = pixmap.scaledToWidth(self.img_btn_frame.width()-13)
+            self.lbl_thumbnail.setPixmap(pixmap)
+        else:
+            file_extension = self.selected_file.name[-4:]
+            if &#34;wav&#34; in file_extension:
+                pixmap = QPixmap(&#39;../GC_Images/wavicon.png&#39;).scaledToWidth(400)
+                self.lbl_thumbnail.setPixmap(pixmap)
+            elif &#34;fla&#34; in file_extension:
+                pixmap = QPixmap(&#39;../GC_Images/flaicon.png&#39;).scaledToWidth(400)
+                self.lbl_thumbnail.setPixmap(pixmap)
+            elif &#34;png&#34; in file_extension:
+                pixmap = QPixmap(&#39;../GC_Images/pngicon.png&#39;).scaledToWidth(400)
+                self.lbl_thumbnail.setPixmap(pixmap)
+            elif &#34;mp4&#34; in file_extension:
+                pixmap = QPixmap(&#39;../GC_Images/mp4icon.png&#39;).scaledToWidth(400)
+                self.lbl_thumbnail.setPixmap(pixmap)
+            elif &#34;psd&#34; in file_extension:
+                pixmap = QPixmap(&#39;../GC_Images/psdicon.png&#39;).scaledToWidth(400)
+                self.lbl_thumbnail.setPixmap(pixmap)
+            else:
+                pixmap = QPixmap()
+            self.lbl_thumbnail.setPixmap(pixmap)
+            self.lbl_thumbnail.resize(self.img_btn_frame.width(), self.img_btn_frame.height())
+
+    def include_file(self):
+        for file in self.file_data:
+            if file.name == self.selected_file.name:
+                file.ignore = False
+                self.selected_file.ignore = False
+                self.update_download_que()
+                break
+        self.lbl_details.setText(str(self.selected_file))
+
+    def ignore_file(self):
+        for file in self.file_data:
+            if file.name == self.selected_file.name:
+                file.ignore = True
+                self.selected_file.ignore = True
+                self.update_download_que()
+                break
+        self.lbl_details.setText(str(self.selected_file))
+
+    def update_download_que(self):
+        parent = self.parent
+        for file in self.parent.file_metadata:
+            if file.name == self.selected_file.name:
+                file.ignore = self.selected_file.ignore
+
+
+if __name__ == &#39;__main__&#39;:
+    qApp = QApplication(sys.argv)
+    mainBase = FileDetailsView()
+    mainBase.show()
+    sys.exit(qApp.exec_())</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="GC_Views.GCFileDetailsView.FileDetailsView"><code class="flex name class">
+<span>class <span class="ident">FileDetailsView</span></span>
+<span>(</span><span>parent=None)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>File Details View</p>
+<h2 id="summary">Summary</h2>
+<p>A class for viewing pcloud file details that includes:</p>
+<p>-Data Table for list of files to the left
+-TextBrowser for file details in the center
+-Frame containing Label for file's thumbnail image &amp; buttons on right</p>
+<h2 id="attributes">Attributes</h2>
+<p>hbl_main_layout, vbl_img_btns_layout, lbl_duplicates, lbl_details, lbl_thumbnail, dt_table,
+lbl_thumbnail, btn_include, btn_ignore, img_btn_frame</p>
+<h2 id="methods">Methods</h2>
+<p>None</p>
+<h2 id="attributes_1">Attributes</h2>
+<pre><code>hbl_main_layout : QHBoxLayout
+    Main horizontal layout
+vbl_img_btns_layout : QVBoxLayout
+    Vertical layout for image &amp; buttons
+lbl_details : QLabel
+    Label for file details text
+dt_table : DataTable
+    Data Table for list of duplicates
+lbl_thumbnail : QLabel
+    Label for thumbnail image
+btn_include = QPushButton
+    Button for including file in download
+btn_ignore = QPushButton
+    Button for ignoring file in download
+img_btn_frame = QFrame
+    QFrame to display thumbnail image and buttons
+</code></pre>
+<h2 id="methods_1">Methods</h2>
+<pre><code>None
+</code></pre>
+<p>Constructor:
+Initialize Directory Mapping View</p>
+<h2 id="parameters">Parameters</h2>
+<p>self
+parent : QFrame</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FileDetailsView(QWidget):
+    &#34;&#34;&#34;File Details View
+
+                        Summary:
+                            A class for viewing pcloud file details that includes:
+
+                            -Data Table for list of files to the left
+                            -TextBrowser for file details in the center
+                            -Frame containing Label for file&#39;s thumbnail image &amp; buttons on right
+
+                        Attributes:
+                            hbl_main_layout, vbl_img_btns_layout, lbl_duplicates, lbl_details, lbl_thumbnail, dt_table,
+                            lbl_thumbnail, btn_include, btn_ignore, img_btn_frame
+
+                        Methods:
+                            None
+
+                        Attributes
+                        ----------
+                            hbl_main_layout : QHBoxLayout
+                                Main horizontal layout
+                            vbl_img_btns_layout : QVBoxLayout
+                                Vertical layout for image &amp; buttons
+                            lbl_details : QLabel
+                                Label for file details text
+                            dt_table : DataTable
+                                Data Table for list of duplicates
+                            lbl_thumbnail : QLabel
+                                Label for thumbnail image
+                            btn_include = QPushButton
+                                Button for including file in download
+                            btn_ignore = QPushButton
+                                Button for ignoring file in download
+                            img_btn_frame = QFrame
+                                QFrame to display thumbnail image and buttons
+
+                        Methods
+                        -------
+                            None
+
+                    &#34;&#34;&#34;
+
+    def __init__(self, parent=None):
+        &#34;&#34;&#34;Constructor:
+            Initialize Directory Mapping View
+
+            Parameters:
+                self
+                parent : QFrame
+            Returns:
+                None
+        &#34;&#34;&#34;
+        super().__init__()
+        self.parent = parent
+        self.file_data = []
+        self.selected_file = None
+
+        self.hbl_main_layout = QHBoxLayout()
+        self.vbl_img_btns_layout = QVBoxLayout()
+
+        # File details Label
+        self.lbl_details = QLabel(&#34;Files Details&#34;)
+        self.lbl_details.setObjectName(&#34;details&#34;)
+        self.lbl_details.setAlignment(Qt.AlignCenter)
+
+        # Table of Files with Duplicates
+        self.dt_file_list = DataTable(self)
+        self.dt_file_list.set_dimensions(1, 0)
+        self.dt_file_list.table.cellClicked.connect(self.file_table_cell_clicked)
+
+        # Vertical Box for File details
+        self.vbl_details = QVBoxLayout()
+        self.vbl_details.addWidget(self.dt_file_list)
+        self.vbl_details.addWidget(self.lbl_details)
+
+        # PixMap for file thumbnail
+        self.lbl_thumbnail = QLabel(self)
+        self.lbl_thumbnail.setObjectName(&#34;thumbnail&#34;)
+
+        # Buttons
+        self.btn_include = QPushButton(&#34;Include File&#34;)
+        self.btn_include.clicked.connect(self.include_file)
+        self.btn_ignore = QPushButton(&#34;Ignore File&#34;)
+        self.btn_ignore.clicked.connect(self.ignore_file)
+
+        # Vertical Layout Adding
+        self.img_btn_frame = QFrame()
+        self.img_btn_frame.setStyleSheet(&#39;::section{background-color:white}&#39;)
+        self.vbl_img_btns_layout.addWidget(self.lbl_thumbnail, alignment=Qt.AlignCenter)
+        self.vbl_img_btns_layout.addWidget(self.btn_include, alignment=Qt.AlignHCenter)
+        self.vbl_img_btns_layout.addWidget(self.btn_ignore, alignment=Qt.AlignHCenter)
+        self.img_btn_frame.setLayout(self.vbl_img_btns_layout)
+        self.img_btn_frame.setObjectName(&#34;picArea&#34;)
+
+        # Main Layout
+        self.hbl_main_layout.addLayout(self.vbl_details)
+        self.hbl_main_layout.addWidget(self.img_btn_frame, stretch=1)
+        self.setLayout(self.hbl_main_layout)
+
+        # Styling
+        self.setGeometry(133, 133, 1000, 600)
+        self.setObjectName(&#39;dupePop&#39;)
+        self.setStyleSheet(&#39;QFrame{border:1px solid #1000A0;background-color:#e6e6e6;padding:0;margin:1px;}&#39;
+                           &#39;DataTable{background-color:#1000A0} QHBoxLayout#mainbox{background-color:#e6e6e6}&#39;
+                           &#39;QLabel#details{background-color:white;color:#1000A0;font-family:Arial;font-size:15}&#39;
+                           &#39;QTableWidget{background-color:white;font-weight:600} QFrame#picArea{background-color:white}&#39;
+                           &#39;QPushButton{font-weight:600;background-color:#1000A0;border-radius:20px;&#39;
+                           &#39;padding:10 133;color:rgb(255,255,255);margin:1 30;border:2px solid #1000A0;}&#39;)
+
+        self.setStyleSheet(&#39;background-color:#e6e6e6&#39;)
+
+    def file_table_cell_clicked(self, row=0, column=0):
+        filename = self.dt_file_list.get_row(row)[0]
+        self.selected_file = None
+
+        for file in self.file_data:
+            if file.name == filename:
+                self.selected_file = file
+                break
+
+        if self.selected_file:
+            self.display_file_data()
+
+    def set_file_list(self, file_data=[]):
+        self.file_data = file_data
+
+        filenames = []
+
+        for file in file_data:
+            filenames.append([file.name])
+
+        self.dt_file_list.load_table(filenames)
+
+        resized_header = self.dt_file_list.table.horizontalHeader()
+        resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+
+    def display_file_data(self):
+        self.set_thumbnail()
+        self.lbl_details.setText(str(self.selected_file))
+
+    def set_thumbnail(self):
+        thumbnail = None
+        pixmap = QPixmap()
+        self.lbl_thumbnail.clear()
+        if self.selected_file.thumb:
+            thumbnail = self.parent.apic.getpubthumb(code=self.selected_file.publink_code,
+                                                     file_id=self.selected_file.fileid,
+                                                     size=&#34;1024x512&#34;)
+
+            pixmap.loadFromData(thumbnail)
+            pixmap = pixmap.scaledToWidth(self.img_btn_frame.width()-13)
+            self.lbl_thumbnail.setPixmap(pixmap)
+        else:
+            file_extension = self.selected_file.name[-4:]
+            if &#34;wav&#34; in file_extension:
+                pixmap = QPixmap(&#39;../GC_Images/wavicon.png&#39;).scaledToWidth(400)
+                self.lbl_thumbnail.setPixmap(pixmap)
+            elif &#34;fla&#34; in file_extension:
+                pixmap = QPixmap(&#39;../GC_Images/flaicon.png&#39;).scaledToWidth(400)
+                self.lbl_thumbnail.setPixmap(pixmap)
+            elif &#34;png&#34; in file_extension:
+                pixmap = QPixmap(&#39;../GC_Images/pngicon.png&#39;).scaledToWidth(400)
+                self.lbl_thumbnail.setPixmap(pixmap)
+            elif &#34;mp4&#34; in file_extension:
+                pixmap = QPixmap(&#39;../GC_Images/mp4icon.png&#39;).scaledToWidth(400)
+                self.lbl_thumbnail.setPixmap(pixmap)
+            elif &#34;psd&#34; in file_extension:
+                pixmap = QPixmap(&#39;../GC_Images/psdicon.png&#39;).scaledToWidth(400)
+                self.lbl_thumbnail.setPixmap(pixmap)
+            else:
+                pixmap = QPixmap()
+            self.lbl_thumbnail.setPixmap(pixmap)
+            self.lbl_thumbnail.resize(self.img_btn_frame.width(), self.img_btn_frame.height())
+
+    def include_file(self):
+        for file in self.file_data:
+            if file.name == self.selected_file.name:
+                file.ignore = False
+                self.selected_file.ignore = False
+                self.update_download_que()
+                break
+        self.lbl_details.setText(str(self.selected_file))
+
+    def ignore_file(self):
+        for file in self.file_data:
+            if file.name == self.selected_file.name:
+                file.ignore = True
+                self.selected_file.ignore = True
+                self.update_download_que()
+                break
+        self.lbl_details.setText(str(self.selected_file))
+
+    def update_download_que(self):
+        parent = self.parent
+        for file in self.parent.file_metadata:
+            if file.name == self.selected_file.name:
+                file.ignore = self.selected_file.ignore</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>PySide2.QtWidgets.QWidget</li>
+<li>PySide2.QtCore.QObject</li>
+<li>PySide2.QtGui.QPaintDevice</li>
+<li>Shiboken.Object</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="GC_Views.GCFileDetailsView.FileDetailsView.staticMetaObject"><code class="name">var <span class="ident">staticMetaObject</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="GC_Views.GCFileDetailsView.FileDetailsView.display_file_data"><code class="name flex">
+<span>def <span class="ident">display_file_data</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def display_file_data(self):
+    self.set_thumbnail()
+    self.lbl_details.setText(str(self.selected_file))</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCFileDetailsView.FileDetailsView.file_table_cell_clicked"><code class="name flex">
+<span>def <span class="ident">file_table_cell_clicked</span></span>(<span>self, row=0, column=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def file_table_cell_clicked(self, row=0, column=0):
+    filename = self.dt_file_list.get_row(row)[0]
+    self.selected_file = None
+
+    for file in self.file_data:
+        if file.name == filename:
+            self.selected_file = file
+            break
+
+    if self.selected_file:
+        self.display_file_data()</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCFileDetailsView.FileDetailsView.ignore_file"><code class="name flex">
+<span>def <span class="ident">ignore_file</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def ignore_file(self):
+    for file in self.file_data:
+        if file.name == self.selected_file.name:
+            file.ignore = True
+            self.selected_file.ignore = True
+            self.update_download_que()
+            break
+    self.lbl_details.setText(str(self.selected_file))</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCFileDetailsView.FileDetailsView.include_file"><code class="name flex">
+<span>def <span class="ident">include_file</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def include_file(self):
+    for file in self.file_data:
+        if file.name == self.selected_file.name:
+            file.ignore = False
+            self.selected_file.ignore = False
+            self.update_download_que()
+            break
+    self.lbl_details.setText(str(self.selected_file))</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCFileDetailsView.FileDetailsView.set_file_list"><code class="name flex">
+<span>def <span class="ident">set_file_list</span></span>(<span>self, file_data=[])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_file_list(self, file_data=[]):
+    self.file_data = file_data
+
+    filenames = []
+
+    for file in file_data:
+        filenames.append([file.name])
+
+    self.dt_file_list.load_table(filenames)
+
+    resized_header = self.dt_file_list.table.horizontalHeader()
+    resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCFileDetailsView.FileDetailsView.set_thumbnail"><code class="name flex">
+<span>def <span class="ident">set_thumbnail</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_thumbnail(self):
+    thumbnail = None
+    pixmap = QPixmap()
+    self.lbl_thumbnail.clear()
+    if self.selected_file.thumb:
+        thumbnail = self.parent.apic.getpubthumb(code=self.selected_file.publink_code,
+                                                 file_id=self.selected_file.fileid,
+                                                 size=&#34;1024x512&#34;)
+
+        pixmap.loadFromData(thumbnail)
+        pixmap = pixmap.scaledToWidth(self.img_btn_frame.width()-13)
+        self.lbl_thumbnail.setPixmap(pixmap)
+    else:
+        file_extension = self.selected_file.name[-4:]
+        if &#34;wav&#34; in file_extension:
+            pixmap = QPixmap(&#39;../GC_Images/wavicon.png&#39;).scaledToWidth(400)
+            self.lbl_thumbnail.setPixmap(pixmap)
+        elif &#34;fla&#34; in file_extension:
+            pixmap = QPixmap(&#39;../GC_Images/flaicon.png&#39;).scaledToWidth(400)
+            self.lbl_thumbnail.setPixmap(pixmap)
+        elif &#34;png&#34; in file_extension:
+            pixmap = QPixmap(&#39;../GC_Images/pngicon.png&#39;).scaledToWidth(400)
+            self.lbl_thumbnail.setPixmap(pixmap)
+        elif &#34;mp4&#34; in file_extension:
+            pixmap = QPixmap(&#39;../GC_Images/mp4icon.png&#39;).scaledToWidth(400)
+            self.lbl_thumbnail.setPixmap(pixmap)
+        elif &#34;psd&#34; in file_extension:
+            pixmap = QPixmap(&#39;../GC_Images/psdicon.png&#39;).scaledToWidth(400)
+            self.lbl_thumbnail.setPixmap(pixmap)
+        else:
+            pixmap = QPixmap()
+        self.lbl_thumbnail.setPixmap(pixmap)
+        self.lbl_thumbnail.resize(self.img_btn_frame.width(), self.img_btn_frame.height())</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCFileDetailsView.FileDetailsView.update_download_que"><code class="name flex">
+<span>def <span class="ident">update_download_que</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def update_download_que(self):
+    parent = self.parent
+    for file in self.parent.file_metadata:
+        if file.name == self.selected_file.name:
+            file.ignore = self.selected_file.ignore</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="GC_Views" href="index.html">GC_Views</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="GC_Views.GCFileDetailsView.FileDetailsView" href="#GC_Views.GCFileDetailsView.FileDetailsView">FileDetailsView</a></code></h4>
+<ul class="">
+<li><code><a title="GC_Views.GCFileDetailsView.FileDetailsView.display_file_data" href="#GC_Views.GCFileDetailsView.FileDetailsView.display_file_data">display_file_data</a></code></li>
+<li><code><a title="GC_Views.GCFileDetailsView.FileDetailsView.file_table_cell_clicked" href="#GC_Views.GCFileDetailsView.FileDetailsView.file_table_cell_clicked">file_table_cell_clicked</a></code></li>
+<li><code><a title="GC_Views.GCFileDetailsView.FileDetailsView.ignore_file" href="#GC_Views.GCFileDetailsView.FileDetailsView.ignore_file">ignore_file</a></code></li>
+<li><code><a title="GC_Views.GCFileDetailsView.FileDetailsView.include_file" href="#GC_Views.GCFileDetailsView.FileDetailsView.include_file">include_file</a></code></li>
+<li><code><a title="GC_Views.GCFileDetailsView.FileDetailsView.set_file_list" href="#GC_Views.GCFileDetailsView.FileDetailsView.set_file_list">set_file_list</a></code></li>
+<li><code><a title="GC_Views.GCFileDetailsView.FileDetailsView.set_thumbnail" href="#GC_Views.GCFileDetailsView.FileDetailsView.set_thumbnail">set_thumbnail</a></code></li>
+<li><code><a title="GC_Views.GCFileDetailsView.FileDetailsView.staticMetaObject" href="#GC_Views.GCFileDetailsView.FileDetailsView.staticMetaObject">staticMetaObject</a></code></li>
+<li><code><a title="GC_Views.GCFileDetailsView.FileDetailsView.update_download_que" href="#GC_Views.GCFileDetailsView.FileDetailsView.update_download_que">update_download_que</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

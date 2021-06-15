@@ -1,0 +1,1767 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>GC_Components.InputComponents API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>GC_Components.InputComponents</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &amp;&amp;
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+import os
+
+from PySide2.QtWidgets import QFrame, QHBoxLayout, QLabel, QLineEdit, QPushButton, QFileDialog
+
+
+# Composite Text Input Elements
+class LabeledInput(QFrame):
+    &#34;&#34;&#34;Labeled Input
+
+          Summary:
+              A class for an input box that includes:
+
+              -Label to the left
+
+          Attributes:
+              hBox, label, input
+
+          Methods:
+              get_input_text, set_input_text
+
+          Attributes
+          ----------
+              hBox : QHBoxLayout
+                      Horizontal layout
+              label : QLabel
+                  Text Label for Input Box
+              input : QLineEdit
+                  Input Box for text entry
+
+          Methods
+          -------
+              get_input_text(self)
+                  Return the text in the input box
+              set_input_text(self, value : string)
+                  Sets the input box text
+      &#34;&#34;&#34;
+    def __init__(self, parent, label_text=&#34;&#34;, input_text=&#34;&#34;):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the LabeledInput object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                label_text : str
+                    The number of columns
+                input_text : str
+                    The number of rows
+        &#34;&#34;&#34;
+        super(LabeledInput, self).__init__(parent)
+
+        self.label = QLabel(self, text=label_text)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+
+        self.hBox = QHBoxLayout()
+        self.hBox.addWidget(self.label)
+        self.hBox.addWidget(self.input)
+
+        self.setLayout(self.hBox)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+
+class LabeledInputWithButton(QFrame):
+    &#34;&#34;&#34;Labeled Input with button
+
+        Summary:
+            A class for an input box that includes:
+
+            -Label to the left
+
+        Attributes:
+            hBox, label, input, button
+
+        Methods:
+            get_input_text, set_input_text
+
+        Attributes
+        ----------
+            hBox : QHBoxLayout
+                    Horizontal layout
+            label : QLabel
+                Text Label for Input Box
+            input : QLineEdit
+                Input Box for text entry
+            button : QPushButton
+                Button opens file dialog
+
+        Methods
+        -------
+            get_input_text(self)
+                Return the text in the input box
+            set_input_text(self, value : string)
+                Sets the input box text
+    &#34;&#34;&#34;
+    def __init__(self, parent, label_text=&#34;&#34;, input_text=&#34;&#34;, button_text=&#34;&#34;, btn_enable=True):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the LabeledInputWithButton object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                label_text : str
+                    The text for label
+                input_text : str
+                    The text for input field
+                button_text : str
+                    The text for the button
+                btn_enable : bool
+                    Set button enabled status
+        &#34;&#34;&#34;
+        super(LabeledInputWithButton, self).__init__(parent)
+
+        self.label = QLabel(self, text=label_text)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+        self.input.setStyleSheet(&#39;border:2px solid #1000a0&#39;)
+
+        self.button = QPushButton(button_text)
+        self.button.setStyleSheet(&#34;background-color:#1000A0;color:white;margin:5 1;padding:15 5;border-radius:10px;&#34;
+                                  &#34;font-weight:600;&#34;)
+        self.button.setEnabled(btn_enable)
+        self.button.setObjectName(&#39;browse&#39;)
+
+        self.hBox = QHBoxLayout(self)
+        self.hBox.addWidget(self.label)
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.button)
+
+        self.setLayout(self.hBox)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+
+class DirectoryInput(QFrame):
+    &#34;&#34;&#34;Directory Input
+
+            Summary:
+                A class for an input box that includes:
+
+                -File dialog button to the right
+
+            Attributes:
+                hBox, input, fileDialogButton
+
+            Methods:
+                get_input_text, set_input_text, open_directory_dialog
+
+            Attributes
+            ----------
+                hBox : QHBoxLayout
+                    Horizontal layout
+                fileDialogButton : QPushButton
+                    A button that opens a file dialog
+                input : QLineEdit
+                    Input Box for text entry
+
+            Methods
+            -------
+                get_input_text(self)
+                    Return the text in the input box
+                set_input_text(self, value : string)
+                    Sets the input box text
+                open_directory_dialog(self)
+                    Opens the directory selection dialog
+        &#34;&#34;&#34;
+    def __init__(self, parent, input_text=&#34;&#34;, read_only=False, btn_enable=True):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the DirectoryInput object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                input_text : str
+                    The text for input field
+                btn_enable : bool
+                    Set button enabled status
+                read_only : bool
+                    Set readonly status for input field
+        &#34;&#34;&#34;
+        super(DirectoryInput, self).__init__(parent)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
+
+        self.fileDialogButton = QPushButton(self, text=&#34;...&#34;)
+        self.fileDialogButton.clicked.connect(self.open_directory_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
+
+        self.hBox = QHBoxLayout()
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.fileDialogButton)
+
+        self.setLayout(self.hBox)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+    def open_directory_dialog(self):
+        directory_dialog = QFileDialog()
+        directory_path = directory_dialog.getExistingDirectory(self, &#34;Select a Directory&#34;, self.get_input_text())
+        if os.path.isdir(directory_path):
+            self.set_input_text(directory_path)
+
+
+class LabeledDirectoryInput(QFrame):
+    &#34;&#34;&#34;Labeled Directory Input
+
+            Summary:
+                A class for an input box that includes:
+
+                -Label to the left
+
+                -File dialog button to the right
+
+            Attributes:
+                hBox, label, input, fileDialogButton
+
+            Methods:
+                set_button_enable, get_input_text, set_input_text, open_directory_dialog
+
+            Attributes
+            ----------
+                hBox : QHBoxLayout
+                    Horizontal layout
+                label : QLabel
+                    Text Label for Input Box
+                fileDialogButton : QPushButton
+                    A button that opens a file dialog
+                input : QLineEdit
+                    Input Box for text entry
+
+            Methods
+            -------
+                set_button_enable(self, btn_enable=True)
+                    Enables/disables button based on bool parameter
+                get_input_text(self)
+                    Return the text in the input box
+                set_input_text(self, value : string)
+                    Sets the input box text
+                open_directory_dialog(self)
+                    Opens the directory selection dialog
+        &#34;&#34;&#34;
+    def __init__(self, parent, label_text=&#34;&#34;, input_text=&#34;&#34;, read_only=False, btn_enable=True):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the LabeledDirectoryInput object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                label_text : str
+                    The text for label
+                input_text : str
+                    The text for input field
+                btn_enable : bool
+                    Set button enabled status
+                read_only : bool
+                    Set readonly status
+        &#34;&#34;&#34;
+        super(LabeledDirectoryInput, self).__init__(parent)
+
+        self.label = QLabel(self, text=label_text)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
+
+        self.fileDialogButton = QPushButton(self, text=&#34;Browse&#34;)
+        self.fileDialogButton.setStyleSheet(&#34;background-color:#1000A0;color:white;margin:3 0;padding:9 5;&#34;
+                                            &#34;border-radius:10px&#34;)
+        self.fileDialogButton.clicked.connect(self.open_directory_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
+
+        self.hBox = QHBoxLayout()
+        self.hBox.addWidget(self.label)
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.fileDialogButton)
+
+        self.setLayout(self.hBox)
+
+    def set_button_enable(self, btn_enable=True):
+        self.fileDialogButton.setEnabled(btn_enable)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+    def open_directory_dialog(self):
+        directory_dialog = QFileDialog()
+        directory_path = directory_dialog.getExistingDirectory(self, &#34;Select a Directory&#34;, self.get_input_text())
+        if os.path.isdir(directory_path):
+            self.set_input_text(directory_path)
+
+
+class FileInput(QFrame):
+    &#34;&#34;&#34;File Input
+
+        Summary:
+            A class for an input box that includes:
+
+            -File dialog button to the right
+
+        Attributes:
+            input, fileDialogButton, hBox, file_type
+
+        Methods:
+            get_input_text, set_input_text, open_file_dialog
+
+        Attributes
+        ----------
+            fileDialogButton : QPushButton
+                A button that opens a file dialog
+            input : QLineEdit
+                Input Box for text entry
+            hBox : QHBoxLayout
+                Horizontal layout
+            file_type : str
+                The type of file
+
+        Methods
+        -------
+            get_input_text(self)
+                Return the text in the input box
+            set_input_text(self, value : string)
+                Sets the input box text
+            open_file_dialog(self)
+                Opens the file selection dialog
+    &#34;&#34;&#34;
+    def __init__(self, parent, file_type=&#34;&#34;, input_text=&#34;&#34;, read_only=False, btn_enable=True):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the FileInput object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                file_type : str
+                    The type of file
+                input_text : str
+                    The text for input field
+                btn_enable : bool
+                    Set button enabled status
+                read_only : bool
+                    Set readonly status
+        &#34;&#34;&#34;
+        super(FileInput, self).__init__(parent)
+
+        self.file_type = file_type
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
+
+        self.fileDialogButton = QPushButton(&#34;...&#34;)
+        self.fileDialogButton.clicked.connect(self.open_file_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
+
+        self.hBox = QHBoxLayout()
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.fileDialogButton)
+
+        self.setLayout(self.hBox)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+    def open_file_dialog(self):
+        file_dialog = QFileDialog()
+        if self.file_type:
+            file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;, self.get_input_text(), filter=self.file_type)
+        else:
+            file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;)
+
+        if os.path.isfile(file_path[0]):
+            self.set_input_text(file_path[0])
+
+
+class LabeledFileInput(QFrame):
+    &#34;&#34;&#34;Labeled File Input
+
+        Summary:
+            A class for an input box that includes:
+
+            -Label to the left
+
+            -File dialog button to the right
+
+        Attributes:
+            hBox, label, input, fileDialogButton, file_type
+
+        Methods:
+            get_input_text, set_input_text, open_file_dialog
+
+        Attributes
+        ----------
+            hBox : QHBoxLayout
+                Horizontal layout
+            label : QLabel
+                Text Label for Input Box
+            fileDialogButton : QPushButton
+                A button that opens a file dialog
+            input : QLineEdit
+                Input Box for text entry
+            file_type : str
+                The type of file
+
+        Methods
+        -------
+            get_input_text(self)
+                Return the text in the input box
+            set_input_text(self, value : string)
+                Sets the input box text
+            open_file_dialog(self)
+                Opens the file selection dialog
+    &#34;&#34;&#34;
+    def __init__(self, parent, label_text=&#34;&#34;, file_type=&#34;&#34;, input_text=&#34;&#34;, read_only=False, btn_enable=True):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the LabeledFileInput object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                label_text : str
+                    The text for label
+                file_type : str
+                    The type of file
+                input_text : str
+                    The text for input field
+                btn_enable : bool
+                    Set button enabled status
+                read_only : bool
+                    Set readonly status
+        &#34;&#34;&#34;
+        super(LabeledFileInput, self).__init__(parent)
+
+        self.file_type = file_type
+
+        self.label = QLabel(self, text=label_text)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
+
+        self.fileDialogButton = QPushButton(label_text)
+        self.fileDialogButton.setStyleSheet(&#34;background-color:#1000A0;color:white;margin:3 0;padding:15 5;&#34;
+                                            &#34;border-radius:10px;font-weight:600;&#34;)
+        self.fileDialogButton.clicked.connect(self.open_file_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
+
+        self.hBox = QHBoxLayout()
+        self.hBox.addWidget(self.label)
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.fileDialogButton)
+
+        self.setLayout(self.hBox)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+    def open_file_dialog(self):
+        file_dialog = QFileDialog()
+        if self.file_type:
+            file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;, self.get_input_text(), filter=self.file_type)
+        else:
+            file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;)
+        if os.path.isfile(file_path[0]):
+            self.set_input_text(file_path[0])</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="GC_Components.InputComponents.DirectoryInput"><code class="flex name class">
+<span>class <span class="ident">DirectoryInput</span></span>
+<span>(</span><span>parent, input_text='', read_only=False, btn_enable=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Directory Input</p>
+<h2 id="summary">Summary</h2>
+<p>A class for an input box that includes:</p>
+<p>-File dialog button to the right</p>
+<h2 id="attributes">Attributes</h2>
+<p>hBox, input, fileDialogButton</p>
+<h2 id="methods">Methods</h2>
+<p>get_input_text, set_input_text, open_directory_dialog</p>
+<h2 id="attributes_1">Attributes</h2>
+<pre><code>hBox : QHBoxLayout
+    Horizontal layout
+fileDialogButton : QPushButton
+    A button that opens a file dialog
+input : QLineEdit
+    Input Box for text entry
+</code></pre>
+<h2 id="methods_1">Methods</h2>
+<pre><code>get_input_text(self)
+    Return the text in the input box
+set_input_text(self, value : string)
+    Sets the input box text
+open_directory_dialog(self)
+    Opens the directory selection dialog
+</code></pre>
+<p>Constructor:
+Constructs all the necessary attributes for the DirectoryInput object.</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>self
+parent : QFrame
+input_text : str
+    The text for input field
+btn_enable : bool
+    Set button enabled status
+read_only : bool
+    Set readonly status for input field
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class DirectoryInput(QFrame):
+    &#34;&#34;&#34;Directory Input
+
+            Summary:
+                A class for an input box that includes:
+
+                -File dialog button to the right
+
+            Attributes:
+                hBox, input, fileDialogButton
+
+            Methods:
+                get_input_text, set_input_text, open_directory_dialog
+
+            Attributes
+            ----------
+                hBox : QHBoxLayout
+                    Horizontal layout
+                fileDialogButton : QPushButton
+                    A button that opens a file dialog
+                input : QLineEdit
+                    Input Box for text entry
+
+            Methods
+            -------
+                get_input_text(self)
+                    Return the text in the input box
+                set_input_text(self, value : string)
+                    Sets the input box text
+                open_directory_dialog(self)
+                    Opens the directory selection dialog
+        &#34;&#34;&#34;
+    def __init__(self, parent, input_text=&#34;&#34;, read_only=False, btn_enable=True):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the DirectoryInput object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                input_text : str
+                    The text for input field
+                btn_enable : bool
+                    Set button enabled status
+                read_only : bool
+                    Set readonly status for input field
+        &#34;&#34;&#34;
+        super(DirectoryInput, self).__init__(parent)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
+
+        self.fileDialogButton = QPushButton(self, text=&#34;...&#34;)
+        self.fileDialogButton.clicked.connect(self.open_directory_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
+
+        self.hBox = QHBoxLayout()
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.fileDialogButton)
+
+        self.setLayout(self.hBox)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+    def open_directory_dialog(self):
+        directory_dialog = QFileDialog()
+        directory_path = directory_dialog.getExistingDirectory(self, &#34;Select a Directory&#34;, self.get_input_text())
+        if os.path.isdir(directory_path):
+            self.set_input_text(directory_path)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>PySide2.QtWidgets.QFrame</li>
+<li>PySide2.QtWidgets.QWidget</li>
+<li>PySide2.QtCore.QObject</li>
+<li>PySide2.QtGui.QPaintDevice</li>
+<li>Shiboken.Object</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="GC_Components.InputComponents.DirectoryInput.staticMetaObject"><code class="name">var <span class="ident">staticMetaObject</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="GC_Components.InputComponents.DirectoryInput.get_input_text"><code class="name flex">
+<span>def <span class="ident">get_input_text</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_input_text(self):
+    text = self.input.text()
+    return text</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.DirectoryInput.open_directory_dialog"><code class="name flex">
+<span>def <span class="ident">open_directory_dialog</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def open_directory_dialog(self):
+    directory_dialog = QFileDialog()
+    directory_path = directory_dialog.getExistingDirectory(self, &#34;Select a Directory&#34;, self.get_input_text())
+    if os.path.isdir(directory_path):
+        self.set_input_text(directory_path)</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.DirectoryInput.set_input_text"><code class="name flex">
+<span>def <span class="ident">set_input_text</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_input_text(self, value):
+    self.input.setText(str(value))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="GC_Components.InputComponents.FileInput"><code class="flex name class">
+<span>class <span class="ident">FileInput</span></span>
+<span>(</span><span>parent, file_type='', input_text='', read_only=False, btn_enable=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>File Input</p>
+<h2 id="summary">Summary</h2>
+<p>A class for an input box that includes:</p>
+<p>-File dialog button to the right</p>
+<h2 id="attributes">Attributes</h2>
+<p>input, fileDialogButton, hBox, file_type</p>
+<h2 id="methods">Methods</h2>
+<p>get_input_text, set_input_text, open_file_dialog</p>
+<h2 id="attributes_1">Attributes</h2>
+<pre><code>fileDialogButton : QPushButton
+    A button that opens a file dialog
+input : QLineEdit
+    Input Box for text entry
+hBox : QHBoxLayout
+    Horizontal layout
+file_type : str
+    The type of file
+</code></pre>
+<h2 id="methods_1">Methods</h2>
+<pre><code>get_input_text(self)
+    Return the text in the input box
+set_input_text(self, value : string)
+    Sets the input box text
+open_file_dialog(self)
+    Opens the file selection dialog
+</code></pre>
+<p>Constructor:
+Constructs all the necessary attributes for the FileInput object.</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>self
+parent : QFrame
+file_type : str
+    The type of file
+input_text : str
+    The text for input field
+btn_enable : bool
+    Set button enabled status
+read_only : bool
+    Set readonly status
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class FileInput(QFrame):
+    &#34;&#34;&#34;File Input
+
+        Summary:
+            A class for an input box that includes:
+
+            -File dialog button to the right
+
+        Attributes:
+            input, fileDialogButton, hBox, file_type
+
+        Methods:
+            get_input_text, set_input_text, open_file_dialog
+
+        Attributes
+        ----------
+            fileDialogButton : QPushButton
+                A button that opens a file dialog
+            input : QLineEdit
+                Input Box for text entry
+            hBox : QHBoxLayout
+                Horizontal layout
+            file_type : str
+                The type of file
+
+        Methods
+        -------
+            get_input_text(self)
+                Return the text in the input box
+            set_input_text(self, value : string)
+                Sets the input box text
+            open_file_dialog(self)
+                Opens the file selection dialog
+    &#34;&#34;&#34;
+    def __init__(self, parent, file_type=&#34;&#34;, input_text=&#34;&#34;, read_only=False, btn_enable=True):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the FileInput object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                file_type : str
+                    The type of file
+                input_text : str
+                    The text for input field
+                btn_enable : bool
+                    Set button enabled status
+                read_only : bool
+                    Set readonly status
+        &#34;&#34;&#34;
+        super(FileInput, self).__init__(parent)
+
+        self.file_type = file_type
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
+
+        self.fileDialogButton = QPushButton(&#34;...&#34;)
+        self.fileDialogButton.clicked.connect(self.open_file_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
+
+        self.hBox = QHBoxLayout()
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.fileDialogButton)
+
+        self.setLayout(self.hBox)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+    def open_file_dialog(self):
+        file_dialog = QFileDialog()
+        if self.file_type:
+            file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;, self.get_input_text(), filter=self.file_type)
+        else:
+            file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;)
+
+        if os.path.isfile(file_path[0]):
+            self.set_input_text(file_path[0])</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>PySide2.QtWidgets.QFrame</li>
+<li>PySide2.QtWidgets.QWidget</li>
+<li>PySide2.QtCore.QObject</li>
+<li>PySide2.QtGui.QPaintDevice</li>
+<li>Shiboken.Object</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="GC_Components.InputComponents.FileInput.staticMetaObject"><code class="name">var <span class="ident">staticMetaObject</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="GC_Components.InputComponents.FileInput.get_input_text"><code class="name flex">
+<span>def <span class="ident">get_input_text</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_input_text(self):
+    text = self.input.text()
+    return text</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.FileInput.open_file_dialog"><code class="name flex">
+<span>def <span class="ident">open_file_dialog</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def open_file_dialog(self):
+    file_dialog = QFileDialog()
+    if self.file_type:
+        file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;, self.get_input_text(), filter=self.file_type)
+    else:
+        file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;)
+
+    if os.path.isfile(file_path[0]):
+        self.set_input_text(file_path[0])</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.FileInput.set_input_text"><code class="name flex">
+<span>def <span class="ident">set_input_text</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_input_text(self, value):
+    self.input.setText(str(value))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledDirectoryInput"><code class="flex name class">
+<span>class <span class="ident">LabeledDirectoryInput</span></span>
+<span>(</span><span>parent, label_text='', input_text='', read_only=False, btn_enable=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Labeled Directory Input</p>
+<h2 id="summary">Summary</h2>
+<p>A class for an input box that includes:</p>
+<p>-Label to the left</p>
+<p>-File dialog button to the right</p>
+<h2 id="attributes">Attributes</h2>
+<p>hBox, label, input, fileDialogButton</p>
+<h2 id="methods">Methods</h2>
+<p>set_button_enable, get_input_text, set_input_text, open_directory_dialog</p>
+<h2 id="attributes_1">Attributes</h2>
+<pre><code>hBox : QHBoxLayout
+    Horizontal layout
+label : QLabel
+    Text Label for Input Box
+fileDialogButton : QPushButton
+    A button that opens a file dialog
+input : QLineEdit
+    Input Box for text entry
+</code></pre>
+<h2 id="methods_1">Methods</h2>
+<pre><code>set_button_enable(self, btn_enable=True)
+    Enables/disables button based on bool parameter
+get_input_text(self)
+    Return the text in the input box
+set_input_text(self, value : string)
+    Sets the input box text
+open_directory_dialog(self)
+    Opens the directory selection dialog
+</code></pre>
+<p>Constructor:
+Constructs all the necessary attributes for the LabeledDirectoryInput object.</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>self
+parent : QFrame
+label_text : str
+    The text for label
+input_text : str
+    The text for input field
+btn_enable : bool
+    Set button enabled status
+read_only : bool
+    Set readonly status
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LabeledDirectoryInput(QFrame):
+    &#34;&#34;&#34;Labeled Directory Input
+
+            Summary:
+                A class for an input box that includes:
+
+                -Label to the left
+
+                -File dialog button to the right
+
+            Attributes:
+                hBox, label, input, fileDialogButton
+
+            Methods:
+                set_button_enable, get_input_text, set_input_text, open_directory_dialog
+
+            Attributes
+            ----------
+                hBox : QHBoxLayout
+                    Horizontal layout
+                label : QLabel
+                    Text Label for Input Box
+                fileDialogButton : QPushButton
+                    A button that opens a file dialog
+                input : QLineEdit
+                    Input Box for text entry
+
+            Methods
+            -------
+                set_button_enable(self, btn_enable=True)
+                    Enables/disables button based on bool parameter
+                get_input_text(self)
+                    Return the text in the input box
+                set_input_text(self, value : string)
+                    Sets the input box text
+                open_directory_dialog(self)
+                    Opens the directory selection dialog
+        &#34;&#34;&#34;
+    def __init__(self, parent, label_text=&#34;&#34;, input_text=&#34;&#34;, read_only=False, btn_enable=True):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the LabeledDirectoryInput object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                label_text : str
+                    The text for label
+                input_text : str
+                    The text for input field
+                btn_enable : bool
+                    Set button enabled status
+                read_only : bool
+                    Set readonly status
+        &#34;&#34;&#34;
+        super(LabeledDirectoryInput, self).__init__(parent)
+
+        self.label = QLabel(self, text=label_text)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
+
+        self.fileDialogButton = QPushButton(self, text=&#34;Browse&#34;)
+        self.fileDialogButton.setStyleSheet(&#34;background-color:#1000A0;color:white;margin:3 0;padding:9 5;&#34;
+                                            &#34;border-radius:10px&#34;)
+        self.fileDialogButton.clicked.connect(self.open_directory_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
+
+        self.hBox = QHBoxLayout()
+        self.hBox.addWidget(self.label)
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.fileDialogButton)
+
+        self.setLayout(self.hBox)
+
+    def set_button_enable(self, btn_enable=True):
+        self.fileDialogButton.setEnabled(btn_enable)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+    def open_directory_dialog(self):
+        directory_dialog = QFileDialog()
+        directory_path = directory_dialog.getExistingDirectory(self, &#34;Select a Directory&#34;, self.get_input_text())
+        if os.path.isdir(directory_path):
+            self.set_input_text(directory_path)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>PySide2.QtWidgets.QFrame</li>
+<li>PySide2.QtWidgets.QWidget</li>
+<li>PySide2.QtCore.QObject</li>
+<li>PySide2.QtGui.QPaintDevice</li>
+<li>Shiboken.Object</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="GC_Components.InputComponents.LabeledDirectoryInput.staticMetaObject"><code class="name">var <span class="ident">staticMetaObject</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="GC_Components.InputComponents.LabeledDirectoryInput.get_input_text"><code class="name flex">
+<span>def <span class="ident">get_input_text</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_input_text(self):
+    text = self.input.text()
+    return text</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledDirectoryInput.open_directory_dialog"><code class="name flex">
+<span>def <span class="ident">open_directory_dialog</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def open_directory_dialog(self):
+    directory_dialog = QFileDialog()
+    directory_path = directory_dialog.getExistingDirectory(self, &#34;Select a Directory&#34;, self.get_input_text())
+    if os.path.isdir(directory_path):
+        self.set_input_text(directory_path)</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledDirectoryInput.set_button_enable"><code class="name flex">
+<span>def <span class="ident">set_button_enable</span></span>(<span>self, btn_enable=True)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_button_enable(self, btn_enable=True):
+    self.fileDialogButton.setEnabled(btn_enable)</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledDirectoryInput.set_input_text"><code class="name flex">
+<span>def <span class="ident">set_input_text</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_input_text(self, value):
+    self.input.setText(str(value))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledFileInput"><code class="flex name class">
+<span>class <span class="ident">LabeledFileInput</span></span>
+<span>(</span><span>parent, label_text='', file_type='', input_text='', read_only=False, btn_enable=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Labeled File Input</p>
+<h2 id="summary">Summary</h2>
+<p>A class for an input box that includes:</p>
+<p>-Label to the left</p>
+<p>-File dialog button to the right</p>
+<h2 id="attributes">Attributes</h2>
+<p>hBox, label, input, fileDialogButton, file_type</p>
+<h2 id="methods">Methods</h2>
+<p>get_input_text, set_input_text, open_file_dialog</p>
+<h2 id="attributes_1">Attributes</h2>
+<pre><code>hBox : QHBoxLayout
+    Horizontal layout
+label : QLabel
+    Text Label for Input Box
+fileDialogButton : QPushButton
+    A button that opens a file dialog
+input : QLineEdit
+    Input Box for text entry
+file_type : str
+    The type of file
+</code></pre>
+<h2 id="methods_1">Methods</h2>
+<pre><code>get_input_text(self)
+    Return the text in the input box
+set_input_text(self, value : string)
+    Sets the input box text
+open_file_dialog(self)
+    Opens the file selection dialog
+</code></pre>
+<p>Constructor:
+Constructs all the necessary attributes for the LabeledFileInput object.</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>self
+parent : QFrame
+label_text : str
+    The text for label
+file_type : str
+    The type of file
+input_text : str
+    The text for input field
+btn_enable : bool
+    Set button enabled status
+read_only : bool
+    Set readonly status
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LabeledFileInput(QFrame):
+    &#34;&#34;&#34;Labeled File Input
+
+        Summary:
+            A class for an input box that includes:
+
+            -Label to the left
+
+            -File dialog button to the right
+
+        Attributes:
+            hBox, label, input, fileDialogButton, file_type
+
+        Methods:
+            get_input_text, set_input_text, open_file_dialog
+
+        Attributes
+        ----------
+            hBox : QHBoxLayout
+                Horizontal layout
+            label : QLabel
+                Text Label for Input Box
+            fileDialogButton : QPushButton
+                A button that opens a file dialog
+            input : QLineEdit
+                Input Box for text entry
+            file_type : str
+                The type of file
+
+        Methods
+        -------
+            get_input_text(self)
+                Return the text in the input box
+            set_input_text(self, value : string)
+                Sets the input box text
+            open_file_dialog(self)
+                Opens the file selection dialog
+    &#34;&#34;&#34;
+    def __init__(self, parent, label_text=&#34;&#34;, file_type=&#34;&#34;, input_text=&#34;&#34;, read_only=False, btn_enable=True):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the LabeledFileInput object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                label_text : str
+                    The text for label
+                file_type : str
+                    The type of file
+                input_text : str
+                    The text for input field
+                btn_enable : bool
+                    Set button enabled status
+                read_only : bool
+                    Set readonly status
+        &#34;&#34;&#34;
+        super(LabeledFileInput, self).__init__(parent)
+
+        self.file_type = file_type
+
+        self.label = QLabel(self, text=label_text)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+        self.input.setReadOnly(read_only)
+
+        self.fileDialogButton = QPushButton(label_text)
+        self.fileDialogButton.setStyleSheet(&#34;background-color:#1000A0;color:white;margin:3 0;padding:15 5;&#34;
+                                            &#34;border-radius:10px;font-weight:600;&#34;)
+        self.fileDialogButton.clicked.connect(self.open_file_dialog)
+        self.fileDialogButton.setEnabled(btn_enable)
+
+        self.hBox = QHBoxLayout()
+        self.hBox.addWidget(self.label)
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.fileDialogButton)
+
+        self.setLayout(self.hBox)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))
+
+    def open_file_dialog(self):
+        file_dialog = QFileDialog()
+        if self.file_type:
+            file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;, self.get_input_text(), filter=self.file_type)
+        else:
+            file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;)
+        if os.path.isfile(file_path[0]):
+            self.set_input_text(file_path[0])</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>PySide2.QtWidgets.QFrame</li>
+<li>PySide2.QtWidgets.QWidget</li>
+<li>PySide2.QtCore.QObject</li>
+<li>PySide2.QtGui.QPaintDevice</li>
+<li>Shiboken.Object</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="GC_Components.InputComponents.LabeledFileInput.staticMetaObject"><code class="name">var <span class="ident">staticMetaObject</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="GC_Components.InputComponents.LabeledFileInput.get_input_text"><code class="name flex">
+<span>def <span class="ident">get_input_text</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_input_text(self):
+    text = self.input.text()
+    return text</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledFileInput.open_file_dialog"><code class="name flex">
+<span>def <span class="ident">open_file_dialog</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def open_file_dialog(self):
+    file_dialog = QFileDialog()
+    if self.file_type:
+        file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;, self.get_input_text(), filter=self.file_type)
+    else:
+        file_path = file_dialog.getOpenFileName(self, &#34;Select File&#34;)
+    if os.path.isfile(file_path[0]):
+        self.set_input_text(file_path[0])</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledFileInput.set_input_text"><code class="name flex">
+<span>def <span class="ident">set_input_text</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_input_text(self, value):
+    self.input.setText(str(value))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledInput"><code class="flex name class">
+<span>class <span class="ident">LabeledInput</span></span>
+<span>(</span><span>parent, label_text='', input_text='')</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Labeled Input</p>
+<h2 id="summary">Summary</h2>
+<p>A class for an input box that includes:</p>
+<p>-Label to the left</p>
+<h2 id="attributes">Attributes</h2>
+<p>hBox, label, input</p>
+<h2 id="methods">Methods</h2>
+<p>get_input_text, set_input_text</p>
+<h2 id="attributes_1">Attributes</h2>
+<pre><code>hBox : QHBoxLayout
+        Horizontal layout
+label : QLabel
+    Text Label for Input Box
+input : QLineEdit
+    Input Box for text entry
+</code></pre>
+<h2 id="methods_1">Methods</h2>
+<pre><code>get_input_text(self)
+    Return the text in the input box
+set_input_text(self, value : string)
+    Sets the input box text
+</code></pre>
+<p>Constructor:
+Constructs all the necessary attributes for the LabeledInput object.</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>self
+parent : QFrame
+label_text : str
+    The number of columns
+input_text : str
+    The number of rows
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LabeledInput(QFrame):
+    &#34;&#34;&#34;Labeled Input
+
+          Summary:
+              A class for an input box that includes:
+
+              -Label to the left
+
+          Attributes:
+              hBox, label, input
+
+          Methods:
+              get_input_text, set_input_text
+
+          Attributes
+          ----------
+              hBox : QHBoxLayout
+                      Horizontal layout
+              label : QLabel
+                  Text Label for Input Box
+              input : QLineEdit
+                  Input Box for text entry
+
+          Methods
+          -------
+              get_input_text(self)
+                  Return the text in the input box
+              set_input_text(self, value : string)
+                  Sets the input box text
+      &#34;&#34;&#34;
+    def __init__(self, parent, label_text=&#34;&#34;, input_text=&#34;&#34;):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the LabeledInput object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                label_text : str
+                    The number of columns
+                input_text : str
+                    The number of rows
+        &#34;&#34;&#34;
+        super(LabeledInput, self).__init__(parent)
+
+        self.label = QLabel(self, text=label_text)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+
+        self.hBox = QHBoxLayout()
+        self.hBox.addWidget(self.label)
+        self.hBox.addWidget(self.input)
+
+        self.setLayout(self.hBox)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>PySide2.QtWidgets.QFrame</li>
+<li>PySide2.QtWidgets.QWidget</li>
+<li>PySide2.QtCore.QObject</li>
+<li>PySide2.QtGui.QPaintDevice</li>
+<li>Shiboken.Object</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="GC_Components.InputComponents.LabeledInput.staticMetaObject"><code class="name">var <span class="ident">staticMetaObject</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="GC_Components.InputComponents.LabeledInput.get_input_text"><code class="name flex">
+<span>def <span class="ident">get_input_text</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_input_text(self):
+    text = self.input.text()
+    return text</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledInput.set_input_text"><code class="name flex">
+<span>def <span class="ident">set_input_text</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_input_text(self, value):
+    self.input.setText(str(value))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledInputWithButton"><code class="flex name class">
+<span>class <span class="ident">LabeledInputWithButton</span></span>
+<span>(</span><span>parent, label_text='', input_text='', button_text='', btn_enable=True)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Labeled Input with button</p>
+<h2 id="summary">Summary</h2>
+<p>A class for an input box that includes:</p>
+<p>-Label to the left</p>
+<h2 id="attributes">Attributes</h2>
+<p>hBox, label, input, button</p>
+<h2 id="methods">Methods</h2>
+<p>get_input_text, set_input_text</p>
+<h2 id="attributes_1">Attributes</h2>
+<pre><code>hBox : QHBoxLayout
+        Horizontal layout
+label : QLabel
+    Text Label for Input Box
+input : QLineEdit
+    Input Box for text entry
+button : QPushButton
+    Button opens file dialog
+</code></pre>
+<h2 id="methods_1">Methods</h2>
+<pre><code>get_input_text(self)
+    Return the text in the input box
+set_input_text(self, value : string)
+    Sets the input box text
+</code></pre>
+<p>Constructor:
+Constructs all the necessary attributes for the LabeledInputWithButton object.</p>
+<h2 id="parameters">Parameters</h2>
+<pre><code>self
+parent : QFrame
+label_text : str
+    The text for label
+input_text : str
+    The text for input field
+button_text : str
+    The text for the button
+btn_enable : bool
+    Set button enabled status
+</code></pre></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class LabeledInputWithButton(QFrame):
+    &#34;&#34;&#34;Labeled Input with button
+
+        Summary:
+            A class for an input box that includes:
+
+            -Label to the left
+
+        Attributes:
+            hBox, label, input, button
+
+        Methods:
+            get_input_text, set_input_text
+
+        Attributes
+        ----------
+            hBox : QHBoxLayout
+                    Horizontal layout
+            label : QLabel
+                Text Label for Input Box
+            input : QLineEdit
+                Input Box for text entry
+            button : QPushButton
+                Button opens file dialog
+
+        Methods
+        -------
+            get_input_text(self)
+                Return the text in the input box
+            set_input_text(self, value : string)
+                Sets the input box text
+    &#34;&#34;&#34;
+    def __init__(self, parent, label_text=&#34;&#34;, input_text=&#34;&#34;, button_text=&#34;&#34;, btn_enable=True):
+        &#34;&#34;&#34;Constructor:
+            Constructs all the necessary attributes for the LabeledInputWithButton object.
+
+            Parameters
+            ----------
+                self
+                parent : QFrame
+                label_text : str
+                    The text for label
+                input_text : str
+                    The text for input field
+                button_text : str
+                    The text for the button
+                btn_enable : bool
+                    Set button enabled status
+        &#34;&#34;&#34;
+        super(LabeledInputWithButton, self).__init__(parent)
+
+        self.label = QLabel(self, text=label_text)
+
+        self.input = QLineEdit(self)
+        self.input.setText(input_text)
+        self.input.setStyleSheet(&#39;border:2px solid #1000a0&#39;)
+
+        self.button = QPushButton(button_text)
+        self.button.setStyleSheet(&#34;background-color:#1000A0;color:white;margin:5 1;padding:15 5;border-radius:10px;&#34;
+                                  &#34;font-weight:600;&#34;)
+        self.button.setEnabled(btn_enable)
+        self.button.setObjectName(&#39;browse&#39;)
+
+        self.hBox = QHBoxLayout(self)
+        self.hBox.addWidget(self.label)
+        self.hBox.addWidget(self.input)
+        self.hBox.addWidget(self.button)
+
+        self.setLayout(self.hBox)
+
+    def get_input_text(self):
+        text = self.input.text()
+        return text
+
+    def set_input_text(self, value):
+        self.input.setText(str(value))</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>PySide2.QtWidgets.QFrame</li>
+<li>PySide2.QtWidgets.QWidget</li>
+<li>PySide2.QtCore.QObject</li>
+<li>PySide2.QtGui.QPaintDevice</li>
+<li>Shiboken.Object</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="GC_Components.InputComponents.LabeledInputWithButton.staticMetaObject"><code class="name">var <span class="ident">staticMetaObject</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="GC_Components.InputComponents.LabeledInputWithButton.get_input_text"><code class="name flex">
+<span>def <span class="ident">get_input_text</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_input_text(self):
+    text = self.input.text()
+    return text</code></pre>
+</details>
+</dd>
+<dt id="GC_Components.InputComponents.LabeledInputWithButton.set_input_text"><code class="name flex">
+<span>def <span class="ident">set_input_text</span></span>(<span>self, value)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_input_text(self, value):
+    self.input.setText(str(value))</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="GC_Components" href="index.html">GC_Components</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="GC_Components.InputComponents.DirectoryInput" href="#GC_Components.InputComponents.DirectoryInput">DirectoryInput</a></code></h4>
+<ul class="">
+<li><code><a title="GC_Components.InputComponents.DirectoryInput.get_input_text" href="#GC_Components.InputComponents.DirectoryInput.get_input_text">get_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.DirectoryInput.open_directory_dialog" href="#GC_Components.InputComponents.DirectoryInput.open_directory_dialog">open_directory_dialog</a></code></li>
+<li><code><a title="GC_Components.InputComponents.DirectoryInput.set_input_text" href="#GC_Components.InputComponents.DirectoryInput.set_input_text">set_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.DirectoryInput.staticMetaObject" href="#GC_Components.InputComponents.DirectoryInput.staticMetaObject">staticMetaObject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="GC_Components.InputComponents.FileInput" href="#GC_Components.InputComponents.FileInput">FileInput</a></code></h4>
+<ul class="">
+<li><code><a title="GC_Components.InputComponents.FileInput.get_input_text" href="#GC_Components.InputComponents.FileInput.get_input_text">get_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.FileInput.open_file_dialog" href="#GC_Components.InputComponents.FileInput.open_file_dialog">open_file_dialog</a></code></li>
+<li><code><a title="GC_Components.InputComponents.FileInput.set_input_text" href="#GC_Components.InputComponents.FileInput.set_input_text">set_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.FileInput.staticMetaObject" href="#GC_Components.InputComponents.FileInput.staticMetaObject">staticMetaObject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="GC_Components.InputComponents.LabeledDirectoryInput" href="#GC_Components.InputComponents.LabeledDirectoryInput">LabeledDirectoryInput</a></code></h4>
+<ul class="">
+<li><code><a title="GC_Components.InputComponents.LabeledDirectoryInput.get_input_text" href="#GC_Components.InputComponents.LabeledDirectoryInput.get_input_text">get_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledDirectoryInput.open_directory_dialog" href="#GC_Components.InputComponents.LabeledDirectoryInput.open_directory_dialog">open_directory_dialog</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledDirectoryInput.set_button_enable" href="#GC_Components.InputComponents.LabeledDirectoryInput.set_button_enable">set_button_enable</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledDirectoryInput.set_input_text" href="#GC_Components.InputComponents.LabeledDirectoryInput.set_input_text">set_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledDirectoryInput.staticMetaObject" href="#GC_Components.InputComponents.LabeledDirectoryInput.staticMetaObject">staticMetaObject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="GC_Components.InputComponents.LabeledFileInput" href="#GC_Components.InputComponents.LabeledFileInput">LabeledFileInput</a></code></h4>
+<ul class="">
+<li><code><a title="GC_Components.InputComponents.LabeledFileInput.get_input_text" href="#GC_Components.InputComponents.LabeledFileInput.get_input_text">get_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledFileInput.open_file_dialog" href="#GC_Components.InputComponents.LabeledFileInput.open_file_dialog">open_file_dialog</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledFileInput.set_input_text" href="#GC_Components.InputComponents.LabeledFileInput.set_input_text">set_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledFileInput.staticMetaObject" href="#GC_Components.InputComponents.LabeledFileInput.staticMetaObject">staticMetaObject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="GC_Components.InputComponents.LabeledInput" href="#GC_Components.InputComponents.LabeledInput">LabeledInput</a></code></h4>
+<ul class="">
+<li><code><a title="GC_Components.InputComponents.LabeledInput.get_input_text" href="#GC_Components.InputComponents.LabeledInput.get_input_text">get_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledInput.set_input_text" href="#GC_Components.InputComponents.LabeledInput.set_input_text">set_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledInput.staticMetaObject" href="#GC_Components.InputComponents.LabeledInput.staticMetaObject">staticMetaObject</a></code></li>
+</ul>
+</li>
+<li>
+<h4><code><a title="GC_Components.InputComponents.LabeledInputWithButton" href="#GC_Components.InputComponents.LabeledInputWithButton">LabeledInputWithButton</a></code></h4>
+<ul class="">
+<li><code><a title="GC_Components.InputComponents.LabeledInputWithButton.get_input_text" href="#GC_Components.InputComponents.LabeledInputWithButton.get_input_text">get_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledInputWithButton.set_input_text" href="#GC_Components.InputComponents.LabeledInputWithButton.set_input_text">set_input_text</a></code></li>
+<li><code><a title="GC_Components.InputComponents.LabeledInputWithButton.staticMetaObject" href="#GC_Components.InputComponents.LabeledInputWithButton.staticMetaObject">staticMetaObject</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
