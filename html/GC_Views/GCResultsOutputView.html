@@ -1,0 +1,1694 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>GC_Views.GCResultsOutputView API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>GC_Views.GCResultsOutputView</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &amp;&amp;
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+import asyncio
+import json
+from datetime import datetime
+import sys
+from math import floor
+
+from PySide2.QtCore import Qt, QThreadPool, Slot
+from PySide2.QtWidgets import QApplication, QFrame, QVBoxLayout, QHBoxLayout, QPushButton, QHeaderView
+
+from GC_Components.InputComponents import LabeledInputWithButton
+from GC_Components.TableComponents import DataTable
+from GC_Services.FileIo import FileIo
+from GC_Services.pcloudAPI import PCloud
+from GC_Views.GCFileDetailsView import FileDetailsView
+from GC_Threading.Worker import DownloadWorker
+
+
+class GCResultsOutputView(QFrame):
+    &#34;&#34;&#34;Results Output View
+
+        Summary:
+            A class for viewing results of CSV selection &amp; searching/downloading results on pcloud that includes:
+
+            -Data Table of selected results to the top left
+            -Data Table of selected filenames from results
+            -Data Table of added pcloud links
+            -VBox with LabeledInputWithButton for adding pcloud links &amp; buttons for scanning &amp; downloading from pcloud
+
+        Attributes:
+            parent, shot_data, filenames, file_metadata, publinks, cloud_scanned, fio, apic, threadpool, hbl_tables,
+            dt_shot_data, dt_files, hbl_controls, dt_cloud_links, liwb_add_publink, vbl_control_buttons, btn_scan,
+            btn_download_files, btn_cancel_download, vbl_main_layout
+
+        Methods:
+            add_publink_clicked, scan_pcloud_clicked, download_files_clicked, load_shot_table_data, load_filename_table,
+            add_publink_to_table, get_codes, search_for_files, get_publink_data, classify_files, color_filename_cells,
+            color_shot_table, get_matching_files, find_latest_file, download_files, update_progress_bar, test_popup,
+            download_finished, create_unique_filename_list, set_shot_data, cancel_download
+
+        Attributes
+        ----------
+            parent : QFrame
+                Parent QFrame
+            shot_data : []
+                Array for selected data from table view
+            filenames : []
+                Array of selected asset listings/filenames
+            file_metadata : []
+                Array for metadata for selected files
+            publinks : []
+                Array for user-inputted publinks
+            cloud_scanned : bool
+                Bool for whether pCloud scan successful
+            fio : FileIo
+                File input &amp; output
+            apic : PCloud
+                PCloud API class
+            threadpool : QThreadPool
+                Threadpool for multithreading threads
+            hbl_tables : QHBoxLayout
+                HBox layout for tables
+            dt_shot_data : DataTable
+                Data Table for selected columns and rows
+            dt_files : SimpleDataTable
+                Data Table for selected assets
+            hbl_controls : QVBoxLayout
+                VBox layout for pCloud buttons
+            dt_cloud_links : SimpleDataTable
+                Data Table for publinks
+            liwb_add_publink : LabeledInputWithButton
+                Labeled Input With Button for pCloud/publink access
+            vbl_control_buttons : QVBoxLayout
+                Vertical layout for control buttons
+            btn_scan : QPushButton
+                Button for scanning PCloud
+            btn_download_files : QPushButton
+                Button for downloading selected files from PCloud
+            btn_cancel_download : QPushButton
+                Button for cancelling download of files from pcloud
+            vbl_main_layout = QVBoxLayout
+                Main VBox layout
+
+        Methods
+        -------
+            add_publink_clicked(self)
+                Adds publink to dt_cloud_links table when Add Link button clicked
+            scan_pcloud_clicked(self)
+                Checks pCloud/publink for files when Scan Repo button clicked
+            download_files_clicked(self)
+                Calls download_files method when Download button clicked
+            load_shot_table_data(self, results=[])
+                Loads selected shot columns and rows in dt_shot_data Data Table
+            load_filename_table(self, results=[], headers=[])
+                Loads selected files/assets in dt_files Data Table
+            add_publink_to_table(self)
+                Adds user-inputted publink to dt_cloud_links Data Table
+            get_codes(self)
+                Returns PCloud API call response codes
+            search_for_files(self)
+                Searches pcloud publinks for selected files
+            get_publink_data(self, codes=[])
+                Returns publink metadata
+            classify_files(self)
+                Classifies files according to file extensions
+            color_filename_cells(self)
+                Colors cells of dt_files Data Table based on file status
+            color_shot_table(self)
+                Colors cells of dt_shot_data_table Data table based on file status
+            get_matching_files(self, filename=&#34;&#34;)
+                Returns list of filenames with multiple pcloud entries
+            find_latest_file(self, file_data=[])
+                Returns latest modified file from list of same-named filenames
+            download_files(self)
+                Downloads assets/files to respective directory. Disables download button for download length
+            update_progress_bar(self, percent=0)
+                Updates progress bar of main window to reflect download progress
+            download_finished(self)
+                Enables download button on download completion
+            create_unique_filename_list(self, assets=[])
+                Returns list of unique filename from list of filenames
+            set_shot_data(self, data=[])
+                Sets shot_data to user selections
+            test_popup(self)
+                Pops up FileDetailsView
+            cancel_download(self):
+                Cancels download of files
+    &#34;&#34;&#34;
+    def __init__(self, parent=None, file_io=FileIo()):
+        &#34;&#34;&#34;Constructor:
+            Initialize Results Output View
+
+            Parameters:
+                self
+                parent : QFrame
+                file_io : FileIo
+                    !!! File input &amp; output
+            Returns:
+                None
+        &#34;&#34;&#34;
+        # -------------------------------------------init Start-------------------------------------------
+        super(GCResultsOutputView, self).__init__(parent)
+        self.parent = parent
+        self.shot_data = []
+        self.filenames = []
+        self.file_metadata = []
+        self.publinks = []
+        self.cloud_scanned = False
+        self.fio = file_io
+        self.apic = PCloud()
+        self.apic.set_region(&#34;NA&#34;)
+        self.popup_frame = FileDetailsView(self)
+
+        self.worker = DownloadWorker()
+
+        self.threadpool = QThreadPool()
+        print(&#34;Multithreading with maximum %d threads&#34; % self.threadpool.maxThreadCount())
+
+        # ----------------------------------------------
+        # -----------------hbl_tables-------------------
+        # ----------------------------------------------
+        self.hbl_tables = QHBoxLayout()
+
+        self.dt_shot_data = DataTable(None, readonly=False)
+        self.dt_files = DataTable(None, readonly=False)
+        self.dt_files.table.cellDoubleClicked.connect(self.file_table_cell_clicked)
+
+        self.btn_update = QPushButton(&#34;Update Filenames ----&gt;&#34;)
+        self.btn_update.clicked.connect(self.load_filename_table)
+
+        self.hbl_tables.addWidget(self.dt_shot_data, stretch=4)
+        self.hbl_tables.addWidget(self.btn_update)
+        self.hbl_tables.addWidget(self.dt_files, stretch=1)
+
+        # ----------------------------------------------
+        # -----------------hbl_controls-----------------
+        # ----------------------------------------------
+        self.hbl_controls = QHBoxLayout()
+
+        # Publink list
+        self.dt_cloud_links = DataTable(None, readonly=True)
+        self.dt_cloud_links.set_dimensions(1, 0)
+        self.dt_cloud_links.set_headers([&#34;Publinks&#34;])
+
+        # Publink labeled input with button
+        self.liwb_add_publink = LabeledInputWithButton(self, label_text=&#34;pCloud Publink: &#34;, button_text=&#34;Add Link&#34;)
+        self.liwb_add_publink.button.clicked.connect(self.add_publink_clicked)
+
+        # vbl_control_buttons
+        self.vbl_control_buttons = QVBoxLayout()
+
+        # Scan button
+        self.btn_scan = QPushButton(text=&#34;Scan Linked Repos&#34;)
+        self.btn_scan.clicked.connect(self.scan_pcloud_clicked)
+
+        # Download Button
+        self.btn_download_files = QPushButton(text=&#34;Download Scanned Files&#34;)
+        self.btn_download_files.clicked.connect(self.download_files)
+
+        # Cancel Download Button
+        self.btn_cancel_download = QPushButton(text=&#34;Cancel Download&#34;)
+        self.btn_cancel_download.clicked.connect(self.cancel_download)
+        self.btn_cancel_download.setStyleSheet(&#34;margin:3 auto;color:#1000A0;background-color:rgb(255,255,255);&#34;
+                                               &#34;padding:10;border:2px solid #1000A0;border-radius:20px;font-weight:600;&#34;)
+
+        self.vbl_control_buttons.addWidget(self.liwb_add_publink)
+        self.vbl_control_buttons.addWidget(self.btn_scan, alignment=Qt.AlignHCenter)
+        self.vbl_control_buttons.addWidget(self.btn_download_files, alignment=Qt.AlignHCenter)
+        self.vbl_control_buttons.addWidget(self.btn_cancel_download, alignment=Qt.AlignHCenter)
+
+        self.hbl_controls.addWidget(self.dt_cloud_links)
+        self.hbl_controls.addLayout(self.vbl_control_buttons)
+
+        # -------------------------------------------------
+        # -----------------vbl_main_layout-----------------
+        # -------------------------------------------------
+        self.vbl_main_layout = QVBoxLayout()
+
+        self.vbl_main_layout.addLayout(self.hbl_tables, stretch=4)
+        self.vbl_main_layout.addLayout(self.hbl_controls, stretch=1)
+        self.vbl_main_layout.setContentsMargins(30, 20, 30, 30)
+
+        self.setLayout(self.vbl_main_layout)
+        self.setGeometry(0, 0, 900, 600)
+        self.setStyleSheet(&#39;QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6;}&#39;)
+
+        # -------------------------------------------init End-------------------------------------------
+    def add_publink_clicked(self):
+        self.add_publink_to_table()
+
+    def scan_pcloud_clicked(self):
+        self.search_for_files()
+        self.classify_files()
+        self.color_filename_cells()
+        self.color_shot_table()
+        self.cloud_scanned = True
+        for file in self.file_metadata:
+            print(file)
+
+    def download_files_clicked(self):
+        if self.cloud_scanned:
+            self.download_files()
+        else:
+            self.parent.issue_warning_prompt(&#34;Please scan pCloud!&#34;)
+
+    def file_table_cell_clicked(self, row=0, column=0):
+        if self.cloud_scanned:
+            self.popup_frame.lbl_details.setText(&#34;File Details&#34;)
+            self.popup_frame.lbl_thumbnail.clear()
+            filename = self.dt_files.get_row(row)
+            filename = filename[0]
+            print(filename)
+
+            file_data = []
+            for file in self.file_metadata:
+                if filename in file.name:
+                    file_data.append(file)
+
+            self.popup_frame.dt_file_list.table.clear()
+
+            self.popup_frame.set_file_list(file_data)
+
+            self.popup_frame.file_table_cell_clicked(row=0)
+
+            self.popup_frame.show()
+        else:
+            self.parent.issue_warning_prompt(&#34;Please scan pCloud!&#34;)
+
+    def load_shot_table_data(self, selected_shots=[]):
+        try:
+            headers = selected_shots.pop(0)
+            self.dt_shot_data.load_table(selected_shots)
+            self.dt_shot_data.set_headers(headers)
+
+            self.load_filename_table()
+
+            resized_header = self.dt_shot_data.table.horizontalHeader()
+            for i in range(0, len(headers)):
+                resized_header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
+        except IndexError or PermissionError:
+            pass
+
+    def load_filename_table(self):
+        shot_headers = self.dt_shot_data.get_headers()
+        shot_data = self.dt_shot_data.get_all_rows()
+        longest_contents = 0
+
+        raw_filenames = []
+        if &#34;ShotCode&#34; in shot_headers:
+            index = shot_headers.index(&#39;ShotCode&#39;)
+            for item in shot_data:
+                raw_filenames.insert(-1, item[index])
+
+        if &#34;Assets&#34; in shot_headers:
+            index = shot_headers.index(&#39;Assets&#39;)
+            for item in shot_data:
+                raw_filenames.insert(-1, item[index])
+
+        self.filenames = self.create_unique_filename_list(raw_filenames)
+        self.filenames.sort()
+
+        header = [&#34;Filenames&#34;]
+        self.dt_files.clear_table()
+        self.dt_files.set_dimensions(1, 0)
+        self.dt_files.set_headers(header)
+        for name in self.filenames:
+            self.dt_files.add_row([name])
+
+        resized_header = self.dt_files.table.horizontalHeader()
+        resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+
+    def add_publink_to_table(self):
+        self.dt_cloud_links.set_headers([&#34;Publinks&#34;])
+        publink = self.liwb_add_publink.get_input_text()
+        if publink.startswith(&#34;http&#34;):
+            if publink and publink not in self.publinks:
+                self.publinks.append(publink)
+                self.dt_cloud_links.add_row([publink])
+                self.liwb_add_publink.set_input_text(&#34;&#34;)
+                self.dt_cloud_links.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+            else:
+                self.parent.issue_warning_prompt(&#34;Please enter valid Publink&#34;)
+        else:
+            self.parent.issue_warning_prompt(&#34;Please enter valid Publink&#34;)
+
+    def get_codes(self):
+        codes = []
+        for publink in self.publinks:
+            codes.append(self.apic.get_code_from_url(publink))
+        return codes
+
+    def search_for_files(self):
+        if codes := self.get_codes():
+            if publink_data := self.get_publink_data(codes):
+                self.file_metadata = []
+                for filename in self.filenames:
+                    for i in range(len(publink_data)):
+                        if found_files := self.apic.get_pub_link_file_data(filename, publink_data[i]):
+                            if type(found_files) is list:
+                                for file in found_files:
+                                    file.publink_code = codes[i]
+                                    self.file_metadata.append(file)
+                            else:
+                                file.publink_code = codes[i]
+                                self.file_metadata.append(found_files)
+
+    def get_publink_data(self, codes=[]):
+        publink_data = []
+        if codes:
+            for code in codes:
+                data = self.apic.get_pub_link_directory(code)[&#34;metadata&#34;]
+                publink_data.append(data)
+            return publink_data
+        else:
+            return None
+
+    def classify_files(self):
+        file_extensions = {
+            &#34;audio&#34;: [&#34;wav&#34;, &#34;mp3&#34;, &#34;ogg&#34;, &#34;flac&#34;],
+            &#34;video&#34;: [&#34;mov&#34;, &#34;mp4&#34;, &#34;mpg&#34;, &#34;avi&#34;, &#34;wmv&#34;],
+            &#34;image&#34;: [&#34;jpg&#34;, &#34;gif&#34;, &#34;bmp&#34;, &#34;fla&#34;, &#34;psd&#34;, &#34;png&#34;, &#34;jpeg&#34;]
+        }
+
+        for i in range(len(self.file_metadata)):
+            file_data = self.file_metadata[i]
+            file_extension = file_data.name[-4:]
+            for file_type in file_extensions:
+                if not self.file_metadata[i].file_type:
+                    for extension in file_extensions[file_type]:
+                        if extension in file_extension:
+                            self.file_metadata[i].file_type = str(file_type)
+
+    def color_filename_cells(self):
+        for i in range(len(self.filenames)):
+            filename = self.filenames[i]
+            matched_files = self.get_matching_files(filename)
+            number_of_matches = len(matched_files)
+
+            if number_of_matches == 0:
+                self.dt_files.set_cell_color(0, i, color=&#34;red&#34;)
+                self.dt_files.set_text_color(0, i, &#34;white&#34;)
+                self.dt_files.set_cell_tooltip(0, i, &#34;File not found!&#34;)
+            elif number_of_matches &gt; 1:
+                self.dt_files.set_cell_color(0, i, color=&#34;yellow&#34;)
+                self.dt_files.set_text_color(0, i, &#34;black&#34;)
+                self.dt_files.set_cell_tooltip(0, i, &#34;Multiple files found!&#34;)
+            elif number_of_matches == 1:
+                self.dt_files.set_cell_color(0, i, color=&#34;green&#34;)
+                self.dt_files.set_text_color(0, i, &#34;black&#34;)
+                self.dt_files.set_cell_tooltip(0, i, &#34;Exact Match found!&#34;)
+
+    def color_shot_table(self):
+        for i in range(len(self.filenames)):
+            filename = self.filenames[i]
+            matched_files = self.get_matching_files(filename)
+            number_of_matches = len(matched_files)
+
+            dimensions = self.dt_shot_data.get_dimensions()
+
+            for y in range(dimensions[&#34;y&#34;]):
+                for x in range(dimensions[&#34;x&#34;]):
+                    cell_text = self.dt_shot_data.get_cell_text(x, y)
+                    if &#34;,&#34; in cell_text:
+                        cell_text = cell_text.split(&#34;,&#34;)
+                    else:
+                        cell_text = [cell_text]
+
+                    if filename in cell_text:
+                        if number_of_matches == 0:
+                            self.dt_shot_data.set_cell_color(x, y, color=&#34;red&#34;)
+                            self.dt_shot_data.set_text_color(x, y, &#34;white&#34;)
+                            self.dt_shot_data.set_cell_tooltip(x, y, &#34;File not found!&#34;)
+                        elif number_of_matches &gt; 1:
+                            self.dt_shot_data.set_cell_color(x, y, color=&#34;yellow&#34;)
+                            self.dt_shot_data.set_text_color(x, y, &#34;black&#34;)
+                            self.dt_shot_data.set_cell_tooltip(x, y, &#34;Multiple files found!&#34;)
+                        elif number_of_matches == 1:
+                            self.dt_shot_data.set_cell_color(x, y, color=&#34;green&#34;)
+                            self.dt_shot_data.set_text_color(x, y, &#34;black&#34;)
+                            self.dt_shot_data.set_cell_tooltip(x, y, &#34;Exact Match found!&#34;)
+
+    def get_matching_files(self, filename=&#34;&#34;):
+        matched_files = []
+        for file_data in self.file_metadata:
+            if filename in file_data.name:
+                matched_files.append(file_data)
+        return matched_files
+
+    def find_latest_file(self, file_data=[]):
+        latest_file = {}
+        latest_date = 0
+        for item in file_data:
+            if item.name[-3:] == &#34;fla&#34; or item.name[-3:] == &#34;psd&#34; or item.name[-3:] == &#34;wav&#34; or item.name[-3:] == &#34;mov&#34;:
+                modified_date = item.modified
+                modified_date = datetime.strptime(modified_date, &#39;%a, %d %b %Y %H:%M:%S %z&#39;)
+                unix_timestamp = modified_date.timestamp()
+                if unix_timestamp &gt; latest_date:
+                    latest_date = unix_timestamp
+                    latest_file = item
+        return latest_file
+
+    def download_files(self):
+        self.enable_buttons(False)
+        print(&#34;Download Button Pressed&#34;)
+        self.worker = DownloadWorker(self.file_metadata, self.fio)
+        self.worker.signals.update_progress.connect(self.update_progress_bar)
+        self.worker.signals.finished.connect(self.download_finished)
+        self.threadpool.start(self.worker)
+
+    @Slot()
+    def update_progress_bar(self, percent=0):
+        main_window = self.parent.parent
+        main_window.progress_bar.setValue(percent)
+
+    @Slot()
+    def download_finished(self):
+        self.enable_buttons()
+        self.update_progress_bar(0)
+
+    def enable_buttons(self, val=True):
+        self.btn_download_files.setEnabled(val)
+        self.btn_scan.setEnabled(val)
+        self.btn_update.setEnabled(val)
+        self.parent.btn_back.setEnabled(val)
+        self.parent.btn_continue.setEnabled(val)
+
+
+    def create_unique_filename_list(self, assets=[]):
+        asset_set = set()
+        for item in assets:
+            if &#34;,&#34; in item:
+                sub_list = [x.strip() for x in item.split(&#39;,&#39;)]
+                asset_set = asset_set.union(set(sub_list))
+            else:
+                asset_set.add(item)
+        return list(asset_set)
+
+    def set_shot_data(self, data=[]):
+        self.shot_data = data
+
+    def test_popup(self):
+        popup_frame = FileDetailsView()
+        popup_frame.show()
+
+    def cancel_download(self):
+        self.worker.cancel_download()
+
+
+if __name__ == &#39;__main__&#39;:
+    qApp = QApplication(sys.argv)
+    resOut = GCResultsOutputView()
+    resOut.show()
+    sys.exit(qApp.exec_())</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView"><code class="flex name class">
+<span>class <span class="ident">GCResultsOutputView</span></span>
+<span>(</span><span>parent=None, file_io=&lt;GC_Services.FileIo.FileIo object&gt;)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Results Output View</p>
+<h2 id="summary">Summary</h2>
+<p>A class for viewing results of CSV selection &amp; searching/downloading results on pcloud that includes:</p>
+<p>-Data Table of selected results to the top left
+-Data Table of selected filenames from results
+-Data Table of added pcloud links
+-VBox with LabeledInputWithButton for adding pcloud links &amp; buttons for scanning &amp; downloading from pcloud</p>
+<h2 id="attributes">Attributes</h2>
+<p>parent, shot_data, filenames, file_metadata, publinks, cloud_scanned, fio, apic, threadpool, hbl_tables,
+dt_shot_data, dt_files, hbl_controls, dt_cloud_links, liwb_add_publink, vbl_control_buttons, btn_scan,
+btn_download_files, btn_cancel_download, vbl_main_layout</p>
+<h2 id="methods">Methods</h2>
+<p>add_publink_clicked, scan_pcloud_clicked, download_files_clicked, load_shot_table_data, load_filename_table,
+add_publink_to_table, get_codes, search_for_files, get_publink_data, classify_files, color_filename_cells,
+color_shot_table, get_matching_files, find_latest_file, download_files, update_progress_bar, test_popup,
+download_finished, create_unique_filename_list, set_shot_data, cancel_download</p>
+<h2 id="attributes_1">Attributes</h2>
+<pre><code>parent : QFrame
+    Parent QFrame
+shot_data : []
+    Array for selected data from table view
+filenames : []
+    Array of selected asset listings/filenames
+file_metadata : []
+    Array for metadata for selected files
+publinks : []
+    Array for user-inputted publinks
+cloud_scanned : bool
+    Bool for whether pCloud scan successful
+fio : FileIo
+    File input &amp; output
+apic : PCloud
+    PCloud API class
+threadpool : QThreadPool
+    Threadpool for multithreading threads
+hbl_tables : QHBoxLayout
+    HBox layout for tables
+dt_shot_data : DataTable
+    Data Table for selected columns and rows
+dt_files : SimpleDataTable
+    Data Table for selected assets
+hbl_controls : QVBoxLayout
+    VBox layout for pCloud buttons
+dt_cloud_links : SimpleDataTable
+    Data Table for publinks
+liwb_add_publink : LabeledInputWithButton
+    Labeled Input With Button for pCloud/publink access
+vbl_control_buttons : QVBoxLayout
+    Vertical layout for control buttons
+btn_scan : QPushButton
+    Button for scanning PCloud
+btn_download_files : QPushButton
+    Button for downloading selected files from PCloud
+btn_cancel_download : QPushButton
+    Button for cancelling download of files from pcloud
+vbl_main_layout = QVBoxLayout
+    Main VBox layout
+</code></pre>
+<h2 id="methods_1">Methods</h2>
+<pre><code>add_publink_clicked(self)
+    Adds publink to dt_cloud_links table when Add Link button clicked
+scan_pcloud_clicked(self)
+    Checks pCloud/publink for files when Scan Repo button clicked
+download_files_clicked(self)
+    Calls download_files method when Download button clicked
+load_shot_table_data(self, results=[])
+    Loads selected shot columns and rows in dt_shot_data Data Table
+load_filename_table(self, results=[], headers=[])
+    Loads selected files/assets in dt_files Data Table
+add_publink_to_table(self)
+    Adds user-inputted publink to dt_cloud_links Data Table
+get_codes(self)
+    Returns PCloud API call response codes
+search_for_files(self)
+    Searches pcloud publinks for selected files
+get_publink_data(self, codes=[])
+    Returns publink metadata
+classify_files(self)
+    Classifies files according to file extensions
+color_filename_cells(self)
+    Colors cells of dt_files Data Table based on file status
+color_shot_table(self)
+    Colors cells of dt_shot_data_table Data table based on file status
+get_matching_files(self, filename="")
+    Returns list of filenames with multiple pcloud entries
+find_latest_file(self, file_data=[])
+    Returns latest modified file from list of same-named filenames
+download_files(self)
+    Downloads assets/files to respective directory. Disables download button for download length
+update_progress_bar(self, percent=0)
+    Updates progress bar of main window to reflect download progress
+download_finished(self)
+    Enables download button on download completion
+create_unique_filename_list(self, assets=[])
+    Returns list of unique filename from list of filenames
+set_shot_data(self, data=[])
+    Sets shot_data to user selections
+test_popup(self)
+    Pops up FileDetailsView
+cancel_download(self):
+    Cancels download of files
+</code></pre>
+<p>Constructor:
+Initialize Results Output View</p>
+<h2 id="parameters">Parameters</h2>
+<p>self
+parent : QFrame
+file_io : FileIo
+!!! File input &amp; output</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GCResultsOutputView(QFrame):
+    &#34;&#34;&#34;Results Output View
+
+        Summary:
+            A class for viewing results of CSV selection &amp; searching/downloading results on pcloud that includes:
+
+            -Data Table of selected results to the top left
+            -Data Table of selected filenames from results
+            -Data Table of added pcloud links
+            -VBox with LabeledInputWithButton for adding pcloud links &amp; buttons for scanning &amp; downloading from pcloud
+
+        Attributes:
+            parent, shot_data, filenames, file_metadata, publinks, cloud_scanned, fio, apic, threadpool, hbl_tables,
+            dt_shot_data, dt_files, hbl_controls, dt_cloud_links, liwb_add_publink, vbl_control_buttons, btn_scan,
+            btn_download_files, btn_cancel_download, vbl_main_layout
+
+        Methods:
+            add_publink_clicked, scan_pcloud_clicked, download_files_clicked, load_shot_table_data, load_filename_table,
+            add_publink_to_table, get_codes, search_for_files, get_publink_data, classify_files, color_filename_cells,
+            color_shot_table, get_matching_files, find_latest_file, download_files, update_progress_bar, test_popup,
+            download_finished, create_unique_filename_list, set_shot_data, cancel_download
+
+        Attributes
+        ----------
+            parent : QFrame
+                Parent QFrame
+            shot_data : []
+                Array for selected data from table view
+            filenames : []
+                Array of selected asset listings/filenames
+            file_metadata : []
+                Array for metadata for selected files
+            publinks : []
+                Array for user-inputted publinks
+            cloud_scanned : bool
+                Bool for whether pCloud scan successful
+            fio : FileIo
+                File input &amp; output
+            apic : PCloud
+                PCloud API class
+            threadpool : QThreadPool
+                Threadpool for multithreading threads
+            hbl_tables : QHBoxLayout
+                HBox layout for tables
+            dt_shot_data : DataTable
+                Data Table for selected columns and rows
+            dt_files : SimpleDataTable
+                Data Table for selected assets
+            hbl_controls : QVBoxLayout
+                VBox layout for pCloud buttons
+            dt_cloud_links : SimpleDataTable
+                Data Table for publinks
+            liwb_add_publink : LabeledInputWithButton
+                Labeled Input With Button for pCloud/publink access
+            vbl_control_buttons : QVBoxLayout
+                Vertical layout for control buttons
+            btn_scan : QPushButton
+                Button for scanning PCloud
+            btn_download_files : QPushButton
+                Button for downloading selected files from PCloud
+            btn_cancel_download : QPushButton
+                Button for cancelling download of files from pcloud
+            vbl_main_layout = QVBoxLayout
+                Main VBox layout
+
+        Methods
+        -------
+            add_publink_clicked(self)
+                Adds publink to dt_cloud_links table when Add Link button clicked
+            scan_pcloud_clicked(self)
+                Checks pCloud/publink for files when Scan Repo button clicked
+            download_files_clicked(self)
+                Calls download_files method when Download button clicked
+            load_shot_table_data(self, results=[])
+                Loads selected shot columns and rows in dt_shot_data Data Table
+            load_filename_table(self, results=[], headers=[])
+                Loads selected files/assets in dt_files Data Table
+            add_publink_to_table(self)
+                Adds user-inputted publink to dt_cloud_links Data Table
+            get_codes(self)
+                Returns PCloud API call response codes
+            search_for_files(self)
+                Searches pcloud publinks for selected files
+            get_publink_data(self, codes=[])
+                Returns publink metadata
+            classify_files(self)
+                Classifies files according to file extensions
+            color_filename_cells(self)
+                Colors cells of dt_files Data Table based on file status
+            color_shot_table(self)
+                Colors cells of dt_shot_data_table Data table based on file status
+            get_matching_files(self, filename=&#34;&#34;)
+                Returns list of filenames with multiple pcloud entries
+            find_latest_file(self, file_data=[])
+                Returns latest modified file from list of same-named filenames
+            download_files(self)
+                Downloads assets/files to respective directory. Disables download button for download length
+            update_progress_bar(self, percent=0)
+                Updates progress bar of main window to reflect download progress
+            download_finished(self)
+                Enables download button on download completion
+            create_unique_filename_list(self, assets=[])
+                Returns list of unique filename from list of filenames
+            set_shot_data(self, data=[])
+                Sets shot_data to user selections
+            test_popup(self)
+                Pops up FileDetailsView
+            cancel_download(self):
+                Cancels download of files
+    &#34;&#34;&#34;
+    def __init__(self, parent=None, file_io=FileIo()):
+        &#34;&#34;&#34;Constructor:
+            Initialize Results Output View
+
+            Parameters:
+                self
+                parent : QFrame
+                file_io : FileIo
+                    !!! File input &amp; output
+            Returns:
+                None
+        &#34;&#34;&#34;
+        # -------------------------------------------init Start-------------------------------------------
+        super(GCResultsOutputView, self).__init__(parent)
+        self.parent = parent
+        self.shot_data = []
+        self.filenames = []
+        self.file_metadata = []
+        self.publinks = []
+        self.cloud_scanned = False
+        self.fio = file_io
+        self.apic = PCloud()
+        self.apic.set_region(&#34;NA&#34;)
+        self.popup_frame = FileDetailsView(self)
+
+        self.worker = DownloadWorker()
+
+        self.threadpool = QThreadPool()
+        print(&#34;Multithreading with maximum %d threads&#34; % self.threadpool.maxThreadCount())
+
+        # ----------------------------------------------
+        # -----------------hbl_tables-------------------
+        # ----------------------------------------------
+        self.hbl_tables = QHBoxLayout()
+
+        self.dt_shot_data = DataTable(None, readonly=False)
+        self.dt_files = DataTable(None, readonly=False)
+        self.dt_files.table.cellDoubleClicked.connect(self.file_table_cell_clicked)
+
+        self.btn_update = QPushButton(&#34;Update Filenames ----&gt;&#34;)
+        self.btn_update.clicked.connect(self.load_filename_table)
+
+        self.hbl_tables.addWidget(self.dt_shot_data, stretch=4)
+        self.hbl_tables.addWidget(self.btn_update)
+        self.hbl_tables.addWidget(self.dt_files, stretch=1)
+
+        # ----------------------------------------------
+        # -----------------hbl_controls-----------------
+        # ----------------------------------------------
+        self.hbl_controls = QHBoxLayout()
+
+        # Publink list
+        self.dt_cloud_links = DataTable(None, readonly=True)
+        self.dt_cloud_links.set_dimensions(1, 0)
+        self.dt_cloud_links.set_headers([&#34;Publinks&#34;])
+
+        # Publink labeled input with button
+        self.liwb_add_publink = LabeledInputWithButton(self, label_text=&#34;pCloud Publink: &#34;, button_text=&#34;Add Link&#34;)
+        self.liwb_add_publink.button.clicked.connect(self.add_publink_clicked)
+
+        # vbl_control_buttons
+        self.vbl_control_buttons = QVBoxLayout()
+
+        # Scan button
+        self.btn_scan = QPushButton(text=&#34;Scan Linked Repos&#34;)
+        self.btn_scan.clicked.connect(self.scan_pcloud_clicked)
+
+        # Download Button
+        self.btn_download_files = QPushButton(text=&#34;Download Scanned Files&#34;)
+        self.btn_download_files.clicked.connect(self.download_files)
+
+        # Cancel Download Button
+        self.btn_cancel_download = QPushButton(text=&#34;Cancel Download&#34;)
+        self.btn_cancel_download.clicked.connect(self.cancel_download)
+        self.btn_cancel_download.setStyleSheet(&#34;margin:3 auto;color:#1000A0;background-color:rgb(255,255,255);&#34;
+                                               &#34;padding:10;border:2px solid #1000A0;border-radius:20px;font-weight:600;&#34;)
+
+        self.vbl_control_buttons.addWidget(self.liwb_add_publink)
+        self.vbl_control_buttons.addWidget(self.btn_scan, alignment=Qt.AlignHCenter)
+        self.vbl_control_buttons.addWidget(self.btn_download_files, alignment=Qt.AlignHCenter)
+        self.vbl_control_buttons.addWidget(self.btn_cancel_download, alignment=Qt.AlignHCenter)
+
+        self.hbl_controls.addWidget(self.dt_cloud_links)
+        self.hbl_controls.addLayout(self.vbl_control_buttons)
+
+        # -------------------------------------------------
+        # -----------------vbl_main_layout-----------------
+        # -------------------------------------------------
+        self.vbl_main_layout = QVBoxLayout()
+
+        self.vbl_main_layout.addLayout(self.hbl_tables, stretch=4)
+        self.vbl_main_layout.addLayout(self.hbl_controls, stretch=1)
+        self.vbl_main_layout.setContentsMargins(30, 20, 30, 30)
+
+        self.setLayout(self.vbl_main_layout)
+        self.setGeometry(0, 0, 900, 600)
+        self.setStyleSheet(&#39;QFrame DataTable{border:1px solid #1000A0;background-color:#e6e6e6;}&#39;)
+
+        # -------------------------------------------init End-------------------------------------------
+    def add_publink_clicked(self):
+        self.add_publink_to_table()
+
+    def scan_pcloud_clicked(self):
+        self.search_for_files()
+        self.classify_files()
+        self.color_filename_cells()
+        self.color_shot_table()
+        self.cloud_scanned = True
+        for file in self.file_metadata:
+            print(file)
+
+    def download_files_clicked(self):
+        if self.cloud_scanned:
+            self.download_files()
+        else:
+            self.parent.issue_warning_prompt(&#34;Please scan pCloud!&#34;)
+
+    def file_table_cell_clicked(self, row=0, column=0):
+        if self.cloud_scanned:
+            self.popup_frame.lbl_details.setText(&#34;File Details&#34;)
+            self.popup_frame.lbl_thumbnail.clear()
+            filename = self.dt_files.get_row(row)
+            filename = filename[0]
+            print(filename)
+
+            file_data = []
+            for file in self.file_metadata:
+                if filename in file.name:
+                    file_data.append(file)
+
+            self.popup_frame.dt_file_list.table.clear()
+
+            self.popup_frame.set_file_list(file_data)
+
+            self.popup_frame.file_table_cell_clicked(row=0)
+
+            self.popup_frame.show()
+        else:
+            self.parent.issue_warning_prompt(&#34;Please scan pCloud!&#34;)
+
+    def load_shot_table_data(self, selected_shots=[]):
+        try:
+            headers = selected_shots.pop(0)
+            self.dt_shot_data.load_table(selected_shots)
+            self.dt_shot_data.set_headers(headers)
+
+            self.load_filename_table()
+
+            resized_header = self.dt_shot_data.table.horizontalHeader()
+            for i in range(0, len(headers)):
+                resized_header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
+        except IndexError or PermissionError:
+            pass
+
+    def load_filename_table(self):
+        shot_headers = self.dt_shot_data.get_headers()
+        shot_data = self.dt_shot_data.get_all_rows()
+        longest_contents = 0
+
+        raw_filenames = []
+        if &#34;ShotCode&#34; in shot_headers:
+            index = shot_headers.index(&#39;ShotCode&#39;)
+            for item in shot_data:
+                raw_filenames.insert(-1, item[index])
+
+        if &#34;Assets&#34; in shot_headers:
+            index = shot_headers.index(&#39;Assets&#39;)
+            for item in shot_data:
+                raw_filenames.insert(-1, item[index])
+
+        self.filenames = self.create_unique_filename_list(raw_filenames)
+        self.filenames.sort()
+
+        header = [&#34;Filenames&#34;]
+        self.dt_files.clear_table()
+        self.dt_files.set_dimensions(1, 0)
+        self.dt_files.set_headers(header)
+        for name in self.filenames:
+            self.dt_files.add_row([name])
+
+        resized_header = self.dt_files.table.horizontalHeader()
+        resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)
+
+    def add_publink_to_table(self):
+        self.dt_cloud_links.set_headers([&#34;Publinks&#34;])
+        publink = self.liwb_add_publink.get_input_text()
+        if publink.startswith(&#34;http&#34;):
+            if publink and publink not in self.publinks:
+                self.publinks.append(publink)
+                self.dt_cloud_links.add_row([publink])
+                self.liwb_add_publink.set_input_text(&#34;&#34;)
+                self.dt_cloud_links.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+            else:
+                self.parent.issue_warning_prompt(&#34;Please enter valid Publink&#34;)
+        else:
+            self.parent.issue_warning_prompt(&#34;Please enter valid Publink&#34;)
+
+    def get_codes(self):
+        codes = []
+        for publink in self.publinks:
+            codes.append(self.apic.get_code_from_url(publink))
+        return codes
+
+    def search_for_files(self):
+        if codes := self.get_codes():
+            if publink_data := self.get_publink_data(codes):
+                self.file_metadata = []
+                for filename in self.filenames:
+                    for i in range(len(publink_data)):
+                        if found_files := self.apic.get_pub_link_file_data(filename, publink_data[i]):
+                            if type(found_files) is list:
+                                for file in found_files:
+                                    file.publink_code = codes[i]
+                                    self.file_metadata.append(file)
+                            else:
+                                file.publink_code = codes[i]
+                                self.file_metadata.append(found_files)
+
+    def get_publink_data(self, codes=[]):
+        publink_data = []
+        if codes:
+            for code in codes:
+                data = self.apic.get_pub_link_directory(code)[&#34;metadata&#34;]
+                publink_data.append(data)
+            return publink_data
+        else:
+            return None
+
+    def classify_files(self):
+        file_extensions = {
+            &#34;audio&#34;: [&#34;wav&#34;, &#34;mp3&#34;, &#34;ogg&#34;, &#34;flac&#34;],
+            &#34;video&#34;: [&#34;mov&#34;, &#34;mp4&#34;, &#34;mpg&#34;, &#34;avi&#34;, &#34;wmv&#34;],
+            &#34;image&#34;: [&#34;jpg&#34;, &#34;gif&#34;, &#34;bmp&#34;, &#34;fla&#34;, &#34;psd&#34;, &#34;png&#34;, &#34;jpeg&#34;]
+        }
+
+        for i in range(len(self.file_metadata)):
+            file_data = self.file_metadata[i]
+            file_extension = file_data.name[-4:]
+            for file_type in file_extensions:
+                if not self.file_metadata[i].file_type:
+                    for extension in file_extensions[file_type]:
+                        if extension in file_extension:
+                            self.file_metadata[i].file_type = str(file_type)
+
+    def color_filename_cells(self):
+        for i in range(len(self.filenames)):
+            filename = self.filenames[i]
+            matched_files = self.get_matching_files(filename)
+            number_of_matches = len(matched_files)
+
+            if number_of_matches == 0:
+                self.dt_files.set_cell_color(0, i, color=&#34;red&#34;)
+                self.dt_files.set_text_color(0, i, &#34;white&#34;)
+                self.dt_files.set_cell_tooltip(0, i, &#34;File not found!&#34;)
+            elif number_of_matches &gt; 1:
+                self.dt_files.set_cell_color(0, i, color=&#34;yellow&#34;)
+                self.dt_files.set_text_color(0, i, &#34;black&#34;)
+                self.dt_files.set_cell_tooltip(0, i, &#34;Multiple files found!&#34;)
+            elif number_of_matches == 1:
+                self.dt_files.set_cell_color(0, i, color=&#34;green&#34;)
+                self.dt_files.set_text_color(0, i, &#34;black&#34;)
+                self.dt_files.set_cell_tooltip(0, i, &#34;Exact Match found!&#34;)
+
+    def color_shot_table(self):
+        for i in range(len(self.filenames)):
+            filename = self.filenames[i]
+            matched_files = self.get_matching_files(filename)
+            number_of_matches = len(matched_files)
+
+            dimensions = self.dt_shot_data.get_dimensions()
+
+            for y in range(dimensions[&#34;y&#34;]):
+                for x in range(dimensions[&#34;x&#34;]):
+                    cell_text = self.dt_shot_data.get_cell_text(x, y)
+                    if &#34;,&#34; in cell_text:
+                        cell_text = cell_text.split(&#34;,&#34;)
+                    else:
+                        cell_text = [cell_text]
+
+                    if filename in cell_text:
+                        if number_of_matches == 0:
+                            self.dt_shot_data.set_cell_color(x, y, color=&#34;red&#34;)
+                            self.dt_shot_data.set_text_color(x, y, &#34;white&#34;)
+                            self.dt_shot_data.set_cell_tooltip(x, y, &#34;File not found!&#34;)
+                        elif number_of_matches &gt; 1:
+                            self.dt_shot_data.set_cell_color(x, y, color=&#34;yellow&#34;)
+                            self.dt_shot_data.set_text_color(x, y, &#34;black&#34;)
+                            self.dt_shot_data.set_cell_tooltip(x, y, &#34;Multiple files found!&#34;)
+                        elif number_of_matches == 1:
+                            self.dt_shot_data.set_cell_color(x, y, color=&#34;green&#34;)
+                            self.dt_shot_data.set_text_color(x, y, &#34;black&#34;)
+                            self.dt_shot_data.set_cell_tooltip(x, y, &#34;Exact Match found!&#34;)
+
+    def get_matching_files(self, filename=&#34;&#34;):
+        matched_files = []
+        for file_data in self.file_metadata:
+            if filename in file_data.name:
+                matched_files.append(file_data)
+        return matched_files
+
+    def find_latest_file(self, file_data=[]):
+        latest_file = {}
+        latest_date = 0
+        for item in file_data:
+            if item.name[-3:] == &#34;fla&#34; or item.name[-3:] == &#34;psd&#34; or item.name[-3:] == &#34;wav&#34; or item.name[-3:] == &#34;mov&#34;:
+                modified_date = item.modified
+                modified_date = datetime.strptime(modified_date, &#39;%a, %d %b %Y %H:%M:%S %z&#39;)
+                unix_timestamp = modified_date.timestamp()
+                if unix_timestamp &gt; latest_date:
+                    latest_date = unix_timestamp
+                    latest_file = item
+        return latest_file
+
+    def download_files(self):
+        self.enable_buttons(False)
+        print(&#34;Download Button Pressed&#34;)
+        self.worker = DownloadWorker(self.file_metadata, self.fio)
+        self.worker.signals.update_progress.connect(self.update_progress_bar)
+        self.worker.signals.finished.connect(self.download_finished)
+        self.threadpool.start(self.worker)
+
+    @Slot()
+    def update_progress_bar(self, percent=0):
+        main_window = self.parent.parent
+        main_window.progress_bar.setValue(percent)
+
+    @Slot()
+    def download_finished(self):
+        self.enable_buttons()
+        self.update_progress_bar(0)
+
+    def enable_buttons(self, val=True):
+        self.btn_download_files.setEnabled(val)
+        self.btn_scan.setEnabled(val)
+        self.btn_update.setEnabled(val)
+        self.parent.btn_back.setEnabled(val)
+        self.parent.btn_continue.setEnabled(val)
+
+
+    def create_unique_filename_list(self, assets=[]):
+        asset_set = set()
+        for item in assets:
+            if &#34;,&#34; in item:
+                sub_list = [x.strip() for x in item.split(&#39;,&#39;)]
+                asset_set = asset_set.union(set(sub_list))
+            else:
+                asset_set.add(item)
+        return list(asset_set)
+
+    def set_shot_data(self, data=[]):
+        self.shot_data = data
+
+    def test_popup(self):
+        popup_frame = FileDetailsView()
+        popup_frame.show()
+
+    def cancel_download(self):
+        self.worker.cancel_download()</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>PySide2.QtWidgets.QFrame</li>
+<li>PySide2.QtWidgets.QWidget</li>
+<li>PySide2.QtCore.QObject</li>
+<li>PySide2.QtGui.QPaintDevice</li>
+<li>Shiboken.Object</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.staticMetaObject"><code class="name">var <span class="ident">staticMetaObject</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.add_publink_clicked"><code class="name flex">
+<span>def <span class="ident">add_publink_clicked</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_publink_clicked(self):
+    self.add_publink_to_table()</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.add_publink_to_table"><code class="name flex">
+<span>def <span class="ident">add_publink_to_table</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def add_publink_to_table(self):
+    self.dt_cloud_links.set_headers([&#34;Publinks&#34;])
+    publink = self.liwb_add_publink.get_input_text()
+    if publink.startswith(&#34;http&#34;):
+        if publink and publink not in self.publinks:
+            self.publinks.append(publink)
+            self.dt_cloud_links.add_row([publink])
+            self.liwb_add_publink.set_input_text(&#34;&#34;)
+            self.dt_cloud_links.table.horizontalHeader().setSectionResizeMode(0, QHeaderView.ResizeToContents)
+        else:
+            self.parent.issue_warning_prompt(&#34;Please enter valid Publink&#34;)
+    else:
+        self.parent.issue_warning_prompt(&#34;Please enter valid Publink&#34;)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.cancel_download"><code class="name flex">
+<span>def <span class="ident">cancel_download</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def cancel_download(self):
+    self.worker.cancel_download()</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.classify_files"><code class="name flex">
+<span>def <span class="ident">classify_files</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def classify_files(self):
+    file_extensions = {
+        &#34;audio&#34;: [&#34;wav&#34;, &#34;mp3&#34;, &#34;ogg&#34;, &#34;flac&#34;],
+        &#34;video&#34;: [&#34;mov&#34;, &#34;mp4&#34;, &#34;mpg&#34;, &#34;avi&#34;, &#34;wmv&#34;],
+        &#34;image&#34;: [&#34;jpg&#34;, &#34;gif&#34;, &#34;bmp&#34;, &#34;fla&#34;, &#34;psd&#34;, &#34;png&#34;, &#34;jpeg&#34;]
+    }
+
+    for i in range(len(self.file_metadata)):
+        file_data = self.file_metadata[i]
+        file_extension = file_data.name[-4:]
+        for file_type in file_extensions:
+            if not self.file_metadata[i].file_type:
+                for extension in file_extensions[file_type]:
+                    if extension in file_extension:
+                        self.file_metadata[i].file_type = str(file_type)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.color_filename_cells"><code class="name flex">
+<span>def <span class="ident">color_filename_cells</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def color_filename_cells(self):
+    for i in range(len(self.filenames)):
+        filename = self.filenames[i]
+        matched_files = self.get_matching_files(filename)
+        number_of_matches = len(matched_files)
+
+        if number_of_matches == 0:
+            self.dt_files.set_cell_color(0, i, color=&#34;red&#34;)
+            self.dt_files.set_text_color(0, i, &#34;white&#34;)
+            self.dt_files.set_cell_tooltip(0, i, &#34;File not found!&#34;)
+        elif number_of_matches &gt; 1:
+            self.dt_files.set_cell_color(0, i, color=&#34;yellow&#34;)
+            self.dt_files.set_text_color(0, i, &#34;black&#34;)
+            self.dt_files.set_cell_tooltip(0, i, &#34;Multiple files found!&#34;)
+        elif number_of_matches == 1:
+            self.dt_files.set_cell_color(0, i, color=&#34;green&#34;)
+            self.dt_files.set_text_color(0, i, &#34;black&#34;)
+            self.dt_files.set_cell_tooltip(0, i, &#34;Exact Match found!&#34;)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.color_shot_table"><code class="name flex">
+<span>def <span class="ident">color_shot_table</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def color_shot_table(self):
+    for i in range(len(self.filenames)):
+        filename = self.filenames[i]
+        matched_files = self.get_matching_files(filename)
+        number_of_matches = len(matched_files)
+
+        dimensions = self.dt_shot_data.get_dimensions()
+
+        for y in range(dimensions[&#34;y&#34;]):
+            for x in range(dimensions[&#34;x&#34;]):
+                cell_text = self.dt_shot_data.get_cell_text(x, y)
+                if &#34;,&#34; in cell_text:
+                    cell_text = cell_text.split(&#34;,&#34;)
+                else:
+                    cell_text = [cell_text]
+
+                if filename in cell_text:
+                    if number_of_matches == 0:
+                        self.dt_shot_data.set_cell_color(x, y, color=&#34;red&#34;)
+                        self.dt_shot_data.set_text_color(x, y, &#34;white&#34;)
+                        self.dt_shot_data.set_cell_tooltip(x, y, &#34;File not found!&#34;)
+                    elif number_of_matches &gt; 1:
+                        self.dt_shot_data.set_cell_color(x, y, color=&#34;yellow&#34;)
+                        self.dt_shot_data.set_text_color(x, y, &#34;black&#34;)
+                        self.dt_shot_data.set_cell_tooltip(x, y, &#34;Multiple files found!&#34;)
+                    elif number_of_matches == 1:
+                        self.dt_shot_data.set_cell_color(x, y, color=&#34;green&#34;)
+                        self.dt_shot_data.set_text_color(x, y, &#34;black&#34;)
+                        self.dt_shot_data.set_cell_tooltip(x, y, &#34;Exact Match found!&#34;)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.create_unique_filename_list"><code class="name flex">
+<span>def <span class="ident">create_unique_filename_list</span></span>(<span>self, assets=[])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def create_unique_filename_list(self, assets=[]):
+    asset_set = set()
+    for item in assets:
+        if &#34;,&#34; in item:
+            sub_list = [x.strip() for x in item.split(&#39;,&#39;)]
+            asset_set = asset_set.union(set(sub_list))
+        else:
+            asset_set.add(item)
+    return list(asset_set)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.download_files"><code class="name flex">
+<span>def <span class="ident">download_files</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def download_files(self):
+    self.enable_buttons(False)
+    print(&#34;Download Button Pressed&#34;)
+    self.worker = DownloadWorker(self.file_metadata, self.fio)
+    self.worker.signals.update_progress.connect(self.update_progress_bar)
+    self.worker.signals.finished.connect(self.download_finished)
+    self.threadpool.start(self.worker)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.download_files_clicked"><code class="name flex">
+<span>def <span class="ident">download_files_clicked</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def download_files_clicked(self):
+    if self.cloud_scanned:
+        self.download_files()
+    else:
+        self.parent.issue_warning_prompt(&#34;Please scan pCloud!&#34;)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.download_finished"><code class="name flex">
+<span>def <span class="ident">download_finished</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@Slot()
+def download_finished(self):
+    self.enable_buttons()
+    self.update_progress_bar(0)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.enable_buttons"><code class="name flex">
+<span>def <span class="ident">enable_buttons</span></span>(<span>self, val=True)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def enable_buttons(self, val=True):
+    self.btn_download_files.setEnabled(val)
+    self.btn_scan.setEnabled(val)
+    self.btn_update.setEnabled(val)
+    self.parent.btn_back.setEnabled(val)
+    self.parent.btn_continue.setEnabled(val)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.file_table_cell_clicked"><code class="name flex">
+<span>def <span class="ident">file_table_cell_clicked</span></span>(<span>self, row=0, column=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def file_table_cell_clicked(self, row=0, column=0):
+    if self.cloud_scanned:
+        self.popup_frame.lbl_details.setText(&#34;File Details&#34;)
+        self.popup_frame.lbl_thumbnail.clear()
+        filename = self.dt_files.get_row(row)
+        filename = filename[0]
+        print(filename)
+
+        file_data = []
+        for file in self.file_metadata:
+            if filename in file.name:
+                file_data.append(file)
+
+        self.popup_frame.dt_file_list.table.clear()
+
+        self.popup_frame.set_file_list(file_data)
+
+        self.popup_frame.file_table_cell_clicked(row=0)
+
+        self.popup_frame.show()
+    else:
+        self.parent.issue_warning_prompt(&#34;Please scan pCloud!&#34;)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.find_latest_file"><code class="name flex">
+<span>def <span class="ident">find_latest_file</span></span>(<span>self, file_data=[])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def find_latest_file(self, file_data=[]):
+    latest_file = {}
+    latest_date = 0
+    for item in file_data:
+        if item.name[-3:] == &#34;fla&#34; or item.name[-3:] == &#34;psd&#34; or item.name[-3:] == &#34;wav&#34; or item.name[-3:] == &#34;mov&#34;:
+            modified_date = item.modified
+            modified_date = datetime.strptime(modified_date, &#39;%a, %d %b %Y %H:%M:%S %z&#39;)
+            unix_timestamp = modified_date.timestamp()
+            if unix_timestamp &gt; latest_date:
+                latest_date = unix_timestamp
+                latest_file = item
+    return latest_file</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.get_codes"><code class="name flex">
+<span>def <span class="ident">get_codes</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_codes(self):
+    codes = []
+    for publink in self.publinks:
+        codes.append(self.apic.get_code_from_url(publink))
+    return codes</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.get_matching_files"><code class="name flex">
+<span>def <span class="ident">get_matching_files</span></span>(<span>self, filename='')</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_matching_files(self, filename=&#34;&#34;):
+    matched_files = []
+    for file_data in self.file_metadata:
+        if filename in file_data.name:
+            matched_files.append(file_data)
+    return matched_files</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.get_publink_data"><code class="name flex">
+<span>def <span class="ident">get_publink_data</span></span>(<span>self, codes=[])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_publink_data(self, codes=[]):
+    publink_data = []
+    if codes:
+        for code in codes:
+            data = self.apic.get_pub_link_directory(code)[&#34;metadata&#34;]
+            publink_data.append(data)
+        return publink_data
+    else:
+        return None</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.load_filename_table"><code class="name flex">
+<span>def <span class="ident">load_filename_table</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_filename_table(self):
+    shot_headers = self.dt_shot_data.get_headers()
+    shot_data = self.dt_shot_data.get_all_rows()
+    longest_contents = 0
+
+    raw_filenames = []
+    if &#34;ShotCode&#34; in shot_headers:
+        index = shot_headers.index(&#39;ShotCode&#39;)
+        for item in shot_data:
+            raw_filenames.insert(-1, item[index])
+
+    if &#34;Assets&#34; in shot_headers:
+        index = shot_headers.index(&#39;Assets&#39;)
+        for item in shot_data:
+            raw_filenames.insert(-1, item[index])
+
+    self.filenames = self.create_unique_filename_list(raw_filenames)
+    self.filenames.sort()
+
+    header = [&#34;Filenames&#34;]
+    self.dt_files.clear_table()
+    self.dt_files.set_dimensions(1, 0)
+    self.dt_files.set_headers(header)
+    for name in self.filenames:
+        self.dt_files.add_row([name])
+
+    resized_header = self.dt_files.table.horizontalHeader()
+    resized_header.setSectionResizeMode(0, QHeaderView.ResizeToContents)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.load_shot_table_data"><code class="name flex">
+<span>def <span class="ident">load_shot_table_data</span></span>(<span>self, selected_shots=[])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def load_shot_table_data(self, selected_shots=[]):
+    try:
+        headers = selected_shots.pop(0)
+        self.dt_shot_data.load_table(selected_shots)
+        self.dt_shot_data.set_headers(headers)
+
+        self.load_filename_table()
+
+        resized_header = self.dt_shot_data.table.horizontalHeader()
+        for i in range(0, len(headers)):
+            resized_header.setSectionResizeMode(i, QHeaderView.ResizeToContents)
+    except IndexError or PermissionError:
+        pass</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.scan_pcloud_clicked"><code class="name flex">
+<span>def <span class="ident">scan_pcloud_clicked</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def scan_pcloud_clicked(self):
+    self.search_for_files()
+    self.classify_files()
+    self.color_filename_cells()
+    self.color_shot_table()
+    self.cloud_scanned = True
+    for file in self.file_metadata:
+        print(file)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.search_for_files"><code class="name flex">
+<span>def <span class="ident">search_for_files</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def search_for_files(self):
+    if codes := self.get_codes():
+        if publink_data := self.get_publink_data(codes):
+            self.file_metadata = []
+            for filename in self.filenames:
+                for i in range(len(publink_data)):
+                    if found_files := self.apic.get_pub_link_file_data(filename, publink_data[i]):
+                        if type(found_files) is list:
+                            for file in found_files:
+                                file.publink_code = codes[i]
+                                self.file_metadata.append(file)
+                        else:
+                            file.publink_code = codes[i]
+                            self.file_metadata.append(found_files)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.set_shot_data"><code class="name flex">
+<span>def <span class="ident">set_shot_data</span></span>(<span>self, data=[])</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_shot_data(self, data=[]):
+    self.shot_data = data</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.test_popup"><code class="name flex">
+<span>def <span class="ident">test_popup</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def test_popup(self):
+    popup_frame = FileDetailsView()
+    popup_frame.show()</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCResultsOutputView.GCResultsOutputView.update_progress_bar"><code class="name flex">
+<span>def <span class="ident">update_progress_bar</span></span>(<span>self, percent=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">@Slot()
+def update_progress_bar(self, percent=0):
+    main_window = self.parent.parent
+    main_window.progress_bar.setValue(percent)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="GC_Views" href="index.html">GC_Views</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView" href="#GC_Views.GCResultsOutputView.GCResultsOutputView">GCResultsOutputView</a></code></h4>
+<ul class="">
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.add_publink_clicked" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.add_publink_clicked">add_publink_clicked</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.add_publink_to_table" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.add_publink_to_table">add_publink_to_table</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.cancel_download" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.cancel_download">cancel_download</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.classify_files" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.classify_files">classify_files</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.color_filename_cells" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.color_filename_cells">color_filename_cells</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.color_shot_table" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.color_shot_table">color_shot_table</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.create_unique_filename_list" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.create_unique_filename_list">create_unique_filename_list</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.download_files" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.download_files">download_files</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.download_files_clicked" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.download_files_clicked">download_files_clicked</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.download_finished" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.download_finished">download_finished</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.enable_buttons" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.enable_buttons">enable_buttons</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.file_table_cell_clicked" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.file_table_cell_clicked">file_table_cell_clicked</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.find_latest_file" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.find_latest_file">find_latest_file</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.get_codes" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.get_codes">get_codes</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.get_matching_files" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.get_matching_files">get_matching_files</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.get_publink_data" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.get_publink_data">get_publink_data</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.load_filename_table" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.load_filename_table">load_filename_table</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.load_shot_table_data" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.load_shot_table_data">load_shot_table_data</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.scan_pcloud_clicked" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.scan_pcloud_clicked">scan_pcloud_clicked</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.search_for_files" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.search_for_files">search_for_files</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.set_shot_data" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.set_shot_data">set_shot_data</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.staticMetaObject" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.staticMetaObject">staticMetaObject</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.test_popup" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.test_popup">test_popup</a></code></li>
+<li><code><a title="GC_Views.GCResultsOutputView.GCResultsOutputView.update_progress_bar" href="#GC_Views.GCResultsOutputView.GCResultsOutputView.update_progress_bar">update_progress_bar</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>
