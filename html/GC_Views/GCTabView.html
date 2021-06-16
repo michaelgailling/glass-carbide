@@ -1,0 +1,784 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.9.2" />
+<title>GC_Views.GCTabView API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>GC_Views.GCTabView</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python"># Project Name:
+# Glass Carbide
+#
+# By:
+# Michael Gailling
+# &amp;&amp;
+# Mustafa Butt
+#
+# Organization:
+# WIMTACH
+#
+import sys
+
+from PySide2 import QtCore
+from PySide2.QtWidgets import QTabWidget, QFrame, QVBoxLayout, QApplication, QHBoxLayout, QPushButton, QMessageBox, \
+    QLabel
+from GC_Views.GCHomeView import GCHomeView
+from GC_Views.GCResultsOutputView import GCResultsOutputView
+
+from GC_Views.GCTableView import GCTableView
+from GC_Services.FileIo import FileIo
+
+
+class GCTabView(QFrame):
+    &#34;&#34;&#34;GC Tab View
+
+        Summary:
+            A class for Tab Viewing that includes:
+
+            -TabWidget in center
+            -Indexed views for TabWidget
+
+        Attributes:
+            fio, parent, hv_homeView, tv_tableView, rv_resultsView,hbl_tab_layout, tw_tabWidget, hbl_nav_buttons_layout,
+            spacer, btn_back, btn_continue, vbl_main_layout
+
+        Methods:
+            set_tab_index, get_tab_index, continue_clicked, dirs_are_valid, home_view_transition, table_view_transition,
+            issue_warning_prompt, back_clicked
+
+        Attributes
+        ----------
+            fio : FileIo
+            parent : QFrame
+            hv_homeView : GCHomeView
+            tv_tableView : GCTableView
+            rv_resultsView : GCResultsOutputView
+            hbl_tab_layout : QHBoxLayout
+            tw_tabWidget : QTabWidget
+            hbl_nav_buttons_layout : QHBoxLayout
+            spacer : QLabel
+            btn_back : QPushButton
+            btn_continue : QPushButton
+            vbl_main_layout : QVBoxLayout
+
+        Methods
+        -------
+            set_tab_index(self, index_num=0)
+                Sets tab index of tw_tabWidget
+            get_tab_index(self)
+                Return current tab index of tw_tabWidget
+            continue_clicked(self)
+                Moves tab index forward when btn_continue clicked
+            dirs_are_valid(self)
+                Returns bool for whether directories are valid
+            home_view_transition(self)
+                Transitions tab index for index 0 to index 1
+            table_view_transition(self)
+                Transitions tab index for index 1 to index 2
+            issue_warning_prompt(self, message=&#34;&#34;)
+                Issues QMessageBox warning with string message parameter
+            back_clicked(self)
+                Moves tab index backward when btn_back clicked
+    &#34;&#34;&#34;
+    def __init__(self, parent=None, file_io=FileIo()):
+        &#34;&#34;&#34;Constructor:
+                    Initialize Tab View
+
+                    Parameters:
+                        self
+                        parent : QFrame
+                        file_io : FileIo
+                    Returns:
+                        None
+                &#34;&#34;&#34;
+        # -------------------------------------------init Start-------------------------------------------
+        super(GCTabView, self).__init__(parent)
+        self.fio = file_io
+        self.parent = parent
+        # Views for tabs
+        self.hv_homeView = GCHomeView(self, self.fio)
+        self.tv_tableView = GCTableView(self, self.fio)
+        self.rv_resultsView = GCResultsOutputView(self, self.fio)
+
+        # ----------------------------------------------
+        # -----------------hbl_tab_layout-----------------
+        # ----------------------------------------------
+        self.hbl_tab_layout = QHBoxLayout()
+
+        self.tw_tabWidget = QTabWidget()
+        self.tw_tabWidget.setStyleSheet(&#34;QTabBar::tab {font:Verdana;height:55%;border:3px solid #1000A0;width:390%;&#34;
+                                        &#34;background-color:white;color:#1000A0; border-bottom:2px dashed #1000A0;&#34;
+                                        &#34;font-weight:600;font-size:14px;margin:0 auto -17 auto;border-radius:13px;}&#34;
+                                        &#34;QTabBar::tab:selected{background-color:#1000A0;color:white;}&#34;)
+
+        self.tw_tabWidget.insertTab(0, self.hv_homeView, &#34;Project Setup - Configure Directory for Project Mapping&#34;)
+        self.tw_tabWidget.insertTab(1, self.tv_tableView, &#34;Asset Selection - Load CSV and Select Assets&#34;)
+        self.tw_tabWidget.insertTab(2, self.rv_resultsView, &#34;Review and Check&#34;)
+
+        self.tw_tabWidget.setTabEnabled(0, True)
+        self.tw_tabWidget.setTabEnabled(1, False)
+        self.tw_tabWidget.setTabEnabled(2, False)
+
+        self.hbl_tab_layout.addWidget(self.tw_tabWidget)
+        # -------------------------------------------------
+        # -----------------hbl_nav_buttons_layout-----------------
+        # -------------------------------------------------
+
+        self.hbl_nav_buttons_layout = QHBoxLayout()
+
+        self.spacer = QLabel(&#34;&#34;)
+        self.btn_back = QPushButton(text=&#34;Back&#34;)
+        self.btn_continue = QPushButton(text=&#34;Continue&#34;)
+        self.btn_back.setStyleSheet(&#34;margin:3 auto;color:#1000A0; background-color:rgb(255,255,255);padding:10;&#34;
+                                    &#34;border:2px solid #1000A0;border-radius:20px;font-weight:600;&#34;)
+
+        self.btn_back.clicked.connect(self.back_clicked)
+        self.btn_continue.clicked.connect(self.continue_clicked)
+
+        self.hbl_nav_buttons_layout.addWidget(self.spacer)
+        self.hbl_nav_buttons_layout.addWidget(self.spacer)
+        self.hbl_nav_buttons_layout.addWidget(self.btn_back)
+        self.hbl_nav_buttons_layout.addWidget(self.btn_continue)
+
+        # -------------------------------------------------
+        # -----------------vbl_main_layout-----------------
+        # -------------------------------------------------
+
+        self.vbl_main_layout = QVBoxLayout()
+
+        self.vbl_main_layout.addLayout(self.hbl_tab_layout)
+        self.vbl_main_layout.addLayout(self.hbl_nav_buttons_layout)
+
+        self.setLayout(self.vbl_main_layout)
+        self.setStyleSheet(&#39;GCTableView{border:4px solid #1000A0;margin:0;padding:0} &#39;
+                           &#39;GCHomeView{border:4px solid #1000A0;margin:0;} &#39;
+                           &#39;GCResultsOutputView{border:4px solid #1000A0;margin:0}&#39;)
+
+        # -------------------------------------------init End-------------------------------------------
+
+    def set_tab_index(self, index_num=0):
+        current_index = self.get_tab_index()
+        self.tw_tabWidget.setTabEnabled(current_index, False)
+
+        self.tw_tabWidget.setCurrentIndex(index_num)
+        self.tw_tabWidget.setTabEnabled(index_num, True)
+
+    def get_tab_index(self):
+        return self.tw_tabWidget.currentIndex()
+
+    def continue_clicked(self):
+        tab_index = self.get_tab_index()
+        if tab_index == 0:
+            self.home_view_transition()
+        elif tab_index == 1:
+            self.table_view_transition()
+        elif tab_index == 2:
+            pass
+
+    def dirs_are_valid(self):
+        project_path = self.hv_homeView.cdv_create_view.ldi_main_path.get_input_text()
+        animatic_path = self.hv_homeView.cdv_create_view.ldi_animatics_path.get_input_text()
+        asset_path = self.hv_homeView.cdv_create_view.ldi_asset_path.get_input_text()
+        episode_path = self.hv_homeView.cdv_create_view.ldi_episode_path.get_input_text()
+        sound_path = self.hv_homeView.cdv_create_view.ldi_sounds_path.get_input_text()
+
+        valid_project_path = self.fio.validate_path(project_path)
+        valid_animatic_path = self.fio.validate_path(animatic_path)
+        valid_asset_path = self.fio.validate_path(asset_path)
+        valid_episode_path = self.fio.validate_path(episode_path)
+        valid_sound_path = self.fio.validate_path(sound_path)
+
+        if valid_project_path and valid_animatic_path and valid_asset_path and valid_episode_path and valid_sound_path:
+            return True
+        else:
+            warning_message = &#34;Errors detected in path mapping!&#34;
+            warning_message += &#34;\nPlease ensure the following directories exist!&#34;
+            if not valid_project_path:
+                warning_message += f&#34;\nInvalid - Project Path: {project_path}&#34;
+            if not valid_asset_path:
+                warning_message += f&#34;\nInvalid - Asset Path: {asset_path}&#34;
+            if not valid_animatic_path:
+                warning_message += f&#34;\nInvalid - Animatic Path: {animatic_path}&#34;
+            if not valid_episode_path:
+                warning_message += f&#34;\nInvalid - Episode Path: {episode_path}&#34;
+            if not valid_sound_path:
+                warning_message += f&#34;\nInvalid - Sound Path: {sound_path}&#34;
+
+            self.issue_warning_prompt(warning_message)
+            return False
+
+    def home_view_transition(self):
+        frame_index = self.hv_homeView.get_frame_index()
+
+        if frame_index == 0:
+            self.issue_warning_prompt(&#34;Please setup default directory structure!&#34;)
+
+        elif frame_index == 1:
+            if self.dirs_are_valid():
+                self.hv_homeView.cdv_create_view.update_fio()
+                self.tv_tableView.lfi_file_select.set_input_text(self.fio.project_dir)
+                self.set_tab_index(1)
+
+    def table_view_transition(self):
+        selection = self.tv_tableView.get_all_selected()
+        if selection:
+            self.rv_resultsView.load_shot_table_data(selection)
+            self.set_tab_index(2)
+        else:
+            self.issue_warning_prompt(&#34;No shots were selected. Cannot Proceed!&#34;)
+
+    def issue_warning_prompt(self, message=&#34;&#34;):
+        msg_warning = QMessageBox()
+        msg_warning.setIcon(QMessageBox.Warning)
+        msg_warning.setWindowTitle(&#34;Alert&#34;)
+        msg_warning.setText(message)
+        msg_warning.exec_()
+
+    def back_clicked(self):
+        tab_index = self.get_tab_index()
+        if tab_index == 0:
+            pass
+        elif tab_index == 1:
+            self.set_tab_index(0)
+        elif tab_index == 2:
+            self.set_tab_index(1)
+
+
+
+if __name__ == &#39;__main__&#39;:
+    qApp = QApplication(sys.argv)
+    tabview = GCTabView()
+    tabview.show()
+    # directory.show()
+    sys.exit(qApp.exec_())</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="GC_Views.GCTabView.GCTabView"><code class="flex name class">
+<span>class <span class="ident">GCTabView</span></span>
+<span>(</span><span>parent=None, file_io=&lt;GC_Services.FileIo.FileIo object&gt;)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>GC Tab View</p>
+<h2 id="summary">Summary</h2>
+<p>A class for Tab Viewing that includes:</p>
+<p>-TabWidget in center
+-Indexed views for TabWidget</p>
+<h2 id="attributes">Attributes</h2>
+<p>fio, parent, hv_homeView, tv_tableView, rv_resultsView,hbl_tab_layout, tw_tabWidget, hbl_nav_buttons_layout,
+spacer, btn_back, btn_continue, vbl_main_layout</p>
+<h2 id="methods">Methods</h2>
+<p>set_tab_index, get_tab_index, continue_clicked, dirs_are_valid, home_view_transition, table_view_transition,
+issue_warning_prompt, back_clicked</p>
+<h2 id="attributes_1">Attributes</h2>
+<pre><code>fio : FileIo
+parent : QFrame
+hv_homeView : GCHomeView
+tv_tableView : GCTableView
+rv_resultsView : GCResultsOutputView
+hbl_tab_layout : QHBoxLayout
+tw_tabWidget : QTabWidget
+hbl_nav_buttons_layout : QHBoxLayout
+spacer : QLabel
+btn_back : QPushButton
+btn_continue : QPushButton
+vbl_main_layout : QVBoxLayout
+</code></pre>
+<h2 id="methods_1">Methods</h2>
+<pre><code>set_tab_index(self, index_num=0)
+    Sets tab index of tw_tabWidget
+get_tab_index(self)
+    Return current tab index of tw_tabWidget
+continue_clicked(self)
+    Moves tab index forward when btn_continue clicked
+dirs_are_valid(self)
+    Returns bool for whether directories are valid
+home_view_transition(self)
+    Transitions tab index for index 0 to index 1
+table_view_transition(self)
+    Transitions tab index for index 1 to index 2
+issue_warning_prompt(self, message="")
+    Issues QMessageBox warning with string message parameter
+back_clicked(self)
+    Moves tab index backward when btn_back clicked
+</code></pre>
+<p>Constructor:
+Initialize Tab View</p>
+<h2 id="parameters">Parameters</h2>
+<p>self
+parent : QFrame
+file_io : FileIo</p>
+<h2 id="returns">Returns</h2>
+<p>None</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GCTabView(QFrame):
+    &#34;&#34;&#34;GC Tab View
+
+        Summary:
+            A class for Tab Viewing that includes:
+
+            -TabWidget in center
+            -Indexed views for TabWidget
+
+        Attributes:
+            fio, parent, hv_homeView, tv_tableView, rv_resultsView,hbl_tab_layout, tw_tabWidget, hbl_nav_buttons_layout,
+            spacer, btn_back, btn_continue, vbl_main_layout
+
+        Methods:
+            set_tab_index, get_tab_index, continue_clicked, dirs_are_valid, home_view_transition, table_view_transition,
+            issue_warning_prompt, back_clicked
+
+        Attributes
+        ----------
+            fio : FileIo
+            parent : QFrame
+            hv_homeView : GCHomeView
+            tv_tableView : GCTableView
+            rv_resultsView : GCResultsOutputView
+            hbl_tab_layout : QHBoxLayout
+            tw_tabWidget : QTabWidget
+            hbl_nav_buttons_layout : QHBoxLayout
+            spacer : QLabel
+            btn_back : QPushButton
+            btn_continue : QPushButton
+            vbl_main_layout : QVBoxLayout
+
+        Methods
+        -------
+            set_tab_index(self, index_num=0)
+                Sets tab index of tw_tabWidget
+            get_tab_index(self)
+                Return current tab index of tw_tabWidget
+            continue_clicked(self)
+                Moves tab index forward when btn_continue clicked
+            dirs_are_valid(self)
+                Returns bool for whether directories are valid
+            home_view_transition(self)
+                Transitions tab index for index 0 to index 1
+            table_view_transition(self)
+                Transitions tab index for index 1 to index 2
+            issue_warning_prompt(self, message=&#34;&#34;)
+                Issues QMessageBox warning with string message parameter
+            back_clicked(self)
+                Moves tab index backward when btn_back clicked
+    &#34;&#34;&#34;
+    def __init__(self, parent=None, file_io=FileIo()):
+        &#34;&#34;&#34;Constructor:
+                    Initialize Tab View
+
+                    Parameters:
+                        self
+                        parent : QFrame
+                        file_io : FileIo
+                    Returns:
+                        None
+                &#34;&#34;&#34;
+        # -------------------------------------------init Start-------------------------------------------
+        super(GCTabView, self).__init__(parent)
+        self.fio = file_io
+        self.parent = parent
+        # Views for tabs
+        self.hv_homeView = GCHomeView(self, self.fio)
+        self.tv_tableView = GCTableView(self, self.fio)
+        self.rv_resultsView = GCResultsOutputView(self, self.fio)
+
+        # ----------------------------------------------
+        # -----------------hbl_tab_layout-----------------
+        # ----------------------------------------------
+        self.hbl_tab_layout = QHBoxLayout()
+
+        self.tw_tabWidget = QTabWidget()
+        self.tw_tabWidget.setStyleSheet(&#34;QTabBar::tab {font:Verdana;height:55%;border:3px solid #1000A0;width:390%;&#34;
+                                        &#34;background-color:white;color:#1000A0; border-bottom:2px dashed #1000A0;&#34;
+                                        &#34;font-weight:600;font-size:14px;margin:0 auto -17 auto;border-radius:13px;}&#34;
+                                        &#34;QTabBar::tab:selected{background-color:#1000A0;color:white;}&#34;)
+
+        self.tw_tabWidget.insertTab(0, self.hv_homeView, &#34;Project Setup - Configure Directory for Project Mapping&#34;)
+        self.tw_tabWidget.insertTab(1, self.tv_tableView, &#34;Asset Selection - Load CSV and Select Assets&#34;)
+        self.tw_tabWidget.insertTab(2, self.rv_resultsView, &#34;Review and Check&#34;)
+
+        self.tw_tabWidget.setTabEnabled(0, True)
+        self.tw_tabWidget.setTabEnabled(1, False)
+        self.tw_tabWidget.setTabEnabled(2, False)
+
+        self.hbl_tab_layout.addWidget(self.tw_tabWidget)
+        # -------------------------------------------------
+        # -----------------hbl_nav_buttons_layout-----------------
+        # -------------------------------------------------
+
+        self.hbl_nav_buttons_layout = QHBoxLayout()
+
+        self.spacer = QLabel(&#34;&#34;)
+        self.btn_back = QPushButton(text=&#34;Back&#34;)
+        self.btn_continue = QPushButton(text=&#34;Continue&#34;)
+        self.btn_back.setStyleSheet(&#34;margin:3 auto;color:#1000A0; background-color:rgb(255,255,255);padding:10;&#34;
+                                    &#34;border:2px solid #1000A0;border-radius:20px;font-weight:600;&#34;)
+
+        self.btn_back.clicked.connect(self.back_clicked)
+        self.btn_continue.clicked.connect(self.continue_clicked)
+
+        self.hbl_nav_buttons_layout.addWidget(self.spacer)
+        self.hbl_nav_buttons_layout.addWidget(self.spacer)
+        self.hbl_nav_buttons_layout.addWidget(self.btn_back)
+        self.hbl_nav_buttons_layout.addWidget(self.btn_continue)
+
+        # -------------------------------------------------
+        # -----------------vbl_main_layout-----------------
+        # -------------------------------------------------
+
+        self.vbl_main_layout = QVBoxLayout()
+
+        self.vbl_main_layout.addLayout(self.hbl_tab_layout)
+        self.vbl_main_layout.addLayout(self.hbl_nav_buttons_layout)
+
+        self.setLayout(self.vbl_main_layout)
+        self.setStyleSheet(&#39;GCTableView{border:4px solid #1000A0;margin:0;padding:0} &#39;
+                           &#39;GCHomeView{border:4px solid #1000A0;margin:0;} &#39;
+                           &#39;GCResultsOutputView{border:4px solid #1000A0;margin:0}&#39;)
+
+        # -------------------------------------------init End-------------------------------------------
+
+    def set_tab_index(self, index_num=0):
+        current_index = self.get_tab_index()
+        self.tw_tabWidget.setTabEnabled(current_index, False)
+
+        self.tw_tabWidget.setCurrentIndex(index_num)
+        self.tw_tabWidget.setTabEnabled(index_num, True)
+
+    def get_tab_index(self):
+        return self.tw_tabWidget.currentIndex()
+
+    def continue_clicked(self):
+        tab_index = self.get_tab_index()
+        if tab_index == 0:
+            self.home_view_transition()
+        elif tab_index == 1:
+            self.table_view_transition()
+        elif tab_index == 2:
+            pass
+
+    def dirs_are_valid(self):
+        project_path = self.hv_homeView.cdv_create_view.ldi_main_path.get_input_text()
+        animatic_path = self.hv_homeView.cdv_create_view.ldi_animatics_path.get_input_text()
+        asset_path = self.hv_homeView.cdv_create_view.ldi_asset_path.get_input_text()
+        episode_path = self.hv_homeView.cdv_create_view.ldi_episode_path.get_input_text()
+        sound_path = self.hv_homeView.cdv_create_view.ldi_sounds_path.get_input_text()
+
+        valid_project_path = self.fio.validate_path(project_path)
+        valid_animatic_path = self.fio.validate_path(animatic_path)
+        valid_asset_path = self.fio.validate_path(asset_path)
+        valid_episode_path = self.fio.validate_path(episode_path)
+        valid_sound_path = self.fio.validate_path(sound_path)
+
+        if valid_project_path and valid_animatic_path and valid_asset_path and valid_episode_path and valid_sound_path:
+            return True
+        else:
+            warning_message = &#34;Errors detected in path mapping!&#34;
+            warning_message += &#34;\nPlease ensure the following directories exist!&#34;
+            if not valid_project_path:
+                warning_message += f&#34;\nInvalid - Project Path: {project_path}&#34;
+            if not valid_asset_path:
+                warning_message += f&#34;\nInvalid - Asset Path: {asset_path}&#34;
+            if not valid_animatic_path:
+                warning_message += f&#34;\nInvalid - Animatic Path: {animatic_path}&#34;
+            if not valid_episode_path:
+                warning_message += f&#34;\nInvalid - Episode Path: {episode_path}&#34;
+            if not valid_sound_path:
+                warning_message += f&#34;\nInvalid - Sound Path: {sound_path}&#34;
+
+            self.issue_warning_prompt(warning_message)
+            return False
+
+    def home_view_transition(self):
+        frame_index = self.hv_homeView.get_frame_index()
+
+        if frame_index == 0:
+            self.issue_warning_prompt(&#34;Please setup default directory structure!&#34;)
+
+        elif frame_index == 1:
+            if self.dirs_are_valid():
+                self.hv_homeView.cdv_create_view.update_fio()
+                self.tv_tableView.lfi_file_select.set_input_text(self.fio.project_dir)
+                self.set_tab_index(1)
+
+    def table_view_transition(self):
+        selection = self.tv_tableView.get_all_selected()
+        if selection:
+            self.rv_resultsView.load_shot_table_data(selection)
+            self.set_tab_index(2)
+        else:
+            self.issue_warning_prompt(&#34;No shots were selected. Cannot Proceed!&#34;)
+
+    def issue_warning_prompt(self, message=&#34;&#34;):
+        msg_warning = QMessageBox()
+        msg_warning.setIcon(QMessageBox.Warning)
+        msg_warning.setWindowTitle(&#34;Alert&#34;)
+        msg_warning.setText(message)
+        msg_warning.exec_()
+
+    def back_clicked(self):
+        tab_index = self.get_tab_index()
+        if tab_index == 0:
+            pass
+        elif tab_index == 1:
+            self.set_tab_index(0)
+        elif tab_index == 2:
+            self.set_tab_index(1)</code></pre>
+</details>
+<h3>Ancestors</h3>
+<ul class="hlist">
+<li>PySide2.QtWidgets.QFrame</li>
+<li>PySide2.QtWidgets.QWidget</li>
+<li>PySide2.QtCore.QObject</li>
+<li>PySide2.QtGui.QPaintDevice</li>
+<li>Shiboken.Object</li>
+</ul>
+<h3>Class variables</h3>
+<dl>
+<dt id="GC_Views.GCTabView.GCTabView.staticMetaObject"><code class="name">var <span class="ident">staticMetaObject</span></code></dt>
+<dd>
+<div class="desc"></div>
+</dd>
+</dl>
+<h3>Methods</h3>
+<dl>
+<dt id="GC_Views.GCTabView.GCTabView.back_clicked"><code class="name flex">
+<span>def <span class="ident">back_clicked</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def back_clicked(self):
+    tab_index = self.get_tab_index()
+    if tab_index == 0:
+        pass
+    elif tab_index == 1:
+        self.set_tab_index(0)
+    elif tab_index == 2:
+        self.set_tab_index(1)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCTabView.GCTabView.continue_clicked"><code class="name flex">
+<span>def <span class="ident">continue_clicked</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def continue_clicked(self):
+    tab_index = self.get_tab_index()
+    if tab_index == 0:
+        self.home_view_transition()
+    elif tab_index == 1:
+        self.table_view_transition()
+    elif tab_index == 2:
+        pass</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCTabView.GCTabView.dirs_are_valid"><code class="name flex">
+<span>def <span class="ident">dirs_are_valid</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def dirs_are_valid(self):
+    project_path = self.hv_homeView.cdv_create_view.ldi_main_path.get_input_text()
+    animatic_path = self.hv_homeView.cdv_create_view.ldi_animatics_path.get_input_text()
+    asset_path = self.hv_homeView.cdv_create_view.ldi_asset_path.get_input_text()
+    episode_path = self.hv_homeView.cdv_create_view.ldi_episode_path.get_input_text()
+    sound_path = self.hv_homeView.cdv_create_view.ldi_sounds_path.get_input_text()
+
+    valid_project_path = self.fio.validate_path(project_path)
+    valid_animatic_path = self.fio.validate_path(animatic_path)
+    valid_asset_path = self.fio.validate_path(asset_path)
+    valid_episode_path = self.fio.validate_path(episode_path)
+    valid_sound_path = self.fio.validate_path(sound_path)
+
+    if valid_project_path and valid_animatic_path and valid_asset_path and valid_episode_path and valid_sound_path:
+        return True
+    else:
+        warning_message = &#34;Errors detected in path mapping!&#34;
+        warning_message += &#34;\nPlease ensure the following directories exist!&#34;
+        if not valid_project_path:
+            warning_message += f&#34;\nInvalid - Project Path: {project_path}&#34;
+        if not valid_asset_path:
+            warning_message += f&#34;\nInvalid - Asset Path: {asset_path}&#34;
+        if not valid_animatic_path:
+            warning_message += f&#34;\nInvalid - Animatic Path: {animatic_path}&#34;
+        if not valid_episode_path:
+            warning_message += f&#34;\nInvalid - Episode Path: {episode_path}&#34;
+        if not valid_sound_path:
+            warning_message += f&#34;\nInvalid - Sound Path: {sound_path}&#34;
+
+        self.issue_warning_prompt(warning_message)
+        return False</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCTabView.GCTabView.get_tab_index"><code class="name flex">
+<span>def <span class="ident">get_tab_index</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def get_tab_index(self):
+    return self.tw_tabWidget.currentIndex()</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCTabView.GCTabView.home_view_transition"><code class="name flex">
+<span>def <span class="ident">home_view_transition</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def home_view_transition(self):
+    frame_index = self.hv_homeView.get_frame_index()
+
+    if frame_index == 0:
+        self.issue_warning_prompt(&#34;Please setup default directory structure!&#34;)
+
+    elif frame_index == 1:
+        if self.dirs_are_valid():
+            self.hv_homeView.cdv_create_view.update_fio()
+            self.tv_tableView.lfi_file_select.set_input_text(self.fio.project_dir)
+            self.set_tab_index(1)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCTabView.GCTabView.issue_warning_prompt"><code class="name flex">
+<span>def <span class="ident">issue_warning_prompt</span></span>(<span>self, message='')</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def issue_warning_prompt(self, message=&#34;&#34;):
+    msg_warning = QMessageBox()
+    msg_warning.setIcon(QMessageBox.Warning)
+    msg_warning.setWindowTitle(&#34;Alert&#34;)
+    msg_warning.setText(message)
+    msg_warning.exec_()</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCTabView.GCTabView.set_tab_index"><code class="name flex">
+<span>def <span class="ident">set_tab_index</span></span>(<span>self, index_num=0)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def set_tab_index(self, index_num=0):
+    current_index = self.get_tab_index()
+    self.tw_tabWidget.setTabEnabled(current_index, False)
+
+    self.tw_tabWidget.setCurrentIndex(index_num)
+    self.tw_tabWidget.setTabEnabled(index_num, True)</code></pre>
+</details>
+</dd>
+<dt id="GC_Views.GCTabView.GCTabView.table_view_transition"><code class="name flex">
+<span>def <span class="ident">table_view_transition</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def table_view_transition(self):
+    selection = self.tv_tableView.get_all_selected()
+    if selection:
+        self.rv_resultsView.load_shot_table_data(selection)
+        self.set_tab_index(2)
+    else:
+        self.issue_warning_prompt(&#34;No shots were selected. Cannot Proceed!&#34;)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3>Super-module</h3>
+<ul>
+<li><code><a title="GC_Views" href="index.html">GC_Views</a></code></li>
+</ul>
+</li>
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="GC_Views.GCTabView.GCTabView" href="#GC_Views.GCTabView.GCTabView">GCTabView</a></code></h4>
+<ul class="">
+<li><code><a title="GC_Views.GCTabView.GCTabView.back_clicked" href="#GC_Views.GCTabView.GCTabView.back_clicked">back_clicked</a></code></li>
+<li><code><a title="GC_Views.GCTabView.GCTabView.continue_clicked" href="#GC_Views.GCTabView.GCTabView.continue_clicked">continue_clicked</a></code></li>
+<li><code><a title="GC_Views.GCTabView.GCTabView.dirs_are_valid" href="#GC_Views.GCTabView.GCTabView.dirs_are_valid">dirs_are_valid</a></code></li>
+<li><code><a title="GC_Views.GCTabView.GCTabView.get_tab_index" href="#GC_Views.GCTabView.GCTabView.get_tab_index">get_tab_index</a></code></li>
+<li><code><a title="GC_Views.GCTabView.GCTabView.home_view_transition" href="#GC_Views.GCTabView.GCTabView.home_view_transition">home_view_transition</a></code></li>
+<li><code><a title="GC_Views.GCTabView.GCTabView.issue_warning_prompt" href="#GC_Views.GCTabView.GCTabView.issue_warning_prompt">issue_warning_prompt</a></code></li>
+<li><code><a title="GC_Views.GCTabView.GCTabView.set_tab_index" href="#GC_Views.GCTabView.GCTabView.set_tab_index">set_tab_index</a></code></li>
+<li><code><a title="GC_Views.GCTabView.GCTabView.staticMetaObject" href="#GC_Views.GCTabView.GCTabView.staticMetaObject">staticMetaObject</a></code></li>
+<li><code><a title="GC_Views.GCTabView.GCTabView.table_view_transition" href="#GC_Views.GCTabView.GCTabView.table_view_transition">table_view_transition</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc"><cite>pdoc</cite> 0.9.2</a>.</p>
+</footer>
+</body>
+</html>

@@ -11,12 +11,9 @@
 #
 import sys
 
-from PySide2.QtGui import QFont
-
 from GC_Components.MainComponents import MenuBar
 from GC_Services.FileIo import FileIo
 from PySide2.QtWidgets import QApplication, QMainWindow, QStatusBar, QProgressBar
-
 from GC_Views.GCTabView import GCTabView
 
 

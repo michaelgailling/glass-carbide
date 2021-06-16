@@ -798,6 +798,7 @@ class DataTable(QFrame):
         text_content = self.table.item(y, x).text()
         return text_content
 
+
 if __name__ == '__main__':
     qApp = QApplication(sys.argv)
     dt_table = DataTable(readonly=False)
@@ -815,15 +816,10 @@ if __name__ == '__main__':
                     [False, "OLD", "OLD", "OLD", "OLD"],
                 ]
 
-
     dt_table.show()
 
     dt_table.load_table(test_arr)
 
-
-    # for item in test_arr:
-    #     dt_table.add_row(item)
-    #
     for i in range(dt_table.height):
         print(dt_table.get_row(i))
 

@@ -58,22 +58,21 @@ class MenuBar(QMenuBar):
         """
         super(MenuBar, self).__init__(parent)
         self.setStyleSheet("background-color: #e6e6e6")
-
         # File Menu
         self.file_menu = self.addMenu('File')
-        # Open button
-        self.open_button = QAction(QIcon('exit24.png'), 'Open', self)
-        self.open_button.setShortcut('Ctrl+O')
-        self.open_button.setStatusTip('Open')
-        # New Button
-        self.new_button = QAction(QIcon('exit24.png'), 'New', self)
-        self.new_button.setShortcut('Ctrl+N')
-        self.new_button.setStatusTip('New')
-        # new_button.triggered.connect()
-        # Save Button
-        self.save_button = QAction(QIcon('exit24.png'), 'Save', self)
-        self.save_button.setShortcut('Ctrl+S')
-        self.save_button.setStatusTip('Save')
+        # # Open button
+        # self.open_button = QAction(QIcon('exit24.png'), 'Open', self)
+        # self.open_button.setShortcut('Ctrl+O')
+        # self.open_button.setStatusTip('Open')
+        # # New Button
+        # self.new_button = QAction(QIcon('exit24.png'), 'New', self)
+        # self.new_button.setShortcut('Ctrl+N')
+        # self.new_button.setStatusTip('New')
+        # # new_button.triggered.connect()
+        # # Save Button
+        # self.save_button = QAction(QIcon('exit24.png'), 'Save', self)
+        # self.save_button.setShortcut('Ctrl+S')
+        # self.save_button.setStatusTip('Save')
         # save_button.triggered.connect()
         # Exit Button
         self.exit_button = QAction(QIcon('exit24.png'), 'Exit', self)
@@ -81,9 +80,9 @@ class MenuBar(QMenuBar):
         self.exit_button.setStatusTip('Exit application')
         self.exit_button.triggered.connect(self.topLevelWidget().close)
         # Add actions to file menu
-        self.file_menu.addAction(self.new_button)
-        self.file_menu.addAction(self.open_button)
-        self.file_menu.addAction(self.save_button)
+        # self.file_menu.addAction(self.new_button)
+        # self.file_menu.addAction(self.open_button)
+        # self.file_menu.addAction(self.save_button)
         self.file_menu.addAction(self.exit_button)
 
 

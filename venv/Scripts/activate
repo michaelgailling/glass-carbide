@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="C:\Python-Workspace\glass-carbide\venv"
+VIRTUAL_ENV="C:\Python-Workspace\GC\glass-carbide\venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"
