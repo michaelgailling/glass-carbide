@@ -368,7 +368,7 @@ class GCResultsOutputView(QFrame):
         file_extensions = {
             "audio": ["wav", "mp3", "ogg", "flac"],
             "video": ["mov", "mp4", "mpg", "avi", "wmv"],
-            "image": ["jpg", "gif", "bmp", "fla", "psd", "png", "jpeg"]
+            "image": ["jpg", "gif", "bmp", "fla", "psd", "png", "jpeg", "pdf"]
         }
 
         for i in range(len(self.file_metadata)):
