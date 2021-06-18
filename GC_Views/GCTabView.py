@@ -105,7 +105,7 @@ class GCTabView(QFrame):
 
         self.tw_tabWidget.insertTab(0, self.hv_homeView, "Project Setup - Configure Directory for Project Mapping")
         self.tw_tabWidget.insertTab(1, self.tv_tableView, "Asset Selection - Load CSV and Select Assets")
-        self.tw_tabWidget.insertTab(2, self.rv_resultsView, "PCloud Processing  - Edit, Scan & Download Files")
+        self.tw_tabWidget.insertTab(2, self.rv_resultsView, "PCloud Processing  - Edit, Scan and Download Files")
 
         self.tw_tabWidget.setTabEnabled(0, True)
         self.tw_tabWidget.setTabEnabled(1, False)
@@ -213,11 +213,13 @@ class GCTabView(QFrame):
 
     def table_view_transition(self):
         selection = self.tv_tableView.get_all_selected()
-        if selection:
+        headers = selection[0]
+
+        if "Assets" in headers and "ShotCode" in headers and len(selection) > 1:
             self.rv_resultsView.load_shot_table_data(selection)
             self.set_tab_index(2)
         else:
-            self.issue_warning_prompt("No shots were selected. Cannot Proceed!")
+            self.issue_warning_prompt("Select Row(s) and Add Asset and Shot Code Header Labels !")
 
     def issue_warning_prompt(self, message=""):
         msg_warning = QMessageBox()

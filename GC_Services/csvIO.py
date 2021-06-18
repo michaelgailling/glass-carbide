@@ -14,6 +14,8 @@
 import asyncio
 import csv
 
+from PySide2.QtWidgets import QMessageBox
+
 
 class CsvIo:
     """CSV IO
@@ -61,17 +63,20 @@ class CsvIo:
         self.data = []
 
     def import_data(self, file_path="", handle_header=True, log_data=False):
-        asyncio.run(self.load(file_path))
+        try:
+            asyncio.run(self.load(file_path))
 
-        if handle_header:
-            self.handler_headers()
+            if handle_header:
+                self.handler_headers()
 
-        self.trim_columns()
+            self.trim_columns()
 
-        if log_data:
-            self.log_data()
+            if log_data:
+                self.log_data()
 
-        return self.data
+            return self.data
+        except:
+            pass
 
     async def load(self, file_path=""):
         try:
@@ -83,7 +88,9 @@ class CsvIo:
 
             file.close()
         except PermissionError:
-            pass
+            self.issue_warning_prompt("Invalid Selection")
+        except IndexError:
+            self.issue_warning_prompt("Invalid Selection")
 
     def handler_headers(self):
         if self.calc_prob() > 0.2:
@@ -113,5 +120,9 @@ class CsvIo:
         for row in self.data:
             print(row)
 
-
-
+    def issue_warning_prompt(self, message=""):
+        msg_warning = QMessageBox()
+        msg_warning.setIcon(QMessageBox.Warning)
+        msg_warning.setWindowTitle("Alert")
+        msg_warning.setText(message)
+        msg_warning.exec_()

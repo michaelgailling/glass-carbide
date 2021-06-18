@@ -111,51 +111,51 @@ class GCTableView(QFrame):
         # -------------------------------------------init End-------------------------------------------
 
     def load_file(self):
-        self.csv_handler.data.clear()
-        input_path = self.lfi_file_select.get_input_text()
+        try:
+            self.csv_handler.data.clear()
+            input_path = self.lfi_file_select.get_input_text()
 
-        if input_path:
-            self.csv_handler.import_data(input_path)
+            if input_path:
+                self.csv_handler.import_data(input_path)
 
-            csv_headers = self.csv_handler.data[0]
-            csv_headers.insert(0, "Select")
-            csv_data = self.csv_handler.data[1:]
+                csv_headers = self.csv_handler.data[0]
+                csv_headers.insert(0, "Select")
+                csv_data = self.csv_handler.data[1:]
 
-            for item in csv_data:
-                item.insert(0, False)
+                for item in csv_data:
+                    item.insert(0, False)
 
-            self.dt_table.load_table(csv_data)
+                self.dt_table.load_table(csv_data)
 
-            combo_options = ["None",
-                             "Assets",
-                             "ShotCode",
-                             "Duration",
-                             "Frames",
-                             "Resolution",
-                             ""]
-            combo_row = [False]
-            for i in range(self.dt_table.width - 1):
-                combo_row.append(combo_options)
+                combo_options = ["None",
+                                 "Assets",
+                                 "ShotCode",
+                                 "Duration",
+                                 "Frames",
+                                 "Resolution",
+                                 ""]
+                combo_row = [False]
+                for i in range(self.dt_table.width - 1):
+                    combo_row.append(combo_options)
 
-            self.dt_table.insert_row(combo_row)
+                self.dt_table.insert_row(combo_row)
 
-            self.dt_table.table.cellWidget(0, 0).clicked.connect(self.select_all)
+                self.dt_table.table.cellWidget(0, 0).clicked.connect(self.select_all)
 
-            self.dt_table.set_headers(csv_headers)
-
-        else:
-            msg_warning = QMessageBox()
-            msg_warning.setIcon(QMessageBox.Warning)
-            msg_warning.setWindowTitle("Before Loading")
-            msg_warning.setText("Select CSV to Load")
-            msg_warning.exec_()
+                self.dt_table.set_headers(csv_headers)
+            else:
+                raise IndexError
+        except FileNotFoundError:
+            self.issue_warning_prompt("Invalid CSV path")
+        except IndexError:
+            self.issue_warning_prompt("Invalid CSV")
 
     def select_all(self):
         test = QCheckBox()
 
         is_checked = self.dt_table.table.cellWidget(0, 0).isChecked()
 
-        if(is_checked):
+        if is_checked:
             for y in range(self.dt_table.height):
                 self.dt_table.table.cellWidget(y, 0).setChecked(True)
         else:
@@ -182,11 +182,6 @@ class GCTableView(QFrame):
                     del selected_rows[y][x]
 
         return selected_rows
-
-
-
-
-
 
     def create_selection(self):
         width = self.dt_table.width
@@ -223,6 +218,13 @@ class GCTableView(QFrame):
             selected_data.insert(0, mapped_columns)
 
         return selected_data
+
+    def issue_warning_prompt(self, message=""):
+        msg_warning = QMessageBox()
+        msg_warning.setIcon(QMessageBox.Warning)
+        msg_warning.setWindowTitle("Alert")
+        msg_warning.setText(message)
+        msg_warning.exec_()
 
 
 if __name__ == '__main__':

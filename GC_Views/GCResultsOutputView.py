@@ -270,7 +270,7 @@ class GCResultsOutputView(QFrame):
 
             self.popup_frame.set_file_list(file_data)
 
-            self.popup_frame.file_table_cell_clicked(row=0)
+            # self.popup_frame.file_table_cell_clicked(row=0)
 
             self.popup_frame.show()
         else:
